@@ -1,0 +1,3 @@
+[submodule "CUDA-by-Example-source-code-for-the-book-s-examples-"]
+	path = CUDA-by-Example-source-code-for-the-book-s-examples-
+	url = https://github.com/CodedK/CUDA-by-Example-source-code-for-the-book-s-examples-.git

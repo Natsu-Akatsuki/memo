@@ -1,0 +1,24 @@
+
+<package>
+    <name>t3</name>
+    <version>18.2.10</version>
+    <description>
+        --------------------------------------------------------------------------
+        A ROS tutorial for beginner level learners. This metapacakge includes some
+        demos of topic, service, parameter server, tf, urdf, navigation, SLAM...
+        It tries to explain the basic concepts and usages of ROS.
+        --------------------------------------------------------------------------
+    </description>
+    <maintainer email="chaichangkun@163.com">Chai Changkun</maintainer>
+    <author>Chai Changkun</author>
+    <license>BSD</license>
+    <url>http://rosacademy.cn</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <run_depend>t1</run_depend>
+    <run_depend>t2</run_depend>
+    <export>
+        <metapackage/>
+    </export>
+</package>
