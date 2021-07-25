@@ -186,3 +186,6 @@ dkms.conf
 *.iml
 out
 gen
+
+### helios custom
+!10-sphinx/Makefile
