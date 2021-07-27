@@ -1,0 +1,12 @@
+
+文档构建技巧
+=================
+
+构建rst文档技巧
+-----------------
+
+先构建Markdown文档再使用转换工具（如：`m2r <https://github.com/miyakogi/m2r>`_）再转其为rst文件
+
+.. code-block:: bash
+
+   $ m2r your_document.md [your_document2.md ...]
