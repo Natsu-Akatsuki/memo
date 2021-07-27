@@ -1,16 +1,13 @@
-.. trick for ubuntu documentation master file, created by
-   sphinx-quickstart on Sun Jul 25 21:42:15 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+工具目录 for ubuntu
+=========================================================
 
-Welcome to trick for ubuntu's documentation!
-============================================
+本网页文档记录在ubuntu上进行实操时的奇淫巧计和解决方案 |:smile:|
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-
+   :maxdepth: 1
+   :caption: Sphinx Cookbook
+   
+   /sphinx/01-rst语句块索引.rst
 
 Indices and tables
 ==================

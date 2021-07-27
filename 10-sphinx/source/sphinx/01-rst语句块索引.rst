@@ -1,0 +1,31 @@
+
+rst语句块索引
+###############
+
+
+`01.代码块 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/code_blocks.html>`_
+===========================================================================================
+上述链接包含如下解决方案
+
+* 使用代码块
+* 导入(include)文件作为代码块
+* 高亮某一行文本
+
+.. code-block:: plain
+
+   效果...
+
+
+`02.显示warnings等 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/notes_warnings.html>`_
+=====================================================================================================
+.. warning::
+    This is warning text. Use a warning for information the user must
+    understand to avoid negative consequences.Warnings are formatted in the same 
+    way as notes. In the same way, lines must be broken and indented under the warning tag.
+
+
+`03.显示emoji <https://sphinxemojicodes.readthedocs.io/en/stable/>`_
+=====================================================================================================
+
+.. attention:: text
+    emoji需要加竖线和空格，例如 \|:smile:\| -> |:smile:|
