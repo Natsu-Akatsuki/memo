@@ -1,0 +1,68 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+c++语法
+=======
+
+01.类型别名
+-----------
+
+引入类型别名这个特性是为了方便程序员写代码，比如说不再需要写完整的较长的类型名，而只需要写简短的类型别名
+
+语法规则
+^^^^^^^^
+
+.. code-block:: plain
+
+   1）语法一：typedef src_type alias_type
+   2）语法二：using alias_type = src_type（from c++11）
+
+.. note::
+   一般来说，推荐使用\ ``using``\ 这种语法，因为当接触到数组类型时，\ ``using``\ 会更直观（如下例所示）;
+   另外 `typedef不支持模板类别名 <https://www.cnblogs.com/yutongqing/p/6794652.html>`_
+.. code-block:: c++
+
+   int arr[4];
+   typedef int IntArr[4];  // [4]需要写在后面
+   using IntArr = int[4];
+
+size_t
+^^^^^^
+
+``size_t``\ 类型是一个类型别名；是\ `sizeof <https://en.cppreference.com/w/c/language/sizeof>`_\ 函数返回对象的类型(size type)，是一个无符号的整型，它的大小是由操作系统所决定的；
+在实现动态分配内存时很有用。
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200535276.png" alt="image-20210728200535276" style="zoom: 67%;" />`
+
+.. attention:: 
+   标准库中的operator[]也涉及\ ``size_t``\ ，所以遍历时用unsigned或者int去访问可能会出错
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200948093.png" alt="image-20210728200948093" style="zoom: 50%;" />`
+
+
+02. 修饰符(qualifier)
+----------------------
+
+const qualifier(修饰符)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* 修饰变量，说明该变量是只读的（类似python的不可变对象）
+* 修饰指针：常指针，该指针的指向不发生变化
+* 修饰引用，指向常量的引用(reference to const)。用于修饰形参，既避免了拷贝，又避免函数对值的修改。
+* 修饰成员函数，说明在该成员函数内不能修改成员变量（在成员属性声明时加关键词mutable，在常函数中则可以修改）
+  
+static qualifier
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* 修饰普通变量，修改变量的存储区域和生命周期，使变量存储在静态区，在main函数运行前就分配了空间，如果有初始值就用初始值去初始化它，如果没有初始值则系统用默认值去初始化它
+* 修饰普通函数，表明函数的作用范围，仅在定义该函数的文件内才能使用。在多人开发项目中，为了防止与他人命名空间里的函数重名，可以将函数定位为static
+* 修饰成员变量，修饰成员变量，使所有的对象只保存一个该变量，而且不需要生成对象就可以访问该成员
+* 所有对象共享同一份数据
+* 在编译阶段分配内存
+* 类内声明，类外初始化（必须有初始值）
+* 访问时：可以通过对象或类名进行访问
+* 也可以有访问权限的
+* 修饰成员函数，修饰成员函数使得不需要生成对象就可以访问函数，但是在static函数内不能访问非静态成员（变量）
+* 所有对象共享同一个函数
+* 也可以有访问权限

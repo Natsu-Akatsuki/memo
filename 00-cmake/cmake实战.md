@@ -144,7 +144,9 @@ add_dependencies(<target> [<target-dependency>]...)
 find_package(<PackageName> [version] [EXACT] [QUIET] [MODULE]
              [REQUIRED] [[COMPONENTS] [components...]]
              [OPTIONAL_COMPONENTS components...]
-             [NO_POLICY_SCOPE])
+             [NAMES name1 [name2 ...]]  
+             # If the NAMES option is given the names following it are used instead of <PackageName>
+             [NO_POLICY_SCOPE])             
 ```
 
 - 指定路径
