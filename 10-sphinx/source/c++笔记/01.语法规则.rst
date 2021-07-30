@@ -2,8 +2,8 @@
    :format: html
 
 
-c++语法
-=======
+01.语法规则
+==================
 
 01.类型别名
 -----------
@@ -41,7 +41,7 @@ size_t
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200948093.png" alt="image-20210728200948093" style="zoom: 50%;" />`
 
 
-02. 修饰符(qualifier)
+1.  修饰符(qualifier)
 ----------------------
 
 const qualifier(修饰符)

@@ -1,5 +1,6 @@
 {
     "restructuredtext.confPath": "${workspaceFolder}/source",
+    "restructuredtext.languageServer.disabled": false,
     "python.pythonPath": "/usr/bin/python3.8",
     "C_Cpp.default.configurationProvider": "go2sh.cmake-integration"
 }

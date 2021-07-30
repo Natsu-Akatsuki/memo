@@ -1,9 +1,8 @@
-
-rst语句块索引
+01.代码块
 ###############
 
 
-`01.代码块 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/code_blocks.html>`_
+`1.代码块 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/code_blocks.html>`_
 ===========================================================================================
 上述链接包含如下解决方案
 
@@ -16,7 +15,7 @@ rst语句块索引
    效果...
 
 
-`02.显示warnings等 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/notes_warnings.html>`_
+`2.显示warnings等 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/notes_warnings.html>`_
 =====================================================================================================
 .. warning::
     This is warning text. Use a warning for information the user must
@@ -24,7 +23,7 @@ rst语句块索引
     way as notes. In the same way, lines must be broken and indented under the warning tag.
 
 
-`03.显示emoji <https://sphinxemojicodes.readthedocs.io/en/stable/>`_
+`3.显示emoji <https://sphinxemojicodes.readthedocs.io/en/stable/>`_
 =====================================================================================================
 
 .. attention:: text
