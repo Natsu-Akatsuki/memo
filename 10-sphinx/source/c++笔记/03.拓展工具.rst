@@ -1,3 +1,13 @@
 03.拓展工具
 ============
 
+1.宏配置
+
+- `dgb <https://github.com/sharkdp/dbg-macro>`_ (用于替代cout和printf的宏)
+
+.. code-block:: bash
+
+    # 安装方式：对头文件进行软链接
+    $ git clone https://github.com/sharkdp/dbg-macro
+    $ sudo ln -s $(readlink -f dbg-macro/dbg.h) /usr/include/dbg.h
+  

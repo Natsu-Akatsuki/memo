@@ -1,3 +1,30 @@
 
 00.术语
 ===========
+
+1.容器适配器(container adapter)
+--------------------------------
+- 修改一个 **底层序列容器**，使其表现出新的功能和接口，比如 `stack <https://en.cppreference.com/w/cpp/container/stack>`_  使 ``deque``
+  表现出了后进先出的栈功能
+
+- 容器适配器有 ``stack``, ``queue``, `priority_queue <https://en.cppreference.com/w/cpp/container/priority_queue>`_ 
+.. code-block:: c++
+
+    #include <deque>
+    #include <iostream>
+    #include <list>
+    #include <stack>
+    #include <vector>
+    using namespace std;
+
+    int main() {
+        // stack的构造 
+        stack<int> stackA;
+        stack<int, deque<int>> stackB;  // deque is the default container
+        stack<int, vector<int>> stackC;
+        stack<int, list<int>> stackD;
+        return 0;
+    }
+
+2.类型适配器(container adapter)
+--------------------------------

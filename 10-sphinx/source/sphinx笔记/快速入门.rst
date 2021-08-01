@@ -55,3 +55,4 @@ attention：没必要提交编译结果；同时如要免费使用\ ``ReadTheDoc
 #. `reStructure文件语法 for sphinx <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#>`_
 #. `资料2 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/images.html>`_
 #. `资料3 <https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Admonitions.html>`_
+#. `资料4 <https://bashtage.github.io/sphinx-material/rst-cheatsheet/rst-cheatsheet.html>`_

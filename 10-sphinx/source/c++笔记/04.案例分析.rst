@@ -1,3 +1,16 @@
 04.案例分析
 ============
 
+1.判断两个变量是否是相同类型/某个变量是否某个类型
+
+.. code-block:: c++
+
+    #include <type_traits>
+    using namespace std;
+
+    int main() {
+        vector<int> arr(5);
+        // 注意使用尖括号
+        cout << is_same_v<decltype(arr.size()), unsigned long> << endl;
+    }
+
