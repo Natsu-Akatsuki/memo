@@ -28,3 +28,55 @@
 
 2.类型适配器(container adapter)
 --------------------------------
+
+
+
+3.cv 修饰/限定符(const and volatile qualifier)
+------------------------------------------------
+
+const qualifier(修饰符)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* 修饰变量，说明该变量是只读的（类似python的不可变对象）
+* 修饰指针：常指针，该指针的指向不发生变化
+* 修饰引用，指向常量的引用(reference to const)。用于修饰形参，既避免了拷贝，又避免函数对值的修改。
+* 修饰成员函数，说明在该成员函数内不能修改成员变量（在成员属性声明时加关键词mutable，在常函数中则可以修改）
+
+4.说明符(specifier)
+-------------------
+static qualifier
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* 修饰普通变量，修改变量的存储区域和生命周期，使变量存储在静态区，在main函数运行前就分配了空间，如果有初始值就用初始值去初始化它，如果没有初始值则系统用默认值去初始化它
+* 修饰普通函数，表明函数的作用范围，仅在定义该函数的文件内才能使用。在多人开发项目中，为了防止与他人命名空间里的函数重名，可以将函数定位为static
+* 修饰成员变量，修饰成员变量，使所有的对象只保存一个该变量，而且不需要生成对象就可以访问该成员
+* 所有对象共享同一份数据
+* 在编译阶段分配内存
+* 类内声明，类外初始化（必须有初始值）
+* 访问时：可以通过对象或类名进行访问
+* 也可以有访问权限的
+* 修饰成员函数，修饰成员函数使得不需要生成对象就可以访问函数，但是在static函数内不能访问非静态成员（变量）
+* 所有对象共享同一个函数
+* 也可以有访问权限
+
+5.引用
+-------------------
+`dangling reference <https://en.cppreference.com/w/cpp/language/reference>`_ 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+当引用的对象的lifetime已经结束了，那此时的引用则为 ``dangling reference``
+
+.. code-block:: c++
+
+  std::string &f() {
+      std::string s = "Example";
+      return s; // exits the scope of s:
+      // its destructor is called and its storage deallocated
+  }
+
+  int main() {
+      std::string &r = f(); // dangling reference
+      std::cout << r;       // undefined behavior: reads from a dangling reference
+      std::string s = f();  // undefined behavior: copy-initializes from a dangling reference
+  }
+
+.. note:: 报错信息为段错误
