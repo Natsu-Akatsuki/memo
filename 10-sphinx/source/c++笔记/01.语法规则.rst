@@ -76,4 +76,99 @@ const左值引用和右值引用能够延展临时变量的生存期
 
 .. note:: 
    const左值引用，不能修改该临时变量（或称不具名变量/匿名变量）；右值引用，才可以修改该临时变量
-   
+
+
+04.构造函数
+-------------
+创建一个类时至少会添加如下三种构造函数， ``默认无参构造函数`` （函数体为空，无参）； ``默认拷贝函数`` ，对属性进行拷贝； ``默认析构函数`` （函数体为空，无参）
+
+`构造函数的调用规则 <https://www.bilibili.com/video/BV1et411b73Z?p=109>`_ 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- 如果定义了有参构造函数，编译器不会提供默认无参构造函数，但会提供默认拷贝构造函数
+- 如果定义了拷贝构造函数，则编译器不会提供其他构造函数
+
+.. hint:: 至少会有一个拷贝构造函数
+
+
+05.动态内存分配：智能指针
+----------------------
+引入智能指针是为了更好地管理动态内存空间和管理指针。以前管理动态内存是通过 ``new`` 来分配内存空间，通过 ``delete`` 来释放内存空间。
+但容易发生一种情况，用 new 在堆上分配了内存空间，但是忘了使用 delete 释放内存空间，或者由于异常的抛出而无法调用 delete，
+这就会造成内存的泄露（该释放的内存空间没有被释放）。于是就有人提出能不能有一种指针，在它销毁的时候，它所指向的对象也会被销毁，于是就引入了智能指针类，它包含了一个满足这种需求的析构函数。
+
+.. hint:: 
+   存在一种情况，有多个指针指向同一个对象，那就可能会导致多次的释放，于是就引入了   
+   包含引用计数技术的共享指针 ``shared_ptr`` （每有一个指向对象的指针，引用计数+1），只有引用计数为0时，指向的对象才会释放
+
+.. hint:: 
+   有的时候希望只能有一个指针独享对指向对象的释放权（指向某个对象的智能指针只有一个），那就可以使用 ``unique_ptr``
+
+语法规则
+^^^^^^^^
+.. code-block:: c++
+
+   /*
+   * 用法：
+   * 1.导入<memory>头文件
+   * 2.构造（两种方法：单纯用share_ptr；调用make_shared）   
+   */
+   #include <memory>
+   int main() {
+      // 管理动态内存，创建的智能指针的形参为相应的地址
+      std::shared_ptr<int> foo = std::make_shared<int> (10);
+      // same as:
+      std::shared_ptr<int> foo2 (new int(10));
+
+      auto bar = std::make_shared<int> (20);
+      auto baz = std::make_shared<std::pair<int,int>> (30,40);
+
+      std::cout << "*foo: " << *foo << '\n';
+      std::cout << "*bar: " << *bar << '\n';
+      std::cout << "*baz: " << baz->first << ' ' << baz->second << '\n';
+      return 0;
+   }
+
+
+
+06.动态内存分配：new/delete
+---------------------------
+语法规则
+^^^^^^^^
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210805103706659.png" alt="image-20210805103706659" style="zoom: 50%;" />` 
+
+.. code-block:: c++
+
+   auto ptr = new int (6);
+   auto ptr = new (int) {6};
+
+07.内联(inline)函数
+---------------------------
+编译器处理内联函数时相当于把内联函数的实现写在调用内联函数处；
+相当于不用执行进入函数的步骤，直接执行函数体（少call function overhead）；
+相当于宏，但比宏多了类型检查，真正具有函数特性；
+编译器一般不对包含循环、递归、switch等复杂操作的函数进行内联；
+在类声明中定义的函数，除了虚函数的其他函数都会自动隐式地当成内联函数；
+
+.. code-block:: c++
+
+   // 声明1（可加可不加inline，推荐加inline）
+   inline int functionName(int first, int second,...);
+   // 声明2
+   int functionName(int first, int second,...);
+
+   // 定义
+   inline int functionName(int first, int second,...) {
+      ; // todo      
+   }
+
+   // 类内定义，隐式内联
+   class A {
+      int doA() { return 0; }
+   }
+
+   // 类外定义，需要显式内联
+   class A {
+      int doA();
+   }
+   inline int A::doA() { return 0; }   // 需要显式内联
