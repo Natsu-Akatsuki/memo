@@ -1,4 +1,0 @@
-<launch>
-    <!--- Run Rviz-->
-    <node pkg="rviz" type="rviz" name="rviz" args="/home/helios/实例/ros实例/roslaunch python API/test03.rviz" />
-</launch>

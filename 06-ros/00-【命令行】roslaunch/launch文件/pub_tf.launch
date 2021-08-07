@@ -1,7 +1,0 @@
-<launch>    
-    <node pkg="tf2_ros" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 /link1_parent /link1" />
-    <node pkg="tf" type="static_transform_publisher" name="rack_link_to_base_link"  args="0.27 0 1.09 0 0 0 /base_link /rack_link 1000" />
-    <node pkg="tf" type="static_transform_publisher" name="velodyne_to_rack_link"  args="0 0 0.039 0 0 0 /rack_link /velodyne 1000" />
-    <node pkg="tf" type="static_transform_publisher" name="gnss_to_rack_link"  args=" -0.35 0 -0.03 0 0 0 /rack_link /gnss 1000" />	<!--antenna-->    
-</launch>
-
