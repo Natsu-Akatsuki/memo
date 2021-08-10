@@ -1,7 +1,0 @@
-<launch>
-    <!--- run rosbag-->
-    <node pkg="rosbag" type="play" name="play" output="screen" args="/home/helios/rosbag/img_test01.bag -l">
-        <!-- <remap from="/camera/raw_img" to="/camera/depth/image_raw"/> -->
-    </node>
-    <!-- 注意这里bag文件的路径必须为绝对路径-->
-</launch>

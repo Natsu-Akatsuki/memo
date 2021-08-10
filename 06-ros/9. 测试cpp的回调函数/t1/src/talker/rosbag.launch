@@ -1,6 +1,0 @@
-<launch>
-    <!--- run rosbag-->
-    <node pkg="talker" type="talker" name="talker" output="screen" respawn="true">
-        <!-- <remap from="/camera/raw_img" to="/camera/depth/image_raw"/> -->
-    </node>
-</launch>

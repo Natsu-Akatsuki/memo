@@ -1,6 +1,10 @@
 
 00.术语
 ===========
+.. important:: 
+
+  Someone who is sophomoric about concepts and reasoning may 
+  try things randomly, and wastes a lot of time.
 
 1.容器适配器(container adapter)
 --------------------------------
@@ -9,7 +13,7 @@
 
 - 容器适配器有 ``stack``, ``queue``, `priority_queue <https://en.cppreference.com/w/cpp/container/priority_queue>`_ 
 .. code-block:: c++
-
+p
     #include <deque>
     #include <iostream>
     #include <list>
@@ -138,3 +142,24 @@ static specifier
 ----------------------------------------------------------------------
 - new返回的指针被释放，导致原来被指向的对象不能通过该指针来访问和不能使用delete来释放
 
+8. `标识符(identifier) <https://en.cppreference.com/w/c/language/identifier>`_ 
+---------------------------------------------------------------------------------------------
+- 标识符是一个任意长度的序列，该序列由下划线、数字和拉丁字母组成
+- 可用于描述程序中的如下实体：对象(objects)，函数(function)，tags(struct, union, enumerations)，结构体和联合体成员...
+- 标识符不能任意起名，存在起名规则
+
+9. `对象(object) <https://en.cppreference.com/w/cpp/language/object>`_ 
+---------------------------------------------------------------------------------------------
+- 在C中对象是一块内存空间，这个空间存放了值(value)
+- 每个对象都要相应的属性：size, storage duration, lifetime, value, identifier(i.e.id optional)
+- 对象或者引用（需非类属性）是 ``变量(variable)``
+
+.. attention:: 
+    以下实体(entities)不是对象：值(value), 引用(reference)，函数(function)，参数包(parameter pack)
+
+1.  `实体(entiry) <https://en.cppreference.com/w/cpp/language/basic_concepts>`_ 
+---------------------------------------------------------------------------------------------
+- c++程序中的实体包括值(value)，对象(object)，引用(reference)，函数(function)，类型(type)，模板（template）...
+
+.. attention:: 
+    预处理宏(prepocessor entity)不是c++实体
