@@ -29,6 +29,9 @@
 
    ros笔记/01.launch文件指北.rst
    ros笔记/02.ros常用命令行.rst
+   ros笔记/03.工具箱.rst
+   ros笔记/04.实战.md
+
   
 .. toctree::
    :maxdepth: 1

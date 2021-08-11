@@ -1,13 +1,15 @@
 <launch>
 	<node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
-	<!-- Run a VoxelGrid filter to clean NaNs and downsample the data -->
+	<!-- 字段的filter+下采样+remove nan points -->
 	<node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
 		<remap from="~input" to="/rslidar_points" />
+		<remap from="~output" to="/voxel_grid/lidar_points" />
+		<!-- False表示：只处理该范围的数据 -->
 		<rosparam>
 			filter_field_name: z
 			filter_limit_min: -1.0
 			filter_limit_max: 2.0
-			filter_limit_negative: False
+			filter_limit_negative: True
 			leaf_size: 0.1
 		</rosparam>
 	</node>
