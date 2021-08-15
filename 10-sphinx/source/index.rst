@@ -20,7 +20,14 @@
 ..    :hidden:
 ..    :caption: Git笔记
 
-..    /github/Hook应用：防止用不合法的邮箱进行commit.rst   
+..    /github/Hook应用：防止用不合法的邮箱进行commit.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: cmake笔记
+
+   cmake笔记/01.语法规则.rst
 
 .. toctree::
    :maxdepth: 1
@@ -32,20 +39,20 @@
    ros笔记/03.工具箱.rst
    ros笔记/04.实战.md
 
-  
+
 .. toctree::
    :maxdepth: 1
    :hidden:
    :caption: sphinx笔记
-   
+
    sphinx笔记/快速入门.rst
    sphinx笔记/00.术语.rst
    sphinx笔记/01.代码块.rst
    sphinx笔记/02.拓展工具.rst
    sphinx笔记/03.案例分析.rst
-   
 
-   
+
+
 Indices and tables
 ==================
 

@@ -87,4 +87,6 @@ scrap
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/0uJtmvlGKud5nBLX.png!thumbnail
    :alt: img
 
-* distcc分布式编译会受限于网络带宽    
+* distcc分布式编译会受限于网络带宽
+    
+.. include:: 拓展工具/gdb/gdb.rst

@@ -6,14 +6,31 @@
   Someone who is sophomoric about concepts and reasoning may 
   try things randomly, and wastes a lot of time.
 
-1.容器适配器(container adapter)
+
+1. 声明(declaration)和定义(definition)
+----------------------------------------
+- 声明：一般的声明即引入(introduce)或重引入(re-introduce)一个实体的名称(name)给程序，以便让程序可以根据这个名称来使用实体；
+  普通的声明不会对应一段具体的汇编代码
+
+- 定义：在上面声明的基础上（i.e.定义是一种申明），还会为这个实体开辟存储空间(storage)
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/venn_declaration.png
+    :height: 500 px
+    :width: 500 px   
+    :scale: 50 %
+    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/venn_declaration.png
+    :alt: venn_declaration
+   
+
+
+1. 容器适配器(container adapter)
 --------------------------------
 - 修改一个 **底层序列容器**，使其表现出新的功能和接口，比如 `stack <https://en.cppreference.com/w/cpp/container/stack>`_  使 ``deque``
   表现出了后进先出的栈功能
 
 - 容器适配器有 ``stack``, ``queue``, `priority_queue <https://en.cppreference.com/w/cpp/container/priority_queue>`_ 
 .. code-block:: c++
-p
+
     #include <deque>
     #include <iostream>
     #include <list>
