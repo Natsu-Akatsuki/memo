@@ -18,18 +18,18 @@
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: cmake笔记
+
+   cmake笔记/01.语法规则.rst
+
+   .. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: git笔记
 
    git笔记/01.实战.md
    git笔记/02.自定义git环境变量.md
    git笔记/03.有关commit的相关操作.md
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: cmake笔记
-
-   cmake笔记/01.语法规则.rst
 
 .. toctree::
    :maxdepth: 1
@@ -53,11 +53,9 @@
    sphinx笔记/02.拓展工具.rst
    sphinx笔记/03.案例分析.rst
 
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: ubuntu笔记
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   ubuntu笔记/01.网络配置.md
