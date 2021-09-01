@@ -1,0 +1,22 @@
+<launch>
+	<arg name="use_hd_map" default="false" doc="是否使用高精度地图" />
+	<arg name="lanelet2_map_path" default="$(env HOME)/data/map/gdut/gdut.osm" doc="高精度地图文件位置" />
+	<arg name="lidar" default="rslidar" doc="velodyne/rslidar" />
+	<group if="$(arg use_hd_map)">
+		<group ns="map">
+			<include file="$(find map_loader)/launch/lanelet2_map_loader.launch">
+				<arg name="file_name" default="$(arg lanelet2_map_path)" />
+			</include>
+		</group>
+	</group>
+	<!-- static_transform_publisher x y z qx qy qz qw 父 子坐标系 -->
+	<group if="$(arg use_hd_map)">
+		<node pkg="tf2_ros" type="static_transform_publisher" name="map_2_planning_map" args="45030.37, 49558.2, 0, 0, 0, 0 map planning_map" />
+		<node pkg="tf2_ros" type="static_transform_publisher" name="planning_map_2_planning_odom" args="0, 0, 0, 0, 0, 0 planning_map planning_odom" />
+		<node pkg="tf2_ros" type="static_transform_publisher" name="pcl_map_to_map" args="45042.921875, 49776.4609375, 0, -4.67125394821167, 0, 0 map pcl_map" />
+	</group>
+	<node pkg="tf2_ros" type="static_transform_publisher" name="camera_init_to_pcl_map" args="0, 0, 0, 1.570795, 0, 1.570795  pcl_map  camera_init" />
+	<node pkg="tf2_ros" type="static_transform_publisher" name="vehicle_to_loam_camera" args="0, 0, 0, -1.570795, -1.570795, 0  loam_camera vehicle" />
+	<node pkg="tf2_ros" type="static_transform_publisher" name="$(arg lidar)_to_vehicle" args="0, 0, 0, 0, 0, 0  vehicle $(arg lidar)" />
+	<node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_$(arg lidar)" args="-0.289, 0, -0.62, 0, 0, 0  $(arg lidar) base_link" />
+</launch>

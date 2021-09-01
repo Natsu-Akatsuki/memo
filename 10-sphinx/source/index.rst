@@ -35,6 +35,13 @@
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: IDE笔记
+
+   IDE笔记/01.vscode.md
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: ros笔记
 
    ros笔记/01.launch文件指北.rst
