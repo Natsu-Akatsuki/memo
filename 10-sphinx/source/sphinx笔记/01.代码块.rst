@@ -28,3 +28,15 @@
 
 .. attention:: text
     emoji需要加竖线和空格，例如 \|:smile:\| -> |:smile:|
+
+
+4.内嵌html/xml
+==================
+
+- `simple usecase <https://stackoverflow.com/questions/50565770/how-to-embed-html-or-xml-in-restructuredtext-sphinx-so-the-browser-cna-render>`_ 
+- `嵌入asciinema脚本 <https://raw.githubusercontent.com/catkin/catkin_tools/master/docs/verbs/catkin_build.rst>`_;
+  `官方教程 <https://asciinema.org/docs/embedding>`_ 
+
+.. raw:: html
+
+    <center><script type="text/javascript" src="https://asciinema.org/a/GdUfcN6YnWz6GSwNAF9Mqhm25.js" id="asciicast-GdUfcN6YnWz6GSwNAF9Mqhm25"></script></center>

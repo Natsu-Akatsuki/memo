@@ -21,8 +21,9 @@
    :caption: cmake笔记
 
    cmake笔记/01.语法规则.rst
+   cmake笔记/02.catkin_make与catkin_tool实战.md
 
-   .. toctree::
+.. toctree::
    :maxdepth: 1
    :hidden:
    :caption: git笔记

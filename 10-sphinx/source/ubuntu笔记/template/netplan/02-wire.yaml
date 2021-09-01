@@ -1,0 +1,13 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eno1:
+      addresses:
+        - 10.23.21.96/24
+      gateway4: 10.23.21.1
+      nameservers:
+        addresses:
+          - 222.200.115.251
+          - 222.200.115.252
+          - 119.29.29.29

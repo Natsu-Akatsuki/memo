@@ -33,9 +33,9 @@
    $ make -j$(distcc -j)
 
    # 服务端设置
-   $ sudo distccd --daemon --allow 10.23.21.1/24 
-   --log-file /var/log/distccd.log --log-level=debug 
-   --jobs 32 
+   $ sudo distccd --daemon --allow 10.23.21.1/24 \
+   --log-file /var/log/distccd.log --log-level=debug \
+   --jobs 32 \
    --pid-file=/var/run/distccd.pid
 
 .. note:: 
