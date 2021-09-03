@@ -68,3 +68,4 @@
 
    ubuntu笔记/01.网络配置.md
    ubuntu笔记/03.终端配置.md
+   ubuntu笔记/04.窗口管理器配置.md
