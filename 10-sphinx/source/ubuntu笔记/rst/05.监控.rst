@@ -1,0 +1,57 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+05. 监控
+========
+
+进程
+----
+
+htop(进程)
+^^^^^^^^^^
+
+一般查看当前用户下最占用cpu（P）和内存（M）的进程
+
+
+* 命令行
+
+.. prompt:: bash $,# auto
+
+   # 只查看当前用户的进程
+   $ htop -u $(whoami)
+
+
+* 交互式快捷键
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904001431390.png" alt="image-20210904001431390" style="zoom:50%; " />`
+
+
+* 配置项
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904002516344.png" alt="image-20210904002516344" style="zoom:67%; " />`
+
+zenith（一体化）
+^^^^^^^^^^^^^^^^
+
+
+* 可从\ `此处 <https://github.com/bvaisvil/zenith/releases>`_\ 下载相应的deb包(e.g. zenith_0.12.0-1_amd64.deb)
+* 启动
+
+.. code-block::
+
+   $ zenith
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904004618016.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904004618016.png
+   :alt: image-20210904004618016
+
+
+----
+
+**REMARK**
+
+该可执行文件/命令行能快速提供有价值的信息
+
+----

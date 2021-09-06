@@ -1,0 +1,170 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+03. 终端配置
+============
+
+`tmux <https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html>`_\ （终端复用）
+----------------------------------------------------------------------------------------
+
+安装
+^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install -y tmux
+
+配置文档
+^^^^^^^^
+
+触发配置文档生效
+
+.. prompt:: bash $,# auto
+
+   $ tmux source ~/.tmux.conf`
+
+----
+
+**NOTE**
+
+配置文档所在位置为 ``~/.tmux.conf``
+
+----
+
+分屏
+^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902091648903.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902091648903.png
+   :alt: image-20210902091648903
+
+
+.. prompt:: bash $,# auto
+
+   # 分屏得四宫格(split-window alias:split)
+   $ tmux new -s ros
+   $ tmux split -v
+   $ tmux split -h
+   $ tmux select-pane -t 1
+   $ tmux split -h
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902094739706.png" alt="image-20210902094739706" style="zoom:67%; " />`
+
+pane操作
+^^^^^^^^
+
+
+* 显示panes
+
+.. prompt:: bash $,# auto
+
+   $ tmux list-panes
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902092500394.png" alt="image-20210902092500394" style="zoom:67%; " />`
+
+
+* panes切换
+
+.. prompt:: bash $,# auto
+
+   $ tmux select-pane <-t pane_id>
+   # pane id可通过display-panes来知悉
+
+session操作
+^^^^^^^^^^^
+
+
+* 创建session
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902093923093.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902093923093.png
+   :alt: image-20210902093923093
+
+
+实战
+^^^^
+
+`自定义配置 <https://github.com/Natsu-Akatsuki/MyTmux>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`复制pane的文字 <https://blog.csdn.net/RobertFlame/article/details/92794332>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+需要在使用前使用 ``shift``
+
+安装tpm
+~~~~~~~
+
+安装后，后续可用前导符+I（大写）进行插件安装
+
+.. prompt:: bash $,# auto
+
+   $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+面板缩放(zoom)
+~~~~~~~~~~~~~~
+
+ ``前导符+z``
+
+terminator（终端复用）
+----------------------
+
+
+* 安装与使用
+
+.. code-block:: bas
+
+   $ sudo apt install terminator
+   $ terminator
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HLG3YQFJyk39WIM5.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HLG3YQFJyk39WIM5.png!thumbnail
+   :alt: img
+
+
+
+* `常用快捷键 <https://blog.csdn.net/zhangkzz/article/details/90524066>`_
+
+screen（终端复用）
+------------------
+
+略
+
+`yakuake（顶部终端） <https://github.com/KDE/yakuake>`_
+-----------------------------------------------------------
+
+暂时感觉用处不大
+
+终端常用快捷键
+--------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - 快捷键
+     - 作用
+   * - ctrl+w
+     - 删除一个单词
+   * - ctrl+7
+     - 撤销操作(cancel)
+   * - ctrl+u
+     - 剪切至开头
+   * - ctrl+k
+     - 剪切至末尾
+   * - ctrl+y
+     - 粘贴
+   * - ctrl+←/ctrl+→
+     - 以单词为单位进行左右跳转
+
+
+----
+
+**ATTENTION**
+
+此处快捷键的剪切板并不是系统的剪切板
+
+----

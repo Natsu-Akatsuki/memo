@@ -1,0 +1,151 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+08. 下载与安装
+==============
+
+apt&&dpkg
+---------
+
+常用命令行
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ apt clean                 # 清除安装包
+   $ apt remove <package_name> # 卸载软件，保留配置文件
+   $ apt purge <package_name>  # 卸载软件和相关的配置文件
+   $ apt autoremove            # 卸载已无用和自动安装的软件
+   $ apt dist-upgrade          # 升级安装包（升级时会删除一些影响依赖的包）
+
+   $ dpkg -i <deb_package>     # 安装包
+   # -r: remove
+   # -P: purge（此处为大写）
+
+.. note:: apt比apt-get具有更高层的封装
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
+   :alt: img
+
+
+.. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
+
+
+查看apt包的依赖信息
+^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 除了显示依赖信息还会显示package的其他信息（如maintainer,recommends packages）
+   $ apt show <package_name>
+   # 仅显示依赖信息
+   $ apt-cache depends <package_name>
+
+显示deb包的依赖信息
+^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # Show information about a package
+   $ dpkg -I <deb_name>
+
+显示apt包的依赖链(apt dependency chain)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install apt-rdepends
+   $ apt-rdepends -p <package_name>
+   # -p: 在依赖包后面追加状态信息
+   # -r：显示哪些package依赖当前的package
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210906141516268.png" alt="image-20210906141516268" style="zoom:67%; " />`
+
+----
+
+**NOTE**
+
+要显示哪些包未安装，虽然该命令行有option可配置，但是使用上感觉如下命令行更方便
+
+.. prompt:: bash $,# auto
+
+   $ apt-rdepends -p <package_name> | grep NotInstalled
+
+----
+
+显示已安装的包
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ apt list --install
+   $ dpkg -l
+
+删除无用的配置文档
+^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ dpkg -l | grep "^rc" | awk '{print $2}' | sudo xargs apt -y purge
+
+`增删PPA仓库 <https://linuxconfig.org/how-to-list-and-remove-ppa-repository-on-ubuntu-18-04-bionic-beaver-linux>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+pip
+---
+
+常用命令行
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # ---下载--- #
+   $ pip install --upgrade / -U <pkg_name>  # 升级给定package
+   $ pip install -r <requirements.txt>      # 下载文档中给定的依赖
+   $ pip install -i <某源>                  # 通过给定源进行下载
+   $ pip install --no-cache-dir             # 不保留缓存地安装
+   # ---查看包信息--- #
+   $ pip show <pkg_name>
+   # ---pip安装到当前用户--- #
+   $ pip install --user <pkg_name>
+
+wget
+----
+
+.. prompt:: bash $,# auto
+
+   $ wget -c <链接> -O <file_name>
+   # -c: 断点下载
+   # -O：重命名
+
+.. hint:: aria2据说为增强版wget
+
+
+npm
+---
+
+常用命令行
+~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 下载npm
+   $ sudo apt install nodejs npm
+
+snap
+----
+
+unix-like自带，安装的应用程序有点像docker容器，整体体积会较大
+
+常用命令行
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ snap list                           # 列出已安装的snap包
+   $ sudo snap remove <pkg>              # 卸载snap中安装的包
+   $ sudo apt autoremove --purge snapd   # 卸载snap-core

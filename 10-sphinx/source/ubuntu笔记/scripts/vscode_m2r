@@ -1,0 +1,15 @@
+#!/bin/bash
+markdown_file=$1
+cur_dir=$(dirname ${markdown_file})
+rst_dir=${cur_dir}"/rst"
+rst_file=${cur_dir}/$(basename -s .md ${markdown_file})".rst"
+
+# 创建文件夹
+/bin/bash -c "ls $rst_dir || mkdir $rst_dir" > /dev/null
+
+# markdown->rst文件(在当前工作空间处理后再挪位置)
+m2r ${markdown_file}
+# 对生成的rst文件进行后处理
+sed -i -e 's/.. code-block:: bash/.. prompt:: bash $,# auto/' ${rst_file}
+mv ${rst_file} ${rst_dir}
+

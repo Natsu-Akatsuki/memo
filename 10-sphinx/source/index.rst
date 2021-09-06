@@ -66,6 +66,10 @@
    :hidden:
    :caption: ubuntu笔记
 
-   ubuntu笔记/01.网络配置.md
-   ubuntu笔记/03.终端配置.md
-   ubuntu笔记/04.窗口管理器配置.md
+   ubuntu笔记/rst/01.网络配置.rst
+   ubuntu笔记/rst/03.终端配置.rst
+   ubuntu笔记/rst/04.窗口管理器配置.rst
+   ubuntu笔记/rst/05.监控.rst
+   ubuntu笔记/rst/06.文件和文件夹管理.rst
+   ubuntu笔记/rst/07.用户和用户组配置.rst
+   ubuntu笔记/rst/08.下载与安装.rst

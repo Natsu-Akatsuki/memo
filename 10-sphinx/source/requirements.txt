@@ -1,2 +1,8 @@
 myst-parser
 sphinxemoji
+sphinx-notfound-page
+sphinx-prompt
+# 复制代码块按钮
+sphinx_copybutton
+# 隐藏代码块prompt按钮
+sphinx_toggleprompt
