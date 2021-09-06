@@ -7,10 +7,10 @@ version: 2
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
-   configuration: 10-sphinx/source/conf.py
+   configuration: 开发笔记/source/conf.py
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
    version: 3.8
    install:
-   - requirements: 10-sphinx/source/requirements.txt
+   - requirements: 开发笔记/source/requirements.txt

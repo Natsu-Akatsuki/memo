@@ -188,4 +188,5 @@ out
 gen
 
 ### helios custom
-!10-sphinx/Makefile
+!开发笔记/Makefile
+/开发笔记/source/_build/html/

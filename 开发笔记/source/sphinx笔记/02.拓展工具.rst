@@ -1,0 +1,45 @@
+02.拓展工具
+=================
+
+构建rst文档技巧
+-------------------
+
+先构建Markdown文档再使用转换工具（如：`m2r <https://github.com/miyakogi/m2r>`_）再转其为rst文件
+
+.. prompt:: bash $, auto
+
+   $ m2r your_document.md [your_document2.md ...]
+
+`typora markdown结合阿里云图床 <https://zhuanlan.zhihu.com/p/138878534>`_
+------------------------------------------------------------------------------
+文件的本地链接管理比较麻烦，因此可以使用网络链接
+
+.. tip::    
+   有关上传图片 `图床工具的使用：PicGo <https://www.jianshu.com/p/9d91355e8418>`_
+
+vscode拓展插件： `vscode-restructuredtext <https://github.com/vscode-restructuredtext/vscode-restructuredtext>`_
+-------------------------------------------------------------------------------------------------------------------------
+
+支持如下功能：
+
+1. 自定义代码块(live template or `code snippets <https://docs.restructuredtext.net/articles/snippets.html>`_)
+      
+2. live previous（触发方式默认为前导符和 ``ctrl+r``）
+
+3. `IntelliSense <https://docs.restructuredtext.net/articles/intellisense.html>`_：包含代码补全（i.e.文件路径）
+
+4. reStructuredText Syntax highlighting（语法高亮）
+
+sphinx拓展插件
+------------------
+- `sphinx-prompt <http://https://sphinx-extensions.readthedocs.io/en/latest/sphinx-prompt.html>`_ ：能够使prompt不可选（`实例 <http://sbrunner.github.io/sphinx-prompt/>`_）
+
+.. hint:: text
+   需要使用其directive就比较麻烦
+
+- `sphinx-copybutton <https://github.com/executablebooks/sphinx-copybutton>`_ ：给代码块添加复制按钮
+- `sphinx-toggleprompt <https://sphinx-toggleprompt.readthedocs.io/en/master/>`_ ：隐藏python代码块的prompt
+
+.. important:: View the agile course on scrum basics
+
+- View `these slides to dive deeper into Agile Basics <../_static/cheatsheet/GDBCheatSheet.pdf>`_. 

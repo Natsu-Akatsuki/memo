@@ -1,0 +1,352 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+08. 包管理、虚拟环境和容器
+==========================
+
+apt&&dpkg
+---------
+
+常用命令行
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ apt clean                 # 清除安装包
+   $ apt remove <package_name> # 卸载软件，保留配置文件
+   $ apt purge <package_name>  # 卸载软件和相关的配置文件
+   $ apt autoremove            # 卸载已无用和自动安装的软件
+   $ apt dist-upgrade          # 升级安装包（升级时会删除一些影响依赖的包）
+
+   $ dpkg -i <deb_package>     # 安装包
+   # -r: remove
+   # -P: purge（此处为大写）
+
+.. note:: apt比apt-get具有更高层的封装
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
+   :alt: img
+
+
+.. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
+
+
+查看apt包的依赖信息
+^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 除了显示依赖信息还会显示package的其他信息（如maintainer,recommends packages）
+   $ apt show <package_name>
+   # 仅显示依赖信息
+   $ apt-cache depends <package_name>
+
+显示deb包的依赖信息
+^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # Show information about a package
+   $ dpkg -I <deb_name>
+
+显示apt包的依赖链(apt dependency chain)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install apt-rdepends
+   $ apt-rdepends -p <package_name>
+   # -p: 在依赖包后面追加状态信息
+   # -r：显示哪些package依赖当前的package
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210906141516268.png" alt="image-20210906141516268" style="zoom:67%; " />`
+
+----
+
+**NOTE**
+
+要显示哪些包未安装，虽然该命令行有option可配置，但是使用上感觉如下命令行更方便
+
+.. prompt:: bash $,# auto
+
+   $ apt-rdepends -p <package_name> | grep NotInstalled
+
+----
+
+显示已安装的包
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ apt list --install
+   $ dpkg -l
+
+删除无用的配置文档
+^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ dpkg -l | grep "^rc" | awk '{print $2}' | sudo xargs apt -y purge
+
+`增删PPA仓库 <https://linuxconfig.org/how-to-list-and-remove-ppa-repository-on-ubuntu-18-04-bionic-beaver-linux>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+pip
+---
+
+常用命令行
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # ---下载--- #
+   $ pip install --upgrade / -U <pkg_name>  # 升级给定package
+   $ pip install -r <requirements.txt>      # 下载文档中给定的依赖
+   $ pip install -i <某源>                  # 通过给定源进行下载
+   $ pip install --no-cache-dir             # 不保留缓存地安装
+   # ---查看包信息--- #
+   $ pip show <pkg_name>
+   # ---pip安装到当前用户--- #
+   $ pip install --user <pkg_name>
+
+wget
+----
+
+.. prompt:: bash $,# auto
+
+   $ wget -c <链接> -O <file_name>
+   # -c: 断点下载
+   # -O：重命名
+
+.. hint:: aria2据说为增强版wget
+
+
+npm
+---
+
+常用命令行
+~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 下载npm
+   $ sudo apt install nodejs npm
+
+snap
+----
+
+unix-like自带，安装的应用程序有点像docker容器，整体体积会较大
+
+常用命令行
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ snap list                           # 列出已安装的snap包
+   $ sudo snap remove <pkg>              # 卸载snap中安装的包
+   $ sudo apt autoremove --purge snapd   # 卸载snap-core
+
+conda配置
+---------
+
+安装anaconda
+^^^^^^^^^^^^
+
+步骤一：\ `下载安装包 <https://www.anaconda.com/products/individual>`_
+
+.. prompt:: bash $,# auto
+
+   $ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
+
+步骤二：交互模式执行安装包（此方法可顺带初始化conda）
+
+----
+
+**NOTE**\ ：无交互式的安装
+
+.. prompt:: bash $,# auto
+
+   $ /bin/bash anaconda.sh -b -p /opt/conda 
+   $ export PATH=/opt/conda/bin:$PATH' >> ~/.bashrc 
+   $ conda init 
+   $ conda config --set auto_activate_base false $
+   $ conda update conda
+
+   # -b run install in batch mode (without manual intervention), it is expected the license terms are agreed upon
+   # -p PREFIX  install prefix, defaults to $PREFIX, must not contain spaces.
+
+----
+
+配置文档
+^^^^^^^^
+
+
+* 默认不启动conda环境
+
+.. prompt:: bash $,# auto
+
+   $ conda config --set auto_activate_base false
+
+查询信息
+^^^^^^^^
+
+
+* 查询当前环境的所有packages的相关信息
+
+.. prompt:: bash $,# auto
+
+   $ conda list
+   # -n <env>: 指定环境
+
+
+* 查询当前已安装的conda环境
+
+.. prompt:: bash $,# auto
+
+   $ conda env list
+
+
+* 查询安装历史
+
+.. prompt:: bash $,# auto
+
+   $ conda list --revisions
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/I1JHF95b6IDEWj7M.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+
+* 查询conda应用程序的相关信息
+
+.. prompt:: bash $,# auto
+
+   $ conda info
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210906223711162.png" alt="image-20210906223711162" style="zoom: 50%; " />`
+
+安装和更新包
+^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 根据文件更新当前环境
+   $ conda env update -f <文件名>
+   # 跳过interaction进行安装
+   $ conda install -y
+   # 包的导出和导入
+   $ conda env export -n 环境名 > 文件名.yml
+   $ conda env create -f 文件名.yml
+
+----
+
+**NOTE**
+
+文件解析：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/XAWWBAeAbYBXrJRM.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+----
+
+升级conda
+^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ conda update conda
+
+清理
+^^^^
+
+.. prompt:: bash $,# auto
+
+   # 删除 
+   $ conda clean -a
+   # 删除环境
+   $ conda remove -n <env_name> --all
+   # 删除包
+   $ conda uninstall -n <env_name>
+
+触发命令行补全
+^^^^^^^^^^^^^^
+
+conda并不提供内部补全的插件，需要\ `安装第三方插件 <https://github.com/tartansandal/conda-bash-completion>`_
+
+步骤一：
+
+.. prompt:: bash $,# auto
+
+   $ conda install -c conda-forge conda-bash-completion
+
+步骤二：
+
+.. prompt:: bash $,# auto
+
+   # 设置conda安装目录CONDA_ROOT=~/anaconda3if [[ -r $CONDA_ROOT/etc/profile.d/bash_completion.sh ]]; then    source $CONDA_ROOT/etc/profile.d/bash_completion.shfi
+
+.. attention:: 记得修改对应的目录
+
+
+环境复制
+^^^^^^^^
+
+
+* 本地环境的复制 
+
+``
+
+.. prompt:: bash $,# auto
+
+   $ conda create --clone <被复制的环境> -n <粘贴的环境名>
+   ``
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/jOxAQgSIQCmervG3.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+
+* `同操作环境下环境的迁移或部署 <https://conda.github.io/conda-pack/>`_\ （\ `中文翻译 <https://zhuanlan.zhihu.com/p/87344422>`_\ ）
+
+.. prompt:: bash $,# auto
+
+   # base环境下安装 
+   $ conda install conda-pack 
+   # src机上打包指定环境 
+   $ conda pack -n <环境名> 
+   # dst机上解压缩（tar...），解压缩到env目录下 
+   $ ... 
+   # 修复python package前缀项(conda-unpack在bin目录下) 
+   $ conda activate <环境名>  && conda-unpack
+
+.. hint:: 虽然conda pack最终的效果是生成一个压缩包，但跟自己用tar生成的压缩包不同，其还在压缩时添加了一些用于解决导出的python包路径错误问 的脚本，如conda-unpack。
+
+
+实战
+^^^^
+
+多线程提高下载速度
+~~~~~~~~~~~~~~~~~~
+
+用\ `mamba <https://github.com/mamba-org/mamba>`_\ 来安装包
+
+.. prompt:: bash $,# auto
+
+   $ conda install -c conda-forge mamba$ mamba install <package_name>
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CP0aVRAsWIAQWpl3.png!thumbnail" alt="img" style="zoom:50%; " />`
+
+`多用户下conda的配置 <https://docs.anaconda.com/anaconda/install/multi-user/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+拓展资料
+^^^^^^^^
+
+
+* 
+  `conda 说明文档 <https://docs.conda.io/projects/conda/en/latest/user-guide/>`_
+
+* 
+  `参数配置文档1 <https://conda.io/projects/conda/en/latest/user-guide/configuration/index.html>`_\ 、\ `参数配置文档2 <https://conda.io/projects/conda/en/latest/configuration.html?highlight=custom_channels%3A>`_
+
+* 
+  `任务导向说明 <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/index.html>`_
