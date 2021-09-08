@@ -35,6 +35,7 @@ extensions = [
     "myst_parser",
     "sphinxemoji.sphinxemoji",
     "sphinx.ext.autodoc",
+    "sphinx.ext.todo",
     "sphinx-prompt",
     "sphinx_copybutton",
     "sphinx_toggleprompt",
@@ -72,3 +73,8 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 # 配置构建html时导入的静态文件
 html_static_path = ["_static", "pdf资料"]
+
+
+[extensions]
+todo_include_todos=True
+todo_emit_warnings=False

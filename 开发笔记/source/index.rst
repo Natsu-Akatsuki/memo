@@ -28,9 +28,8 @@
    :hidden:
    :caption: git笔记
 
-   git笔记/01.实战.md
-   git笔记/02.自定义git环境变量.md
-   git笔记/03.有关commit的相关操作.md
+   git笔记/rst/01.实战.md
+   git笔记/rst/02.自定义git环境变量.md
 
 .. toctree::
    :maxdepth: 1
@@ -58,7 +57,7 @@
    sphinx笔记/快速入门.rst
    sphinx笔记/00.术语.rst
    sphinx笔记/01.代码块.rst
-   sphinx笔记/02.拓展工具.rst
+   sphinx笔记/rst/02.拓展工具.rst
    sphinx笔记/03.案例分析.rst
 
 .. toctree::

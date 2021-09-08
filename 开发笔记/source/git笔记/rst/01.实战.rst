@@ -1,0 +1,221 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+01. git实战
+===========
+
+利用hook防止用不合法的邮箱进行commit
+------------------------------------
+
+知识点
+^^^^^^
+
+
+#. git ``hook``\ 是一个脚本（bash或者python均可），是执行一些git的操作前或者操作后需要运行的脚本
+#. ``hook``\ 可以根据触发的时机分为两类：客户端(clien-side)或者服务端(server-side)，前者如git commit/merge，后者如服务端接收到推送的commit
+#. 执行\ ``git init``\ 后会有一系列的hook模板在\ ``.git/hooks``\ 下生成，以供参考，可以在此基础上进行修改
+
+.. prompt:: bash $,# auto
+
+   ~/.git/hooks$ tree
+   .
+   ├── applypatch-msg.sample
+   ├── commit-msg.sample
+   ├── fsmonitor-watchman.sample
+   ├── post-update.sample
+   ├── pre-applypatch.sample
+   ├── pre-commit.sample
+   ├── pre-merge-commit.sample
+   ├── prepare-commit-msg.sample
+   ├── pre-push.sample
+   ├── pre-rebase.sample
+   ├── pre-receive.sample
+   └── update.sample
+
+.. attention:: 使用前面提到的 `git/hook` 中的脚本，并不能同步到远程仓
+
+
+参考资料
+^^^^^^^^
+
+
+#. `怎样防止同事用QQ邮箱提交公司代码 <https://mp.weixin.qq.com/s/nTujGu1tbde--X3KEO22WA>`_
+
+删除历史记录中不合适的数据
+--------------------------
+
+参考资料
+^^^^^^^^
+
+
+#. 
+   `简书example <https://www.jianshu.com/p/6c3f28d41c5e>`_
+
+#. 
+   `github docs <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository>`_
+
+BFG
+^^^
+
+以下说明一个github官方推荐的工具 ``BFK`` ，不同于官方教程的 ``git clone`` ，此处推荐\ `直接下载jar包 <https://rtyley.github.io/bfg-repo-cleaner/>`_
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821090411342.png" alt="image-20210821090411342" style="zoom:67%; " />`
+
+
+* 其相关的功能包括：删除大文件、删除包含某些敏感信息的文件、删除某个文件夹。具体的使用可参考\ `简书example <https://www.jianshu.com/p/6c3f28d41c5e>`_\ ，\ `官方实例 <https://rtyley.github.io/bfg-repo-cleaner/>`_\ ，不赘述
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821091001917.png" alt="image-20210821091001917" style="zoom:67%; " />`
+
+.. prompt:: bash $,# auto
+
+   # 同时删除多个文件夹
+   $ bfg --delete-folders "{List of folder separated by comma}" <file path for Git repository to clean>
+
+获取clean工作空间
+-----------------
+
+从工作空间中清除没参与版本管理的文件（remove untracked files from the working tree）
+
+.. prompt:: bash $,# auto
+
+   $ git clean
+   # -q, --quiet           不打印删除的文件名
+   # -n, --dry-run         dry run
+   # -f, --force           force
+   # -i, --interactive     交换式的清除，有选择项
+   # -d                    清除因此而空的空目录
+   # -e, --exclude <pattern> add <pattern> to ignore rules
+   # -x                    连带删除被ignore的文件
+   # -X                    只删除被ignore的文件
+
+对某些文件不进行版本管理(ignore)
+--------------------------------
+
+
+* 相应的配置文件为 ``.git/info/exclude`` 和 ``.gitignore`` ，前者为 ``git init`` 时创建；后者一般上传至远程仓，跟别人共享一份配置
+* J家 IDE可以用\ ``.ignore``\ 插件来生成.ignore模板文件
+* `.ignore中的一些语法 <https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository>`_
+
+  * 遵从通配符模式找文件，\ **默认递归**\ 地查找工作空间的文件
+  * 开头加上\ ``/``\ 表示取消递归
+
+`生成PAT(personal access token) <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token>`_
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+回溯到某个commit
+----------------
+
+.. prompt:: bash $,# auto
+
+   $ git checkout <commit_id>
+
+丢弃待进行的merge操作
+---------------------
+
+有时不解决文件冲突则无法进行reset --soft操作
+
+.. prompt:: bash $,# auto
+
+   # --abort abort the current in-progress merge
+   $ git merge --abort
+
+压缩commit记录
+--------------
+
+为减小git仓的大小、去冗余、让commit记录更漂亮
+
+修改message (of last commit)
+----------------------------
+
+
+* 当本地文件内容 = 暂存区内容 = 本地仓内容时
+
+.. prompt:: bash $,# auto
+
+   $ git commit --amend -m "<修改后的message>"
+
+
+* 
+  pycharm IDE中的实现：
+
+  :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210209114613082.png" alt="image-20210209114613082" style="zoom: 67%; " />`
+
+覆写远程服务器上的git仓（暴力解决方案）
+---------------------------------------
+
+
+* 在本地修正完本地仓的历史后，强制将本地仓的历史覆写到远程仓中
+
+.. prompt:: bash $,# auto
+
+   $ git push -f
+
+覆写本地仓
+----------
+
+
+* 根据远程仓覆写本地仓
+
+.. prompt:: bash $,# auto
+
+   # 获取远程仓的历史树
+   $ git fetch
+   # 版本回溯
+   $ git reset --hard <remote_branch_name>
+
+选择性地挑选文件的changes进行commit
+-----------------------------------
+
+
+* for pycharm：
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210222010451820.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210222010451820.png
+   :alt: image-20210222010451820
+
+
+版本回溯
+--------
+
+git reset: Reset current HEAD to the specified state
+
+.. prompt:: bash $,# auto
+
+   # 回溯到对应的commit
+   $ git reset [option] [commit_id]
+   --soft  ：同步HEAD(difference不会commit)
+   --mixed ：同步HEAD和INDEX区(difference会commit)
+   --hard  ：同步HEAD、INDEX和工作空间
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210827192811107.png" alt="image-20210827192811107" style="zoom: 80%; " />`
+
+
+* reset --hard一般可用于删除commit，如删除当前的commit
+
+.. prompt:: bash $,# auto
+
+   $ git reset --hard HEAD~1
+
+
+* reset --soft一般用于修正历史树(commit tree)，如让其线性化
+
+删除文件
+--------
+
+.. prompt:: bash $,# auto
+
+   # 删除文件在暂存区和工作区的相关文件和文件夹
+   $ git rm <文件/文件夹>
+   # 只删除其在暂存区的相关文件和文件夹
+   $ git rm --cached <文件/文件夹>
+
+.. note:: `git rm` 只能删除已在暂存区的文件
+
+
+拓展资料
+--------
+
+
+#. `github command line <https://github.com/cli/cli>`_
