@@ -2,8 +2,8 @@
    :format: html
 
 
-02.catkin_make&catkin_tool实战
-==============================
+02. catkin_make&catkin_tool实战
+===============================
 
 
 .. raw:: html
@@ -34,7 +34,7 @@ catkin_make
 
    $ catkin_make --use-ninja
 
-.. note:: ``catkin_make`` 用 ``ninja`` 编译速度会快些，但对报错信息没有语法高亮，很影响调试
+.. note:: `catkin_make` 用 `ninja` 编译速度会快些，但对报错信息没有语法高亮，很影响调试
 
 
 `catkin build <https://catkin-tools.readthedocs.io/en/latest/index.html>`_
@@ -126,3 +126,39 @@ catkin_make
 catkin build可以设置配置文档profile
 
 .. todo:: 尚未明晰可用的场景
+
+
+DEBUG
+-----
+
+使用catkin builld编译时显示could not find a package configuration file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912141918386.png" alt="image-20210912141918386" style="zoom: 80%; " />`
+
+一般来说catkin build不用像catkin_make一样，需要在cmakelists中指明依赖关系，其能够合理地安排编译顺序，会出现上述问题可检查一波 ``package.xml`` 是否写好了build tag
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AYu9WKlHPlES5yu7.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+拓展工具
+--------
+
+`catkin-lint <https://fkie.github.io/catkin_lint/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+静态查看catkin工程错误
+
+.. prompt:: bash $,# auto
+
+   # 安装
+   $ sudo apt install catkin-lint
+   # example
+   $ catkin_lint -W0 .
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912200754563.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912200754563.png
+   :alt: image-20210912200754563
+
+
+.. note:: catkin_lint相关提示信息仅供参考，不一定准确
