@@ -1,4 +1,7 @@
 00.术语&概念
 ==============
+<p align="right"> version: |today| </p>
+
+
 1. ``sphinx``, ``MKdocs``, ``Hexo`` 都可以用来生成html文档
 

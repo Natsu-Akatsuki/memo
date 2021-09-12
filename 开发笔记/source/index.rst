@@ -41,6 +41,14 @@
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: python笔记
+
+   python笔记/rst/01.内置库实战.rst
+   python笔记/rst/02.第三方库实战.rst
+   
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: ros笔记
 
    ros笔记/01.launch文件指北.rst

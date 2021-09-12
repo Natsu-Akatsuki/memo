@@ -40,6 +40,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_toggleprompt",
     "notfound.extension",
+    "sphinx_last_updated_by_git",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -78,3 +79,5 @@ html_static_path = ["_static", "pdf资料"]
 [extensions]
 todo_include_todos=True
 todo_emit_warnings=False
+
+today_fmt = '%b %d %y at %H:%M'

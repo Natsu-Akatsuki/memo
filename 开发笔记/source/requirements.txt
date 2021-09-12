@@ -6,3 +6,4 @@ sphinx-prompt
 sphinx_copybutton
 # 隐藏代码块prompt按钮
 sphinx_toggleprompt
+sphinx-last-updated-by-git

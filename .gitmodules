@@ -1,0 +1,3 @@
+[submodule "开发笔记/source/ubuntu笔记/tmux"]
+	path = 开发笔记/source/ubuntu笔记/tmux
+	url = https://github.com/Natsu-Akatsuki/MyTmux
