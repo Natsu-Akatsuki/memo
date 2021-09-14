@@ -1,0 +1,53 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+快速入门
+========
+
+``sphinx`` , ``MKdocs`` , ``Hexo`` 都可以用来生成html文档；本教程将使用 ``ReadTheDocs`` 部署 ``sphinx`` 生成的文档
+
+步骤一：安装sphinx相关依赖
+
+.. prompt:: bash $,# auto
+
+   # test in ubuntu20.04
+   $ sudo apt install python3-sphinx
+
+步骤二：创建基础模板
+
+.. prompt:: bash $,# auto
+
+   $ mkdir sphinx_tutorial && cd sphinx_tutorial
+   # 有相关内容需要进行填写，如输入作者、版号等信息
+   $ sphinx-quickstart
+
+步骤三：(optional) 生成html并查看
+
+.. prompt:: bash $,# auto
+
+   $ make html
+   # 使用其他浏览器打开亦可
+   $ google-chrome index.html
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210731000407495.png" style="zoom: 50%; " />`
+
+步骤四：源文件提交至github
+
+.. attention:: 没必要提交编译结果；同时如要免费使用 `ReadTheDocs` 的功能，只能使用公有仓
+
+
+步骤五：ReadTheDocs关联github
+
+基本在\ `网页 <https://readthedocs.org/>`_\ 上直接 ``Import a project`` 一波就能部署完毕，详细教程可参考\ `link <https://docs.readthedocs.io/en/stable/intro/import-guide.html>`_\ ；\ **连workflow/action这些都不用配置就能部署**
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210731001321545.png" style="zoom: 50%; " />`
+
+辅助资料
+--------
+
+
+#. `reStructure文件语法 for sphinx <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#>`_
+#. `资料2 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/images.html>`_
+#. `资料3 <https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Admonitions.html>`_
+#. `资料4 <https://bashtage.github.io/sphinx-material/rst-cheatsheet/rst-cheatsheet.html>`_
