@@ -45,6 +45,7 @@
 
    python笔记/rst/01.内置库实战.rst
    python笔记/rst/02.第三方库实战.rst
+   python笔记/rst/03.拓展工具.rst
    
 .. toctree::
    :maxdepth: 1

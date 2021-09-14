@@ -1,0 +1,81 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+03. 拓展工具
+------------
+
+PDB（命令行调试工具）
+^^^^^^^^^^^^^^^^^^^^^
+
+
+* 进入命令行DEBUG模式
+
+.. code-block::
+
+   $ python -m pdb <python_file>
+
+
+* `常用命令行 python docs <https://docs.python.org/3/library/pdb.html#debugger-commands>`_\ 、\ `常用命令行（中文） <https://www.cnblogs.com/xiaohai2003ly/p/8529472.html>`_\ 、\ `CheatSheet <https://appletree.or.kr/quick_reference_cards/Python/Python%20Debugger%20Cheatsheet.pdf>`_
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 命令行
+   * - 打断点
+     - b(break) 行号
+   * - 查看帮助手册
+     - h(help)
+   * - 显示变量值
+     - p(print)
+   * - 退出debug
+     - q(quit)
+   * - 打印当前执行堆栈
+     - w(where)
+
+
+.. note:: PDB支持输入python语句，对于不认识的命令行，PDB会认为是python语句来执行），要显式表示该语句为python语句，可以在输入前加入 `!`
+
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210914104258430.png" alt="image-20210914104258430" style="zoom:67%;" />`
+
+----
+
+**NOTE**
+
+给当前文件的第3行打断点：b 3
+
+给文件A的第15行打断点：b A:15
+
+----
+
+`PDB++ <https://github.com/pdbpp/pdbpp>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+安装后会默认替换PDB；升级后的特性包括：语法高亮、添加颜色
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ pip3 install pdbpp
+
+`py-spy（性能分析工具） <https://github.com/benfred/py-spy>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 安装
+   $ pip3 install py-spy
+
+   # 生成火焰图
+   $ py-spy record -o profile.svg --pid <pid>
+   # OR
+   $ py-spy record -o profile.svg -- python <file_name>
+
+   # 实时查看函数调用情况
+   $ py-spy top --pid <pid>
+   # OR
+   $ py-spy top -- python <file_name>
