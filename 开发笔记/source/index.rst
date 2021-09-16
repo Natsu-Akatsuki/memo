@@ -79,3 +79,4 @@
    ubuntu笔记/rst/07.用户和用户组配置.rst
    ubuntu笔记/rst/08.包管理、虚拟环境和容器.rst
    ubuntu笔记/rst/09.密码管理.rst
+   ubuntu笔记/rst/10.常用应用程序.rst
