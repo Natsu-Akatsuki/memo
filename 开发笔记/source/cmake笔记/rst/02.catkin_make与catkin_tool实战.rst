@@ -2,14 +2,46 @@
    :format: html
 
 
-02. catkin_make&catkin_tool实战
-===============================
+02. 编译实战
+============
 
 
 .. raw:: html
 
    <p align="right">Author: kuzen, Natsu-Akatsuki</p>
 
+
+cmake
+-----
+
+安装
+^^^^
+
+方法一： ``apt`` 下载
+
+.. prompt:: bash $,# auto
+
+   # linux 18.04对应3.10版本
+   $ sudo apt-get install cmake
+
+方法二：\ `源码下载 <https://cmake.org/download/>`_
+
+.. prompt:: bash $,# auto
+
+   # e.g.
+   $ wget https://github.com/Kitware/CMake/releases/download/v3.18.3/cmake-3.18.3.tar.gz 
+   # 要安装cmake-qt-gui时需要添加如下option
+   $ ./bootstrap --qt-gui
+
+使用conda环境的cmake文件
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+在conda环境安装了相关包之后，需要conda activate才能使用其cmake文件，如果不activate的话，需要类似如下类型的参数配置
+
+.. prompt:: bash $,# auto
+
+   # 以pybind11为例 
+   -Dpybind11_DIR=${env_path}/share/cmake/pybind11`
 
 catkin_make
 -----------
@@ -88,7 +120,7 @@ catkin_make
    $ catkin config -r <配置参数>
 
 
-* 编译当前文件夹下的\ ``package``
+* 编译当前所处的\ ``package``
 
 .. prompt:: bash $,# auto
 
@@ -117,7 +149,7 @@ catkin_make
    # 移除非src文件夹下的包的编译产物 
    $ catkin clean --orphans
 
-.. note:: ``catkin clean`` 默认删除 ``devel`` 、 ``log`` 等目录，但隐藏目录 ``.catkin_tools`` , ``.catkin_workspace`` 不会清除
+.. note:: `catkin clean` 默认删除 `devel` 、 `log` 等目录，但隐藏目录 `.catkin_tools` , `.catkin_workspace` 不会清除
 
 
 `配置文档 <https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_profile.html>`_
@@ -127,6 +159,9 @@ catkin build可以设置配置文档profile
 
 .. todo:: 尚未明晰可用的场景
 
+
+`deploy a catkin package <https://answers.ros.org/question/226581/deploying-a-catkin-package/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 DEBUG
 -----
@@ -139,6 +174,130 @@ DEBUG
 一般来说catkin build不用像catkin_make一样，需要在cmakelists中指明依赖关系，其能够合理地安排编译顺序，会出现上述问题可检查一波 ``package.xml`` 是否写好了build tag
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AYu9WKlHPlES5yu7.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+/usr/bin/ld: cannot find -l...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 在使用TensorRT部署时出现如下的一些报错
+
+.. prompt:: bash $,# auto
+
+   /usr/bin/ld: cannot find -lnvonnxparser
+   /usr/bin/ld: cannot find -lnvinfer_plugin 
+   /usr/bin/ld: cannot find -lcudnn
+
+一种解决方案为使用环境变量 ``LIBRARY_PATH`` 。此前认为时需要修改环境变量 ``LD_LIBRARY_PATH`` ，添加动态库链接搜索路径，但实际上该环境变量，只影响运行期(runtime)链接器 ``ld.so`` 的搜索路径。而不影响编译期(complie time)链接器 ``/usr/bin/ld`` 的搜索路径。要影响编译期链接的话，需要修改环境变量 ``LIBRARY_PATH``
+
+.. prompt:: bash $,# auto
+
+   $ env LIBRARY_PATH=/usr/local/cuda/lib64:${HOME}/application/TensorRT-8.0.0.3/lib make
+
+另一种解决方案为在CMakeLists上增设：
+
+.. code-block:: cmake
+
+   # e.g.
+   link_directories(/usr/local/cuda/lib64/ $ENV{HOME}/application/TensorRT-8.0.0.3/lib)
+   # 或使用target_link_libraries
+
+
+* 
+  拓展资料
+
+
+  * `ld和ld.so命令的区别 <https://blog.csdn.net/jslove1997/article/details/108033399>`_
+  * `stackoverflow answer <https://stackoverflow.com/questions/61016108/collect2-error-ld-returned-1-exit-status-lcudnn>`_
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/U9PWBBMXKy4vBo31.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/U9PWBBMXKy4vBo31.png!thumbnail
+   :alt: img
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/FvUyBNAT1nHvGPiG.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/FvUyBNAT1nHvGPiG.png!thumbnail
+   :alt: img
+
+
+
+* `查找动态链接库的顺序 for runtime <https://man7.org/linux/man-pages/man8/ld.so.8.html>`_
+
+No CMAKE_CXX_COMPILER could be find
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install build-essential
+
+未定义的引用（undefined reference）
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+这错错误发生在链接时期。一般来说有以下几种情况。一种是没下载相关的链接库（可locate看一下）；一种是库的冲突，比如ros的opencv库与从源码编译安装到系统的opencv库发生冲突，至依赖被覆盖而使目标文件无法成功链接到库。可卸载安装到系统的opencv库（如用sudo make uninstall来卸载）；一种是已下载但没找到，添加相关搜素路径即可
+
+imported target \"...\" references the file \"...\" but this file does not exist.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`locate 定位相关位置后，使用软链接 <https://blog.csdn.net/weixin_45617478/article/details/104513572>`_
+
+no such file or directory：没有找到头文件的路径，导入头文件失败。
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+在已有头文件的情况下，可直接添加绝对路径进行搜索；\ `或者头文件名不对，进行修改即可 <https://github.com/RobustFieldAutonomyLab/LeGO-LOAM/issues/219>`_
+
+.. code-block:: cmake
+
+   # e.g. include/utility.h:13:10: fatal error: opencv2/cv.h: No such file or directory #include <opencv2/cv.h>
+   include_directories(
+      include
+      绝对路径   # e.g. /home/helios/include
+   )
+
+目标文件命名冲突(for catkin)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+rslidar和velodyne package的目标文件重名
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/M5KhRzVvmtcWapDQ.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/M5KhRzVvmtcWapDQ.png!thumbnail
+   :alt: img
+
+
+找不到cuda库和tensorrt库相关文件
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+在autoware中，使用有关深度学习的cmake时，不能直接通过find_package找到cuda库和tensorRT；autoware配置环境时是使用deb包来安装的，会随带着将cmake等文件也安装到系统路径中；而如果使用的是local的安装方式，则find_package失效时，可参考如下方法进行添加：
+
+`
+
+.. prompt:: bash $,# auto
+
+   include_directories($ENV{HOME}/application/TensorRT-7.2.3.4/include/) link_directories($ENV{HOME}/application/TensorRT-7.2.3.4/lib)`
+   `
+
+`ROS中编译通过但是遇到可执行文件找不到的问题 <https://blog.csdn.net/u014157968/article/details/86516797>`_\ ：指令顺序的重要性
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* catkin_package要放在add_executable前，\ `案例（松灵底盘） <https://github.com/agilexrobotics/agx_sdk/issues/1>`_
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/BdZu0UoMbhAAPawe.png!thumbnail" alt="img" style="zoom:50%; " />`
+
+
+* `为什么有些情况即使顺序不对，catkin_make也能编译成功？ <https://jbohren-ct.readthedocs.io/en/pre-0.4.0-docs/migration.html>`_
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/0EA9e6jBjsZnVsIF.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+opencv库兼容性问题
+^^^^^^^^^^^^^^^^^^
+
+不同版本的opencv库或有功能相同但名字不同的问题，在编译时可能会出现未声明等报错，这时候就需要查文档就行修改。
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz3d8VYj2wt2TNqb.png!thumbnail" alt="img" style="zoom:50%; " />`
+
+实例：\ `kalibr 16.04/14.04 <https://github.com/ethz-asl/kalibr>`_ -> `kalibr 20.04 <https://github.com/ori-drs/kalibr>`_
 
 拓展工具
 --------
