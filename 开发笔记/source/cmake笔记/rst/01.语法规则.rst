@@ -14,8 +14,53 @@
 ----
 
 
-#. 指令大小写无关（如 ``add_library`` 等价于 ``ADD_LIBRARY``\ ）
-#. 参数和变量、OPTION大小写敏感（如REQUIRED不能写成required）
+* 
+  指令大小写无关（如 ``add_library`` 等价于 ``ADD_LIBRARY``\ ）
+
+* 
+  参数和变量、OPTION大小写敏感（如REQUIRED不能写成required）
+
+Alias target
+^^^^^^^^^^^^
+
+
+* 
+  ``target``\ ，根据上下文，应该指的是\ ``library``\ 这种target，而不是executable file；且是 ``alias target`` ；采用 ``taget-based`` 的方法可以不用再\ ``include_directory`` ，只需要 ``target_link_libraries`` 就能完成编译（\ `link <https://github.com/ttroy50/cmake-examples/tree/master/01-basic/H-third-party-library>`_\ ）
+
+* 
+  案例1：
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/wbtoJSQAxXyl23X8.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/wbtoJSQAxXyl23X8.png!thumbnail
+   :alt: img
+
+
+等价于
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/X74TytKWlvFw0Xst.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/X74TytKWlvFw0Xst.png!thumbnail
+   :alt: img
+
+
+
+* 案例2（\ `link <https://github.com/fzi-forschungszentrum-informatik/Lanelet2/issues/39>`_\ ）
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/srnzrPDtnm75OZuv.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/srnzrPDtnm75OZuv.png!thumbnail
+   :alt: img
+
+
+
+* target-based的target（library）采用的是alias targets，其生成可参考（\ `link <http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fttroy50%2Fcmake-examples%2Fblob%2Fmaster%2F01-basic%2FD-shared-library%2FREADME.adoc&r=https%3A%2F%2Fshimo.im%2Fdocs%2FgjWXYXXprqjtDDgk>`_\ ）
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uK5A6MiUUP6Ylf96.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uK5A6MiUUP6Ylf96.png!thumbnail
+   :alt: img
+
 
 常用函数/宏
 -----------
@@ -33,13 +78,8 @@
    set(env{变量名} 值)    # 获取环境变量 
    message($env{HOME})   # 使用环境变量
 
-.. hint:: 
+.. hint:: 单个variable有多个arguments时，用分号将argument进行concatenate后再进行赋值；然而message显示时，不会出现分号；使用一个变量时，不同于 bash可以不加上{}，在 CMakelists中一定要加上
 
-
-
-#. 单个variable有多个arguments时，用分号将argument进行concatenate后再进行赋值
-#. 然而message显示时，不会出现分号
-#. 使用一个变量时，不同于 ``bash`` 可以不加上{}，在 ``CMakelists``\ 中一定要加上
 
 生成库
 ^^^^^^
@@ -165,7 +205,7 @@
    # e.g.
    target_compile_options(target_name PUBLIC "-g")
 
-.. note:: 该选项会覆盖 `CMAKE_BUILD_TYPE`
+.. note:: 该选项会覆盖CMAKE_BUILD_TYPE
 
 
 `find_package <https://cmake.org/cmake/help/v3.18/command/find_package.html?highlight=find_package>`_
@@ -192,13 +232,13 @@
 
 * 
   ``find_package``\ 宏执行后会产生相关的变量，例如，\ ``<package_name>_INCLUDE_DIRS``
-  or ``<package_name>_INCLUDES`` or
-  ``<package_name>_INCLUDE_DIR`` 具体看相关模块的设计
+    or ``<package_name>_INCLUDES`` or
+    ``<package_name>_INCLUDE_DIR`` 具体看相关模块的设计
 
 * 
   cmake modules 指文件\ ``FindXXX.cmake``\ ，要指定 cmake
-  module的搜索路径，可以配置如下参数；不过它也有默认的搜索路径即cmake安装路径下的Module目录（e.g.
-  /usr/share/cmake-3.16/Modules），在默认路径下没找到，才去CMAKE_MODULE_PATH下找
+    module的搜索路径，可以配置如下参数；不过它也有默认的搜索路径即cmake安装路径下的Module目录（e.g.
+    /usr/share/cmake-3.16/Modules），在默认路径下没找到，才去CMAKE_MODULE_PATH下找
 
 .. code-block:: cmake
 
@@ -253,7 +293,7 @@ catkin_package (ros)
 
 * 实测其并不会将当前的include等文件夹拷贝到devel目录中
 * 必须要在声明targets前（即使用add_library()或add_executable(). 前）
-  调用该宏
+    调用该宏
 
 `option <https://cmake.org/cmake/help/v3.20/command/option.html>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -276,7 +316,7 @@ catkin_package (ros)
 
 .. prompt:: bash $,# auto
 
-   $ cmake .. -DCMAKE_INSTALL_PREFIX=/install/location
+   cmake .. -DCMAKE_INSTALL_PREFIX=/install/location
 
 方法二：cmake-gui等图形界面进行：
 
@@ -288,7 +328,7 @@ catkin_package (ros)
 
 
 * 指定安装的内容和相对路径：
-  安装可执行文件，并安装到到指定目录： ``${CMAKE_INSTALL_PREFIX}/bin``
+    安装可执行文件，并安装到到指定目录： ``${CMAKE_INSTALL_PREFIX}/bin``
 
 .. code-block:: cmake
 
@@ -318,7 +358,7 @@ catkin_package (ros)
 
 
 * ``make install``\ 后 CMake 会生成
-  install_manifest.txt文件（含安装的文件路径，到时可基于这个文件删除安装文件）
+    install_manifest.txt文件（含安装的文件路径，到时可基于这个文件删除安装文件）
 
 .. code-block:: cmake
 
@@ -363,53 +403,6 @@ catkin_package (ros)
 
    # 相关待执行的命令； 存储标准输出的变量
    execute_process(COMMAND python -c "from sysconfig import get_paths;print(get_paths()['include'])" OUTPUT_VARIABLE DUMMY)
-
-案例分析
---------
-
-Alias target
-^^^^^^^^^^^^
-
-
-* 
-  ``target``\ ，根据上下文，应该指的是\ ``library``\ 这种target，而不是executable
-  file；且是 ``alias target`` ；采用 ``taget-based`` 的方法可以不用再
-  ``include_directory`` ，只需要 ``target_link_libraries`` 就能完成编译（\ `link <https://github.com/ttroy50/cmake-examples/tree/master/01-basic/H-third-party-library>`_\ ）
-
-* 
-  案例1：
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/wbtoJSQAxXyl23X8.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/wbtoJSQAxXyl23X8.png!thumbnail
-   :alt: img
-
-
-等价于
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/X74TytKWlvFw0Xst.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/X74TytKWlvFw0Xst.png!thumbnail
-   :alt: img
-
-
-
-* 案例2（\ `link <https://github.com/fzi-forschungszentrum-informatik/Lanelet2/issues/39>`_\ ）
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/srnzrPDtnm75OZuv.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/srnzrPDtnm75OZuv.png!thumbnail
-   :alt: img
-
-
-
-* target-based的target（library）采用的是alias targets，其生成可参考（\ `link <http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fttroy50%2Fcmake-examples%2Fblob%2Fmaster%2F01-basic%2FD-shared-library%2FREADME.adoc&r=https%3A%2F%2Fshimo.im%2Fdocs%2FgjWXYXXprqjtDDgk>`_\ ）
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uK5A6MiUUP6Ylf96.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uK5A6MiUUP6Ylf96.png!thumbnail
-   :alt: img
-
 
 Module CheatSheet
 -----------------

@@ -43,6 +43,34 @@ cmake
    # 以pybind11为例 
    -Dpybind11_DIR=${env_path}/share/cmake/pybind11`
 
+逻辑判断
+^^^^^^^^
+
+判断一个路径对应的是文件夹
+
+.. prompt:: bash $,# auto
+
+   if(IS_DIRECTORY "...")
+
+处理可执行文件
+^^^^^^^^^^^^^^
+
+
+* `find_program <https://cmake.org/cmake/help/latest/command/find_program.html>`_\ ：类似which，找到某个可执行文件的路径
+* execute_process：执行某个可执行文件
+
+.. prompt:: bash $,# auto
+
+   # 判断某个可执行文件是否存在
+   find_program(GDOWN_AVAIL "gdown")
+   if (NOT GDOWN_AVAIL)
+     message("...")
+   endif()
+
+   # 执行某个可执行文件
+   execute_process(COMMAND mkdir [args...])
+   execute_process(COMMAND gdown [args...])
+
 catkin_make
 -----------
 
@@ -59,6 +87,7 @@ catkin_make
 
 .. note:: 要屏蔽某些包被编译，可以创建一个名为 `CATKIN_IGNORE <https://github.com/tier4/velodyne_vls/tree/tier4/master/velodyne_msgs>`_ 的文件到这些包所在的目录下
 
+
 使用ninja编译
 ^^^^^^^^^^^^^
 
@@ -66,7 +95,7 @@ catkin_make
 
    $ catkin_make --use-ninja
 
-.. note:: `catkin_make` 用 `ninja` 编译速度会快些，但对报错信息没有语法高亮，很影响调试
+.. note:: catkin_make用ninja编译速度会快些，但对报错信息没有语法高亮，很影响调试
 
 
 `catkin build <https://catkin-tools.readthedocs.io/en/latest/index.html>`_
@@ -84,7 +113,6 @@ catkin_make
 .. prompt:: bash $,# auto
 
    $ catkin build --start-with <pkg>
-   `
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/dIW8tcn1J6m2KYLp.png!thumbnail" alt="img" style="zoom:67%; " />`
 
@@ -149,7 +177,7 @@ catkin_make
    # 移除非src文件夹下的包的编译产物 
    $ catkin clean --orphans
 
-.. note:: `catkin clean` 默认删除 `devel` 、 `log` 等目录，但隐藏目录 `.catkin_tools` , `.catkin_workspace` 不会清除
+.. note:: catkin clean 默认删除 devel, log等目录，但隐藏目录 .catkin_tools , .catkin_workspace不会清除
 
 
 `配置文档 <https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_profile.html>`_
@@ -175,8 +203,8 @@ DEBUG
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AYu9WKlHPlES5yu7.png!thumbnail" alt="img" style="zoom:67%; " />`
 
-/usr/bin/ld: cannot find -l...
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/bin/ld: cannot find -l
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * 在使用TensorRT部署时出现如下的一些报错
@@ -191,7 +219,7 @@ DEBUG
 
 .. prompt:: bash $,# auto
 
-   $ env LIBRARY_PATH=/usr/local/cuda/lib64:${HOME}/application/TensorRT-8.0.0.3/lib make
+   env LIBRARY_PATH=/usr/local/cuda/lib64:${HOME}/application/TensorRT-8.0.0.3/lib make
 
 另一种解决方案为在CMakeLists上增设：
 
@@ -229,20 +257,20 @@ No CMAKE_CXX_COMPILER could be find
 
 .. prompt:: bash $,# auto
 
-   $ sudo apt install build-essential
+   sudo apt install build-essential
 
 未定义的引用（undefined reference）
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 这错错误发生在链接时期。一般来说有以下几种情况。一种是没下载相关的链接库（可locate看一下）；一种是库的冲突，比如ros的opencv库与从源码编译安装到系统的opencv库发生冲突，至依赖被覆盖而使目标文件无法成功链接到库。可卸载安装到系统的opencv库（如用sudo make uninstall来卸载）；一种是已下载但没找到，添加相关搜素路径即可
 
-imported target \"...\" references the file \"...\" but this file does not exist.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+imported target \"...\" references the file \"...\" but this file does not exist
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 `locate 定位相关位置后，使用软链接 <https://blog.csdn.net/weixin_45617478/article/details/104513572>`_
 
-no such file or directory：没有找到头文件的路径，导入头文件失败。
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+no such file or directory：没有找到头文件的路径，导入头文件失败
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 在已有头文件的情况下，可直接添加绝对路径进行搜索；\ `或者头文件名不对，进行修改即可 <https://github.com/RobustFieldAutonomyLab/LeGO-LOAM/issues/219>`_
 
@@ -269,8 +297,6 @@ rslidar和velodyne package的目标文件重名
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 在autoware中，使用有关深度学习的cmake时，不能直接通过find_package找到cuda库和tensorRT；autoware配置环境时是使用deb包来安装的，会随带着将cmake等文件也安装到系统路径中；而如果使用的是local的安装方式，则find_package失效时，可参考如下方法进行添加：
-
-`
 
 .. prompt:: bash $,# auto
 
