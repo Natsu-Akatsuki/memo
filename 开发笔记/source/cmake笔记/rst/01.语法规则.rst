@@ -135,12 +135,33 @@ Alias target
 
 方法二的头文件路径仅适用特定的 ``target`` ，方法一的适用于所有 ``target``
 
-添加额外的库搜索路径
-^^^^^^^^^^^^^^^^^^^^
+`添加库搜索路径 <https://cmake.org/cmake/help/latest/command/link_directories.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: cmake
 
    link_directories(dir_path)
+
+.. note:: link_directory只是添加搜索路径，并不起链接作用
+
+
+找库
+^^^^
+
+.. code-block:: cmake
+
+   # find_library (<VAR> name1 [path1 path2 ...])
+   find_library(NVPARSERS NAMES nvparsers)
+   find_library(NVCAFFE_PARSER NAMES nvcaffe_parser)
+   find_library(NVINFER_PLUGIN NAMES nvinfer_plugin)
+
+
+* 要添加搜索路径，可修改\ ``CMAKE_LIBRARY_PATH``
+
+.. code-block:: cmake
+
+   # e.g.
+   set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "$ENV{HOME}/application/TensorRT-8.0.0.3/lib")
 
 链接可执行文件与库
 ^^^^^^^^^^^^^^^^^^
@@ -404,6 +425,14 @@ catkin_package (ros)
    # 相关待执行的命令； 存储标准输出的变量
    execute_process(COMMAND python -c "from sysconfig import get_paths;print(get_paths()['include'])" OUTPUT_VARIABLE DUMMY)
 
+使用通配符找文件
+^^^^^^^^^^^^^^^^
+
+.. code-block:: cmake
+
+   # e.g. file(GLOB source_files ${TENSORRT_INSTALL_DIR}/samples/common/*.cpp)
+   file(GLOB <outPUT-var> [<globbing-expr>...])
+
 Module CheatSheet
 -----------------
 
@@ -414,6 +443,15 @@ EIGEN
 
    find_package(Eigen3 REQUIRED)
    include_directories(${EIGEN3_INCLUDE_DIRS} )
+
+OpenCV
+^^^^^^
+
+.. code-block:: cmake
+
+   find_package(OpenCV REQUIRED)
+   include_directories(${OpenCV_INCLUDE_DIRS})
+   target_link_libraries(<target> ${OpenCV_LIBS})
 
 Variables CheatSheet
 --------------------
