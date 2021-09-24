@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>msg_test02</name>
+  <version>0.0.0</version>
+  <description>The msg_test02 package</description>
+  <maintainer email="helios@todo.todo">helios</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>msg_test01</depend>
+
+  <build_depend>rospy</build_depend>
+  <exec_depend>rospy</exec_depend>
+
+</package>

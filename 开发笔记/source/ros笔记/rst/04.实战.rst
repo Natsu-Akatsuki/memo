@@ -1,0 +1,631 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+04. 实战
+========
+
+`基于ros环境导入某个package下的python包 <https://roboticsbackend.com/ros-import-python-module-from-another-package/>`_
+--------------------------------------------------------------------------------------------------------------------------
+
+简例
+^^^^
+
+步骤一：创建python模板，相应的目录树如下
+
+.. code-block:: plain
+
+   └── directory_name        # 一般可以设置为package_name
+       ├── CMakeLists.txt
+       ├── package.xml
+       ├── setup.py
+       └── src
+           └── module_name      # 一般设置为module_name
+               ├── import_me_if_you_can.py
+               └── __init__.py
+
+步骤二：编写 ``setup.py`` 文件
+
+.. code-block:: python
+
+
+   ## ! DO NOT MANUALLY INVOKE THIS setup.py, USE CATKIN INSTEAD
+
+   from distutils.core import setup
+   from catkin_pkg.python_setup import generate_distutils_setup
+
+   # fetch values from package.xml
+   setup_args = generate_distutils_setup(
+       packages=['module_name'],
+       package_dir={'': 'src'},
+       requires=['rospy']
+   )
+
+   setup(**setup_args)
+
+步骤三：编写 ``CMakeLists.txt`` 文件
+
+.. code-block:: cmake
+
+   cmake_minimum_required(VERSION 3.13)
+   project(project_name)
+   find_package(catkin REQUIRED COMPONENTS rospy)
+   # 调用当前CMakeLists文件所在目录下的setup.py
+   catkin_python_setup()   
+   catkin_package()
+
+构建元包
+--------
+
+参考教程
+^^^^^^^^
+
+
+* 方案一：\ `answer.ros.org <https://answers.ros.org/question/322340/creating-metapackage/>`_
+
+.. prompt:: bash $,# auto
+
+   catkin_create_pkg <MY_META_PACKAGE> --meta
+
+
+* 方案二：\ `ros-wiki教程 <http://wiki.ros.org/catkin/package.xml#Metapackages>`_
+
+直接添加一些细节到 ``CMakeLists`` 和 ``package.xml`` 上
+
+使用nodelet
+-----------
+
+ros节点的通信是进程的通信，采用ros tcp的方法。当节点间传输的数据体量较大，通信（比如要反序列和序列化）的开销将比较大。因此若\ **希望减少节点间通讯的开销来提高实时性**\ ，这就需要用到nodelet技术。具体例子，比如跑一些点云的预处理模块，涉及到采集的点云转换成ros数据，点云滤波去离群点，点云裁剪，点云去地面等节点，这些节点允许放在一个进程作为单独的线程去跑（ ``ros nodelet`` 程序能将一个 ``node`` 进程节点转换为 ``nodelet`` 线程节点），然后想提高实时性就可以用到。总体给人一种将进程通信转换为线程通信的感觉。
+
+`显示当前系统的nodelet和其描述文件 <http://wiki.ros.org/nodelet#Helper_tools>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   rospack plugins --attrib=plugin nodelet   # 显示.xml文件
+   rosrun nodelet declared_nodelets          # 显示ros工作空间中已有的nodelet
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210810223516109.png" alt="image-20210810223516109" style="zoom:67%; " />`
+
+plugin相关文档解析
+^^^^^^^^^^^^^^^^^^
+
+nodelet与plugin密切相关，其中ros中的插件(\ `plugin <[pluginlib](http://wiki.ros.org/pluginlib/Tutorials/Writing%20and%20Using%20a%20Simple%20Plugin>`_\ ))即动态库中的可动态加载的类
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210811003457276.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210811003457276.png
+   :alt: image-20210811003457276
+
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210515175724200.png" alt="image-20210515175724200" style="zoom:67%; " />`
+
+nodelet的启动
+^^^^^^^^^^^^^
+
+步骤一：一般而言，每个nodelet需要一个NodeletManager来管理，启动NodeletManager的方法
+
+.. prompt:: bash $,# auto
+
+   # 同时重命名NodeletManager
+   $ rosrun nodelet nodelet manager __name:=nodelet_manager
+
+等价于在launch文档中的：
+
+.. code-block:: xml
+
+   <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager"/>
+
+步骤二：加载nodelet到NodeletManager
+
+.. prompt:: bash $,# auto
+
+   # Launch a nodelet of type pkg/type(包名/xml文件中的class name) on manager manager
+   $ rosrun nodelet nodelet load nodelet_tutorial_math/Plus nodelet_manager
+
+等价于在launch文档中的：
+
+.. code-block:: xml
+
+   <node pkg="nodelet" type="nodelet" name="Plus" args="load nodelet_tutorial_math/Plus nodelet_manager"/>
+
+nodelet launch文档解读
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: xml
+
+   <!--都需要启动nodelet包的nodelet可执行文件，不过相应的启动参数不一样-->
+   <node pkg="nodelet" type="nodelet" name="euclidean_cluster_manager" args="manager" output="screen" />
+
+   <node pkg="nodelet" type="nodelet" name="$(anon voxel_grid_filter)" args="load pcl/VoxelGrid euclidean_cluster_manager" output="screen"> 
+   </node>
+
+   <node pkg="nodelet" type="nodelet" name="$(anon euclidean_cluster)" args="load euclidean_cluster/voxel_grid_based_euclidean_cluster_nodelet euclidean_cluster_manager" output="screen">
+   </node>
+
+   <!--standalone nodelet，不需要加载到nodelet manager，相关于启动一个普通node-->
+   <node pkg="nodelet" type="nodelet" name="Plus3" args="standalone nodelet_tutorial_math/Plus">
+   </node>
+
+参考教程
+^^^^^^^^
+
+
+* `ros.wiki官方教程 <http://wiki.ros.org/nodelet>`_
+
+需要对虚函数进行重载，所有有关ros的api需要在该部分进行初始化
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210810224100470.png" alt="image-20210810224100470" style="zoom:67%; " />`
+
+形如：
+
+.. code-block:: c++
+
+   void EuclideanClusterNodelet::onInit()
+   {
+     // Get the private node handle (provides this nodelets custom remappings in its private namespace)
+     private_nh_ = getPrivateNodeHandle(); 
+
+     private_nh_.param<std::string>("target_frame", target_frame_, "base_link"); 
+     private_nh_.param<bool>("use_height", use_height_, false); 
+     private_nh_.param<int>("min_cluster_size", min_cluster_size_, 3); 
+     private_nh_.param<int>("max_cluster_size", max_cluster_size_, 200); 
+     private_nh_.param<float>("tolerance", tolerance_, 1.0); 
+
+     nh_ = getNodeHandle(); 
+     pointcloud_sub_ =
+
+       private_nh_.subscribe("input", 1, &EuclideanClusterNodelet::pointcloudCallback, this);
+
+     cluster_pub_ =
+
+       private_nh_.advertise<autoware_perception_msgs::DynamicObjectWithFeatureArray>("output", 10);
+
+     debug_pub_ = private_nh_.advertise<sensor_msgs:: PointCloud2>("debug/clusters", 1); 
+   }
+
+
+* `nodelet code template <https://www.clearpathrobotics.com/assets/guides/kinetic/ros/Nodelet%20Everything.html>`_
+
+ros自带的nodelet
+^^^^^^^^^^^^^^^^
+
+.. code-block:: plain
+
+   ...
+   pcl/PassThrough
+   pcl/VoxelGrid
+   pcl/ProjectInliers
+   pcl/ExtractIndices
+   pcl/StatisticalOutlierRemoval
+   pcl/RadiusOutlierRemoval
+   pcl/CropBox
+   pcl/NodeletMUX
+   pcl/NodeletDEMUX
+   pcl/PCDReader
+   pcl/BAGReader
+   ...
+
+`使用gdb调试launch中的节点 <http://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20Nodes%20in%20Valgrind%20or%20GDB>`_
+-----------------------------------------------------------------------------------------------------------------------
+
+核心为使用gdb -p
+
+步骤一：修改 ``CmakeLists`` 的build type
+
+.. code-block:: cmake
+
+   SET(CMAKE_BUILD_TYPE "Debug")
+
+步骤二：gdb对应的进程
+
+.. prompt:: bash $,# auto
+
+   sudo gdb -p <pid_id>
+
+ros command API
+---------------
+
+rosnode
+^^^^^^^
+
+
+* `官方文档 for python <http://docs.ros.org/en/hydro/api/rosnode/html/>`_
+
+rosnode list
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # python
+   import rosnode
+   node_list = rosnode.get_node_names()
+
+rosnode kill
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # python
+   node_list = rosnode.get_node_names()
+   _, _ = rosnode.kill_nodes(node_list)
+
+rostopic
+^^^^^^^^
+
+rostopic list
+~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # python
+   import rospy
+   topic_list = rospy.get_published_topics()
+
+roslaunch
+^^^^^^^^^
+
+
+* 
+  `官方文档 for python <http://docs.ros.org/en/kinetic/api/roslaunch/html/index.html>`_\ ，\ `官方文档 wiki with example <http://wiki.ros.org/roslaunch/API%20Usage>`_
+
+* 
+  该API支持中文路径
+
+rospack
+^^^^^^^
+
+
+* `官方文档 for python <http://docs.ros.org/en/independent/api/rospkg/html/python_api.html>`_
+
+rospack find
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # python
+   # 获取某个package的绝对路径
+   from rospkg import RosPack
+   rp = RosPack()
+   path = rp.get_path('package_name')   # 返回某个包的绝对路径
+
+----
+
+.. code-block:: c++
+
+   // cpp
+   #include <ros/package.h>
+   std::string path = ros::package::getPath("package_name");
+
+`rviz(cpp) <http://docs.ros.org/en/jade/api/rviz/html/c++/classrviz_1_1VisualizationFrame.html#a76773514f60d7abbc5db8bd590acd79c>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ros命名空间
+-----------
+
+
+* cpp程序
+
+.. code-block:: c++
+
+   // c++中描述的节点名不包含命名空间，无'/'(e.g即没有/.../...，只有...)
+   ros::init(argc, argv, "节点名");
+
+
+* launch文件
+
+.. code-block:: xml
+
+   <!-- launch中的节点名也不包含命名空间 -->
+   <node pkg="talker" type="talker" name="talker"/>
+   <!-- 可以通过group tag或ns attribute来添加命名空间 -->
+   <!-- 前者可同时给多个节点附上一个命名空间，后者则针对具体的一个，前者可被后者覆盖-->
+   <group ns="namespaceA">  
+    <node ns='namespaceB' pkg="talker" type="talker" name="talker"/>
+   </group>
+
+
+* topic
+
+  * 当创建的节点有命名空间时，base类型(e.g. ``node_name``\ ，而非\ ``/.../node_name``\ )的topic会附上节点的命名空间
+  * 当创建的句柄带有(~)时，base类型的topic除了附上节点的命名空间，还会附上节点名作为命名空间
+
+rosDebug
+--------
+
+
+* 工具A：rqt（可查看相关的主题、节点等各种操作）
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902082605313.png" alt="image-20210902082605313" style="zoom:67%; " />`
+
+部署ros package
+---------------
+
+..
+
+   There is likely **a lot** more **learning curve** than catkin_make install + copy binaries. @\ `answers.ros <https://answers.ros.org/question/226581/deploying-a-catkin-package/>`_
+
+
+`实战教程 github <https://github.com/GDUT-IIDCC/Sleipnir.PreCompile>`_
+
+.. attention:: source的先后顺序非常重要
+
+
+常用ros python api解读
+----------------------
+
+rospy.init_node()为什么在主线程才能调用？
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 一般来说只能在\ **主线程**\ 中进行调用，因为\ **init_node**\ 时会构建信号回调函数(signal handlers)，而python中构建信号回调函数需要在主线程中进行构建（python特性）。
+* 设置不构建信号回调函数即可以在非主线程调用\ ``rospy.init_node``
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210909214309037.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210909214309037.png
+   :alt: image-20210909214309037
+
+
+.. code-block:: python
+
+   # 测试案例
+   import rospy
+   import threading
+
+   class myThread(threading.Thread):
+       def __init__(self):
+           threading.Thread.__init__(self)
+
+       def run(self):
+           rospy.init_node('my_node_name')
+           rospy.spin()
+
+   if __name__ == '__main__':
+       thread = myThread()
+       thread.start()
+       thread.join()
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210909214844411.png" alt="image-20210909214844411" style="zoom:50%; " />`
+
+
+* 其中rospy_init构筑的signal handlers如下：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210909215248055.png" alt="image-20210909215248055" style="zoom:50%; " />`
+
+rospy回调函数的多线程处理机制
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/rospy-cb-multithread.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/rospy-cb-multithread.png
+   :alt: rospy-cb-multithread.png
+
+
+
+* ``rospy``\ 中处理回调函数时会派生出一个新的线程去执行（线程名与主题名相同）
+
+..
+
+   These threads are different from the main thread of your program.
+
+
+
+* 拓展：如果有n个回调函数（处理的是不同的topic）则会派生出n个线程；如果有回调函数处理相同的topic则共用一个线程
+
+.. attention:: 此处阐述的是 `rospy` 的回调函数的机制，在 `roscpp` 中会有所不同
+
+
+参考资料
+~~~~~~~~
+
+
+* `Threads in ROS and Python <https://nu-msr.github.io/me495_site/lecture08_threads.html#what-this-threading-model-means-for-you>`_
+
+自定义rviz插件
+--------------
+
+参考资料
+^^^^^^^^
+
+
+* `应用案例官方教程 <https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.git>`_\ （含display, panel, tool的自定义设置）
+
+相关用法
+
+
+#. 继承rviz:: Panel类
+
+.. code-block:: c++
+
+   class TeleopPanel: public rviz:: Panel{
+
+       ...
+
+   }
+
+`给自定义插件添加icon <https://answers.ros.org/question/213971/how-to-add-an-icon-to-a-custom-display-type-in-rviz/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+只需要在icon\ **s**\ /class\ **es**\ 目录下添加icon.png文件即可，icon文件名同插件名
+
+`rviz Qt (for python) <https://github.com/Natsu-Akatsuki/memo/tree/master/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/source/ros%E7%AC%94%E8%AE%B0/example/rviz_qt.py>`_
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**用完一圈之后，不推荐使用这个rviz的python api，一是文档太少，难以进行开发，二是坑很多**\ 。比如退出Qt应用程序后，rviz节点将成为僵尸节点（即不能被rosnode kill掉，只能使用rosnode cleanup清理），而在实测中c++中不存在这个问题，进程可以退出得很干净；不能够在Qt中的rviz中添加图像面板，否则会有段错误提示
+
+
+* 官方\ `简例 <http://docs.ros.org/en/lunar/api/rviz_python_tutorial/html/ind>`_\ 含：frame（rviz界面）、thickness_slider（滑动条）、按键；只显示 3D render
+
+生成和调用自定义消息类型
+------------------------
+
+生成
+^^^^
+
+
+* 
+  在\ ``package.xml中``\ ：增加\ ``message_generation`` 这种\ ``build_depend`` tag ；增加\ ``message_runtime`` 这种\ ``exec_depend`` tag
+
+* 
+  在\ ``CMakeLists.txt``\ 中：增加依赖 ``message_generation`` 到 ``find_package(catkin REQUIRED COMPONENTS ...)``\ ；add_*_files这部分内容选择性取消注释，添加\ ``.msg``\ 文件；\ ``generate_messages``\ 这部分内容选择性取消注释 ``generate_messages(DEPENDENCIES ...）``\ 中添加依赖的包名
+
+调用
+^^^^
+
+
+* 
+  在\ ``package.xml``\ ：增加包的\ ``build_depend`` tag和\ ``exec_depend`` tag
+
+* 
+  在\ ``CMakeLists.txt``\ 中：将相关信息类型包添加到\ ``find_package``\ 即可
+
+.. note:: depend = exec_depend + build_depend，可以用depend tag来替代其他两个tag
+
+
+实例
+^^^^
+
+生成自定义的消息类型
+~~~~~~~~~~~~~~~~~~~~
+
+步骤一：创建一个简易package
+
+.. prompt:: bash $,# auto
+
+   catkin_create_pkg msg_test01 rospy generate_messages
+
+步骤二：创建 ``CMakeLists.txt`` （追加）
+
+.. code-block:: cmake
+
+   cmake_minimum_required(VERSION 3.0.2)
+   project(msg_test01)
+
+   find_package(catkin REQUIRED COMPONENTS
+     message_generation
+     rospy
+   )
+
+   ## 生成自定义的消息类型（build阶段，生成在build/下）
+
+   add_message_files(
+     # DIRECTORY (arg) 指定文件夹
+     FILES  # 指定文件
+     test01.msg
+   )
+
+   #  根据依赖，生成msg源文件（run阶段，生成在devel/下）
+   generate_messages(
+   #   DEPENDENCIES   有依赖时需取消#
+   #   std_msgs  # Or other packages containing msgs
+   )
+
+   catkin_package(
+     CATKIN_DEPENDS message_runtime rospy
+   )
+
+步骤三：创建 ``package.xml``
+
+.. code-block:: xml
+
+   <?xml version="1.0"?>
+   <package format="2">
+     <name>msg_test01</name>
+     <version>0.0.0</version>
+     <description>The msg_test01 package</description>
+
+     <maintainer email="helios@todo.todo">helios</maintainer>
+
+     <license>TODO</license>
+
+     <buildtool_depend>catkin</buildtool_depend>
+
+     <build_depend>rospy</build_depend>
+     <exec_depend>rospy</exec_depend>
+
+     <build_depend>message_generation</build_depend>
+     <exec_depend>message_runtime</exec_depend>
+
+   </package>
+
+.. note:: 生成的 `python msg module` 在 `devel/lib/python*/dist-packages/` 中
+
+
+调用自定义的消息类型
+~~~~~~~~~~~~~~~~~~~~
+
+步骤一：创建一个简易package
+
+.. prompt:: bash $,# auto
+
+   catkin_create_pkg msg_test02 rospy
+
+步骤二：创建 ``CMakeLists.txt``
+
+.. code-block:: cmake
+
+   cmake_minimum_required(VERSION 3.0.2)
+   project(msg_test02)
+
+   find_package(catkin REQUIRED COMPONENTS
+     msg_test01
+     rospy
+   )
+
+步骤三：创建 ``package.xml``
+
+.. code-block:: xml
+
+   <?xml version="1.0"?>
+   <package format="2">
+     <name>msg_test02</name>
+     <version>0.0.0</version>
+     <description>The msg_test02 package</description>
+     <maintainer email="helios@todo.todo">helios</maintainer>
+     <license>TODO</license>
+
+     <buildtool_depend>catkin</buildtool_depend>
+
+     <build_depend>msg_test01</build_depend>
+     <exec_depend>msg_test01</exec_depend>
+
+     <build_depend>rospy</build_depend>
+     <exec_depend>rospy</exec_depend>
+
+   </package>
+
+步骤四：创建 ``msg_test02.py`` 和使用自定义的消息类型
+
+.. code-block:: python
+
+   import rospy
+   # 注意此处的import含.msg
+   from msg_test01.msg import test01
+
+   rospy.init_node('msg_test01', anonymous=False)
+   test01 = test01()
+
+TF2
+---
+
+使用ROS2发布静态TF
+^^^^^^^^^^^^^^^^^^
+
+roslaunch
+~~~~~~~~~
+
+.. code-block:: xml
+
+   <!-- static_transform_publisher x y z yaw pitch roll 父 子坐标系 -->
+   <node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_lidar" args="0, 0, 0, 0, 0, 0 lidar  camera" />
+
+图形化查看TF树
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # noetic使用tf2
+   $ rosrun rqt_tf_tree rqt_tf_tree
+   # sudo apt install ros-noetic-tf2-tools
+   $ rosrun tf2_tools view_frames.py

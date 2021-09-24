@@ -1,9 +1,9 @@
 
-03.工具箱
-=========
+03. 三方工具
+============
 
-1. 动态调节参数
----------------
+动态调节参数
+------------
 
 可以在执行节点时动态调节相关配置参数，相关的功能包为\ `dynamic_reconfigure <http://wiki.ros.org/dynamic_reconfigure>`_\ ，但用起来比较麻烦，需要生成cfg文件，在CMakeLists中添加内容。因此，推荐使用\ `ddynamic_reconfigure <https://github.com/pal-robotics/ddynamic_reconfigure_python>`_
 
@@ -11,11 +11,9 @@
 ^^^^^^^^
 
 
-* 
-  `dynamic_reconfigure官方教程 <http://wiki.ros.org/dynamic_reconfigure/Tutorials>`_
-
-* 
-  `ddynamic_reconfigure github教程 <https://github.com/pal-robotics/ddynamic_reconfigure_python>`_
+* `dynamic_reconfigure官方教程 <http://wiki.ros.org/dynamic_reconfigure/Tutorials>`_
+* `ddynamic_reconfigure
+    github教程 <https://github.com/pal-robotics/ddynamic_reconfigure_python>`_
 
 生成cfg文件
 ^^^^^^^^^^^
@@ -50,13 +48,11 @@
    # 参数三：生成文件的前缀(e.g.  "<name>Config.h" for c++, or "<name>Config.py" for python
    exit(gen.generate(PACKAGE, "dynamic_tutorials", "Tutorials"))
 
-步骤二：在\ ``package.xml``\ 中，给\ ``dynamic_reconfigure``\ 增设\ ``build_depend`` 和\ ``exec_depend`` 标签(label)
+步骤二：在 ``package.xml`` 中，给 ``dynamic_reconfigure`` 增设 ``build_depend`` 和 ``exec_depend`` 标签(label)
 
-步骤三：在\ ``CMakeLists.txt`` 中，增设\ ``dynamic_reconfigure`` package到\ ``find_package(catkin REQUIRED COMPONENTS ...)``\ ；
+步骤三：在 ``CMakeLists.txt`` 中，增设 ``dynamic_reconfigure`` package到 ``find_package(catkin REQUIRED COMPONENTS ...)`` ；以及增设如下宏，以生成cfg文件：
 
-以及增设如下宏，以生成cfg文件：
-
-.. code-block::
+.. code-block:: cmake
 
    generate_dynamic_reconfigure_options(
      cfg/DynReconf1.cfg
