@@ -1,0 +1,30 @@
+
+03. pycharm
+===========
+
+profile
+-------
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210908211513561.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210908211513561.png
+   :alt: image-20210908211513561
+
+
+Debug
+-----
+
+
+* `对一个正在运行的程序进行debug <https://www.jetbrains.com/help/pycharm/attaching-to-local-process.html>`_\ ：attach后可像debug模式下在程序对应位置上打断点
+
+插件
+----
+
+代码防沉迷
+^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210911005137916.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210911005137916.png
+   :alt: image-20210911005137916
+

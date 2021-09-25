@@ -36,7 +36,9 @@
    :hidden:
    :caption: IDE笔记
 
-   IDE笔记/01.vscode.md
+   IDE笔记/rst/01.vscode.rst
+   IDE笔记/rst/02.clion.rst
+   IDE笔记/rst/03.pycharm.rst
 
 .. toctree::
    :maxdepth: 1
