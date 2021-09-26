@@ -46,7 +46,7 @@ cmake
 逻辑判断
 ^^^^^^^^
 
-判断一个路径对应的是文件夹
+判断一个路径对应的是否是一个文件夹
 
 .. prompt:: bash $,# auto
 
@@ -71,6 +71,34 @@ cmake
    execute_process(COMMAND mkdir [args...])
    execute_process(COMMAND gdown [args...])
 
+引入外部项目
+^^^^^^^^^^^^
+
+`FetchContent <https://cmake.org/cmake/help/latest/module/FetchContent.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+该command为3.11的特性，会在configure time时导入(pollute)文件
+
+.. code-block:: cmake
+
+   cmake_minimum_required(VERSION 3.14)
+
+   # 导入FetchContent module
+   include(FetchContent)
+   # 配置等下Fetch时的配置参数
+   FetchContent_Declare(
+     mycom_toolchains
+     URL  https://intranet.mycompany.com//toolchains_1.3.2.tar.gz
+   )
+   # 触发下载(Fetch)
+   FetchContent_MakeAvailable(mycom_toolchains)
+
+.. hint:: 对于cmake，configure time是指生成cache文件的时间段；有三种time，分别是配置期(configure time)，编译期(build time)和安装期(install time)；配置期的命令包括add_subdirectory, include, file
+
+
+.. todo:: 暂未清楚不同期导入文件所带来的结果
+
+
 catkin_make
 -----------
 
@@ -85,7 +113,7 @@ catkin_make
    # 撤销白名单设置
    $ catkin_make -DCATKIN_WHITELIST_PACKAGES=""
 
-.. note:: 要屏蔽某些包被编译，可以创建一个名为 `CATKIN_IGNORE <https://github.com/tier4/velodyne_vls/tree/tier4/master/velodyne_msgs>`_ 的文件到这些包所在的目录下
+.. note:: 要屏蔽某些包被编译，可以创建一个名为 `CATKIN_IGNORE <https://github.com/tier4/velodyne_vls/tree/tier4/master/velodyne_msgs>` _ 的文件到这些包所在的目录下
 
 
 使用ninja编译
@@ -227,7 +255,6 @@ DEBUG
 
    # e.g.
    link_directories(/usr/local/cuda/lib64/ $ENV{HOME}/application/TensorRT-8.0.0.3/lib)
-   # 或使用target_link_libraries
 
 
 * 
@@ -319,11 +346,76 @@ rslidar和velodyne package的目标文件重名
 opencv库兼容性问题
 ^^^^^^^^^^^^^^^^^^
 
-不同版本的opencv库或有功能相同但名字不同的问题，在编译时可能会出现未声明等报错，这时候就需要查文档就行修改。
+
+* 不同版本的opencv库或有功能相同但名字不同的问题，在编译时可能会出现未声明等报错，这时候就需要查文档就行修改。
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz3d8VYj2wt2TNqb.png!thumbnail" alt="img" style="zoom:50%; " />`
 
 实例：\ `kalibr 16.04/14.04 <https://github.com/ethz-asl/kalibr>`_ -> `kalibr 20.04 <https://github.com/ori-drs/kalibr>`_
+
+
+* CheckLists
+
+.. list-table::
+   :header-rows: 1
+
+   * - 16.04(apt version)
+     - 20.04(apt version 4.2)
+   * - CV_LOAD_IMAGE_COLOR (icv::imread)
+     - cv:: IMREAD_COLOR
+   * - 
+     - 
+   * - 
+
+
+boost库的升级换代
+^^^^^^^^^^^^^^^^^
+
+
+* 有关模块
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210918004819514.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210918004819514.png
+   :alt: image-20210918004819514
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210918005720515.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210918005720515.png
+   :alt: image-20210918005720515
+
+
+
+* 有关函数
+
+.. code-block:: c++
+
+   // for 16.04
+   boost::this_thread::sleep(boost::chrono::microseconds(SmallIterval)); 
+   // for 20.04
+   std::this_thread::sleep_for(std::chrono::microseconds(SmallIterval));
+
+.. note:: 在编译时有些函数不存在，可能是因为更新换代而被取代了，这时候查一下google和相关文档即可
+
+
+ambigious candidate
+^^^^^^^^^^^^^^^^^^^
+
+..
+
+   Reference to 'shared_ptr' is ambiguous candidate found by name lookup is 'boost::shared_ptr' candidate found by name lookup is 'pcl::shared_ptr'
+
+
+pcl库和boost都有自己的share_ptr实现，而\ `源程序 <https://github.com/fverdoja/Fast-3D-Pointcloud-Segmentation>`_\ 使用了using这种方法，使得编译器不知道该调用哪个share_ptr
+
+.. code-block:: c++
+
+   using namespace boost;
+   using namespace pcl;
+
+   void removeText(shared_ptr<visualization::PCLVisualizer> viewer); // ERROR
+   void removeText(pcl::shared_ptr<visualization::PCLVisualizer> viewer); // TRUE
 
 拓展工具
 --------
@@ -347,3 +439,16 @@ opencv库兼容性问题
 
 
 .. note:: catkin_lint相关提示信息仅供参考，不一定准确
+
+
+`ccmake <https://cmake.org/cmake/help/latest/manual/ccmake.1.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+cmake TUI程序，在\ **终端**\ 交互式地配置选项
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210925215521631.png" alt="image-20210925215521631" style="zoom:67%; " />`
+
+cmake-gui
+^^^^^^^^^
+
+cmake GUI程序，在\ **图形化界面**\ 交互式地配置选项
