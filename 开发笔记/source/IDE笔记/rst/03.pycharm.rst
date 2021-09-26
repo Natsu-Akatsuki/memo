@@ -28,3 +28,91 @@ Debug
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210911005137916.png
    :alt: image-20210911005137916
 
+
+`根据数组显示图像 <https://plugins.jetbrains.com/plugin/14371-opencv-image-viewer>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926234736391.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926234736391.png
+   :alt: image-20210926234736391
+
+
+`代码缩略图 <https://github.com/vektah/CodeGlance>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926235345669.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926235345669.png
+   :alt: image-20210926235345669
+
+
+常用快捷键
+----------
+
+跳转(navigation)
+^^^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - 括号折叠
+     - ctrl+[shift]+-
+   * - 括号跳转
+     - ctrl+shift+m(match)
+   * - 代码块跳转
+     - ctrl+[ / ctrl+]
+   * - 书签跳转
+     - ctrl+num(F11创标签)
+   * - ERROR/WARNING跳转
+     - F2(next) / shift+F2(before)
+   * - 标签页跳转
+     - alt+←/alt+→
+   * - last / next edit location
+     - (custom) alt+光标上下滚轮
+   * - show in Dolphin
+     - ctrl+shift+alt+2
+
+
+选取(selection)
+^^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - expand current selection
+     - ctrl+w / (redo)  ctrl+shift+w
+   * - column selection
+     - calt+shift+insert
+
+
+重构(refactor)
+^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - 
+
+
+编辑(edit)
+^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - replace in path
+     - c+r
+   * - replace in files（可设置File mask）
+     - c+s+r
+   * - Code Complete（偏向语法上的补全）
+     - c+s+enter
+
