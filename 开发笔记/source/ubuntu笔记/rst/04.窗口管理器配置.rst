@@ -35,8 +35,6 @@ GNOME
 Unity
 ^^^^^
 
-``
-
 .. prompt:: bash $,# auto
 
    # 卸载

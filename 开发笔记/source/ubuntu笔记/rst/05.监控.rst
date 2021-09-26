@@ -31,14 +31,47 @@ htop(进程)
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904002516344.png" alt="image-20210904002516344" style="zoom:67%; " />`
 
-zenith（一体化）
-^^^^^^^^^^^^^^^^
+查看进程树
+^^^^^^^^^^
+
+图形化界面（for KDE）
+~~~~~~~~~~~~~~~~~~~~~
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210910181315174.png" alt="image-20210910181315174" style="zoom:50%; " />`
+
+`命令行 <https://www.howtoforge.com/linux-pstree-command/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ pstree [user]
+   -s：查看指定pid的父进程
+   -u：显示user
+   -p：显示pid号
+   -T：隐藏线程
+   -t：显示线程全称
+   -a：显示对应的命令行
+   -g：显示组ID
+
+综合
+----
+
+zenith
+^^^^^^
 
 
 * 可从\ `此处 <https://github.com/bvaisvil/zenith/releases>`_\ 下载相应的deb包(e.g. zenith_0.12.0-1_amd64.deb)
+
+.. prompt:: bash $,# auto
+
+   $ cd ~/application
+   $ wget -c https://github.com/bvaisvil/zenith/releases/download/0.12.0/zenith_0.12.0-1_amd64.deb
+   $ sudo dpkg -i zenith_0.12.0-1_amd64.deb
+
+
 * 启动
 
-.. code-block::
+.. prompt:: bash $,# auto
 
    $ zenith
 
@@ -48,10 +81,4 @@ zenith（一体化）
    :alt: image-20210904004618016
 
 
-----
-
-**REMARK**
-
-该可执行文件/命令行能快速提供有价值的信息
-
-----
+.. note:: 该可执行文件/命令行能快速提供有价值的信息

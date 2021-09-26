@@ -61,7 +61,7 @@ wifi配置(for nmcli)
 
 .. prompt:: bash $,# auto
 
-   $ nmcli dev wifi
+   nmcli dev wifi
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825174133504.png" alt="image-20210825174133504" style="zoom:67%; " />`
 
@@ -70,7 +70,7 @@ wifi配置(for nmcli)
 
 .. prompt:: bash $,# auto
 
-   $ nmcli dev wifi show
+   nmcli dev wifi show
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173513012.png" alt="image-20210825173513012" style="zoom:67%; " />`
 
@@ -79,7 +79,7 @@ wifi配置(for nmcli)
 
 .. prompt:: bash $,# auto
 
-   $ sudo nmcli dev wifi connect <wifi_ssid> password <password>
+   sudo nmcli dev wifi connect <wifi_ssid> password <password>
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173745117.png" alt="image-20210825173745117" style="zoom:67%; " />`
 
@@ -94,9 +94,9 @@ wifi配置(for nmcli)
    $ connection_name=<...>
    # 静态ip配置
    $ nmcli connection modify ${connection_name} 
-           ipv4.method manual \
-           ipv4.addresses 192.168.1.100/16 \
-           ipv4.gateway 192.168.1.1
+     ipv4.method manual \
+     ipv4.addresses 192.168.1.100/16 \
+     ipv4.gateway 192.168.1.1
    # 动态ip配置
    $ nmcli connection modify ${connection_name} ipv4.method auto
 
@@ -324,6 +324,14 @@ nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/
 #. 配置文档总的其余配置参数（e.g. domain和search）可参考\ `link <https://blog.csdn.net/u010472499/article/details/95216015>`_
 
 ----
+
+`查看是否正常解析域名 <https://www.geeksforgeeks.org/nslookup-command-in-linux-with-examples/>`_
+----------------------------------------------------------------------------------------------------
+
+.. prompt:: bash $,# auto
+
+   # nslookup www.b.com
+   $ nslookup <domain_name>
 
 `使用arp查看是否ip冲突 <https://www.unixmen.com/find-ip-conflicts-linux/>`_
 -------------------------------------------------------------------------------

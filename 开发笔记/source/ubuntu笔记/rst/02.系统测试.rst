@@ -1,0 +1,30 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+02. 系统测试
+============
+
+压力测试
+--------
+
+CPU压力测试工具
+^^^^^^^^^^^^^^^
+
+相关工具为stress, s-tui
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install s-tui stress
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907110949467.png" alt="image-20210907110949467"  />`
+
+感知、定位程序运行一段时间后会自动关机
+--------------------------------------
+
+温度过高。可通过 ``dmesg`` 或 ``journalctl`` 查看日志信息（日志等级不一定为err）
+
+..
+
+   mce: CPUx: Package temperature above threshold, cpu clock throttled
+

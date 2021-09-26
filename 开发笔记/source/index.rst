@@ -74,7 +74,8 @@
    :caption: ubuntu笔记
 
    ubuntu笔记/rst/01.网络配置.rst
-   ubuntu笔记/rst/03.终端配置.rst
+   ubuntu笔记/rst/02.系统测试.rst
+   ubuntu笔记/rst/03.终端配置与shell脚本.rst
    ubuntu笔记/rst/04.窗口管理器配置.rst
    ubuntu笔记/rst/05.监控.rst
    ubuntu笔记/rst/06.文件和文件夹管理.rst
