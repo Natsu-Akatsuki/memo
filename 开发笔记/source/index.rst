@@ -8,12 +8,8 @@
    :hidden:
    :caption: c++笔记
 
-   c++笔记/00.术语.rst
-   c++笔记/01.语法规则.rst
-   c++笔记/02.编译模型.rst
-   c++笔记/03.拓展工具.rst
-   c++笔记/04.案例分析.rst
-   c++笔记/05.Q&A.rst
+   c++笔记/rst/01.术语与语法规则.rst   
+   c++笔记/rst/02.编译模型.rst   
 
 .. toctree::
    :maxdepth: 1

@@ -56,12 +56,12 @@ language = "zh_CN"
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+exclude_patterns = ["**/*.md"]
 
 source_suffix = {
     ".rst": "restructuredtext",
-    ".txt": "markdown",
-    ".md": "markdown",
+    # ".txt": "markdown",
+    # ".md": "markdown",
 }
 
 # -- Options for HTML output -------------------------------------------------
