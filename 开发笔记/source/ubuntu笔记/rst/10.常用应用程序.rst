@@ -5,6 +5,8 @@
 10. 常用应用程序
 ================
 
+相关分类为：开发工具(Development)、教育(Education)、游戏(Game)、图像处理(Graphics)、网络(Internet)、多媒体(Multimedia)、办公软件 (Office)、系统配置(Setting)、系统工具(System Utilities)
+
 Development
 -----------
 
@@ -13,7 +15,7 @@ Development
 
 .. prompt:: bash $,# auto
 
-   sudo apt install zeal
+   $ sudo apt install zeal
 
 
 * `非官方文档CheatSheet <https://zealusercontributions.vercel.app/>`_
@@ -26,7 +28,7 @@ knotes（可置顶的便签）
 
 .. prompt:: bash $,# auto
 
-   sudo apt install knotes
+   $ sudo apt install knotes
 
 Internet
 --------

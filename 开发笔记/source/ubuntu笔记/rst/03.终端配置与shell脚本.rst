@@ -2,7 +2,7 @@
    :format: html
 
 
-03. 终端、界面配置与shell脚本
+03. 终端和界面配置与shell脚本
 =============================
 
 `tmux <https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html>`_\ （终端复用）
@@ -330,7 +330,7 @@ bash option
    # -x：显示正在执行的命令行(commands)和其参数(arguments)
    # -e：若有一个命令行返回值为非0则退出脚本
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vc2ZAhmLzlmLH17y.png!thumbnail" alt="img" style="zoom:67%; " />` 
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vc2ZAhmLzlmLH17y.png!thumbnail" alt="img" style="zoom:67%; " />`
 
 `判断语法 <https://www.cnblogs.com/mlfz/p/11427760.html>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -338,3 +338,14 @@ bash option
 使用中括号作为shell的判断式
 
 .. attention:: 注意空格，[空格... 空格]
+
+
+命令行补全
+----------
+
+`hstr <https://github.com/dvorka/hstr>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt-get install hstr && hstr --show-configuration >> ~/.bashrc && . ~/.bashrc

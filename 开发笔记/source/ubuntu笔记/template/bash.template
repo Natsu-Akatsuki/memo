@@ -1,0 +1,82 @@
+# 配置conda
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/helios/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/helios/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/helios/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/helios/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# 配置conda命令行补全
+CONDA_ROOT="~/anaconda3"
+if [[ -r $CONDA_ROOT/etc/profile.d/bash_completion.sh ]]; then
+    source $CONDA_ROOT/etc/profile.d/bash_completion.sh
+fi
+
+
+# 别名配置
+alias cb='catkin build --this'
+alias connect='ssh ah_chung@10.23.21.110'
+alias free_c='sudo cpufreq-set -g performance'
+alias free_m='sync && sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"'
+alias gdb="gdb -q"
+alias kj='killall -s 9 java'
+alias rm='rm -i'
+alias speedtest='speedtest --bytes'
+
+
+# 深度学习配置
+CUDA_PATH=/usr/local/cuda/bin
+CUDA_LIB_PATH=/usr/local/cuda/lib64
+TENSORRT_LIB_PATH=${HOME}/application/TensorRT-7.2.3.4/lib
+
+export PATH=${PATH}:${CUDA_PATH}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${CUDA_LIB_PATH}:${TENSORRT_LIB_PATH}
+
+
+# 配置ros
+source /opt/ros/noetic/setup.bash
+
+
+# 自动补全
+eval "$(gh completion -s bash)"
+source $(catkin locate --shell-verbs)
+eval "$(pandoc --bash-completion)"
+eval "$(jump shell)"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# 配置hstr
+alias hh=hstr                    # hh to be alias for hstr
+export HSTR_CONFIG=hicolor       # get more colors
+shopt -s histappend              # append new history items to .bash_history
+export HISTCONTROL=ignorespace   # leading space hides commands from history
+export HISTFILESIZE=10000        # increase history file size (default is 500)
+export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+# ensure synchronization between bash memory and history file
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+# if this is interactive shell, then bind hstr to Ctrl-r (for Vi mode check doc)
+if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
+# if this is interactive shell, then bind 'kill last command' to Ctrl-x k
+if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
+
+# 配置history
+alias h='history' && HISTTIMEFORMAT="$(whoami) [%F %T] "
+
+# 配置nnn
+# 配置-e所触发的命令
+export VISUAL=ewrap
+alias n="tmux new-session nnn -e"
+
+
+# 工程配置
+#export CC="gethost --server ah_chung distcc"
+#export PATH=/usr/lib/distcc:$PATH
+export PATH="${HOME}/.local/bin:$PATH"
+alias cslei='conda activate sleipnir'
+alias slei="source ~/Sleipnir/devel/setup.bash"

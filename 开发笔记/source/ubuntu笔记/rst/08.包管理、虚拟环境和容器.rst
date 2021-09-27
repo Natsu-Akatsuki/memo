@@ -17,7 +17,7 @@ apt&&dpkg
    $ apt remove <package_name> # 卸载软件，保留配置文件
    $ apt purge <package_name>  # 卸载软件和相关的配置文件
    $ apt autoremove            # 卸载已无用和自动安装的软件
-   $ apt dist-upgrade          # 升级安装包（升级时会删除一些影响依赖的包）
+   $ apt dist-upgrade   # 升级安装包（升级时会删除一些影响依赖的包）
 
    $ dpkg -i <deb_package>     # 安装包
    # -r: remove
@@ -110,7 +110,7 @@ pip
    $ pip install --no-cache-dir             # 不保留缓存地安装
    # ---查看包信息--- #
    $ pip show <pkg_name>
-   $ pip list --outdate                    # 查看可升级的包
+   $ pip list --outdate     # 查看可升级的包
    # ---pip安装到当前用户--- #
    $ pip install --user <pkg_name>
    # ---清除pip缓存--- #
@@ -130,6 +130,15 @@ wget
 
 .. hint:: aria2据说为增强版wget
 
+
+curl
+----
+
+.. prompt:: bash $,# auto
+
+   $ curl
+   # -k, --insecure      Allow insecure server connections when using SSL
+   # -i, --include       Include protocol response headers in the output
 
 npm
 ---
@@ -152,9 +161,9 @@ unix-like自带，安装的应用程序有点像docker容器，整体体积会�
 
 .. prompt:: bash $,# auto
 
-   $ snap list                           # 列出已安装的snap包
-   $ sudo snap remove <pkg>              # 卸载snap中安装的包
-   $ sudo apt autoremove --purge snapd   # 卸载snap-core
+   snap list                           # 列出已安装的snap包
+   sudo snap remove <pkg>              # 卸载snap中安装的包
+   sudo apt autoremove --purge snapd   # 卸载snap-core
 
 conda配置
 ---------
@@ -166,7 +175,7 @@ conda配置
 
 .. prompt:: bash $,# auto
 
-   $ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
+   wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
 
 步骤二：交互模式执行安装包（此方法可顺带初始化conda）
 
@@ -280,17 +289,21 @@ conda配置
 
 conda并不提供内部补全的插件，需要\ `安装第三方插件 <https://github.com/tartansandal/conda-bash-completion>`_
 
-步骤一：
+步骤一：安装
 
 .. prompt:: bash $,# auto
 
    $ conda install -c conda-forge conda-bash-completion
 
-步骤二：
+步骤二：添加到~/.b
 
 .. prompt:: bash $,# auto
 
-   # 设置conda安装目录CONDA_ROOT=~/anaconda3if [[ -r $CONDA_ROOT/etc/profile.d/bash_completion.sh ]]; then    source $CONDA_ROOT/etc/profile.d/bash_completion.shfi
+   # 配置conda代码补全
+   CONDA_ROOT="~/anaconda3"
+   if [[ -r $CONDA_ROOT/etc/profile.d/bash_completion.sh ]]; then
+       source $CONDA_ROOT/etc/profile.d/bash_completion.sh
+   fi
 
 .. attention:: 记得修改对应的目录
 
@@ -299,9 +312,7 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
 ^^^^^^^^
 
 
-* 本地环境的复制 
-
-``
+* 本地环境的复制
 
 .. prompt:: bash $,# auto
 

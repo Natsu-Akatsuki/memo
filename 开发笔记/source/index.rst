@@ -28,8 +28,8 @@
    :hidden:
    :caption: git笔记
 
-   git笔记/rst/01.实战.md
-   git笔记/rst/02.自定义git环境变量.md
+   git笔记/rst/01.实战.rst
+   git笔记/rst/02.自定义git环境变量.rst
 
 .. toctree::
    :maxdepth: 1
@@ -57,7 +57,7 @@
    ros笔记/rst/01.launch文件指北.rst
    ros笔记/rst/02.ros常用命令行.rst
    ros笔记/rst/03.三方工具.rst
-   ros笔记/rst/04.实战.md
+   ros笔记/rst/04.实战.rst
 
 
 .. toctree::
@@ -76,8 +76,8 @@
    ubuntu笔记/rst/01.网络配置.rst
    ubuntu笔记/rst/02.系统测试.rst
    ubuntu笔记/rst/03.终端配置与shell脚本.rst
-   ubuntu笔记/rst/04.窗口管理器配置.rst
-   ubuntu笔记/rst/05.监控.rst
+   ubuntu笔记/rst/04.配置图形化界面.rst
+   ubuntu笔记/rst/05.监控资源与管理硬件.rst
    ubuntu笔记/rst/06.文件和文件夹管理.rst
    ubuntu笔记/rst/07.用户和用户组配置.rst
    ubuntu笔记/rst/08.包管理、虚拟环境和容器.rst

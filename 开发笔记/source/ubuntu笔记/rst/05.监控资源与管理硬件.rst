@@ -2,14 +2,17 @@
    :format: html
 
 
-05. 监控
-========
+05. 监控资源与管理硬件
+======================
+
+监控资源
+--------
 
 进程
-----
+^^^^
 
 htop(进程)
-^^^^^^^^^^
+~~~~~~~~~~
 
 一般查看当前用户下最占用cpu（P）和内存（M）的进程
 
@@ -32,15 +35,15 @@ htop(进程)
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904002516344.png" alt="image-20210904002516344" style="zoom:67%; " />`
 
 查看进程树
-^^^^^^^^^^
+~~~~~~~~~~
 
-图形化界面（for KDE）
-~~~~~~~~~~~~~~~~~~~~~
+
+* 图形化界面（for KDE）
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210910181315174.png" alt="image-20210910181315174" style="zoom:50%; " />`
 
-`命令行 <https://www.howtoforge.com/linux-pstree-command/>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* `命令行 <https://www.howtoforge.com/linux-pstree-command/>`_
 
 .. prompt:: bash $,# auto
 
@@ -54,7 +57,7 @@ htop(进程)
    -g：显示组ID
 
 综合
-----
+~~~~
 
 zenith
 ^^^^^^
@@ -82,3 +85,43 @@ zenith
 
 
 .. note:: 该可执行文件/命令行能快速提供有价值的信息
+
+
+管理硬件
+--------
+
+v4l2
+^^^^
+
+
+* 查看相机所有属性
+
+.. prompt:: bash $,# auto
+
+   # v4l2-ctl -d <设备名> -all
+   $ v4l2-ctl -d /dev/video0 -all
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3XpxjcSwtiaE2DHP.jpg!thumbnail" alt="img" style="zoom: 67%; " />`
+
+
+* 查看相机支持的像素格式
+
+.. prompt:: bash $,# auto
+
+   # v4l2-ctl --list-formats -d <设备名>
+   $ v4l2-ctl --list-formats -d /dev/video0
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HBOuewxlOL2nODH3.jpg!thumbnail" alt="img" style="zoom: 33%; " />`
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WHtCs1tGSJbLycNu.jpg!thumbnail" alt="img" style="zoom: 33%; " />`
+
+
+* 查看相机支持的分辨率和帧率
+
+.. prompt:: bash $,# auto
+
+   # v4l2-ctl --list-formats-ext -d <设备名>
+   $ v4l2-ctl --list-formats-ext -d /dev/video2
+
+
+* `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422>`_\ %20to%20YUV420P/)
