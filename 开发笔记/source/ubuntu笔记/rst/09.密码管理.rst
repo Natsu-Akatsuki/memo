@@ -100,5 +100,8 @@
    # 推送到远程仓
    $ pass git init
    $ pass git remote add origin <github_remote_repository_url>
+   $ pass git push <-f>
    # 拉取到本地
    $ git clone <github_remote_repository_url> ~/.password-store
+
+.. note:: 这种比git命令行多了个pass的优势在于可以不用cd到对应文件夹就能进行git操作
