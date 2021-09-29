@@ -5,6 +5,35 @@
 01. git实战
 ===========
 
+`查看annotation <https://www.jetbrains.com/help/pycharm/investigate-changes.html#annotate_blame>`_
+------------------------------------------------------------------------------------------------------
+
+
+* 
+  `for pycharm <https://www.jetbrains.com/help/pycharm/investigate-changes.html#annotate_blame>`_
+
+* 
+  命令行
+
+.. prompt:: bash $,# auto
+
+   $ git blame <file_name>
+
+登录
+----
+
+设置access token
+^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210929101344512.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210929101344512.png
+   :alt: image-20210929101344512
+
+
+.. note:: 注意若登录失效，或检查一下token是否过期
+
+
 利用hook防止用不合法的邮箱进行commit
 ------------------------------------
 
@@ -42,8 +71,8 @@
 
 #. `怎样防止同事用QQ邮箱提交公司代码 <https://mp.weixin.qq.com/s/nTujGu1tbde--X3KEO22WA>`_
 
-删除历史记录中不合适的数据
---------------------------
+`删除历史记录中不合适的数据 <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository>`_
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 参考资料
 ^^^^^^^^
@@ -71,6 +100,38 @@ BFG
 
    # 同时删除多个文件夹
    $ bfg --delete-folders "{List of folder separated by comma}" <file path for Git repository to clean>
+
+.. attention:: BFG并不能删除特定的文件夹和文件，只能删除同名的文件夹和文件。要实现上述目的，可以使用git filter-repo
+
+
+`git filter-repo <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`常用命令行 <https://htmlpreview.github.io/?https://github.com/newren/git-filter-repo/blob/docs/html/git-filter-repo.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 安装
+   $ pip3 install git-filter-repo
+   # 去到git工作空间
+   $ cd ~/Sleipnir/
+   # To remove ~/Sleipnir/data/ from every revision in history:
+   # 使用的为相对路径
+   $ git filter-repo --invert-paths --path data/
+
+   # 更新远程仓
+   $ git push origin --force --all
+
+   # 更新本地仓（触发回收机制）
+   $ git for-each-ref --format="delete %(refname)" refs/original | git update-ref --stdin
+   $ git reflog expire --expire=now --all
+   $ git gc --prune=now
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210911011120408.png" alt="image-20210911011120408" style="zoom: 67%; " />`
+
+.. note:: `--invert_paths` 需要和 `--paths` 一起使用的，单纯 `--paths` 指的是保留，否则是反选
+
 
 获取clean工作空间
 -----------------
@@ -110,15 +171,18 @@ BFG
 
    $ git checkout <commit_id>
 
-丢弃待进行的merge操作
+取消待进行的merge操作
 ---------------------
 
-有时不解决文件冲突则无法进行reset --soft操作
+有时暂时不想解决文件冲突问题，想取消merge操作，还原之前的状态
 
 .. prompt:: bash $,# auto
 
    # --abort abort the current in-progress merge
    $ git merge --abort
+
+.. note:: 有时不解决文件冲突则无法进行某些操作，比如 `reset --soft` 操作
+
 
 压缩commit记录
 --------------
@@ -141,16 +205,6 @@ BFG
 
   :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210209114613082.png" alt="image-20210209114613082" style="zoom: 67%; " />`
 
-覆写远程服务器上的git仓（暴力解决方案）
----------------------------------------
-
-
-* 在本地修正完本地仓的历史后，强制将本地仓的历史覆写到远程仓中
-
-.. prompt:: bash $,# auto
-
-   $ git push -f
-
 选择性地挑选文件的changes进行commit
 -----------------------------------
 
@@ -163,8 +217,11 @@ BFG
    :alt: image-20210222010451820
 
 
-版本回溯
---------
+时光倒流（版本回溯）
+--------------------
+
+reset
+^^^^^
 
 git reset: Reset current HEAD to the specified state
 
@@ -188,8 +245,15 @@ git reset: Reset current HEAD to the specified state
 
 * reset --soft一般用于修正历史树(commit tree)，如让其线性化
 
+revert
+^^^^^^
+
+通过提交一个commit去撤销某次commit
+
 删除文件
 --------
+
+一般可用来解决如下报错： ``already exists in the index``
 
 .. prompt:: bash $,# auto
 
@@ -253,6 +317,116 @@ git reset: Reset current HEAD to the specified state
 .. prompt:: bash $,# auto
 
    $ git push <url> branch
+
+覆写远程服务器上的git仓（暴力解决方案）
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 在本地修正完本地仓的历史后，强制将本地仓的历史覆写到远程仓中
+
+.. prompt:: bash $,# auto
+
+   $ git push -f
+
+`github ssh免密登录 <https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/checking-for-existing-ssh-keys>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+http使用push和pull都需要显式在命令行输入口令（账号、密码），ssh则不用
+
+
+* 或涉及的命令行操作
+
+.. prompt:: bash $,# auto
+
+   # 显示现有ssh密钥（公钥后缀为pub）
+   $ ls -al ~/.ssh
+   # 生成新ssh密钥（可以不加-t，默认选项为rsa）
+   $ ssh-keygen -t ed25519 -C "github电子邮件地址"
+
+
+* `添加ssh公钥于github <https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_
+* 测试git hub ssh连接
+
+.. prompt:: bash $,# auto
+
+   $ ssh -T git@github.com
+
+本地仓添加子仓
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ git submodule add <url> [待添加的工作路径]
+
+本地仓克隆子仓
+~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ git clone <url>
+   $ git submodule init --recursive
+   # 或者直接一步到位
+   $ git clone <url> --recursive
+
+`vcstool <https://github.com/dirk-thomas/vcstool>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+* 
+  该工具用于替换git submodule来管理子模块（实测，在国内使用体感不太好，容易下载失败）
+
+* 
+  `autoware example <https://github.com/tier4/AutowareArchitectureProposal.proj/blob/main/autoware.proj.repos>`_
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install -y python3-vcstool
+   $ vcs import src < autoware.proj.repos
+
+分支
+----
+
+分支创建与切换
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 创建分支
+   $ git branch <branch_name>
+   # 切换分支
+   $ git checkout/swtich <branch_name>
+
+分支合并
+^^^^^^^^
+
+一般用得较多的就是对远程仓分支和本地仓分支的合并 ``merge`` ，merge有几种情况，一种是不需要解决冲突的，一种是需要解决冲突的
+
+删除分支
+--------
+
+.. prompt:: bash $,# auto
+
+   # 删除已合并(merge)的分支
+   $ git branch -d <branch_name>
+   # 删除分支
+   $ git branch -D <branch_name>
+   # 删除远程分支
+   $ git branch -r -D <branch_name>
+
+IDE
+---
+
+pycharm
+^^^^^^^
+
+添加github账号
+~~~~~~~~~~~~~~
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HtN38T0ZZSrGVcBN.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HtN38T0ZZSrGVcBN.png!thumbnail
+   :alt: img
+
 
 拓展资料
 --------

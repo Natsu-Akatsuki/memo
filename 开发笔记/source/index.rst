@@ -26,6 +26,7 @@
 
    git笔记/rst/01.实战.rst
    git笔记/rst/02.自定义git环境变量.rst
+   git笔记/rst/03.规范.rst
 
 .. toctree::
    :maxdepth: 1

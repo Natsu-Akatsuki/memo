@@ -1,0 +1,32 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+04. 规范
+========
+
+commit
+------
+
+commit规范（参考\ `AngularJs <https://github.com/angular/angular/blob/master/CONTRIBUTING.md>`_\ ）
+
+format
+^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912230248134.png" alt="image-20210912230248134" style="zoom: 80%; " />`
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AxLJY7OEjRNiNKgS.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AxLJY7OEjRNiNKgS.png!thumbnail
+   :alt: img
+
+
+.. note:: refactor包括typo
+
+
+description
+^^^^^^^^^^^
+
+
+* bump to version 3.0.2
+* fix the typo
