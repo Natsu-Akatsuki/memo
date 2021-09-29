@@ -22,8 +22,8 @@
 登录
 ----
 
-设置access token
-^^^^^^^^^^^^^^^^
+设置\ `access token <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token>`_\ (PAT)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210929101344512.png
@@ -33,6 +33,29 @@
 
 .. note:: 注意若登录失效，或检查一下token是否过期
 
+
+`github ssh免密登录 <https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/checking-for-existing-ssh-keys>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+http使用push和pull都需要显式在命令行输入口令（账号、密码），ssh则不用
+
+
+* 或涉及的命令行操作
+
+.. prompt:: bash $,# auto
+
+   # 显示现有ssh密钥（公钥后缀为pub）
+   $ ls -al ~/.ssh
+   # 生成新ssh密钥（可以不加-t，默认选项为rsa）
+   $ ssh-keygen -t ed25519 -C "github电子邮件地址"
+
+
+* `添加ssh公钥于github <https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_
+* 测试git hub ssh连接
+
+.. prompt:: bash $,# auto
+
+   $ ssh -T git@github.com
 
 利用hook防止用不合法的邮箱进行commit
 ------------------------------------
@@ -160,9 +183,6 @@ BFG
 
   * 遵从通配符模式找文件，\ **默认递归**\ 地查找工作空间的文件
   * 开头加上\ ``/``\ 表示取消递归
-
-`生成PAT(personal access token) <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token>`_
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 回溯到某个commit
 ----------------
@@ -327,29 +347,6 @@ revert
 .. prompt:: bash $,# auto
 
    $ git push -f
-
-`github ssh免密登录 <https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/checking-for-existing-ssh-keys>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-http使用push和pull都需要显式在命令行输入口令（账号、密码），ssh则不用
-
-
-* 或涉及的命令行操作
-
-.. prompt:: bash $,# auto
-
-   # 显示现有ssh密钥（公钥后缀为pub）
-   $ ls -al ~/.ssh
-   # 生成新ssh密钥（可以不加-t，默认选项为rsa）
-   $ ssh-keygen -t ed25519 -C "github电子邮件地址"
-
-
-* `添加ssh公钥于github <https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_
-* 测试git hub ssh连接
-
-.. prompt:: bash $,# auto
-
-   $ ssh -T git@github.com
 
 本地仓添加子仓
 ^^^^^^^^^^^^^^
