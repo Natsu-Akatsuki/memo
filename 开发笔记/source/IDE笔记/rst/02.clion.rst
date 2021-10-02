@@ -33,5 +33,19 @@ clion控制台无法渲染ansi字体
 
 正常，clion的console不是终端，暂时不支持ansi render
 
-`clion中ros的配置与DEBUG <https://www.jetbrains.com/help/clion/ros-setup-tutorial.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`配置ros与DEBUG <https://www.jetbrains.com/help/clion/ros-setup-tutorial.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`配置valgrind <https://www.jetbrains.com/help/clion/memory-profiling-with-valgrind.html#start>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002014651471.png" alt="image-20211002014651471" style="zoom:67%; " />`
+
+`Profiler <https://www.jetbrains.com/help/clion/cpu-profiler.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`生成doxygen文档 <https://www.jetbrains.com/help/clion/creating-and-viewing-doxygen-documentation.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* `效果gif <https://www.jetbrains.com/clion/features/code-documentation.html>`_

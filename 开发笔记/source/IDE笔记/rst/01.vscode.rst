@@ -5,8 +5,14 @@
 01. vscode
 ==========
 
-提高代码可读性（插件）
-----------------------
+
+.. raw:: html
+
+   <p align="right">Author: kuzen, Natsu-Akatsuki</p>
+
+
+插件
+----
 
 代码格式化
 ^^^^^^^^^^
@@ -50,11 +56,8 @@ xml
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815144939462.png" alt="image-20210815144939462" style="zoom:50%; " />`
 
-.. note:: [vscode 1.6版已经内置了括号高亮功能](https://code.visualstudio.com/updates/v1_60#_editor)，在配置文档添加 `"editor.bracketPairColorization.enabled": true` 即可
+.. note::  `vscode 1.6版已经内置了括号高亮功能 <https://code.visualstudio.com/updates/v1_60#_editor>`_ ，在配置文档添加   ``"editor.bracketPairColorization.enabled": true`` 即可
 
-
-提高效率（插件）
-----------------
 
 代码块
 ^^^^^^
@@ -97,8 +100,38 @@ xml
 
 对应的默认快捷键： ``ctrl+h`` , ``ctrl+alt+h``
 
-DEBUG（插件）
--------------
+生成doxygen文档
+^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002021724564.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002021724564.png
+   :alt: image-20211002021724564
+
+
+使用 ``/**`` 和回车键进行触发
+
+使用文件模板
+^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210927231828413.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210927231828413.png
+   :alt: image-20210927231828413
+
+
+快速编译和运行代码
+^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210928115134786.png" alt="image-20210928115134786" style="zoom:67%; " />`
+
+
+* 设置编译项
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210928115123099.png" alt="image-20210928115123099" style="zoom:67%; " />`
+
+DEBUG
+^^^^^
 
 `cppcheck <https://cppcheck.sourceforge.io/>`_\ , `flawfinder <https://github.com/david-a-wheeler/flawfinder>`_\ , clang, flexelint...
 
@@ -109,33 +142,11 @@ DEBUG（插件）
    # flawfinder
    $ sudo pip3 install flawfinder
 
-配置文档
---------
-
-本部分介绍vscode涉及的配置文档
-
-
-* ``tasks.json``\ ：告诉编译器怎么构建程序
-* ``launch.json``\ ：告诉GDB怎么启动Debug
-
-`全局配置 <https://code.visualstudio.com/docs/getstarted/settings#_default-settings>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210828002103557.png" alt="image-20210828002103557" style="zoom:67%; " />`
-
-vscode与各种程序语言的配合
---------------------------
-
-`markdown <https://code.visualstudio.com/docs/languages/markdown>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`markdown插件 <https://code.visualstudio.com/docs/languages/markdown>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. hint:: 官方教程包括了： `preview` , `outline` , `code snippet`
 
-
-插件
-~~~~
-
-*
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210901141059733.png" alt="image-20210901141059733" style="zoom: 67%; " />`
 
@@ -156,8 +167,34 @@ vscode与各种程序语言的配合
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907093539625.png" alt="image-20210907093539625" style="zoom:67%; " />`
 
+其他
+^^^^
+
+
+* markdown math：给vscode中markdown添加数学支持（latex）
+* remote ssh：远程连接
+* ros：添加ros支持
+* printcode：代码打印
+* Code Spell Checker：拼写检查与修正
+* Live Share: 实时协作写代码（微软官方插件）
+* Live Share Audio：为Live Share开启语音交流（微软官方插件）
+
 实战
 ----
+
+配置文档
+^^^^^^^^
+
+本部分介绍vscode涉及的配置文档
+
+
+* ``tasks.json``\ ：告诉编译器怎么构建程序
+* ``launch.json``\ ：告诉GDB怎么启动Debug
+
+`全局配置 <https://code.visualstudio.com/docs/getstarted/settings#_default-settings>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210828002103557.png" alt="image-20210828002103557" style="zoom:67%; " />`
 
 `同步配置信息（配置文档、插件） <https://code.visualstudio.com/docs/editor/settings-sync>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -178,7 +215,7 @@ vscode与各种程序语言的配合
 
 .. prompt:: bash $,# auto
 
-   npm install -g yo generator-code
+   $ npm install -g yo generator-code
 
 步骤三：构建一个 ``expansion pack`` 文件夹
 
@@ -273,6 +310,33 @@ web端查看github代码
 
 将 ``.com`` 改为 ``.dev``
 
+设置滚轮速度
+^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CuLMsVboZB2jId0c.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CuLMsVboZB2jId0c.png!thumbnail
+   :alt: img
+
+
+设置自动格式化
+^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210928102245843.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210928102245843.png
+   :alt: image-20210928102245843
+
+
+`取消标签页的重用（取消preview模式） <https://code.visualstudio.com/docs/getstarted/userinterface#_preview-mode>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002022616570.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002022616570.png
+   :alt: image-20211002022616570
+
+
 常用快捷键
 ----------
 
@@ -288,16 +352,4 @@ web端查看github代码
      - ctrl+shift+ (i.e. ctrl+|)
    * - 打开最近工作空间
      - ctrl+r
-   * - 
-     - 
-   * - 
-     - 
-   * - 
-     - 
-   * - 
-     - 
-   * - 
-     - 
-   * - 
-     - 
 
