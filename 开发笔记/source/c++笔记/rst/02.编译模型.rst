@@ -11,7 +11,7 @@ c++程序构建过程
 
 * ``预处理器`` 将.c/.cpp源代码进行 ``预处理`` (preprocess)得到.i文件；预处理包括宏替换、导入头文件、去除注释等行为
 * ``编译器`` 对.i源文件进行 ``编译操作`` (compile)得到含汇编指令的.s汇编代码(assemble code)；该\ **步骤会进行语法检查**\ ，而\ **不会发现逻辑错误**\ ；汇编代码可用vim打开
-
+`
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210917222609207.png" alt="image-20210917222609207" style="zoom:67%; " />`
 
 
@@ -29,7 +29,7 @@ c++程序构建过程
    # 一步到位
    $ gcc -o <output_file_name> <input_file_name>
 
-.. note:: 符号未定义、符号重定义 ` `duplicate symbol` ` 是链接时期的错误
+.. note:: 符号未定义、符号重定义 ``duplicate symbol`` 是链接时期的错误
 
 
 其他常用编译选项：
@@ -61,3 +61,13 @@ c++程序构建过程
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916224735535.png
    :alt: image-20210916224735535
 
+
+实战
+----
+
+`precompile source file的#号是什么？ <https://stackoverflow.com/questions/25137743/where-do-we-use-i-files-and-how-do-we-generate-them>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+一种特殊的注释
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002140045353.png" alt="image-20211002140045353" style="zoom:67%; " />`

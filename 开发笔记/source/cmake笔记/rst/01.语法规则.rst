@@ -225,7 +225,9 @@ Alias target
 
    # e.g.
    add_compile_options(-std=c++14 -O3)
-   target_compile_options(target_name PUBLIC "-g")
+   target_compile_options(<target_name> PUBLIC "-g")
+   # 保留中间产物
+   target_compile_options(<target_name> PUBLIC "-save-temps")
 
 .. note:: 该选项会覆盖CMAKE_BUILD_TYPE
 
@@ -255,7 +257,7 @@ Alias target
 * 
   ``find_package``\ 宏执行后会产生相关的变量，例如，\ ``<package_name>_INCLUDE_DIRS``
     or ``<package_name>_INCLUDES`` or
-  ``<package_name>_INCLUDE_DIR`` 具体看相关模块的设计
+    ``<package_name>_INCLUDE_DIR`` 具体看相关模块的设计
 
 * 
   cmake modules 指文件\ ``FindXXX.cmake``\ ，要指定 cmake
