@@ -2,8 +2,8 @@
    :format: html
 
 
-05. 监控资源与管理硬件
-======================
+05. 管理硬件与内核
+==================
 
 监控资源
 --------
@@ -93,13 +93,22 @@ zenith
 v4l2
 ^^^^
 
+v4l2设备支持vlc media player打开
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install v4l-utils
+
 
 * 查看相机所有属性
 
 .. prompt:: bash $,# auto
 
    # v4l2-ctl -d <设备名> -all
-   $ v4l2-ctl -d /dev/video0 -all
+   $ v4l2-ctl -d /dev/video0 --all
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3XpxjcSwtiaE2DHP.jpg!thumbnail" alt="img" style="zoom: 67%; " />`
 
@@ -170,6 +179,19 @@ v4l2
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sV507p45ylC7xEa6.png!thumbnail" alt="img" style="zoom:67%; " />`
 
+显卡
+^^^^
+
+`限制显卡功率 <https://blog.csdn.net/zjc910997316/article/details/113867906>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # --persistence-mode= Set persistence mode: 0/DISABLED, 1/ENABLED
+   $ sudo nvidia-smi -pm 1
+   # --power-limit= Specifies maximum power management limit in watts.
+   $ sudo nvidia-smi -pl 150
+
 实战
 ----
 
@@ -215,3 +237,36 @@ v4l2
 
 * 
   `a discussion for Nvidia GPU <https://forums.developer.nvidia.com/t/ubuntu-mate-20-04-with-rtx-3070-on-ryzen-5900-black-screen-after-boot/167681>`_
+
+原地升级ubuntu版本
+^^^^^^^^^^^^^^^^^^
+
+若当前系统没有重要的文件、应用程序保留，建议直接镜像+U盘从头安装，避免还要解决依赖问题，以下以18.04升级到20.04为例，描述涉及的解决方案。未尽事宜，看输出的日志信息而进行针对性的解决。另外原地升级需要较长的时间，若时间紧迫，建议直接重装。升级完后，有些第三方应用程序或驱动(application or driver )可能需要进行重装或升级。例如，重装显卡驱动。
+
+
+* 步骤一：删包
+
+.. prompt:: bash $,# auto
+
+   # 有ros时需卸载18版本的ros
+   $ sudo apt purge --autoremove ros-melodic-*
+
+
+* 步骤二：删源
+
+删除18用到的第三方源（否则升级系统而升级安装包时，会使用到18的第三方源，例如ppa），最佳实践是只保留ubuntu官方的仓库软件源
+
+.. prompt:: bash $,# auto
+
+   $ sudo rm -rf /etc/apt/sources.list.d
+
+
+* 步骤三：升级系统
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt update
+   $ sudo apt upgrade
+   $ sudo do-release-upgrade
+
+.. note:: 若`do-release-upgrade`没找到可用的发行版，可以看看是不是`/etc/update-manager/release-upgrades`中禁用了更新；用这种方法若从16.04升级到20.04需要经过两次升级(16.04->18.04->20.04)
