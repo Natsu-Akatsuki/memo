@@ -5,6 +5,12 @@
 06. 文件和文件夹管理
 ====================
 
+
+.. raw:: html
+
+   <p align="right">Author: kuzen, Natsu-Akatsuki</p>
+
+
 `文件夹跳转 <https://github.com/gsamokovarov/jump>`_
 --------------------------------------------------------
 
@@ -18,10 +24,10 @@ jump
 
 .. prompt:: bash $,# auto
 
-   wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb
-   echo 'eval "$(jump shell)"' >> ~/.bashrc
+   $ wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb
+   $ echo 'eval "$(jump shell)"' >> ~/.bashrc
 
-文件查看
+查看文件
 --------
 
 batcat
@@ -34,15 +40,15 @@ batcat
 
 .. prompt:: bash $,# auto
 
-   sudo apt install catbat
+   $ sudo apt install catbat
 
 
 * 配置
 
 .. prompt:: bash $,# auto
 
-   echo 'alias bat="batcat --paging=auto"' >> ~/.bashrc
-   echo "export MANPAGER=\"/bin/bash -c 'col -bx | batcat -l man -p'\"" >> ~/.bashrc
+   $ echo 'alias bat="batcat --paging=auto"' >> ~/.bashrc
+   $ echo "export MANPAGER=\"/bin/bash -c 'col -bx | batcat -l man -p'\"" >> ~/.bashrc
 
 ----
 
@@ -52,7 +58,26 @@ batcat
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210905011156100.png" alt="image-20210905011156100" style="zoom:67%; " />`
 
-----
+du
+^^
+
+统计当前目录的文件夹大小
+
+.. prompt:: bash $,# auto
+
+   $ du -h --max-depth=1
+
+ncdu
+^^^^
+
+效果同du，但有更人性化的可视化效果和计算速度
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install ncdu
+   $ ncdu
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fHcvhrY9Y6y3set8.png!thumbnail" alt="img" style="zoom:67%; " />`
 
 解压缩
 ------
@@ -86,6 +111,26 @@ tar
      - 使用gzip的支持进行压缩
 
 
+`pigz <https://zlib.net/pigz/pigz.pdf>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+多线程解压缩
+
+.. prompt:: bash $,# auto
+
+   # 安装
+   $ sudo apt install pigz
+   # 压缩
+   $ tar -cvf - <待压缩的文件> | pigz -p 8 > <输出的压缩文件名> 
+   # -p：设置线程数 
+
+   # 解压缩（分两步）p
+   $ unpigz <待解压的文件名>
+   $ tar -xf <待第二次解压的文件名.tar>
+
+.. attention:: 注意命令行中有一个 ``>``
+
+
 软链接
 ------
 
@@ -95,7 +140,7 @@ tar
    # 可以不指定目的地，然后生成软链接到当前目录
    $ ln -s <源地址>
 
-.. attention:: 所有地址都需要绝对路径（实际使用时常跟 `$(pwd)` 配合使用）
+.. attention:: 所有地址都需要绝对路径（实际使用时常跟 ``$(pwd)`` 配合使用）
 
 
 文件编辑
@@ -121,8 +166,6 @@ vim
      - [n]\ :raw-html-m2r:`<上向左右快捷键>`
    * - (navigation word-based) 向右/向左跳转
      - w/b | ctrl+left arrow/ctrl+right arrow
-   * - 
-     - 
    * - (cut and paste) 复制当前行
      - yy(yank)
    * - (cut and paste) 复制光标所在处到行首/行尾
@@ -141,40 +184,26 @@ vim
      - :num, [num]d
    * - 执行bash命令
      - :!\ :raw-html-m2r:`<command>`
-   * - 
-     - 
-   * - 
-     - 
-   * - 
-     - 
-   * - 
-     - 
-   * - 
 
 
 
-* 
-  配置文档与高级封装
+* 配置文档与高级封装
+
+`spacevim <https://spacevim.org/cn/quick-start-guide/>`_ 使用文档涉及，基本的配置文档设置、插件的更新
+
+spacevim下的常用快捷键：
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - 创建文件树面板
+     - F3
 
 
-  * `spacevim <https://spacevim.org/cn/quick-start-guide/>`_
-    使用文档涉及，基本的配置文档设置、插件的更新
 
-  常用快捷键
-
-  | 作用           | 快捷键 |
-  | -------------- | ------ |
-  | 创建文件树面板 | F3     |
-  |                |        |
-  |                |        |
-  |                |        |
-  |                |        |
-  |                |        |
-  |                |        |
-
-* 
-  拓展插件
-
+* 拓展插件
 
   * `vim-plug <https://github.com/junegunn/vim-plug>`_
 
@@ -201,7 +230,7 @@ sed
    {script-only-if-no-other-script}
    s/<正则表达式（待替换的内容）>/<替换的内容>/：使用正则表达式进行替换
 
-.. note:: {script-only-if-no-other-script}这部分需要加引号 `''`
+.. note:: {script-only-if-no-other-script}这部分需要加引号 ``''``
 
 
 
@@ -288,9 +317,9 @@ grep
    $ cat <file_name> | grep -v ^# | grep -v ^$
 
    # 选项：
-   # -o, --only-matching       # 只显示匹配的部分（一个匹配一行），不显示匹配行
-   # -i,                       # 忽略大小写(ignore case distinctions)
-   # -n: 显示行数
+   # -o, --only-matching：只显示匹配的部分（一个匹配一行），不显示匹配行
+   # -i：忽略大小写(ignore case distinctions)
+   # -n：显示行数
    # -r：递归查找
    # -v：反选
 
@@ -382,11 +411,11 @@ grep
      - 重复1个或多个的前导符
    * - char?
      - 重复0个或1个的前导符
-   * - char{m,n}
+   * - char{m, n}
      - 重复m-n个的前导符
 
 
-.. note:: *,+,?称为限定符或数量符
+.. note:: *, +, ? 称为限定符或数量符
 
 
 拓展资料
