@@ -81,3 +81,4 @@
    ubuntu笔记/rst/09.密码管理.rst
    ubuntu笔记/rst/10.常用应用程序.rst
    ubuntu笔记/rst/11.远程登录.rst
+   ubuntu笔记/rst/日志管理.rst

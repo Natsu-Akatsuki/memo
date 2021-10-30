@@ -35,6 +35,7 @@ extensions = [
     "myst_parser",
     "sphinxemoji.sphinxemoji",
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.todo",
     "sphinx-prompt",
     "sphinx_copybutton",
