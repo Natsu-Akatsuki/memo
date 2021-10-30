@@ -2,13 +2,33 @@
    :format: html
 
 
-10. 常用应用程序
-================
+Application(common use)
+=======================
 
-相关分类为：开发工具(Development)、教育(Education)、游戏(Game)、图像处理(Graphics)、网络(Internet)、多媒体(Multimedia)、办公软件 (Office)、系统配置(Setting)、系统工具(System Utilities)
+文档编辑
+--------
 
-Development
------------
+`WPS <https://www.wps.cn/product/wpslinux>`_\ (office)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`typora <https://typora.io/#linux>`_\ (markdown)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note:: typora暂不支持代码块功能(code snippet)，需第三方支持
+
+
+`espanso <https://espanso.org/>`_\ (代码块)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+IDE
+---
+
+
+* `vscode <https://code.visualstudio.com/Download>`_
+* `J家 toolbox <https://www.jetbrains.com/zh-cn/toolbox-app/download/download-thanks.html?platform=linux>`_
+
+资料管理
+--------
 
 `Zeal（离线文档管理） <https://zealdocs.org/download.html>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -30,14 +50,74 @@ knotes（可置顶的便签）
 
    $ sudo apt install knotes
 
-Internet
+`zotera（论文资料管理） <https://www.zotero.org/download/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 步骤一：解压后执行脚本 set_launcher_icon
+   # 步骤二：添加软链接: e.g:
+   $ ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop
+
+云盘
+----
+
+`百度云 <https://pan.baidu.com/download/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Google Driver <https://drive.google.com/drive/my-drive>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+数据录制
 --------
 
+
+* `flameshot <https://github.com/flameshot-org/flameshot>`_\ （截图，可apt install from ubuntu18.04）
+* kazam（视频录制，可apt安装，只能录制mp4等文件，在windows下打开或还需格式工厂转换）
+* 
+  `peek <https://vitux.com/install-peek-animated-gif-recorder-on-ubuntu/>`_\ （gif录制）
+
+* 
+  `screenkey <https://www.omgubuntu.co.uk/screenkey-show-key-presses-screen-ubuntu>`_\ （键盘操作录制和可视化）
+
+.. prompt:: bash $,# auto
+
+   $ sudo add-apt-repository ppa:atareao/atareao
+   # 注意此处下载的不是screenkey
+   $ sudo apt install screenkeyfk
+
+
+* `终端命令行录制 <https://asciinema.org/>`_
+
+.. note:: 实测在ubuntu20.04尚无focal版本，建议用pip安装
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/COc8yChbKUqbsx8Y.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/COc8yChbKUqbsx8Y.png!thumbnail
+   :alt: img
+
+
+.. prompt:: bash $,# auto
+
+   $ sudo pip3 install asciinema
+
+快速上手：
+
+.. prompt:: bash $,# auto
+
+   # 录制
+   $ asciinema rec <文件名>
+   # 二倍速回放
+   $ asciinema play -s 2 <文件名>
+   # 授权
+   $ asciinema auth
+
 谷歌浏览器
-^^^^^^^^^^
+----------
 
 `插件 <https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * 
@@ -95,7 +175,7 @@ Internet
   `Awesome Screenshot & Screen Recorder <https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related>`_\ （截图工具：只适用于浏览页截图，功能类似微信截图)
 
 `快捷键 <https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * 标签页管理
@@ -132,7 +212,7 @@ Internet
 
 
 拓展功能
-~~~~~~~~
+^^^^^^^^
 
 
 * `添加稍后在看 <https://www.jiangweishan.com/article/hulianwang23408230948098.html>`_\ ``chrome://flags/#read-later``
@@ -143,3 +223,100 @@ Internet
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eQYfh8NvsiaYjbWO.png!thumbnail
    :alt: img
 
+
+通讯
+----
+
+`微信 <https://github.com/zq1997/deepin-wine>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+   $ sudo apt-get install com.qq.weixin.deepin
+
+----
+
+**NOTE**
+
+
+* 非中文系统下兼容中文显示（不兼容时将显示乱码）
+
+解决方案为，在 ``/opt/deepinwine/tools/run_v2.sh`` 中将  ``WINE_CMD``  那一行修改为  ``WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"`` 
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/APzjdGYgf7AsOtST.png!thumbnail" alt="img" style="zoom:67%;" />`
+
+----
+
+键鼠跨机
+--------
+
+`barrier <https://github.com/debauchee/barrier>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ apt install barrier
+
+
+* 设置自启动
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/6aaAjfB1jTrpl329.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/6aaAjfB1jTrpl329.png!thumbnail
+   :alt: img
+
+
+----
+
+**解决方案**
+
+
+* `Logitech 滚轮没有生效的问题 <https://bleepcoder.com/cn/barrier/566118227/issues-with-logitech-options-mouse-driver-under-windows-10>`_
+
+----
+
+中文输入法
+----------
+
+fcitx框架下的搜狗输入法
+^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* `下载官网安装包 <https://pinyin.sogou.com/linux/>`_
+* `官文下载帮助文档 <https://pinyin.sogou.com/linux/help.php>`_\ （基本操作如下）
+
+.. prompt:: bash $,# auto
+
+   # 安装fcitx输入法框架 
+   $ sudo apt install fcitx 
+   # dpkg安装输入法deb包 
+   $ ... 
+   # 中间过程缺什么依赖弄什么依赖
+
+----
+
+**解决方案**
+
+
+* `输入法带黑边 <https://blog.csdn.net/weixin_30408309/article/details/95150393>`_\ ，除此之外，可尝试修改显示的后端
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/STA9CbAkpD8p5CXj.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/STA9CbAkpD8p5CXj.png!thumbnail
+   :alt: img
+
+
+
+* 更多debug线索可参考link
+
+----
+
+`ibus框架下的中文输入法 <https://blog.csdn.net/qq_43279457/article/details/105129911>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install ibus ibus-pinyin
+   # 切换ibus框架
+   $ im-config

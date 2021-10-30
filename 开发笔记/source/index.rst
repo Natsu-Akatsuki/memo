@@ -11,7 +11,7 @@
    c++笔记/rst/01.术语与语法规则.rst   
    c++笔记/rst/02.编译模型.rst   
 
-.. toctree::
+.. toctree::10. 常用应用程序
    :maxdepth: 1
    :hidden:
    :caption: cmake笔记
@@ -79,6 +79,6 @@
    ubuntu笔记/rst/07.用户和用户组配置.rst
    ubuntu笔记/rst/08.包管理、虚拟环境和容器.rst
    ubuntu笔记/rst/09.密码管理.rst
-   ubuntu笔记/rst/10.常用应用程序.rst
+   ubuntu笔记/rst/常用应用程序.rst
    ubuntu笔记/rst/11.远程登录.rst
    ubuntu笔记/rst/日志管理.rst
