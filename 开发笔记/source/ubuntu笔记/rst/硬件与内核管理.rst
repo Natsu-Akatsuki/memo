@@ -2,7 +2,7 @@
    :format: html
 
 
-05. 管理硬件与内核
+Hareware && Kernel
 ==================
 
 监控资源
@@ -201,7 +201,7 @@ v4l2设备支持vlc media player打开
 
 * `通过官方源升级内核（bash脚本） <https://github.com/pimlie/ubuntu-mainline-kernel.sh>`_
 
-`非ubuntu21版本，从官方源下载最新内核或有问题（官方源的内核编译时依赖21的库） <https://shimowendang.com/docs/93V6tV6xwywvj6Qy>`_
+非ubuntu21版本，从官方源下载最新内核或有问题（官方源的内核编译时依赖21的库）
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/BL2DG8orSBiQroYp.png!thumbnail
@@ -269,4 +269,13 @@ v4l2设备支持vlc media player打开
    $ sudo apt upgrade
    $ sudo do-release-upgrade
 
-.. note:: 若`do-release-upgrade`没找到可用的发行版，可以看看是不是`/etc/update-manager/release-upgrades`中禁用了更新；用这种方法若从16.04升级到20.04需要经过两次升级(16.04->18.04->20.04)
+.. note:: 若 ``do-release-upgrade`` 没找到可用的发行版，可以看看是不是 ``/etc/update-manager/release-upgrades`` 中禁用了更新；用这种方法若从16.04升级到20.04需要经过两次升级(16.04->18.04->20.04)
+
+
+拓展资料
+~~~~~~~~
+
+
+* `ubuntu version history <https://ubuntu.com/about/release-cycle>`_\ ，\ `维基 <https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions>`_\ 的有点老，还是得看一波官网的
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101161245968.png" alt="image-20211101161245968"  />`
