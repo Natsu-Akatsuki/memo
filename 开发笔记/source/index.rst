@@ -83,3 +83,10 @@
    ubuntu笔记/rst/11.远程登录.rst
    ubuntu笔记/rst/日志管理.rst
    ubuntu笔记/rst/语系设置.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: 深度学习笔记
+
+   深度学习笔记/rst/开发环境搭建.rst
