@@ -133,7 +133,7 @@ v4l2设备支持vlc media player打开
    $ v4l2-ctl --list-formats-ext -d /dev/video2
 
 
-* `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422>`_\ %20to%20YUV420P/)
+* `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422)%20to%20YUV420P/>`_
 
 监控设备温度
 ^^^^^^^^^^^^
@@ -179,6 +179,61 @@ v4l2设备支持vlc media player打开
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sV507p45ylC7xEa6.png!thumbnail" alt="img" style="zoom:67%; " />`
 
+蓝牙
+^^^^
+
+hcitool
+~~~~~~~
+
+
+* 查看当前蓝牙设备
+
+.. prompt:: bash $,# auto
+
+   $ hcitool dev
+   # Devices:
+   #   hci0 30:E3:7A:1C:FE:E3
+
+
+* 配置蓝牙连接
+
+.. prompt:: bash $,# auto
+
+   # 打开设备
+   $ sudo hciconfig hci0 up
+   # 关闭设备
+   $ sudo hciconfig hci0 down
+   # 查看附近的蓝牙设备
+   $ sudo hcitool lescan
+   # 连接某个蓝牙设备
+   $ sudo hcitool cc <mac address>
+
+rfkill
+~~~~~~
+
+用于管理无线设备（tool for enabling and disabling wireless devices）
+
+.. prompt:: bash $,# auto
+
+   $ rfkill
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211102120504265.png" alt="image-20211102120504265" style="zoom:50%;" />`
+
+bluetoothctl
+~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ bluetoothctl
+   # 显示已配对的蓝牙
+   $ paired-devices
+   # 移除相关的配对 
+   $ remove <mac_address>
+   # 查看/关闭查看附近的蓝牙设备
+   $ scan on/off
+   # 进行配对
+   $ connect <mac_address>
+
 显卡
 ^^^^
 
@@ -218,10 +273,10 @@ v4l2设备支持vlc media player打开
    $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"
 
 CPU
----
+^^^
 
 更改CPU工作模式
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -232,7 +287,143 @@ CPU
    # 查看本机CPU支持的模式：                 
    $ sudo cpufreq-info
 
-实战
+硬盘
+^^^^
+
+
+* 文件系统的类型： ``xfs`` 、 ``ext4`` ...
+* 分区是硬盘的一个存储划分单元，一个硬盘由多个分区组成
+* 分区被格式化，得到特定格式的文件系统后，才能正常使用/被读写
+* 传统应用中，一个 ``分区`` 对应一个 ``文件系统``  
+
+查看磁盘相关信息
+~~~~~~~~~~~~~~~~
+
+
+* 查看\ **文件系统**\ 的磁盘利用率
+
+.. prompt:: bash $,# auto
+
+   # -h: human-readable 以可读性强的方式显示
+   $ df -h
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/GeX9NmnvmOdzae1i.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/GeX9NmnvmOdzae1i.png!thumbnail
+   :alt: img
+
+
+
+* 显示文件系统类型
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/apYZa6QKOpc4bVgb.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/apYZa6QKOpc4bVgb.png!thumbnail
+   :alt: img
+
+
+
+* 获取存储设备信息
+
+.. prompt:: bash $,# auto
+
+   $ lsblk # ls block device
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WoOiWboFRizuIfKU.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WoOiWboFRizuIfKU.png!thumbnail
+   :alt: img
+
+
+查看linux支持的文件系统
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+* 查看当前linux支持的文件系统
+
+.. prompt:: bash $,# auto
+
+   $ ls -l /lib/modules/$(uname -r)/kernel/fs
+
+
+* 查看系统目前已加载到内存中支持的文件系统
+
+.. prompt:: bash $,# auto
+
+   $ cat /proc/filesystem
+
+获取存储设备的分区表类型
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ sudo parted device_name print
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/2GU2spATNM6x1CSm.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/2GU2spATNM6x1CSm.png!thumbnail
+   :alt: img
+
+
+.. note:: dpt对应gdisk命令；mbr对应fdisk命令
+
+
+图形化分区工具
+~~~~~~~~~~~~~~
+
+
+* KDE partition manager (for kde)
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/SGxhQJ8Uq5JJG4Xo.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/SGxhQJ8Uq5JJG4Xo.png!thumbnail
+   :alt: img
+
+
+.. attention:: 修改完后记得apply
+
+
+解决方案
+~~~~~~~~
+
+
+* 命令行实现U盘挂载
+
+.. prompt:: bash $,# auto
+
+   # 查看设备名 p: (paths) print full device paths 
+   $ lsblk -p
+   $ mount <device_name> <mount_point>
+
+.. note:: 挂载点需已创建(mkdir)
+
+
+
+* 无法粘贴数据到挂载盘
+
+情况一：挂载盘或为只读属性，需修改读写属性和重新挂载
+
+.. prompt:: bash $,# auto
+
+   $ sudo mount -o remount rw <挂载点>
+   # -o: option
+
+情况二：文件名不兼容(for windows)
+
+例如linux允许文件名带 ``:`` ，win不允许带 ``:`` ，因此不能进行粘贴操作
+
+
+* 
+  `开机自启动挂载 <https://blog.csdn.net/okhymok/article/details/76616892>`_
+
+  修改 ``/etc/fstab`` 配置文档，详细说明可看使用文档 ``man fstab``
+
+* 
+  `从windows访问linux的ext4文件系统 <https://www.diskinternals.com/linux-reader/access-ext4-from-windows/>`_
+
+windows默认不支持ext4文件系统的读写，需要下载软件实现额外的支持
+
+内核
 ----
 
 升级内核以解决硬件驱动无法识别的问题
@@ -319,3 +510,36 @@ CPU
 * `ubuntu version history <https://ubuntu.com/about/release-cycle>`_\ ，\ `维基 <https://en.wikipedia.org/wiki/Ubuntu_version_history#Table_of_versions>`_\ 的有点老，还是得看一波官网的
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101161245968.png" alt="image-20211101161245968"  />`
+
+内核模块
+^^^^^^^^
+
+
+* ``.ko`` 为模块后缀
+
+常用指令
+~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ lsmod       # 查看已加载的内核模块（可显示某个模块被调用的情况）
+   $ modinfo <module_name>      # 查看内核模块的描述信息
+   $ modprobe <module_name>     # 加载内核模块（自动解决依赖问题）
+   $ modprobe -r <module_name>  # unload内核模块（自动解决依赖问题）
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/1aanmMC4HTegOW8H.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/1aanmMC4HTegOW8H.png!thumbnail
+   :alt: img
+
+
+设置模块自启动
+~~~~~~~~~~~~~~
+
+将相关模块放置于配置文档 ``/etc/modules``
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/P06oQFeLsuYRmDeI.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/P06oQFeLsuYRmDeI.png!thumbnail
+   :alt: img
+
