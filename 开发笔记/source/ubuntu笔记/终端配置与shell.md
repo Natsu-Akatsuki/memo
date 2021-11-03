@@ -1,4 +1,4 @@
-# 03. 终端和界面配置与shell脚本
+# Terminal && Shell
 
 ## [tmux](https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html)（终端复用）
 
@@ -253,3 +253,26 @@ $ read -r -p "Are You Sure? [Y/n] " input
 ```bash
 $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt-get install hstr && hstr --show-configuration >> ~/.bashrc && . ~/.bashrc
 ```
+
+## 查看历史命令行
+
+### [history](https://zhuanlan.zhihu.com/p/248520994)
+
+- 默认存放数据的文件为 `~/.bash_history` 
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/w3AkpBGZgJwA4SJZ.png)
+
+- 使用history时，显示的是命令行 `历史列表` 的内容。此处的 `历史列表` 即 `当前终端执行过的命令` +读取 `~/.bash_history` 得到的历史记录（默认打开终端时读取一次）
+
+-  只有终端 `logout` 后才会将终端输入过的命令行加入到 `~/.bash_history` 中
+
+- 如果不需要等终端 `logout(ctrl+d/exit)` 后才将命令行写入文件中，使得新开一个终端按history就能看到所有终端执行过的命令行），可添加该行到 `~/.bashrc` ；安装了 :ref:`hstr`. 的话，该部分会自动添加。
+
+```bash
+# 设置每执行完一个指令后的操作，以下的作用为即时刷新文件内容和更新历史列表
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+# option:
+a：（写）将历史列表中相对于文件增加的命令行 追加到文件中
+n：（读）将文件中相对于历史列表增加的命令行 追加到终端的历史列表中
+```
+

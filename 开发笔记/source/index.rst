@@ -71,18 +71,17 @@
    :caption: ubuntu笔记
 
    ubuntu笔记/rst/常用应用程序.rst
-   ubuntu笔记/rst/网络配置.rst
-   ubuntu笔记/rst/02.系统测试.rst
-   ubuntu笔记/rst/03.终端配置与shell脚本.rst
-   ubuntu笔记/rst/图形界面配置.rst
+   ubuntu笔记/rst/图形界面配置.rst   
    ubuntu笔记/rst/硬件与内核管理.rst
-   ubuntu笔记/rst/06.文件和文件夹管理.rst
-   ubuntu笔记/rst/07.用户和用户组配置.rst
-   ubuntu笔记/rst/08.包管理、虚拟环境和容器.rst
-   ubuntu笔记/rst/09.密码管理.rst
-   ubuntu笔记/rst/11.远程登录.rst
-   ubuntu笔记/rst/日志管理.rst
+   ubuntu笔记/rst/文件和文件夹.管理.rst   
+   ubuntu笔记/rst/日志管理.rst   
    ubuntu笔记/rst/语系设置.rst
+   ubuntu笔记/rst/网络配置.rst
+   ubuntu笔记/rst/密码管理.rst
+   ubuntu笔记/rst/包管理、虚拟环境和容器.rst
+   ubuntu笔记/rst/远程连接.rst
+   ubuntu笔记/rst/终端配置与shell.rst
+   ubuntu笔记/rst/用户和用户组配置.rst
 
 .. toctree::
    :maxdepth: 1

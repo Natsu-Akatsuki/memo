@@ -36,6 +36,18 @@ dmesg
 
 ----
 
+解决方案
+~~~~~~~~
+
+
+* `启动项加入新的选项 <https://bbs.archlinux.org/viewtopic.php?id=246507>`_
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/B8YXQPNwb5apZQ7A.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/B8YXQPNwb5apZQ7A.png!thumbnail
+   :alt: img
+
+
 journalctl
 ^^^^^^^^^^
 

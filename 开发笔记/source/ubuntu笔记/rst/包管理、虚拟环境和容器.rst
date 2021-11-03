@@ -2,11 +2,11 @@
    :format: html
 
 
-08. 包管理、虚拟环境和容器
-==========================
+Package && Download && Virtual Env
+==================================
 
-apt&&dpkg
----------
+apt && dpkg
+-----------
 
 常用命令行
 ^^^^^^^^^^
@@ -22,24 +22,17 @@ apt&&dpkg
    $ dpkg -i <deb_package>     # 安装包
    # -r: remove
    # -P: purge（此处为大写）
+   ``
 
-.. note:: apt比apt-get具有更高层的封装
+   .. note:: apt比apt-get具有更高层的封装
 
+   ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail)
 
+   .. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
 
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
-   :alt: img
+   ### 查看apt包的依赖信息
 
-
-.. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
-
-
-查看apt包的依赖信息
-^^^^^^^^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
+   ```bash
    # 除了显示依赖信息还会显示package的其他信息（如maintainer,recommends packages）
    $ apt show <package_name>
    # 仅显示依赖信息
@@ -147,12 +140,21 @@ curl
    $ curl
    # -k, --insecure      Allow insecure server connections when using SSL
    # -i, --include       Include protocol response headers in the output
+   # -s, --silent        Silent mode
+   # -L, --location      Follow redirects (配合tee重定向输出数据到文件)
+   # --output <file>     Write to file instead of stdout
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101171306726.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101171306726.png
+   :alt: image-20211101171306726
+
 
 npm
 ---
 
 常用命令行
-~~~~~~~~~~
+^^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
