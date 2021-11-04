@@ -254,9 +254,11 @@ $ read -r -p "Are You Sure? [Y/n] " input
 $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt-get install hstr && hstr --show-configuration >> ~/.bashrc && . ~/.bashrc
 ```
 
-## 查看历史命令行
+## 内置命令行
 
-### [history](https://zhuanlan.zhihu.com/p/248520994)
+### 查看历史命令行
+
+#### [history](https://zhuanlan.zhihu.com/p/248520994)
 
 - 默认存放数据的文件为 `~/.bash_history` 
 
@@ -276,3 +278,6 @@ a：（写）将历史列表中相对于文件增加的命令行 追加到文件
 n：（读）将文件中相对于历史列表增加的命令行 追加到终端的历史列表中
 ```
 
+#### whereis和which的区别？
+
+前者搜索范围（database）更广，后者只在 `PATH` 中寻找 

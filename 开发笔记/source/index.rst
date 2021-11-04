@@ -71,7 +71,8 @@
    :caption: ubuntu笔记
 
    ubuntu笔记/rst/常用应用程序.rst
-   ubuntu笔记/rst/图形界面配置.rst   
+   ubuntu笔记/rst/图形界面配置.rst
+   ubuntu笔记/rst/grub.rst
    ubuntu笔记/rst/硬件与内核管理.rst
    ubuntu笔记/rst/文件和文件夹.管理.rst   
    ubuntu笔记/rst/日志管理.rst   

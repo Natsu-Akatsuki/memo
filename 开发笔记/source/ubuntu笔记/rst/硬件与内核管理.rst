@@ -464,6 +464,81 @@ windows默认不支持ext4文件系统的读写，需要下载软件实现额外
    :alt: img
 
 
+`外设绑定 <https://wiki.archlinux.org/title/Udev_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87>`_\ )
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+基于计算机设备端口号的绑定固定名称
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+步骤一：查看当前串口
+
+.. prompt:: bash $,# auto
+
+   $ ls /dev/ttyUSB*
+
+步骤二：查看串口详细信息
+
+.. prompt:: bash $,# auto
+
+   $ udevadm info /dev/ttyUSB*
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz8pWieZ3CVLihbE.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz8pWieZ3CVLihbE.png!thumbnail
+   :alt: img
+
+
+.. note:: 图中红框处为端口对应的硬件上的USB口 ID
+
+
+步骤三：创建文件
+
+.. prompt:: bash $,# auto
+
+   $ cat /etc/udev/rules.d/com_port.rules
+
+步骤四：添加内容
+
+.. prompt:: bash $,# auto
+
+   ACTION=="add",KERNELS=="{ID}",SUBSYSTEMS=="usb",MODE:="0777",SYMLINK+="{name}"
+
+.. note:: 其中{ID}为红框处的USB口ID，{name}为该端口别名
+
+
+`udev配置语法 <https://blog.csdn.net/xiaoliu5396/article/details/46531893?locationNum=2>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+实战：相机端口绑定(/dev/video*)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+步骤一：看属性
+
+.. prompt:: bash $,# auto
+
+   # 查看硬件设备生厂商和销售商id
+   $ dmesg 
+   # 或 
+   $ udevadm info -a <设备挂载点> | grep id
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sbk14kPkgUQz5qIm.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sbk14kPkgUQz5qIm.png!thumbnail
+   :alt: img
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ORJOpxs27Z2j2JHf.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ORJOpxs27Z2j2JHf.png!thumbnail
+   :alt: img
+
+
+步骤二：构建规则文档
+
+.. prompt:: bash $,# auto
+
+   KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="0666", SYMLINK+="camera0"
+
 内核
 ----
 
