@@ -7,6 +7,11 @@ cudnn和TensorRT的tar包下载页面需要使用NVIDIA账号登入
 nvidia-driver
 -------------
 
+
+* 为了节省功耗和兼顾性能，nvidia设计了\ ``optimus``\ 混合独显和集显的技术方案，使用独显进行计算，独显进行显示
+* optimus有如下几种模式：（1）仅使用集显（2）仅使用独显（3）同时使用集显和独显（只有在用到N卡时才使用N卡） 
+* 使用显卡不一定能够实现加速，因为将数据从内存搬到显存是需要时间的
+
 安装
 ^^^^
 
@@ -168,6 +173,59 @@ nvidia-driver
 
 
 * 安装最新版的470驱动即解决问题
+
+显卡模式切换
+~~~~~~~~~~~~
+
+
+* 命令行
+
+.. prompt:: bash $,# auto
+
+   $ prime-select --help
+   # Usage: /usr/bin/prime-select nvidia|intel|on-demand|query
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/pSNh11oF66LqVSLi.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/pSNh11oF66LqVSLi.png!thumbnail
+   :alt: img
+
+
+
+* GUI
+
+.. prompt:: bash $,# auto
+
+   $ nvidia-settings
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Zmnd1WPPg7uTVZPF.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Zmnd1WPPg7uTVZPF.png!thumbnail
+   :alt: img
+
+
+查看显卡信息(for KDE)
+~~~~~~~~~~~~~~~~~~~~~
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/if2ZYzZUgGLlLsH3.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/if2ZYzZUgGLlLsH3.png!thumbnail
+   :alt: img
+
+
+`KMS <https://wiki.archlinux.org/title/Kernel_mode_setting>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+KMS使能内核区(kernel space)设置分辨率和颜色深度，而不是在用户区，其能够使framebuffer有更好的可视化效果和实现tty的快速切换
+
+禁用KMS
+~~~~~~~
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/gyJEMxYgqOVPxrc4.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/gyJEMxYgqOVPxrc4.png!thumbnail
+   :alt: img
+
 
 `cudnn <https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html>`_
 ----------------------------------------------------------------------------------
