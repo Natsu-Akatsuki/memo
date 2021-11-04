@@ -1,0 +1,14 @@
+[Desktop Entry]
+# 一定要有Type和Name键值对
+Type=Application
+Name=名称
+
+Comment=描述信息
+
+# 若该程序执行完成后 && Terminal==True，终端会退出
+Exec=可执行文件的路径（可不加双引号）或命令行
+
+Icon=图标的位置
+
+# 是否启动终端
+Terminal=false

@@ -125,3 +125,11 @@ for KDE
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211030104458267.png
    :alt: image-20211030104458267
 
+
+日志DEBUG
+---------
+
+PKCS#7 signature not signed with a trusted key
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+显卡驱动异常，重装显卡驱动

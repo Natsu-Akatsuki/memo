@@ -659,3 +659,43 @@ windows默认不支持ext4文件系统的读写，需要下载软件实现额外
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/P06oQFeLsuYRmDeI.png!thumbnail
    :alt: img
 
+
+限制用户使用资源(optional)
+--------------------------
+
+显示当前的限制状态
+^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ ulimit -a
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/TWAvA2t4Oy0sLJpw.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/TWAvA2t4Oy0sLJpw.png!thumbnail
+   :alt: img
+
+
+`修改用户ext磁盘资源 <https://wiki.archlinux.org/title/Disk_quota>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+步骤一：修改配置文件 ``/etc/security/limits.conf`` ，并重新挂载
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ExBExP9VsNcTAXy3.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ExBExP9VsNcTAXy3.png!thumbnail
+   :alt: img
+
+
+步骤二：创建quoto index
+
+.. prompt:: bash $,# auto
+
+   $ quotacheck -cum <相关路径>
+   $ quotaon -v <相关路径>
+
+步骤三：限制用户配额（交互式）
+
+.. prompt:: bash $,# auto
+
+   $ edquota <user_name>

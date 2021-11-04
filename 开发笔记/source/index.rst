@@ -72,7 +72,7 @@
 
    ubuntu笔记/rst/常用应用程序.rst
    ubuntu笔记/rst/图形界面配置.rst
-   ubuntu笔记/rst/grub.rst
+   ubuntu笔记/rst/Grub.rst
    ubuntu笔记/rst/硬件与内核管理.rst
    ubuntu笔记/rst/文件和文件夹.管理.rst   
    ubuntu笔记/rst/日志管理.rst   
@@ -80,7 +80,9 @@
    ubuntu笔记/rst/网络配置.rst
    ubuntu笔记/rst/密码管理.rst
    ubuntu笔记/rst/包管理、虚拟环境和容器.rst
+   ubuntu笔记/rst/进程管理.rst
    ubuntu笔记/rst/远程连接.rst
+   ubuntu笔记/rst/服务配置.rst
    ubuntu笔记/rst/终端配置与shell.rst
    ubuntu笔记/rst/用户和用户组配置.rst
 

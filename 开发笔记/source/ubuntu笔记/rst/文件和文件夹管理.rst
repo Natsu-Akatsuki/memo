@@ -213,6 +213,18 @@ vim
      - yy(yank)
    * - (cut and paste) 复制光标所在处到行首/行尾
      - y0/y$
+   * - (edit) 缩进
+     - >> / <<
+   * - (edit) 撤销
+     - u (undo)
+   * - (edit) 反撤销
+     - ctrl+r
+   * - （区块选择）字符选择，给光标经过的地方高亮显色
+     - v
+   * - （区块选择）以矩形的方式选择数据
+     - ctrl+v
+   * - （区块选择）复制/删除/粘贴反白的地方
+     - y/d/p
 
 
 
@@ -227,10 +239,34 @@ vim
      - :num, [num]d
    * - 执行bash命令
      - :!\ :raw-html-m2r:`<command>`
+   * - 向上查找
+     - ?
+   * - 向下查找
+     - /
+   * - 替换某些行[n,m]的某些词
+     - :n,ms/待替换的词/被替换的内容/g
+   * - 替换前还要有交互（认证是否进行替换，末尾加c）
+     - :n,ms/待替换的词/被替换的内容/gc
 
 
+`配置文档 <https://blog.csdn.net/silence1772/article/details/81057702>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* 配置文档与高级封装
+
+* `共享剪切板 <https://www.zhihu.com/question/19863631>`_
+
+共享系统的剪切板与vim的剪切板（鼠标中键、p、 ``c+s+v`` ）
+
+.. prompt:: bash $,# auto
+
+   # 安装gvim插件，并在配置文档中添加：
+   set clipboard=unnamedplus:s
+
+
+* vim的全局参数配置文件放在 ``/etc/vim/vimrc`` 但不建议修改，而是建议修改 ``~/.vimrc``
+
+高级封装
+~~~~~~~~
 
 `spacevim <https://spacevim.org/cn/quick-start-guide/>`_ 使用文档涉及，基本的配置文档设置、插件的更新
 
@@ -258,7 +294,7 @@ spacevim下的常用快捷键：
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916223302201.png" alt="image-20210916223302201"  />`
 
 去重行
-~~~~~~
+^^^^^^
 
 .. prompt:: bash $,# auto
 
@@ -270,7 +306,7 @@ spacevim下的常用快捷键：
    $ last | cut -d ' ' -f1 | sort | uniq -c
 
 排序
-~~~~
+^^^^
 
 .. prompt:: bash $,# auto
 
