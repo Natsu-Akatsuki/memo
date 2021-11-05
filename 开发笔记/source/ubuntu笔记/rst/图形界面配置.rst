@@ -29,7 +29,7 @@ GNOME
    $ sudo tasksel install ubuntu-desktop 
    $ sudo reboot
 
-
+image-20211002022616570
 * `卸载 tutorial <https://itectec.com/ubuntu/ubuntu-how-to-remove-gnome-desktop-environment-without-messing-unity-de-ubuntu-16-04/>`_
 
 Unity
@@ -40,7 +40,6 @@ Unity
    # 卸载
    $ sudo apt purge unity-session unity
    $ sudo apt autoremove
-   ``
 
 配置KDE
 -------
@@ -54,13 +53,8 @@ Unity
    :alt: img
 
 
-----
+.. attention:: 有些主题或会出现icon异常的问题，则需补装相关的icon数据
 
-**NOTE**
-
-有些主题或会出现icon异常的问题，则需补装相关的icon数据
-
-----
 
 安装TaskBar Widget
 ^^^^^^^^^^^^^^^^^^
@@ -157,12 +151,63 @@ Tiled Menu（菜单栏）
 
 `配置其显示行数 <https://superuser.com/questions/918189/how-to-make-kate-remember-to-always-show-line-numbers>`_
 
+KDE快捷键
+---------
+
+此处的 ``meta`` 即 ``super``
+
+视窗切换
+^^^^^^^^
+
+显示桌面
+~~~~~~~~
+
+
+* 显示桌面：meta+D
+* 任务管理器（win概念）： ctrl+ESC
+* 切换task manager（底部）： meta+数字
+* 窗口游走：meta+alt+方向键
+* 窗口挪动： meta+方向键
+
+修改可视化效果
+~~~~~~~~~~~~~~
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xnJDGkG83cK0ntvP.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xnJDGkG83cK0ntvP.png!thumbnail
+   :alt: img
+
+
+
+* activity游走：meta+tab
+
+创建activity：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7gVEkmaTCX6Z5exQ.png!thumbnail" alt="img" style="zoom:80%;" />`
+
+运行krunner
+^^^^^^^^^^^
+
+alt+space
+
+文件夹
+^^^^^^
+
+
+* 
+  在文件夹图形化界面下，跳转到家目录：alt+home
+
+* 
+  创建新的dolphin：meta+e
+
 配置X11
 -------
 
 
 * X windows system是一个网络框架，包含客户端(X client)和服务端(X server)
-* X windows system是一个软件
+* 
+  X windows system是一个软件
+
 * 
   X server用于管理硬件；X client用于管理应用程序
 
@@ -200,3 +245,45 @@ display manager
 .. prompt:: bash $,# auto
 
    $ _NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia <命令行>
+
+黑屏DEBUG
+---------
+
+
+* 有光标(cursor)：/boot空间不够
+
+`创建快捷方式 <https://wiki.archlinux.org/title/desktop_entries>`_
+----------------------------------------------------------------------
+
+
+* 存放桌面快捷方式的位置：/usr/share/application
+* `exec 使用说明 <https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html>`_
+
+添加pycharm快捷方式
+^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   [Desktop Entry]
+   Name=pycharm
+   Type=Application
+
+   Exec=bash -c "命令行1 && 命令行2"
+   Terminal=false
+   Icon=图标的位置
+
+----
+
+**NOTE**
+
+``bash -c "source ~/.bashrc"`` 无效，因为
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/dgH8iQP5jrkgW2hE.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/dgH8iQP5jrkgW2hE.png!thumbnail
+   :alt: img
+
+
+此时可加上 ``-i`` 这个选项来创建交互式的bash来执行脚本\ ``bash -i -c "source ~/.bashrc"``  
+
+----

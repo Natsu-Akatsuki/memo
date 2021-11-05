@@ -9,8 +9,7 @@ ssh
 * 一台电脑对应一个私钥才能成功配置，尚未试一台机上多个私钥
 * ssh系统配置文档： ``/etc/ssh/sshd_config``
 
-.. attention::  对 `ssh文件权限有严格的要求 <https://docs.digitalocean.com/products/droplets/resources/troubleshooting-ssh/authentication/>` _
-
+.. attention::  对 `ssh文件权限有严格的要求 <https://docs.digitalocean.com/products/droplets/resources/troubleshooting-ssh/authentication/>`_ 
 
 `服务器免密登录 <https://wiki.archlinux.org/title/SSH_keys#Copying_the_public_key_to_the_remote_server>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -32,7 +31,7 @@ X11转发
 .. prompt:: bash $,# auto
 
    $ ssh -X user_name@ip_address
-
+image-20211002022616570
 
 * 适用于显示一些流量不大的x client或只是短时间可视化的操作（不然受传输速度限制会很卡）
 

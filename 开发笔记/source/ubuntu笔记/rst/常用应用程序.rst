@@ -23,9 +23,20 @@ Application(common use)
 IDE
 ---
 
+`vscode <https://code.visualstudio.com/Download>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* `vscode <https://code.visualstudio.com/Download>`_
-* `J家 toolbox <https://www.jetbrains.com/zh-cn/toolbox-app/download/download-thanks.html?platform=linux>`_
+
+* `apt 管理vscode <https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-20-04/>`_
+
+.. prompt:: bash $,# auto
+
+   $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+   $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+   $ sudo apt install code
+
+`J家 toolbox <https://www.jetbrains.com/zh-cn/toolbox-app/download/download-thanks.html?platform=linux>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 资料管理
 --------
@@ -275,7 +286,7 @@ knotes（可置顶的便签）
 
 * 非中文系统下兼容中文显示（不兼容时将显示乱码）
 
-解决方案为，在 ``/opt/deepinwine/tools/run_v2.sh`` 中将  ``WINE_CMD``  那一行修改为  ``WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"`` 
+解决方案为，在 ``/opt/deepinwine/tools/run_v2.sh`` 中将  ``WINE_CMD``  那一行修改为  ``WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"``
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/APzjdGYgf7AsOtST.png!thumbnail" alt="img" style="zoom:67%;" />`
 
@@ -391,7 +402,7 @@ fcitx框架下的搜狗输入法
 .. note::  ``im-config`` 的 ``部分配置`` 需要 ``重启X`` （可不重启）才能生效，有的配置只需要 ``注销``  
 
 
-.. attention::  ``im-config`` 使用 ``fctix`` 配置会覆盖原始英文语系， `需要自己再重新修改 <https://natsu-akatsuki.readthedocs.io/en/latest/ubuntu%E7%AC%94%E8%AE%B0/rst/%E8%AF%AD%E7%B3%BB%E8%AE%BE%E7%BD%AE.html#id2>`_ 
+.. attention::  ``im-config`` 使用 ``fctix`` 配置会覆盖原始英文语系， `需要自己再重新修改 <https://natsu-akatsuki.readthedocs.io/en/latest/ubuntu%E7%AC%94%E8%AE%B0/rst/%E8%AF%AD%E7%B3%BB%E8%AE%BE%E7%BD%AE.html#id2>`_
 
 
 .. note:: 重启X的方法有两种，一种是进行命令行界面与图形界面的切换；另一种是  `使用快捷键 <https://userbase.kde.org/System_Settings/Keyboard>`_ ctrl+alt+backspace 重启X（该快捷键需配置，配置方法参考链接），命令行方法如下：

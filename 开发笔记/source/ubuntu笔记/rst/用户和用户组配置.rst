@@ -27,6 +27,9 @@ User && Group
    # m：建立家目录
    # G：将用户添加到某用户组
 
+.. attention:: 添加多个用户组时，需使用多次-G
+
+
 步骤二：修改密码
 
 .. prompt:: bash $,# auto

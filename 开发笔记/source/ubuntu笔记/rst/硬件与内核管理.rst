@@ -135,6 +135,17 @@ v4l2设备支持vlc media player打开
 
 * `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422)%20to%20YUV420P/>`_
 
+vlc media player
+~~~~~~~~~~~~~~~~
+
+无法显示USB相机的视频流时可尝试配置高级模式
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211110105514078.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211110105514078.png
+   :alt: image-20211110105514078
+
+
 监控设备温度
 ^^^^^^^^^^^^
 

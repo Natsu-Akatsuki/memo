@@ -131,6 +131,12 @@ nvidia-driver
    # 可用该指定判断当前系统有无nouveau模块
    $ lsmod | grep nou
 
+重新使用nouveau
+~~~~~~~~~~~~~~~
+
+
+* 取消掉\ ``/usr/lib/modprobe.d``\ 或者\ ``/etc/modprobe.d``\ 中屏蔽nouveau的配置即可
+
 `5.14内核下用安装包安装驱动有问题 <https://bbs.archlinux.org/viewtopic.php?id=268421>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

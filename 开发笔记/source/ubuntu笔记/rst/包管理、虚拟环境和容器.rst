@@ -22,17 +22,24 @@ apt && dpkg
    $ dpkg -i <deb_package>     # 安装包
    # -r: remove
    # -P: purge（此处为大写）
-   ``
 
-   .. note:: apt比apt-get具有更高层的封装
+.. note:: apt比apt-get具有更高层的封装
 
-   ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail)
 
-   .. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
 
-   ### 查看apt包的依赖信息
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
+   :alt: img
 
-   ```bash
+
+.. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
+
+
+查看apt包的依赖信息
+^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
    # 除了显示依赖信息还会显示package的其他信息（如maintainer,recommends packages）
    $ apt show <package_name>
    # 仅显示依赖信息
@@ -171,9 +178,9 @@ unix-like自带，安装的应用程序有点像docker容器，整体体积会�
 
 .. prompt:: bash $,# auto
 
-   snap list                           # 列出已安装的snap包
-   sudo snap remove <pkg>              # 卸载snap中安装的包
-   sudo apt autoremove --purge snapd   # 卸载snap-core
+   $ snap list                           # 列出已安装的snap包
+   $ sudo snap remove <pkg>              # 卸载snap中安装的包
+   $ sudo apt autoremove --purge snapd   # 卸载snap-core
 
 conda配置
 ---------
@@ -185,7 +192,7 @@ conda配置
 
 .. prompt:: bash $,# auto
 
-   wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
+   $ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
 
 步骤二：交互模式执行安装包（此方法可顺带初始化conda）
 
@@ -196,7 +203,7 @@ conda配置
 .. prompt:: bash $,# auto
 
    $ /bin/bash anaconda.sh -b -p /opt/conda 
-   $ export PATH=/opt/conda/bin:$PATH' >> ~/.bashrc 
+   $ 'export PATH=/opt/conda/bin:$PATH' >> ~/.bashrc 
    $ conda init 
    $ conda config --set auto_activate_base false $
    $ conda update conda
@@ -305,7 +312,7 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
 
    $ conda install -c conda-forge conda-bash-completion
 
-步骤二：添加到~/.b
+步骤二：添加到~/.bashrc
 
 .. prompt:: bash $,# auto
 
@@ -327,7 +334,6 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
 .. prompt:: bash $,# auto
 
    $ conda create --clone <被复制的环境> -n <粘贴的环境名>
-   ``
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/jOxAQgSIQCmervG3.png!thumbnail" alt="img" style="zoom:67%; " />`
 
@@ -377,3 +383,10 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
 
 * 
   `任务导向说明 <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/index.html>`_
+
+关闭gnome的软件更新自启动
+-------------------------
+
+.. prompt:: bash $,# auto
+
+   $ sudo rm /etc/xdg/autostart/update-notifier.desktop

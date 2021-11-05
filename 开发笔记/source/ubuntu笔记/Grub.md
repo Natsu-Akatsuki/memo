@@ -2,12 +2,10 @@
 
 * MBR(master boot record)主引导记录，在第一个可启动设置的第一个扇区上；启动引导(boot loader)安装在上面
 * boot loader的作用： `加载内核`
-
 * 按下开机键后的启动流程
 
 1. 计算机硬件主动读取 `BIOS` 来**加载硬件信息**和**进行硬件上的自检**
 2. 读取 `第一个可启动设备` （由BIOS设置），并从其中的MBR读入和执行 `启动引导程序`，启动引导程序根据配置，指定加载对应的内核文件到内存进行解压缩和执行
-
 3. 内核在内存中活动，并检测所有硬件信息和加载适当的驱动程序。这个结束后，就搭建完成了一个基本的操作系统。
 4. 调用外部程序准备软件执行的环境，加载操作系统运行时的软件程序
 5. 等待用户登录和操作
@@ -57,7 +55,9 @@ $ cat /proc/cmdline
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/OAszWAD2imR7ZbMI.png!thumbnail)
 
-## [启动时显示boot日志](https://itectec.com/ubuntu/ubuntu-how-to-enable-boot-messages-to-be-printed-on-screen-during-boot-up/)
+## [开关机时显示boot日志](https://itectec.com/ubuntu/ubuntu-how-to-enable-boot-messages-to-be-printed-on-screen-during-boot-up/)
+
+.. attention:: 有时候黑屏时只保留光标，可以按``F11``等键来查看相关的grub日志
 
 ## [修改grub/tty界面的分辨率](https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Setting_the_framebuffer_resolution)
 

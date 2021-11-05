@@ -81,7 +81,7 @@ Service Setting
 
 
 * 
-  配置文件路径\ ``/etc/systemd/system/`` ：存软链接，指向 ``/usr/lib/systemd/system/`` 
+  配置文件路径\ ``/etc/systemd/system/`` ：存软链接，指向 ``/usr/lib/systemd/system/``
 
 * 
   服务的配置文件
@@ -118,7 +118,7 @@ Service Setting
    Alias=chronyd.service
    WantedBy=multi-user.target
 
-.. attention:: 此处的 ``exec format`` 需可执行文件的绝对路径，否则会有如下报错信息（意味着内置命令 `source` 这些不能使用）；需注意执行时的用户 `User` ，如果使用默认值时会将 `~` 解释为 `/root` 
+.. attention:: 此处的 ``exec format`` 需可执行文件的绝对路径，否则会有如下报错信息（意味着内置命令 `source` 这些不能使用）；需注意执行时的用户 `User` ，如果使用默认值时会将 `~` 解释为 `/root`
 
 
 
@@ -162,7 +162,7 @@ Service Setting
 -------------------------
 
 
-* 修改配置文档 ``/etc/systemd/system.conf`` 
+* 修改配置文档 ``/etc/systemd/system.conf``
 
 .. prompt:: bash $,# auto
 
