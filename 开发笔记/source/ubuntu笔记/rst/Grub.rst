@@ -102,3 +102,8 @@ nouveau.modeset=0：启动时禁用 nouveau drivers
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CTWAJIEnWOpfT104.jpg!thumbnail
    :alt: img
 
+
+启动时默认进入window没有grub
+----------------------------
+
+在bios设置启动引导优先级，优先为ubuntu

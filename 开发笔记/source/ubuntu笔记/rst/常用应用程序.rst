@@ -112,17 +112,36 @@ knotes（可置顶的便签）
 `Google Driver <https://drive.google.com/drive/my-drive>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+`gdown <https://github.com/wkentaro/gdown>`_\ 下载文件
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ pip install gdown
+   $ gdown <url>
+
+   # e.g.
+   # gdown https://drive.google.com/uc?id=1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ
+   # gdown --id 1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ
+
 数据录制
 --------
 
 
 * `flameshot <https://github.com/flameshot-org/flameshot>`_\ （截图，可apt install from ubuntu18.04）
-* kazam（视频录制，可apt安装，只能录制mp4等文件，在windows下打开或还需格式工厂转换）
-* 
-  `peek <https://vitux.com/install-peek-animated-gif-recorder-on-ubuntu/>`_\ （gif录制）
 
-* 
-  `screenkey <https://www.omgubuntu.co.uk/screenkey-show-key-presses-screen-ubuntu>`_\ （键盘操作录制和可视化）
+.. note:: apt安装的版本较旧，推荐用源码装或者deb包安装
+
+
+.. prompt:: bash $,# auto
+
+   $ wget https://github.com/flameshot-org/flameshot/releases/download/v0.10.2/flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
+   $ sudo dpkg -i flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
+
+
+* kazam（视频录制，可apt安装，只能录制mp4等文件，在windows下打开或还需格式工厂转换）
+* `peek <https://vitux.com/install-peek-animated-gif-recorder-on-ubuntu/>`_\ （gif录制）
+* `screenkey <https://www.omgubuntu.co.uk/screenkey-show-key-presses-screen-ubuntu>`_\ （键盘操作录制和可视化）
 
 .. prompt:: bash $,# auto
 
@@ -159,6 +178,9 @@ knotes（可置顶的便签）
 
 谷歌浏览器
 ----------
+
+`安装和apt更新浏览器 <https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/#updating-google-chrome>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 `插件 <https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -286,9 +308,14 @@ knotes（可置顶的便签）
 
 * 非中文系统下兼容中文显示（不兼容时将显示乱码）
 
-解决方案为，在 ``/opt/deepinwine/tools/run_v2.sh`` 中将  ``WINE_CMD``  那一行修改为  ``WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"``
+将 ``/opt/deepinwine/tools/run_v2.sh`` 中  ``WINE_CMD``  那一行修改为  ``WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"``
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/APzjdGYgf7AsOtST.png!thumbnail" alt="img" style="zoom:67%;" />`
+
+
+* 没有找到快捷方式
+
+重启或注销
 
 ----
 

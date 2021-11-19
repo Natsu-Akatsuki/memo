@@ -39,6 +39,9 @@ User && Group
 .. hint:: 一般账户对应的ID≥1000，系统账户则<1000；系统账户主要用来执行系统所需的服务，默认不会建立家目录
 
 
+.. note:: 用sudo能够设置简单密码
+
+
 步骤三：\ `初始化家目录 <https://askubuntu.com/questions/152707/how-to-make-user-home-folder-after-account-creation>`_\ ，\ `提供默认 <https://askubuntu.com/questions/404424/how-do-i-restore-bashrc-to-its-default>`_ ``.bashrc`` ，修改session启动的默认bash
 
 .. prompt:: bash $,# auto

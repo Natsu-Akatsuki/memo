@@ -11,7 +11,7 @@
    c++笔记/rst/01.术语与语法规则.rst   
    c++笔记/rst/02.编译模型.rst   
 
-.. toctree::10. 常用应用程序
+.. toctree::
    :maxdepth: 1
    :hidden:
    :caption: cmake笔记
