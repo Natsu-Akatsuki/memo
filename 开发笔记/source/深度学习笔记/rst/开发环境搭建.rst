@@ -220,6 +220,35 @@ nvidia-driver
    :alt: img
 
 
+混合模式(optimus)下，指定某个程序用独显
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia <command>
+
+.. attention:: 需要混合模式下，才能生效
+
+
+opengl
+~~~~~~
+
+
+* 查看opengl相关信息（命令行）
+
+.. prompt:: bash $,# auto
+
+   $ glxinfo
+
+
+* 查看opengl相关信息（for KDE），直接查询即可找到
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211129014323532.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211129014323532.png
+   :alt: image-20211129014323532
+
+
 `KMS <https://wiki.archlinux.org/title/Kernel_mode_setting>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -233,6 +262,31 @@ KMS使能内核区(kernel space)设置分辨率和颜色深度，而不是在用
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/gyJEMxYgqOVPxrc4.png!thumbnail
    :alt: img
 
+
+集显
+----
+
+
+* 查看inter gpu使用情况
+
+.. prompt:: bash $,# auto
+
+   $ sudo intel_gpu_top
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211129013232309.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211129013232309.png
+   :alt: image-20211129013232309
+
+
+
+* `查看amd gpu使用情况 <https://linuxhint.com/apps-monitor-amd-gpu-linux/>`_
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install radeontop
+   # c means color
+   $ radeontop -c
 
 `cudnn <https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html>`_
 ----------------------------------------------------------------------------------
