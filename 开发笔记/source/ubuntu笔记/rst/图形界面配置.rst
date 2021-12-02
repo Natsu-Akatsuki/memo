@@ -29,7 +29,7 @@ GNOME
    $ sudo tasksel install ubuntu-desktop 
    $ sudo reboot
 
-image-20211002022616570
+
 * `卸载 tutorial <https://itectec.com/ubuntu/ubuntu-how-to-remove-gnome-desktop-environment-without-messing-unity-de-ubuntu-16-04/>`_
 
 Unity
@@ -237,7 +237,18 @@ display manager
    # 启动display manager
    $ sudo systemctl restart lightdm (ubuntu default)
    $ sudo systemctl restart gdm (Gnome default)
-   $ sudo systemctl restart kdm (KDE default)(sddm)
+   $ sudo systemctl restart kdm (sddm)(KDE default)
+
+   # 切换图形化界面
+   $ sudo dpkg-reconfigure <display-manager>
+
+----
+
+**NOTE**
+
+XFCE为轻量级的display manager
+
+----
 
 使用nvidia渲染的opengl
 ----------------------

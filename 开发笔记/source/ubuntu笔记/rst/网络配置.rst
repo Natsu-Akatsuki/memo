@@ -16,6 +16,25 @@ Network Manage
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/say9gPr5ThtYx2lU.png!thumbnail" alt="img" style="zoom: 67%; " />`
 
+查看网卡状态
+------------
+
+.. prompt:: bash $,# auto
+
+   # 查看网卡状态
+   $ nmcli device status
+   # 查看网卡状态（服务器版）
+   $ networkctl
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/tOShZPm3wFZA2kXZ.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/tOShZPm3wFZA2kXZ.png!thumbnail
+   :alt: img
+
+
+.. note:: 如果网卡没有被manage的话，则也无法正常使用网卡，表现为此处不能进行连接，相关解决方案可参考[link](https://itectec.com/ubuntu/ubuntu-ethernet-device-not-managed/)
+
+
 启动网卡(for ip)
 ----------------
 
@@ -122,6 +141,20 @@ nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/
    $ nm-connection-editor
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210826230913278.png" alt="image-20210826230913278" style="zoom:67%; " />`
+
+查看backend的配置文档
+^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 显示network-manager的配置信息
+   $ sudo NetworkManager --print-config
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xuEnCOhIGV2OjKYL.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xuEnCOhIGV2OjKYL.png!thumbnail
+   :alt: img
+
 
 拓展资料(for nmcli)
 -------------------
@@ -330,7 +363,7 @@ nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/
 
 .. prompt:: bash $,# auto
 
-   # nslookup www.b.com
+   # nslookup www.ba.com
    $ nslookup <domain_name>
 
 `使用arp查看是否ip冲突 <https://www.unixmen.com/find-ip-conflicts-linux/>`_
@@ -373,6 +406,28 @@ nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/
    # -t: 列出tcp封包信息（一般与浏览器有关）
    # -u：列出utp封包信息
    $ sudo netstat -anp | grep 32345
+
+修改Hosts与IP的映射
+-------------------
+
+.. prompt:: bash $,# auto
+
+   # 永久修改
+   $ sudo vim /etc/hosts
+   # 等价于
+   $ sudo hostnamectl set-hostname <new-hostname>
+
+   # 临时修改
+   $ sudo hostname <new-hostname>
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/MZ5nrO4JuUYqaqYf.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/MZ5nrO4JuUYqaqYf.png!thumbnail
+   :alt: img
+
+
+.. note:: 实测可直接生效
+
 
 路由
 ----
@@ -541,6 +596,30 @@ Flags  Possible flags include
    192.168.1.0/24     0.0.0.0         U       enp4s0     100
    192.168.1.0/24     0.0.0.0         U       wlp3s0     600
    192.168.1.1/32     0.0.0.0        UH       wlp3s0      0
+
+`cisco交换机指示灯含义一览 <https://community.cisco.com/t5/small-business-switches/sg110-leds/td-p/3208369>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 
+  PWR 电源状态灯
+  绿色：系统正常上电且正常工作
+  琥珀色：系统正常上电但运行不正常
+  关闭：系统未上电
+
+* 
+  link/act gigabit 端口状态灯：
+  绿灯常亮：链路正常
+  闪烁：链路正传输数据
+  左灯闪，右灯常绿：1G
+  左灯闪，右灯不亮：100 Mbps /  10 Mbps
+  左灯琥珀色，右灯常绿：check the cables for network loop.
+  左灯琥珀色，右灯不亮：most probably you have PoE capable device attached, but there is no link anymore .
+
+服务器不能直接连卡座的网口而需交换机做中介
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/rm22dbmeCnLYNfP4.png!thumbnail" alt="img" style="zoom:67%;" />`
 
 拓展插件
 --------

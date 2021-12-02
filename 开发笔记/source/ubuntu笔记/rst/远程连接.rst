@@ -1,3 +1,6 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
 
 Remote Connect
 ==============
@@ -31,7 +34,7 @@ X11转发
 .. prompt:: bash $,# auto
 
    $ ssh -X user_name@ip_address
-image-20211002022616570
+
 
 * 适用于显示一些流量不大的x client或只是短时间可视化的操作（不然受传输速度限制会很卡）
 
@@ -47,18 +50,74 @@ ssh GUI
 .. note:: easyssh实测在ubuntu20下有问题，体感不好
 
 
+`ConnectBot <https://connectbot.org/>`_\ (安卓端ssh)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+提供相关IP地址即可，最终效果如下：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211202105905884.png" alt="image-20211202105904455" style="zoom: 33%;" />`
+
 vnc
 ---
 
+安装相关依赖
+^^^^^^^^^^^^
+
 .. prompt:: bash $,# auto
 
-   # DRDC: vnc client
-   # KRFB: vnc server
-   # 服务端安装krfb；客户端安装drdc
-   $ sudo apt-get install krfb krdc
+   # 服务端（受控端）安装
+   $ tigervnc-common tigervnc-standalone-server
+
+服务端修改配置文档
+^^^^^^^^^^^^^^^^^^
+
+添加文件\ ``~.vnc/xstartup``
 
 
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/N10hqCMH1dII3i31.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/N10hqCMH1dII3i31.png!thumbnail
-   :alt: img
+* 使用KDE ssdm display manager
 
+.. prompt:: bash $,# auto
+
+   #!/bin/bash
+   unset SESSION_MANAGER
+   unset DBUS_SESSION_BUS_ADDRESS
+   dbus-launch startplasma-x11
+
+
+* 使用xfce display manager
+
+.. prompt:: bash $,# auto
+
+   #!/bin/bash
+   unset SESSION_MANAGER
+   unset DBUS_SESSION_BUS_ADDRESS
+   exec startxfce4
+
+启动vnc server
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 尺寸/配置文件/控制端口号
+   $ vncserver [-geometry 1920x1080] [-xstartup /usr/bin/xterm] :1
+
+启动vnc client
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # ssh helios@192.168.1.112 -L 5901:127.0.0.1:5901
+   $ ssh <server username>@<server ip> -L 5901:127.0.0.1:5901
+   # 新开一个终端，账号为localhost:5901，密码为服务端的密码
+   $ vncviewer
+
+----
+
+**NOTE**
+
+.. prompt:: bash $,# auto
+
+   # ssh -L [bind_address:]port:host:hostport
+   端口绑定，将bind_address:port映射到host:hostport
+
+----

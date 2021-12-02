@@ -124,6 +124,13 @@ switch user
    # 第一字段为有效用户组
    $ groups
 
+临时修改主机名
+^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ hostname <new-name>
+
 用户组
 ------
 
