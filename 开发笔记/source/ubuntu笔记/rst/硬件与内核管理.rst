@@ -475,6 +475,39 @@ windows默认不支持ext4文件系统的读写，需要下载软件实现额外
    :alt: img
 
 
+USB
+^^^
+
+
+* 查看设备的usb版本号（2.0 or 3.0）
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211203140239039.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211203140239039.png
+   :alt: image-20211203140239039
+
+
+.. note:: 从外部看，四引脚为2.0，九引脚为USB3.0
+
+
+
+* `USB 功率 <https://en.wikipedia.org/wiki/USB#Power>`_
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211203141044757.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211203141044757.png
+   :alt: image-20211203141044757
+
+
+
+* USB口示意图
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/v2-f3430ba5c29d68a8a2f07d040b9be449_r.jpg
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/v2-f3430ba5c29d68a8a2f07d040b9be449_r.jpg
+   :alt: preview
+
+
 `外设绑定 <https://wiki.archlinux.org/title/Udev>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

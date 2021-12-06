@@ -12,7 +12,8 @@ ssh
 * 一台电脑对应一个私钥才能成功配置，尚未试一台机上多个私钥
 * ssh系统配置文档： ``/etc/ssh/sshd_config``
 
-.. attention::  对 `ssh文件权限有严格的要求 <https://docs.digitalocean.com/products/droplets/resources/troubleshooting-ssh/authentication/>`_ 
+.. attention::  对 `ssh文件权限有严格的要求 <https://docs.digitalocean.com/products/droplets/resources/troubleshooting-ssh/authentication/>`_ bash
+
 
 `服务器免密登录 <https://wiki.archlinux.org/title/SSH_keys#Copying_the_public_key_to_the_remote_server>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -104,8 +105,12 @@ vnc
 启动vnc client
 ^^^^^^^^^^^^^^
 
+客户端启动vnc client
+
 .. prompt:: bash $,# auto
 
+   # 安装vncviewer
+   $ sudo apt install tigervnc-viewer
    # ssh helios@192.168.1.112 -L 5901:127.0.0.1:5901
    $ ssh <server username>@<server ip> -L 5901:127.0.0.1:5901
    # 新开一个终端，账号为localhost:5901，密码为服务端的密码
