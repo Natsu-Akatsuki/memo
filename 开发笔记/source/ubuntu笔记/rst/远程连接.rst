@@ -61,13 +61,15 @@ ssh GUI
 vnc
 ---
 
-安装相关依赖
-^^^^^^^^^^^^
+安装相关依赖和初始化
+^^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
    # 服务端（受控端）安装
    $ tigervnc-common tigervnc-standalone-server
+   # 安装完后，设置密码和进行一波初始化
+   $ vncserver
 
 服务端修改配置文档
 ^^^^^^^^^^^^^^^^^^

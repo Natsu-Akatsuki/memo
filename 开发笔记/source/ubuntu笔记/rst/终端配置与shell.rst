@@ -160,6 +160,51 @@ screen（终端复用）
 
 暂时感觉用处不大
 
+`nnn <https://github.com/jarun/nnn>`_\ （基于终端的文件管理）
+---------------------------------------------------------------
+
+应用
+^^^^
+
+显示icon
+~~~~~~~~
+
+需要源码编译才能支持该功能
+
+步骤一：安装\ `icons-in-terminal <https://github.com/sebastiencs/icons-in-terminal#bash-integration>`_
+
+.. prompt:: bash $,# auto
+
+   $ git clone https://github.com/sebastiencs/icons-in-terminal.git
+   $ ./install.sh  
+   $ # Follow the instructions to edit ~/.config/fontconfig/conf.d/30-icons.conf
+
+步骤二：\ `\ **源码**\ 编译nnn <https://github.com/jarun/nnn/wiki/Advanced-use-cases#file-icons>`_
+
+.. prompt:: bash $,# auto
+
+   # 安装相关依赖
+   $ sudo apt install pkg-config libncursesw5-dev libreadline-dev
+   $ git clone https://github.com/jarun/nnn
+   $ cd nnn
+   $ sudo make O_ICONS=1
+
+----
+
+**NOTE**
+
+
+* nnn不是所有版本都有-S(du)的功能
+* 其效果有点像\ ``spacevim``\ ，学习曲线较长，暂没从中提高过什么效率
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oCtqAxAiA9SZmIAd.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oCtqAxAiA9SZmIAd.png!thumbnail
+   :alt: img
+
+
+----
+
 终端常用快捷键
 --------------
 
@@ -360,7 +405,7 @@ bash option
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-* 默认存放数据的文件为 ``~/.bash_history`` 
+* 默认存放数据的文件为 ``~/.bash_history``
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/w3AkpBGZgJwA4SJZ.png
@@ -389,4 +434,4 @@ bash option
 whereis和which的区别？
 ~~~~~~~~~~~~~~~~~~~~~~
 
-前者搜索范围（database）更广，后者只在 ``PATH`` 中寻找 
+前者搜索范围（database）更广，后者只在 ``PATH`` 中寻找

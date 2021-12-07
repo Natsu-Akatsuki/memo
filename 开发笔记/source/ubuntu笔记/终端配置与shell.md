@@ -111,6 +111,43 @@ $ terminator
 
 暂时感觉用处不大
 
+## [nnn](https://github.com/jarun/nnn)（基于终端的文件管理）
+
+### 应用
+
+#### 显示icon
+
+需要源码编译才能支持该功能
+
+步骤一：安装[icons-in-terminal](https://github.com/sebastiencs/icons-in-terminal#bash-integration)
+
+```bash
+$ git clone https://github.com/sebastiencs/icons-in-terminal.git
+$ ./install.sh  
+$ # Follow the instructions to edit ~/.config/fontconfig/conf.d/30-icons.conf
+```
+
+步骤二：[**源码**编译nnn](https://github.com/jarun/nnn/wiki/Advanced-use-cases#file-icons)
+
+```bash
+# 安装相关依赖
+$ sudo apt install pkg-config libncursesw5-dev libreadline-dev
+$ git clone https://github.com/jarun/nnn
+$ cd nnn
+$ sudo make O_ICONS=1
+```
+
+---
+
+**NOTE**
+
+* nnn不是所有版本都有-S(du)的功能
+* 其效果有点像`spacevim`，学习曲线较长，暂没从中提高过什么效率
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oCtqAxAiA9SZmIAd.png!thumbnail)
+
+---
+
 ## 终端常用快捷键
 
 * [终端的艺术](https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md)
@@ -260,15 +297,15 @@ $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt
 
 #### [history](https://zhuanlan.zhihu.com/p/248520994)
 
-- 默认存放数据的文件为 `~/.bash_history` 
+* 默认存放数据的文件为 `~/.bash_history`
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/w3AkpBGZgJwA4SJZ.png)
 
-- 使用history时，显示的是命令行 `历史列表` 的内容。此处的 `历史列表` 即 `当前终端执行过的命令` +读取 `~/.bash_history` 得到的历史记录（默认打开终端时读取一次）
+* 使用history时，显示的是命令行 `历史列表` 的内容。此处的 `历史列表` 即 `当前终端执行过的命令` +读取 `~/.bash_history` 得到的历史记录（默认打开终端时读取一次）
 
--  只有终端 `logout` 后才会将终端输入过的命令行加入到 `~/.bash_history` 中
+*  只有终端 `logout` 后才会将终端输入过的命令行加入到 `~/.bash_history` 中
 
-- 如果不需要等终端 `logout(ctrl+d/exit)` 后才将命令行写入文件中，使得新开一个终端按history就能看到所有终端执行过的命令行），可添加该行到 `~/.bashrc` ；安装了 :ref:`hstr`. 的话，该部分会自动添加。
+* 如果不需要等终端 `logout(ctrl+d/exit)` 后才将命令行写入文件中，使得新开一个终端按history就能看到所有终端执行过的命令行），可添加该行到 `~/.bashrc` ；安装了 :ref:`hstr`. 的话，该部分会自动添加。
 
 ```bash
 # 设置每执行完一个指令后的操作，以下的作用为即时刷新文件内容和更新历史列表
@@ -280,4 +317,4 @@ n：（读）将文件中相对于历史列表增加的命令行 追加到终端
 
 #### whereis和which的区别？
 
-前者搜索范围（database）更广，后者只在 `PATH` 中寻找 
+前者搜索范围（database）更广，后者只在 `PATH` 中寻找
