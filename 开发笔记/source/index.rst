@@ -31,6 +31,14 @@
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: 环境配置笔记
+
+   环境配置笔记/rst/配置apollo环境.rst
+   环境配置笔记/rst/配置cheetah机械狗20.04环境.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: IDE笔记
 
    IDE笔记/rst/01.vscode.rst
