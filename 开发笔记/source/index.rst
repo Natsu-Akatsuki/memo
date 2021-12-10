@@ -8,8 +8,9 @@
    :hidden:
    :caption: c++笔记
 
-   c++笔记/rst/01.术语与语法规则.rst   
-   c++笔记/rst/02.编译模型.rst   
+   c++笔记/rst/术语与语法规则.rst   
+   c++笔记/rst/编译模型.rst
+   c++笔记/rst/数据流.rst
 
 .. toctree::
    :maxdepth: 1
