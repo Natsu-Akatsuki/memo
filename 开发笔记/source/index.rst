@@ -17,8 +17,8 @@
    :hidden:
    :caption: cmake笔记
 
-   cmake笔记/rst/01.语法规则.rst
-   cmake笔记/rst/02.编译实战.rst
+   cmake笔记/rst/语法规则.rst
+   cmake笔记/rst/编译实战.rst
 
 .. toctree::
    :maxdepth: 1
