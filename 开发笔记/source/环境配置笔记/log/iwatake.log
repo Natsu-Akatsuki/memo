@@ -1,0 +1,275 @@
+[InferenceHelper][105] Use TensorRT 
+[12/09/2021-10:25:14] [I] [TRT] [MemUsageChange] Init CUDA: CPU +330, GPU +0, now: CPU 341, GPU 775 (MiB)
+[12/09/2021-10:25:14] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 341, GPU 775 (MiB)
+[12/09/2021-10:25:14] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:25:14] [I] [TRT] Input filename:   <...>/self-driving-ish_computer_vision_system/build/resource/model/yolox_nano_480x640.onnx
+[12/09/2021-10:25:14] [I] [TRT] ONNX IR version:  0.0.6
+[12/09/2021-10:25:14] [I] [TRT] Opset version:    11
+[12/09/2021-10:25:14] [I] [TRT] Producer name:    pytorch
+[12/09/2021-10:25:14] [I] [TRT] Producer version: 1.9
+[12/09/2021-10:25:14] [I] [TRT] Domain:           
+[12/09/2021-10:25:14] [I] [TRT] Model version:    0
+[12/09/2021-10:25:14] [I] [TRT] Doc string:       
+[12/09/2021-10:25:14] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:25:14] [W] [TRT] onnx2trt_utils.cpp:320: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[12/09/2021-10:25:14] [W] [TRT] onnx2trt_utils.cpp:346: One or more weights outside the range of INT32 was clamped
+[12/09/2021-10:25:14] [I] [TRT] [MemUsageSnapshot] Builder begin: CPU 347 MiB, GPU 775 MiB
+[12/09/2021-10:25:15] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11. 4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:25:15] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +398, GPU +168, now: CPU 746, GPU 943 (MiB)
+[12/09/2021-10:25:15] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +154, GPU +172, now: CPU 900, GPU 1115 (MiB)
+[12/09/2021-10:25:15] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:25:15] [W] [TRT] Detected invalid timing cache, setup a local cache instead
+[12/09/2021-10:28:29] [I] [TRT] Some tactics do not have sufficient workspace memory to run. Increasing workspace size may increase performance, please check verbose output.
+[12/09/2021-10:30:48] [I] [TRT] Detected 1 inputs and 1 output network tensors.
+[12/09/2021-10:30:48] [I] [TRT] Total Host Persistent Memory: 276496
+[12/09/2021-10:30:48] [I] [TRT] Total Device Persistent Memory: 2050560
+[12/09/2021-10:30:48] [I] [TRT] Total Scratch Memory: 0
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 3 MiB, GPU 8 MiB
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1353, GPU 1364 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1353, GPU 1372 (MiB)
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1353, GPU 1356 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1352, GPU 1338 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageSnapshot] Builder end: CPU 1351 MiB, GPU 1338 MiB
+[12/09/2021-10:30:48] [I] [TRT] Loaded engine size: 11 MB
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine begin: CPU 1345 MiB, GPU 1332 MiB
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +10, now: CPU 1360, GPU 1348 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1360, GPU 1356 (MiB)
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1360, GPU 1338 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine end: CPU 1360 MiB, GPU 1338 MiB
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +10, now: CPU 1342, GPU 1348 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1342, GPU 1356 (MiB)
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[InferenceHelperTensorRt][344] num_of_in_out = 2
+[InferenceHelperTensorRt][347] tensor[0]->name: images
+[InferenceHelperTensorRt][348]   is input = 1
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 3
+[InferenceHelperTensorRt][352]   dims.d[2] = 480
+[InferenceHelperTensorRt][352]   dims.d[3] = 640
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[1]->name: output
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 6300
+[InferenceHelperTensorRt][352]   dims.d[2] = 85
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelper][105] Use TensorRT 
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 1348, GPU 1376 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 1348, GPU 1376 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:30:48] [I] [TRT] Input filename:   <...>/self-driving-ish_computer_vision_system/build/resource/model/ultra_fast_lane_detection_culane_288x800.onnx
+[12/09/2021-10:30:48] [I] [TRT] ONNX IR version:  0.0.6
+[12/09/2021-10:30:48] [I] [TRT] Opset version:    11
+[12/09/2021-10:30:48] [I] [TRT] Producer name:    pytorch
+[12/09/2021-10:30:48] [I] [TRT] Producer version: 1.9
+[12/09/2021-10:30:48] [I] [TRT] Domain:           
+[12/09/2021-10:30:48] [I] [TRT] Model version:    0
+[12/09/2021-10:30:48] [I] [TRT] Doc string:       
+[12/09/2021-10:30:48] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageSnapshot] Builder begin: CPU 1405 MiB, GPU 1376 MiB
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1405, GPU 1384 (MiB)
+[12/09/2021-10:30:48] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1405, GPU 1392 (MiB)
+[12/09/2021-10:30:48] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:30:48] [W] [TRT] Detected invalid timing cache, setup a local cache instead
+[12/09/2021-10:30:49] [I] [TRT] Some tactics do not have sufficient workspace memory to run. Increasing workspace size may increase performance, please check verbose output.
+[12/09/2021-10:31:17] [I] [TRT] Detected 1 inputs and 1 output network tensors.
+[12/09/2021-10:31:17] [I] [TRT] Total Host Persistent Memory: 68800
+[12/09/2021-10:31:17] [I] [TRT] Total Device Persistent Memory: 82089984
+[12/09/2021-10:31:17] [I] [TRT] Total Scratch Memory: 0
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 170 MiB, GPU 20 MiB
+[12/09/2021-10:31:17] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1435, GPU 1485 (MiB)
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 1435, GPU 1495 (MiB)
+[12/09/2021-10:31:17] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1435, GPU 1479 (MiB)
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1435, GPU 1463 (MiB)
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageSnapshot] Builder end: CPU 1435 MiB, GPU 1463 MiB
+[12/09/2021-10:31:17] [I] [TRT] Loaded engine size: 85 MB
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine begin: CPU 1406 MiB, GPU 1377 MiB
+[12/09/2021-10:31:17] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1406, GPU 1471 (MiB)
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1406, GPU 1479 (MiB)
+[12/09/2021-10:31:17] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1406, GPU 1463 (MiB)
+[12/09/2021-10:31:17] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine end: CPU 1406 MiB, GPU 1463 MiB
+[12/09/2021-10:31:18] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +1, GPU +8, now: CPU 1349, GPU 1471 (MiB)
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1349, GPU 1479 (MiB)
+[12/09/2021-10:31:18] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[InferenceHelperTensorRt][344] num_of_in_out = 2
+[InferenceHelperTensorRt][347] tensor[0]->name: input.1
+[InferenceHelperTensorRt][348]   is input = 1
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 3
+[InferenceHelperTensorRt][352]   dims.d[2] = 288
+[InferenceHelperTensorRt][352]   dims.d[3] = 800
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[1]->name: 200
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 201
+[InferenceHelperTensorRt][352]   dims.d[2] = 18
+[InferenceHelperTensorRt][352]   dims.d[3] = 4
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelper][105] Use TensorRT 
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 1351, GPU 1575 (MiB)
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 1351, GPU 1575 (MiB)
+[12/09/2021-10:31:18] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:31:18] [I] [TRT] Input filename:   <...>/self-driving-ish_computer_vision_system/build/resource/model/road-segmentation-adas-0001.onnx
+[12/09/2021-10:31:18] [I] [TRT] ONNX IR version:  0.0.6
+[12/09/2021-10:31:18] [I] [TRT] Opset version:    11
+[12/09/2021-10:31:18] [I] [TRT] Producer name:    tf2onnx
+[12/09/2021-10:31:18] [I] [TRT] Producer version: 1.9.1
+[12/09/2021-10:31:18] [I] [TRT] Domain:           
+[12/09/2021-10:31:18] [I] [TRT] Model version:    0
+[12/09/2021-10:31:18] [I] [TRT] Doc string:       
+[12/09/2021-10:31:18] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageSnapshot] Builder begin: CPU 1354 MiB, GPU 1575 MiB
+[12/09/2021-10:31:18] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1354, GPU 1583 (MiB)
+[12/09/2021-10:31:18] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1354, GPU 1591 (MiB)
+[12/09/2021-10:31:18] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:31:18] [W] [TRT] Detected invalid timing cache, setup a local cache instead
+[12/09/2021-10:32:10] [I] [TRT] Detected 1 inputs and 1 output network tensors.
+[12/09/2021-10:32:10] [I] [TRT] Total Host Persistent Memory: 362688
+[12/09/2021-10:32:10] [I] [TRT] Total Device Persistent Memory: 388608
+[12/09/2021-10:32:10] [I] [TRT] Total Scratch Memory: 0
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 170 MiB, GPU 202 MiB
+[12/09/2021-10:32:10] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1361, GPU 1607 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 1361, GPU 1617 (MiB)
+[12/09/2021-10:32:10] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1361, GPU 1601 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1360, GPU 1585 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageSnapshot] Builder end: CPU 1360 MiB, GPU 1585 MiB
+[12/09/2021-10:32:10] [I] [TRT] Loaded engine size: 1 MB
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine begin: CPU 1360 MiB, GPU 1581 MiB
+[12/09/2021-10:32:10] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1361, GPU 1589 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1361, GPU 1597 (MiB)
+[12/09/2021-10:32:10] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1361, GPU 1581 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine end: CPU 1361 MiB, GPU 1581 MiB
+[12/09/2021-10:32:10] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1355, GPU 1589 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1355, GPU 1597 (MiB)
+[12/09/2021-10:32:10] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[InferenceHelperTensorRt][344] num_of_in_out = 2
+[InferenceHelperTensorRt][347] tensor[0]->name: data
+[InferenceHelperTensorRt][348]   is input = 1
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 512
+[InferenceHelperTensorRt][352]   dims.d[2] = 896
+[InferenceHelperTensorRt][352]   dims.d[3] = 3
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[1]->name: tf.identity
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 512
+[InferenceHelperTensorRt][352]   dims.d[2] = 896
+[InferenceHelperTensorRt][352]   dims.d[3] = 4
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelper][105] Use TensorRT 
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 1368, GPU 1635 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 1368, GPU 1635 (MiB)
+[12/09/2021-10:32:10] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:32:10] [I] [TRT] Input filename:   <...>/self-driving-ish_computer_vision_system/build/resource/model/ldrn_kitti_resnext101_pretrained_data_grad_256x512.onnx
+[12/09/2021-10:32:10] [I] [TRT] ONNX IR version:  0.0.6
+[12/09/2021-10:32:10] [I] [TRT] Opset version:    11
+[12/09/2021-10:32:10] [I] [TRT] Producer name:    pytorch
+[12/09/2021-10:32:10] [I] [TRT] Producer version: 1.9
+[12/09/2021-10:32:10] [I] [TRT] Domain:           
+[12/09/2021-10:32:10] [I] [TRT] Model version:    0
+[12/09/2021-10:32:10] [I] [TRT] Doc string:       
+[12/09/2021-10:32:10] [I] [TRT] ----------------------------------------------------------------
+[12/09/2021-10:32:10] [I] [TRT] [MemUsageSnapshot] Builder begin: CPU 1624 MiB, GPU 1635 MiB
+[12/09/2021-10:32:11] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:32:11] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1635, GPU 1643 (MiB)
+[12/09/2021-10:32:11] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +1, GPU +8, now: CPU 1636, GPU 1651 (MiB)
+[12/09/2021-10:32:11] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:32:11] [W] [TRT] Detected invalid timing cache, setup a local cache instead
+[12/09/2021-10:32:12] [I] [TRT] Some tactics do not have sufficient workspace memory to run. Increasing workspace size may increase performance, please check verbose output.
+[12/09/2021-10:33:48] [I] [TRT] Detected 1 inputs and 6 output network tensors.
+[12/09/2021-10:33:48] [I] [TRT] Total Host Persistent Memory: 462368
+[12/09/2021-10:33:48] [I] [TRT] Total Device Persistent Memory: 149103616
+[12/09/2021-10:33:48] [I] [TRT] Total Scratch Memory: 0
+[12/09/2021-10:33:48] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 170 MiB, GPU 214 MiB
+[12/09/2021-10:33:48] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:33:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +10, now: CPU 1783, GPU 1823 (MiB)
+[12/09/2021-10:33:48] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 1783, GPU 1833 (MiB)
+[12/09/2021-10:33:48] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:33:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1783, GPU 1815 (MiB)
+[12/09/2021-10:33:48] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1783, GPU 1799 (MiB)
+[12/09/2021-10:33:48] [I] [TRT] [MemUsageSnapshot] Builder end: CPU 1771 MiB, GPU 1799 MiB
+[12/09/2021-10:33:49] [I] [TRT] Loaded engine size: 143 MB
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine begin: CPU 1628 MiB, GPU 1655 MiB
+[12/09/2021-10:33:49] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1630, GPU 1807 (MiB)
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1630, GPU 1815 (MiB)
+[12/09/2021-10:33:49] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 1630, GPU 1799 (MiB)
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine end: CPU 1630 MiB, GPU 1799 MiB
+[12/09/2021-10:33:49] [W] [TRT] TensorRT was linked against cuBLAS/cuBLAS LT 11.4.2 but loaded cuBLAS/cuBLAS LT 11.4.1
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 1372, GPU 1807 (MiB)
+[12/09/2021-10:33:49] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 1372, GPU 1815 (MiB)
+[12/09/2021-10:33:49] [W] [TRT] TensorRT was linked against cuDNN 8.2.0 but loaded cuDNN 8.1.1
+[InferenceHelperTensorRt][344] num_of_in_out = 7
+[InferenceHelperTensorRt][347] tensor[0]->name: input.1
+[InferenceHelperTensorRt][348]   is input = 1
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 3
+[InferenceHelperTensorRt][352]   dims.d[2] = 256
+[InferenceHelperTensorRt][352]   dims.d[3] = 512
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[1]->name: 2489
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 1
+[InferenceHelperTensorRt][352]   dims.d[2] = 16
+[InferenceHelperTensorRt][352]   dims.d[3] = 32
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[2]->name: 2491
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 1
+[InferenceHelperTensorRt][352]   dims.d[2] = 32
+[InferenceHelperTensorRt][352]   dims.d[3] = 64
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[3]->name: 2493
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 1
+[InferenceHelperTensorRt][352]   dims.d[2] = 64
+[InferenceHelperTensorRt][352]   dims.d[3] = 128
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[4]->name: 2495
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 1
+[InferenceHelperTensorRt][352]   dims.d[2] = 128
+[InferenceHelperTensorRt][352]   dims.d[3] = 256
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[5]->name: 2497
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 1
+[InferenceHelperTensorRt][352]   dims.d[2] = 256
+[InferenceHelperTensorRt][352]   dims.d[3] = 512
+[InferenceHelperTensorRt][356]   data_type = 0
+[InferenceHelperTensorRt][347] tensor[6]->name: 2499
+[InferenceHelperTensorRt][348]   is input = 0
+[InferenceHelperTensorRt][352]   dims.d[0] = 1
+[InferenceHelperTensorRt][352]   dims.d[1] = 1
+[InferenceHelperTensorRt][352]   dims.d[2] = 256
+[InferenceHelperTensorRt][352]   dims.d[3] = 512
+[InferenceHelperTensorRt][356]   data_type = 0
+Total:                 152.684 [msec]
+  Capture:              92.996 [msec]
+  Image processing:     55.485 [msec]
+    Pre processing:     22.815 [msec]
