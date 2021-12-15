@@ -77,6 +77,11 @@ html_theme = "sphinx_rtd_theme"
 # 配置构建html时导入的静态文件
 html_static_path = ["_static", "pdf资料"]
 
+# Add any extra paths that contain custom files (such as robots.txt or
+# .htaccess) here, relative to this directory. These files are copied
+# directly to the root of the documentation.
+#
+html_extra_path = ["baidu_verify_code-7LJoOcUZFp.html"]
 
 [extensions]
 todo_include_todos=True

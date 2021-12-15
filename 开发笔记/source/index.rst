@@ -1,3 +1,9 @@
+.. meta::
+   :baidu-site-verification: code-7LJoOcUZFp
+
+.. meta::
+   :google-site-verification: WAydlEprVLKSTFN4pAzW5yQmjQd4T9IvM--rnfoPCcY
+   
 开发笔记
 =========================================================
 
