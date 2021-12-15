@@ -1,4 +1,6 @@
 myst-parser
+# 快捷键触发搜索
+readthedocs-sphinx-search
 sphinxemoji
 sphinx-notfound-page
 sphinx-prompt
