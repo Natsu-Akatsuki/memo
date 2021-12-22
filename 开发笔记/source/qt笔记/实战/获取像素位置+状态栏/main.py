@@ -10,7 +10,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.value = 0
-        self.setMouseTracking(True)
+        # self.setMouseTracking(True)
 
     def mousePressEvent(self, event):
         # mouseMoveEvent, mousePressEvent
