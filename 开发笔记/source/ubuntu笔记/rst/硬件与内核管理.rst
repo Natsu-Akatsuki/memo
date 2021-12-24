@@ -419,7 +419,7 @@ CPU
 .. attention:: 修改完后记得apply
 
 
-解决方案
+其他实战
 ~~~~~~~~
 
 
@@ -452,10 +452,14 @@ CPU
 * 
   `开机自启动挂载 <https://blog.csdn.net/okhymok/article/details/76616892>`_
 
-  修改 ``/etc/fstab`` 配置文档，详细说明可看使用文档 ``man fstab``
+  修改 ``/etc/fstab`` 配置文档，详细说明可看使用文档 ``man fstab``\ ，查看UUID和type可使用命令行
 
-* 
-  `从windows访问linux的ext4文件系统 <https://www.diskinternals.com/linux-reader/access-ext4-from-windows/>`_
+.. prompt:: bash $,# auto
+
+   $ sudo blkid
+
+
+* `从windows访问linux的ext4文件系统 <https://www.diskinternals.com/linux-reader/access-ext4-from-windows/>`_
 
 windows默认不支持ext4文件系统的读写，需要下载软件实现额外的支持
 
