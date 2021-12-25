@@ -12,18 +12,18 @@ if __name__ == '__main__':
 
     main_window = QWidget()
     # Qt主窗口的尺寸大小
-    main_window.resize(250, 150)
+    main_window.resize(1000, 150)
     # 主窗口的位置
     main_window.move(300, 300)
     # 等价于上两个步骤(resize和move)
     # main_window.setGeometry(300, 300, 250, 150)
 
     # 主窗口的标题
-    main_window.setWindowTitle('学点编程吧出品')
+    main_window.setWindowTitle('title')
 
     # 增设图标
-    from PyQt5.QtGui import QIcon
-    main_window.setWindowIcon(QIcon('Simple_PySide_Base/icons/24x24/cil-arrow-bottom.png'))
+    # from PyQt5.QtGui import QIcon
+    # main_window.setWindowIcon(QIcon(<icon.png>))
 
     # 去窗口边框
     # main_window.setWindowFlags(QtCore.Qt.FramelessWindowHint)
