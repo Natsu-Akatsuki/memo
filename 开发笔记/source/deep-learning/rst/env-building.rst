@@ -9,7 +9,7 @@ nvidia-driver
 
 
 * 为了节省功耗和兼顾性能，nvidia设计了\ ``optimus``\ 混合独显和集显的技术方案，使用独显进行计算，独显进行显示
-* optimus有如下几种模式：（1）仅使用集显（2）仅使用独显（3）同时使用集显和独显（只有在用到N卡时才使用N卡） 
+* optimus有如下几种模式：（1）仅使用集显（2）仅使用独显（3）同时使用集显和独显（只有在用到N卡时才使用N卡）
 * 使用显卡不一定能够实现加速，因为将数据从内存搬到显存是需要时间的
 
 安装
@@ -322,8 +322,7 @@ cuda
 .. prompt:: bash $,# auto
 
    # 用runfile装cuda11+，会自动创建软链接
-   $ export PATH=$PATH:/usr/loc
-   al/cuda/bin
+   $ export PATH=$PATH:/usr/local/cuda/bin
    $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 
 卸载

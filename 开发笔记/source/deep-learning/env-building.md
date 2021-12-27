@@ -10,13 +10,13 @@ cudnn和TensorRT的tar包下载页面需要使用NVIDIA账号登入
 
 ### 安装
 
-* 方案一：基于GUI
+- 方案一：基于GUI
 
 > An alternate method of installing the NVIDIA driver was detected. (This is usually a package provided by your distributor.) A driver installed via that method may integrate better with your system than a driver installed by nvidia-installer. Please review the message provided by the maintainer of this alternate installation method and decide how to proceed: The NVIDIA driver provided by Ubuntu can be installed by launching the "Software & Updates" application, and by selecting the NVIDIA driver from the "Additional Drivers" tab.
 
 即使用ubuntu开发者提供的驱动包，会有更好的兼容性
 
-* 方案二：用apt 安装显卡驱动
+- 方案二：用apt 安装显卡驱动
 
 本部分等价于在gui来安装显卡驱动
 
@@ -43,7 +43,7 @@ $ sudo apt-get install nvidia-driver-450
 $ nvidia-smi
 ```
 
-* 方案三：官网安装包下载
+- 方案三：官网安装包下载
 
 步骤一：在[官网](https://www.nvidia.cn/Download/index.aspx?lang=cn)选择适合的driver安装包进行下载
 
@@ -91,7 +91,7 @@ GCC version:  gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)
 # 一般可以选择重装，若有DKMS时可尝试重启
 ```
 
-* DKMS
+- DKMS
 
 > Would you like to register the kernel module souces with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later?
 
@@ -99,9 +99,9 @@ GCC version:  gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)
 
 #### 解决nouveau冲突问题
 
-* `nouveau` （开源，但功能非常少）和 `nvidia driver` 都是nvidia的显卡驱动。部分计算机默认使用 `nouveau` 作为驱动，那么在这些机子上装N卡官网驱动时，就有冲突的问题，需要[先关闭nouveau模块](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#runfile-nouveau-ubuntu)（记得update）。
+- `nouveau` （开源，但功能非常少）和 `nvidia driver` 都是nvidia的显卡驱动。部分计算机默认使用 `nouveau` 作为驱动，那么在这些机子上装N卡官网驱动时，就有冲突的问题，需要[先关闭nouveau模块](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#runfile-nouveau-ubuntu)（记得update）。
 
-* 部分版本（如460）可以在安装时，提供一个选项，替我们完成这一步（相关文件为`/etc/modprobe.d/nvidia-installer-disable-nouveau.conf` 文件）
+- 部分版本（如460）可以在安装时，提供一个选项，替我们完成这一步（相关文件为`/etc/modprobe.d/nvidia-installer-disable-nouveau.conf` 文件）
 
 ```bash
 # 可用该指定判断当前系统有无nouveau模块
@@ -242,8 +242,7 @@ $ sudo cp cuda/include/cudnn*.h /usr/local/cuda/include \
 
 ```bash
 # 用runfile装cuda11+，会自动创建软链接
-$ export PATH=$PATH:/usr/loc
-al/cuda/bin
+$ export PATH=$PATH:/usr/local/cuda/bin
 $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 ```
 

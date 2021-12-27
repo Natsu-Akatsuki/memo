@@ -105,6 +105,7 @@
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: 深度学习笔记
+   :caption: deep-learning
 
-   深度学习笔记/rst/开发环境搭建.rst
+   deep-learning/rst/env-building.rst
+   deep-learning/rst/TensorRT-practice.rst
