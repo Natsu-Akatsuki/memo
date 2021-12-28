@@ -109,3 +109,4 @@
 
    deep-learning/rst/env-building.rst
    deep-learning/rst/TensorRT-practice.rst
+   deep-learning/rst/preprocess.rst
