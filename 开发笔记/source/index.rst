@@ -106,7 +106,9 @@
    :maxdepth: 1
    :hidden:
    :caption: deep-learning
-
+   
+   deep-learning/rst/cuda-practice.rst
    deep-learning/rst/env-building.rst
    deep-learning/rst/TensorRT-practice.rst
    deep-learning/rst/preprocess.rst
+   
