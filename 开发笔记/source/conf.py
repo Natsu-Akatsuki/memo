@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath("./docs"))
 
 # -- Project information -----------------------------------------------------
 
-project = "trick&tool"
+project = "Ambook"
 copyright = "2021, Natsu_Akatsuki"
 author = "Natsu_Akatsuki"
 

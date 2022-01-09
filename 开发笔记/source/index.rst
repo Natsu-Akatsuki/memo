@@ -83,10 +83,9 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: sphinx笔记
+   :caption: sphinx
 
-   sphinx笔记/rst/快速入门.rst   
-   sphinx笔记/rst/01.实战.rst
+   sphinx/rst/实战.rst   
 
 .. toctree::
    :maxdepth: 1
