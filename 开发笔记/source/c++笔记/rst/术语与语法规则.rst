@@ -2,8 +2,8 @@
    :format: html
 
 
-**01**. 术语与语法规则
-==========================
+术语与语法规则
+==============
 
 Someone who is sophomoric about concepts and reasoning may try things randomly, and wastes a lot of time.
 
