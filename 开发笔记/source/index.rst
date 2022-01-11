@@ -62,6 +62,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: pointcloud
+
+   pointcloud/rst/实战.rst   
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: python笔记
 
    python笔记/rst/01.内置库实战.rst
