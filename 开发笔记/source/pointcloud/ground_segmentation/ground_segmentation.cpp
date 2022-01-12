@@ -82,6 +82,6 @@ int main() {
   GroundSegmentation ground_segmentation(0.05, 100);
   ground_segmentation.load_pointcloud("../livox_pointcloud.pcd");
   ground_segmentation.run();
-  ground_segmentation.save_pointcloud("livox_pointcloud_noground.pcd");
+  ground_segmentation.save_pointcloud("livox_pointcloud_nonground.pcd");
   return 0;
 }

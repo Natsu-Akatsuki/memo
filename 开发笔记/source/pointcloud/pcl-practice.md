@@ -58,6 +58,10 @@ def bgr_to_hex(color_np):
 
 ## PCL点云库实战
 
+## [自定义点云类型](https://github.com/RobustFieldAutonomyLab/LeGO-LOAM/blob/master/LeGO-LOAM/include/utility.h)
+
+![image-20220112190723590](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220112190723590.png)
+
 ## 点云读写
 
 ### [写点云](https://pcl.readthedocs.io/projects/tutorials/en/latest/writing_pcd.html#writing-pcd)

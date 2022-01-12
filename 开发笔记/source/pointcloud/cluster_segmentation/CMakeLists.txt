@@ -10,4 +10,8 @@ add_definitions(${PCL_DEFINITIONS})
 
 add_executable (cluster_segmentation cluster_segmentation.cpp)
 target_link_libraries (cluster_segmentation ${PCL_LIBRARIES})
-set_target_properties(cluster_segmentation PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}) 
+set_target_properties(cluster_segmentation PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_executable (region_growing_segmentation region_growing_segmentation.cpp)
+target_link_libraries (region_growing_segmentation ${PCL_LIBRARIES})
+set_target_properties(region_growing_segmentation PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
