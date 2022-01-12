@@ -1,0 +1,294 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
+
+pycharm
+=======
+
+实战
+----
+
+只显示已打开文件所对应的文件夹
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210929103600049.png" alt="image-20210929103600049" style="zoom:67%;" />`
+
+The current inotify watch limit is too low
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo sysctl fs.inotify.max_user_watches=524288
+
+`设置代理 <https://www.jetbrains.com/help/pycharm/settings-http-proxy.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+允许滚轮对界面字体进行缩放
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/wpnajyQeSVpUydTf.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/wpnajyQeSVpUydTf.png!thumbnail
+   :alt: img
+
+
+多线程Debug
+^^^^^^^^^^^
+
+
+* 多线程下打断点
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7u9B4RAD0DKlb2J7.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7u9B4RAD0DKlb2J7.png!thumbnail
+   :alt: img
+
+
+.. note:: 假定有线程A，B。当给线程A对应的函数加断点时，执行到断点时会跳转到该线程进行断点调试；此时线程A虽然阻塞，但线程B能够继续被执行下去。若此时再给B对应部分加断点，线程B也会阻塞。
+
+
+
+* 可视化查看当前程序启动的线程数和线程状态
+* 
+  .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/js7MR5uwACpReKRc.png!thumbnail
+     :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/js7MR5uwACpReKRc.png!thumbnail
+     :alt: img
+
+AttachDebug
+^^^^^^^^^^^
+
+
+* `对一个正在运行的程序进行debug <https://www.jetbrains.com/help/pycharm/attaching-to-local-process.html>`_\ ：attach后可像debug模式下在程序对应位置上打断点
+
+`differences viewer <https://www.jetbrains.com/help/pycharm/differences-viewer-for-folders.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/KKkanOtkhaJ5sBJI.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/KKkanOtkhaJ5sBJI.png!thumbnail
+   :alt: img
+
+
+可使用命令行触发
+
+.. prompt:: bash $,# auto
+
+   $ <path to PyCharm executable file> diff <path_1> <path_2> 
+   # where path_1 and path_2 are paths to the folders you want to compare.
+
+smart key
+^^^^^^^^^
+
+如是否自动补加 ``self`` ；生成python document时是否添加 ``type``
+
+matplotlib弹窗设置
+^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/YCrevUSseWHvSjCM.png!thumbnail" alt="img" style="zoom:67%;" />`
+
+切换缩进方式(Space or Tab)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* Edit | convert indents / 或使用Action
+
+python docs类型切换
+^^^^^^^^^^^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/XDqHzyb0V7RHrda2.png!thumbnail" alt="img" style="zoom:67%;" />`
+
+
+* rst文档格式
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/RdUVs7HBrZHoUxk7.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/RdUVs7HBrZHoUxk7.png!thumbnail
+   :alt: img
+
+
+
+* Epytest文档格式
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/hlQHvIcUNrHfKSJ6.png!thumbnail" alt="img" style="zoom:67%;" />`
+
+Profile
+^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210908211513561.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210908211513561.png
+   :alt: image-20210908211513561
+
+
+`集成第三方可执行文件 <https://www.jetbrains.com/help/pycharm/configuring-third-party-tools.html?q=exter>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`autopep8 <https://www.cnblogs.com/aomi/p/6999829.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/iP4LwM5UFypOKsrZ.png!thumbnail" alt="img" style="zoom:67%;" />`
+
+.. prompt:: bash $,# auto
+
+   # 需要装在系统中，否则要写可执行文件的绝对路径
+   Programs: autopep8
+   Arguments: --in-place --aggressive --aggressive $FilePath$
+   Working directory: $ProjectFileDir$
+   Output filters: $FILE_PATH$\:$LINE$\:$COLUMN$\:.*
+
+isort
+~~~~~
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/mdmrBwjYhSDwtFsB.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/mdmrBwjYhSDwtFsB.png!thumbnail
+   :alt: img
+
+
+black
+~~~~~
+
+.. prompt:: bash $,# auto
+
+   Programs: black
+   Arguments: $FileDir$/$FileName$
+   Working directory: $ProjectFileDir$
+
+remote deployment
+^^^^^^^^^^^^^^^^^
+
+
+* 屏蔽某些需要同步的文件和文件夹
+
+方法一：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/5uEicm5ALtL9tkgh.png" alt="img" style="zoom:67%;" />`
+
+方法二：
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/qdPFiJjg6S2slAkU.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/qdPFiJjg6S2slAkU.png
+   :alt: img
+
+
+方法三：
+
+``remote host`` 界面中对相关文件和文件夹，右键\ ``exclude path``
+
+添加额外的库搜索路径
+^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/spqZAYN9kdaQPJOr.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/spqZAYN9kdaQPJOr.png
+   :alt: img
+
+
+插件
+----
+
+代码防沉迷
+^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210911005137916.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210911005137916.png
+   :alt: image-20210911005137916
+
+
+`根据数组显示图像 <https://plugins.jetbrains.com/plugin/14371-opencv-image-viewer>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926234736391.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926234736391.png
+   :alt: image-20210926234736391
+
+
+`代码缩略图 <https://github.com/vektah/CodeGlance>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926235345669.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926235345669.png
+   :alt: image-20210926235345669
+
+
+常用快捷键
+----------
+
+跳转(navigation)
+^^^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - **括号**\ 折叠
+     - ctrl+[shift]+-
+   * - 括号跳转
+     - ctrl+shift+m(match)
+   * - **代码块**\ 跳转
+     - ctrl+[ / ctrl+]
+   * - **书签**\ 跳转
+     - ctrl+num(F11创标签)
+   * - **ERROR/WARNING**\ 跳转
+     - F2(next) / shift+F2(before)
+   * - **标签页**\ 跳转
+     - alt+←/alt+→
+   * - last / next **edit location**
+     - (custom) alt+光标上下滚轮
+   * - show in Dolphin
+     - ctrl+shift+alt+2
+   * - 打开\ **文件**
+     - c+s+n
+
+
+选取(selection)
+^^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - expand current selection
+     - ctrl+w / (redo)  ctrl+shift+w
+   * - column selection
+     - calt+shift+insert
+
+
+重构(refactor)
+^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - 
+
+
+编辑(edit)
+^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 快捷键
+   * - replace in path
+     - c+r
+   * - replace in files（可设置File mask）
+     - c+s+r
+   * - Code Complete（偏向语法上的补全）
+     - c+s+enter
+   * - 选择性粘贴
+     - c+s+v
+   * - 代码块折叠与展开
+     - c+"+/-" / c+s+"+/-"
+   * - live template
+     - c+j
+

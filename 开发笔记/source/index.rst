@@ -30,8 +30,8 @@ AmBook
    :hidden:
    :caption: cmake笔记
 
-   cmake笔记/rst/语法规则.rst
-   cmake笔记/rst/编译实战.rst
+   cmake/rst/cmake-practice.rst
+   cmake/rst/semantic.rst
 
 .. toctree::
    :maxdepth: 1
@@ -53,18 +53,18 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: IDE笔记
+   :caption: IDE
 
-   IDE笔记/rst/01.vscode.rst
-   IDE笔记/rst/02.clion.rst
-   IDE笔记/rst/03.pycharm.rst
+   IDE笔记/rst/vscode.rst
+   IDE笔记/rst/clion.rst
+   IDE笔记/rst/pycharm.rst
 
 .. toctree::
    :maxdepth: 1
    :hidden:
    :caption: pointcloud
 
-   pointcloud/rst/实战.rst   
+   pointcloud/rst/pcl-practice.rst   
 
 .. toctree::
    :maxdepth: 1
