@@ -79,12 +79,11 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: ros笔记
+   :caption: ros
 
-   ros笔记/rst/01.launch文件指北.rst
-   ros笔记/rst/02.ros常用命令行.rst
-   ros笔记/rst/03.三方工具.rst
-   ros笔记/rst/04.实战.rst
+   ros/rst/launch文件.rst
+   ros/rst/ros常用命令行.rst   
+   ros/rst/实战.rst
 
 
 .. toctree::
