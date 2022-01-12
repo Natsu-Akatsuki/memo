@@ -28,7 +28,7 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: cmake笔记
+   :caption: cmake
 
    cmake/rst/cmake-practice.rst
    cmake/rst/semantic.rst
@@ -91,29 +91,28 @@ AmBook
    :hidden:
    :caption: sphinx
 
-   sphinx/rst/实战.rst   
+   sphinx/rst/sphinx-practice.rst
 
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: ubuntu笔记
+   :caption: ubuntu
 
-   ubuntu笔记/rst/常用应用程序.rst
-   ubuntu笔记/rst/图形界面配置.rst
-   ubuntu笔记/rst/Grub.rst
-   ubuntu笔记/rst/硬件与内核管理.rst
-   ubuntu笔记/rst/文件和文件夹.管理.rst   
-   ubuntu笔记/rst/日志管理.rst   
-   ubuntu笔记/rst/语系设置.rst
-   ubuntu笔记/rst/网络配置.rst
-   ubuntu笔记/rst/密码管理.rst
-   ubuntu笔记/rst/包管理、虚拟环境和容器.rst
-   ubuntu笔记/rst/进程管理.rst
-   ubuntu笔记/rst/远程连接.rst
-   ubuntu笔记/rst/服务配置.rst
-   ubuntu笔记/rst/终端配置与shell.rst
-   ubuntu笔记/rst/用户和用户组配置.rst
-
+   ubuntu/rst/Application.rst 
+   ubuntu/rst/File-Dir-Manage.rst
+   ubuntu/rst/Graphics-Setting.rst 
+   ubuntu/rst/Grub.rst
+   ubuntu/rst/Language-Manage.rst
+   ubuntu/rst/Log-Manage.rst  
+   ubuntu/rst/Network-Manage.rst
+   ubuntu/rst/Password-Manage.rst
+   ubuntu/rst/Package-Download-Virtual-Env.rst
+   ubuntu/rst/Process-Manage.rst
+   ubuntu/rst/Remote-Connect.rst
+   ubuntu/rst/Service-Setting.rst
+   ubuntu/rst/Terminal-Shell.rst
+   ubuntu/rst/User-Group.rst
+                                                      
 .. toctree::
    :maxdepth: 1
    :hidden:

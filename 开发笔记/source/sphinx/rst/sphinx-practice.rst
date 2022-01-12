@@ -86,11 +86,8 @@ Reference
 ^^^^^^^^^^^^
 
 
-* 
-  `simple usecase <https://stackoverflow.com/questions/50565770/how-to-embed-html-or-xml-in-restructuredtext-sphinx-so-the-browser-cna-render>`_
-
-* 
-  `嵌入asciinema脚本 <https://raw.githubusercontent.com/catkin/catkin_tools/master/docs/verbs/catkin_build.rst>`_\ ; `官方教程 <https://asciinema.org/docs/embedding>`_
+* `simple usecase <https://stackoverflow.com/questions/50565770/how-to-embed-html-or-xml-in-restructuredtext-sphinx-so-the-browser-cna-render>`_
+* `嵌入asciinema脚本 <https://raw.githubusercontent.com/catkin/catkin_tools/master/docs/verbs/catkin_build.rst>`_\ ; `官方教程 <https://asciinema.org/docs/embedding>`_
 
 
 .. raw:: html
@@ -196,7 +193,7 @@ sphinx拓展插件
 ~~~~~~~~
 
 
-* `sphinx-extensions <https://sphinx-extensions.readthedocs.io/en/latest/>`_
+* https://sphinx-extensions.readthedocs.io/en/latest/
 
 配置文件
 --------
@@ -219,3 +216,14 @@ SEO
 
 `sitemap生成 <https://www.xml-sitemaps.com/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+sitemap
+^^^^^^^
+
+readthedocs生成的网站自带sitemap
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220109165744879.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220109165744879.png
+   :alt: image-20220109165744879
+

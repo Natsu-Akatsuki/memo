@@ -171,13 +171,11 @@ $ asciinema auth
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/5mY5ahYPg6tePg10.png!thumbnail" alt="img" style="zoom: 50%; " />
 
 * [papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（[使用说明](https://papaly.com/#speeddial)）（标签页分类管理）
-
 * [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon)（分屏工具）
-
 * [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon)（下载管理器）插件管理
 * [Extensions Manager](https://chrome.google.com/webstore/detail/extensions-manager-aka-sw/lpleipinonnoibneeejgjnoeekmbopbc/related?hl=en)（插件管理器)
-
 * [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related)（截图工具：只适用于浏览页截图，功能类似微信截图)
+* [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related)（页面检索工具）（默认快捷键为`ctrl+shift+F`）
 
 ### [快捷键](https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts)
 

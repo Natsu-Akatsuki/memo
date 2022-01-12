@@ -564,4 +564,4 @@ $ sudo apt install openssh-server
 
 1. <http://tool.chinaz.com/>
 
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210827142503797.png" alt="image-20210827142503797" style="zoom:67%; " />
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210827142503797.png" alt="image-20210827142503797" style="zoom:67%; " />wi

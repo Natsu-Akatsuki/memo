@@ -351,6 +351,10 @@ $ sudo blkid
 
 windows默认不支持ext4文件系统的读写，需要下载软件实现额外的支持
 
+- U盘格式化（for KDE）：Disks
+
+![image-20220104145417626](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220104145417626.png)
+
 ### [输入设备](https://wiki.archlinux.org/title/Xorg)
 
 ```bash
