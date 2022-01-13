@@ -16,3 +16,24 @@
 | [archivebox](https://github.com/ArchiveBox/ArchiveBox) | Open-source self-hosted web archiving. | 暂无需求 |
 |                                                        |                                        |          |
 
+
+
+## 渲染
+
+|                                                              | 摘要             | 评价 |
+| ------------------------------------------------------------ | ---------------- | ---- |
+| [ADOP](https://github.com/darglein/ADOP)(Approximate Differentiable One-Pixel Point Rendering) | 纯相机渲染3D场景 |      |
+|                                                              |                  |      |
+|                                                              |                  |      |
+|                                                              |                  |      |
+
+
+
+# 三维目标追踪
+
+|                                                   | 摘要 | 评价                 |
+| ------------------------------------------------- | ---- | -------------------- |
+| [AB3DMOT](https://github.com/xinshuoweng/AB3DMOT) |      | 三维目标跟踪baseline |
+|                                                   |      |                      |
+|                                                   |      |                      |
+

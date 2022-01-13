@@ -36,11 +36,10 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: git笔记
+   :caption: git
 
-   git笔记/rst/01.实战.rst
-   git笔记/rst/02.自定义git环境变量.rst
-   git笔记/rst/03.规范.rst
+   git/rst/git-practice.rst
+   git/rst/convention.rst
 
 .. toctree::
    :maxdepth: 1
@@ -55,9 +54,9 @@ AmBook
    :hidden:
    :caption: IDE
 
-   IDE笔记/rst/vscode.rst
-   IDE笔记/rst/clion.rst
-   IDE笔记/rst/pycharm.rst
+   IDE/rst/vscode.rst
+   IDE/rst/clion.rst
+   IDE/rst/pycharm.rst
 
 .. toctree::
    :maxdepth: 1

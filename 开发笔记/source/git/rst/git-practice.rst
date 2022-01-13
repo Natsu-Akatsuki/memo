@@ -2,8 +2,8 @@
    :format: html
 
 
-01. git实战
-===========
+git practice
+============
 
 `查看annotation <https://www.jetbrains.com/help/pycharm/investigate-changes.html#annotate_blame>`_
 ------------------------------------------------------------------------------------------------------
@@ -410,6 +410,66 @@ revert
    # 删除远程分支
    $ git branch -r -D <branch_name>
 
+环境变量
+--------
+
+设置环境变量
+^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 设置身份验证cache状态 (保持验证状态5min)
+   $ git config --global credential.help 'cache --timeout 300'
+   # 取消cache状态
+   $ git config --global unset credential.help
+   # 配置commit时的IDx信息
+   $ git config --global user.name  "spongebob"
+   $ git config --global user.email "spongebob@mail2.gdut.edu.cn"
+   # 配置push / pull时远程仓时使用的代理服务
+   $ git config --global http.proxy <e.g.: 127.0.0.1:12333>
+   $ git config --global https.proxy <e.g.: 127.0.0.1:12333>
+   # 设置默认文本编辑器
+   $ git config --global core.editor vim
+
+----
+
+**NOTE**
+
+git的环境变量可存在于三个配置文件下，其中的环境变量适用对象不同
+
+
+* ``/etc/gitconfig``\ ：适用于linux 系统所有用户。\ ``--system``
+* ``~/.gitconfig``\ ：适用于当前登录用户。\ ``--global``
+* ``.git/config``\ ：位于和适用于本地仓。\ ``--local(default)``
+* 对于同一环境变量，三个配置文件对环境变量覆写的优先级是1<2<3
+
+----
+
+查看配置参数
+^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ git config --list or -l
+   --show-origin: 查看来源（配置文档路径）
+
+查看当前配置参数的来源
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ git config -l --show-origin 
+
+   # >>> 
+   # file:/home/helios/.gitconfig   core.editor=vim 
+   # file:/home/helios/.gitconfig   core.autocrlf=input 
+   # file:.git/config     core.repositoryformatversion=0 
+   # file:.git/config     core.filemode=true 
+   # file:.git/config     core.bare=false 
+   # file:.git/config     core.logallrefupdates=true 
+   # file:.git/config     submodule.active=.
+   # <<<
+
 IDE
 ---
 
@@ -425,8 +485,41 @@ pycharm
    :alt: img
 
 
+README
+------
+
+图片
+^^^^
+
+
+* typora上传的图片在github上不能缩放
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/zoom-issue.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/zoom-issue.png
+   :alt: img
+
+
+
+* 几种图片格式方案：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=50% height=50% align="right"/>`
+
+
+.. raw:: html
+
+   <p align="center">
+   <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=20% height=20% />
+   </p>
+
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=200 height=100 align="left"/>`
+
 拓展资料
 --------
 
 
 #. `github command line <https://github.com/cli/cli>`_
+#. `开发常用缩写，你能看懂几个 <https://www.163.com/dy/article/GO2L19AP0518R7MO.html>`_
+#. `github cheat sheet <https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md>`_
+#. `git flight rules <https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md>`_

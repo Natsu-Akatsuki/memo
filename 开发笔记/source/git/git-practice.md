@@ -1,4 +1,4 @@
-# 01. git实战
+# git practice
 
 ## [查看annotation](https://www.jetbrains.com/help/pycharm/investigate-changes.html#annotate_blame)
 
@@ -142,8 +142,8 @@ $ git clean
 * 相应的配置文件为 `.git/info/exclude` 和 `.gitignore` ，前者为 `git init` 时创建；后者一般上传至远程仓，跟别人共享一份配置
 * J家 IDE可以用`.ignore`插件来生成.ignore模板文件
 * [.ignore中的一些语法](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository)
-  + 遵从通配符模式找文件，**默认递归**地查找工作空间的文件
-  + 开头加上`/`表示取消递归
+  * 遵从通配符模式找文件，**默认递归**地查找工作空间的文件
+  * 开头加上`/`表示取消递归
 
 ## 回溯到某个commit
 
@@ -331,6 +331,61 @@ $ git branch -D <branch_name>
 $ git branch -r -D <branch_name>
 ```
 
+## 环境变量
+
+### 设置环境变量
+
+```bash
+# 设置身份验证cache状态 (保持验证状态5min)
+$ git config --global credential.help 'cache --timeout 300'
+# 取消cache状态
+$ git config --global unset credential.help
+# 配置commit时的IDx信息
+$ git config --global user.name  "spongebob"
+$ git config --global user.email "spongebob@mail2.gdut.edu.cn"
+# 配置push / pull时远程仓时使用的代理服务
+$ git config --global http.proxy <e.g.: 127.0.0.1:12333>
+$ git config --global https.proxy <e.g.: 127.0.0.1:12333>
+# 设置默认文本编辑器
+$ git config --global core.editor vim
+```
+
+---
+
+**NOTE**
+
+git的环境变量可存在于三个配置文件下，其中的环境变量适用对象不同
+
+* `/etc/gitconfig`：适用于linux 系统所有用户。`--system`
+* `~/.gitconfig`：适用于当前登录用户。`--global`
+* `.git/config`：位于和适用于本地仓。`--local(default)`
+* 对于同一环境变量，三个配置文件对环境变量覆写的优先级是1<2<3
+
+---
+
+### 查看配置参数
+
+```bash
+$ git config --list or -l
+--show-origin: 查看来源（配置文档路径）
+```
+
+### 查看当前配置参数的来源
+
+```bash
+$ git config -l --show-origin 
+
+# >>> 
+# file:/home/helios/.gitconfig   core.editor=vim 
+# file:/home/helios/.gitconfig   core.autocrlf=input 
+# file:.git/config     core.repositoryformatversion=0 
+# file:.git/config     core.filemode=true 
+# file:.git/config     core.bare=false 
+# file:.git/config     core.logallrefupdates=true 
+# file:.git/config     submodule.active=.
+# <<< 
+```
+
 ## IDE
 
 ### pycharm
@@ -339,6 +394,27 @@ $ git branch -r -D <branch_name>
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HtN38T0ZZSrGVcBN.png!thumbnail)
 
+## README
+
+### 图片
+
+* typora上传的图片在github上不能缩放
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/zoom-issue.png)
+
+* 几种图片格式方案：
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=50% height=50% align="right"/>
+
+<p align="center">
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=20% height=20% />
+</p>
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=200 height=100 align="left"/>
+
 ## 拓展资料
 
 1. [github command line](https://github.com/cli/cli)
+2. [开发常用缩写，你能看懂几个](https://www.163.com/dy/article/GO2L19AP0518R7MO.html)
+3. [github cheat sheet](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
+4. [git flight rules](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
