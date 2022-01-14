@@ -81,6 +81,9 @@ Alias target
 .. hint:: 单个variable有多个arguments时，用分号将argument进行concatenate后再进行赋值；然而message显示时，不会出现分号；使用一个变量时，不同于 bash可以不加上{}，在 CMakelists中一定要加上
 
 
+.. note:: add_compile_options()作用于所有编译器，CMAKE_CXX_FLAGS`或`CMAKE_C_FLAGS分别只针对c++，c编译器
+
+
 生成库
 ^^^^^^
 
@@ -196,9 +199,20 @@ Alias target
    set_target_properties(target1 target2 ...
                          PROPERTIES prop1 value1
                          prop2 value2 ...)
+   set_property(<GLOBAL                      |
+                 DIRECTORY [<dir>]           |
+                 TARGET    [<target1> ...]   |
+                 SOURCE    [<src1> ...]
+                           [DIRECTORY <dirs> ...]
+                           [TARGET_DIRECTORY <targets> ...] |
+                 INSTALL   [<file1> ...]     |
+                 TEST      [<test1> ...]     |
+                 CACHE     [<entry1> ...]    >
+                [APPEND] [APPEND_STRING]
+                PROPERTY <name> [<value1> ...])
 
 
-* 修改文件生成名前/后缀
+* 修改文件生成名前/后缀等
 
 .. code-block:: cmake
 

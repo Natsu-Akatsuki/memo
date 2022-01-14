@@ -3,7 +3,7 @@ project(lidar_apollo_instance_segmentation)
 
 option(CUDA_VERBOSE "Verbose output of CUDA modules" ON)
 
-# set flags for CUDA availability
+# CUDA配置
 option(CUDA_AVAIL "CUDA available" OFF)
 find_package(CUDA)
 if (CUDA_FOUND)
