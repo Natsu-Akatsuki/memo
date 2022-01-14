@@ -36,6 +36,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: docker
+
+   docker/rst/docker-practice.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: git
 
    git/rst/git-practice.rst
