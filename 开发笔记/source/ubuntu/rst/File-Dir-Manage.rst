@@ -177,6 +177,9 @@ tar
 软链接
 ------
 
+
+* 文件软链接
+
 .. prompt:: bash $,# auto
 
    $ ln -s <源地址> <目的地>
@@ -184,6 +187,31 @@ tar
    $ ln -s <源地址>
 
 .. attention:: 所有地址都需要绝对路径（实际使用时常跟 ``$(pwd)`` 配合使用）
+
+
+
+* 管理文件软链接
+
+.. prompt:: bash $,# auto
+
+   # e.g. manage gcc/g++
+   $ sudo apt install gcc-9 g++-9 gcc-10 g++-10
+   $ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
+   $ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+
+   # 其他常用选项
+   # --remove-all name: Remove all alternatives and all of their associated slave links. name # is a name in the alternatives directory.
+
+   # 修改默认版本
+   $ sudo update-alternatives --config gcc
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115010416693.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115010416693.png
+   :alt: image-20220115010416693
+
+
+.. note:: 指定slave和master的作用在于，master进行变动时，slave也会进行变动。比如gcc(master)从9.0切换到10.0时，g++(slave)也会从9.0切换到10.0
 
 
 文件编辑

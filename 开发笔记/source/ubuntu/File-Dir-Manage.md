@@ -140,6 +140,8 @@ $ tar -xf <待第二次解压的文件名.tar>
 
 ## 软链接
 
+* 文件软链接
+
 ```bash
 $ ln -s <源地址> <目的地>
 # 可以不指定目的地，然后生成软链接到当前目录
@@ -147,6 +149,25 @@ $ ln -s <源地址>
 ```
 
 .. attention:: 所有地址都需要绝对路径（实际使用时常跟 ``$(pwd)`` 配合使用）
+
+* 管理文件软链接
+
+```bash
+# e.g. manage gcc/g++
+$ sudo apt install gcc-9 g++-9 gcc-10 g++-10
+$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
+$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+
+# 其他常用选项
+# --remove-all name: Remove all alternatives and all of their associated slave links. name # is a name in the alternatives directory.
+
+# 修改默认版本
+$ sudo update-alternatives --config gcc
+```
+
+![image-20220115010416693](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115010416693.png)
+
+.. note:: 指定slave和master的作用在于，master进行变动时，slave也会进行变动。比如gcc(master)从9.0切换到10.0时，g++(slave)也会从9.0切换到10.0
 
 ## 文件编辑
 
@@ -183,7 +204,7 @@ $ ln -s <源地址>
 
 #### [配置文档](https://blog.csdn.net/silence1772/article/details/81057702)
 
-- [共享剪切板](https://www.zhihu.com/question/19863631)
+* [共享剪切板](https://www.zhihu.com/question/19863631)
 
 共享系统的剪切板与vim的剪切板（鼠标中键、p、 `c+s+v` ）
 
@@ -192,7 +213,7 @@ $ ln -s <源地址>
 set clipboard=unnamedplus:s
 ```
 
-- vim的全局参数配置文件放在 `/etc/vim/vimrc` 但不建议修改，而是建议修改 `~/.vimrc`
+* vim的全局参数配置文件放在 `/etc/vim/vimrc` 但不建议修改，而是建议修改 `~/.vimrc`
 
 #### 高级封装
 
