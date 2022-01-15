@@ -66,8 +66,12 @@ Reference
 上述链接包含如下解决方案
 
 
-* 使用代码块
-* 导入(include)文件作为代码块
+* 
+  使用代码块
+
+* 
+  导入(include)文件作为代码块
+
 * 高亮某一行文本
 
 `显示warnings等 <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/notes_warnings.html>`_
@@ -86,8 +90,11 @@ Reference
 ^^^^^^^^^^^^
 
 
-* `simple usecase <https://stackoverflow.com/questions/50565770/how-to-embed-html-or-xml-in-restructuredtext-sphinx-so-the-browser-cna-render>`_
-* `嵌入asciinema脚本 <https://raw.githubusercontent.com/catkin/catkin_tools/master/docs/verbs/catkin_build.rst>`_\ ; `官方教程 <https://asciinema.org/docs/embedding>`_
+* 
+  `simple usecase <https://stackoverflow.com/questions/50565770/how-to-embed-html-or-xml-in-restructuredtext-sphinx-so-the-browser-cna-render>`_
+
+* 
+  `嵌入asciinema脚本 <https://raw.githubusercontent.com/catkin/catkin_tools/master/docs/verbs/catkin_build.rst>`_\ ; `官方教程 <https://asciinema.org/docs/embedding>`_
 
 
 .. raw:: html
@@ -99,6 +106,12 @@ Reference
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For an in-depth explanation, please see :download: ``A Detailed Example <https://appletree.or.kr/quick_reference_cards/Python/Python%20Debugger%20Cheatsheet.pdf>`` .
+
+`交叉引用 <https://docs.readthedocs.io/en/stable/guides/cross-referencing-with-sphinx.html#>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note:: doc用于引入页面；而ref role则用于引用页面的某一段，其中可以加入中文标题；
+
 
 拓展工具
 --------

@@ -45,6 +45,8 @@ extensions = [
     "sphinx_last_updated_by_git",
 ]
 
+autosectionlabel_prefix_document = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -75,7 +77,7 @@ html_theme = "sphinx_rtd_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # 配置构建html时导入的静态文件
-html_static_path = ["_static", "pdf资料"]
+html_static_path = ["_static", "resources"]
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied

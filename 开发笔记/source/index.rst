@@ -19,7 +19,7 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: c++笔记
+   :caption: c++
 
    c++笔记/rst/术语与语法规则.rst   
    c++笔记/rst/编译模型.rst
@@ -51,7 +51,7 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: 环境配置笔记
+   :caption: env-configuration
 
    环境配置笔记/rst/配置apollo环境.rst
    环境配置笔记/rst/配置cheetah机械狗20.04环境.rst
