@@ -27,7 +27,6 @@ def save_pointcloud(pointcloud_np, export_format="npy", path_file="pointcloud.np
 def pointcloud_callback(msg):
     pointcloud_ros = pc2_parser.read_points(msg, skip_nans=True, field_names=("x", "y", "z", "intensity"))
     pointcloud_np = np.asarray(list(pointcloud_ros), dtype=np.float32)
-    print(1)
 
     # normalize the intensity
     # pointcloud_np[:, 3] = pointcloud_np[:, 3] / 255

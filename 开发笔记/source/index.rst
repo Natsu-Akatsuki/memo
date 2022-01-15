@@ -16,14 +16,6 @@ AmBook
 - 归纳与总结。没有对使用工具的过程或解决问题的思路撰写笔记而导致重复性的工作。
 - 解决问题的路子太窄。路子：已有经验的泛化（自己根据以往经验能够独立解决），搜索引擎（百度，谷歌等第二手资料/官方第一手资料），请教别人，论坛和邮件。
 
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: c++
-
-   c++笔记/rst/术语与语法规则.rst   
-   c++笔记/rst/编译模型.rst
-   c++笔记/rst/数据流.rst
 
 .. toctree::
    :maxdepth: 1
@@ -47,14 +39,6 @@ AmBook
 
    git/rst/git-practice.rst
    git/rst/convention.rst
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: env-configuration
-
-   环境配置笔记/rst/配置apollo环境.rst
-   环境配置笔记/rst/配置cheetah机械狗20.04环境.rst
 
 .. toctree::
    :maxdepth: 1

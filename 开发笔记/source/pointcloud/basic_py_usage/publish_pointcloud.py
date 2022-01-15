@@ -48,4 +48,4 @@ def load_pcd_data_pcl(file_path):
 
 
 if __name__ == '__main__':
-    pass
+    load_bin_data("../data/rslidar16_pointcloud.bin")
