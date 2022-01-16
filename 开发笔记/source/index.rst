@@ -71,10 +71,10 @@ AmBook
    :hidden:
    :caption: ros
 
-   ros/rst/launch文件.rst
-   ros/rst/ros常用命令行.rst   
-   ros/rst/实战.rst
-
+   ros/rst/command-api.rst
+   ros/rst/launch.rst
+   ros/rst/nodelet.rst   
+   ros/rst/ros-practice.rst
 
 .. toctree::
    :maxdepth: 1

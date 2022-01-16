@@ -13,7 +13,7 @@ rosrun
 
 .. prompt:: bash $,# auto
 
-   rosrun <package_name> <executable>
+   $ rosrun <package_name> <executable>
 
 .. attention:: 有可执行权限的文件，其文件名才能被命令行补全；python脚本记得在首行添加解释器路径
 
@@ -29,8 +29,8 @@ rosbag
    # ---回放---
    $ rosbag play <包名>  
    # --clock     # publish the clock time
-   # --topic     # 只发布自己想要的topic；另外可在后面加:进行重映射
-   # -r <n>     # 以n倍速播放
+   # --topic     # 只发布自己想要的topic；另外可在后面加:=进行重映射
+   # -r <n>      # 以n倍速播放
 
    # ---录制---
    $ rosbag record <主题名> 
@@ -80,7 +80,7 @@ rostopic
 
 .. prompt:: bash $,# auto
 
-   $ rostopic list              # 查看当前发布和订阅的主题
+   $ rostopic list       # 查看当前发布和订阅的主题
    $ rostopic type <topic_name> # 查看主题的类型
    $ rostopic echo <topic_name> # 查看主题中的数据
 
