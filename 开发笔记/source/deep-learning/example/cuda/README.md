@@ -5,4 +5,3 @@
 ```bash
 $ nvcc hello_world.cu
 ```
-

@@ -9,7 +9,7 @@
 
 #define N 4096 // size of array
 
-// 定义一个核函数
+// 定义核函数
 __global__ void add(int *a, int *b, int *c) {
   int tid = blockIdx.x * blockDim.x + threadIdx.x;
   if (tid < N) {

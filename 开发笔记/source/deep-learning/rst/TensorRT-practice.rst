@@ -2,148 +2,76 @@
    :format: html
 
 
-TensorRT实战
-============
+Tensor-practice
+===============
 
-TensorRT工作流
---------------
+workflow
+--------
 
-Main Code
-^^^^^^^^^
+步骤一：创建\ ``logger``\ 对象，用于捕获TensorRT运行时的日志
+步骤二：创建\ ``builder``\ 对象，构建TensorRT模型
+步骤三：创建\ ``config``\ 对象，用于指导TensorRT的优化方式
+步骤四：创建\ ``paser``\ 对象，将onnx模型的权值populate到TensorRT模型中
+步骤五：创建\ ``context``\ 对象，进行预测
 
-主要步骤：构建builder，构建network，导出engine，执行engine
-
-.. code-block:: c++
-
-   // 创建logger类型对象（基本操作）
-   Tn::Logger logger;
-
-   // 实例化builder
-   nvinfer1::IBuilder * builder = nvinfer1::createInferBuilder(logger);
-   builder->setMaxBatchSize(batch_size);
-
-   // 实例化config（用于指导TensorRT优化模型）
-   nvinfer1::IBuilderConfig * config = builder->createBuilderConfig();
-   const int batch_size = 1;    
-   config->setMaxWorkspaceSize(1 << 30);
-
-   // 实例化network
-   nvinfer1::INetworkDefinition * network = builder->createNetworkV2(0U);
-
-   // 实例化parser
-   nvcaffeparser1::ICaffeParser * parser = nvcaffeparser1::createCaffeParser(); 
-
-   // 使用parser构建network（加入各种参数）
-   const nvcaffeparser1::IBlobNameToTensor * blob_name2tensor = parser->parse(
-       prototxt_file.c_str(), caffemodel_file.c_str(), *network, nvinfer1::DataType::kFLOAT);
-
-   // 序列化engine以保存至硬盘
-   nvinfer1::IHostMemory * trt_model_stream = engine->serialize();
-   assert(trt_model_stream != nullptr);    
-   std::ofstream outfile(engine_file, std::ofstream::binary);assert(!outfile.fail());
-   outfile.write(reinterpret_cast<char *>(trt_model_stream->data()), trt_model_stream->size());
-   outfile.close();
-
-ILogger class
-^^^^^^^^^^^^^
-
-大部分的TensorRT API都需要传入ILogger类型的对象作为实参，ILogger可以进行override
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211228132613702.png" alt="image-20211228132613702" style="zoom:67%;" />`
 
 .. code-block:: c++
 
-   // e.g. offical
-   class Logger : public ILogger           
-    {
-        void log(Severity severity, const char* msg) override
-        {
-            // suppress info-level messages
-            if (severity != Severity::kINFO)
-                std::cout << msg << std::endl;
-        }
-    } gLogger;
+   #include "NvInferRuntime.h"
+   #include <NvInfer.h>
+   // create a config object
+   nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
 
-   // e.g. autoware
-   static Tn::Logger gLogger;
-   /*
-   Tn::Logger logger;
-   nvinfer1::IBuilder* builder = nvinfer1::createInferBuilder(logger);
-   */
+   // network->plan->engine
+   nvinfer1::IHostMemory *plan = builder->buildSerializedNetwork(*network, *config);
+   nvinfer1::IRuntime* runtime = nvinfer1::createInferRuntime(logger);
+   nvinfer1::ICudaEngine *engine = runtime->deserializeCudaEngine(plan->data(), plan->size(), nullptr);
 
-`构建TensorRT模型 <https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html#conversion>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   // network->engine
+   nvinfer1::ICudaEngine *engine = builder->buildEngineWithConfig(*network, *config
+
+   // engine->context
+   nvinfer1::IExecutionContext *context = engine->createExecutionContext();
 
 
-* 
-  方法一：调用API构建TensorRT模型（network definition）
-
-* 
-  方法二：调用model parser：pytorch parser(\ `torch2trt <https://github.com/NVIDIA-AI-IOT/torch2trt>`_\ )、第三方库(\ `Tencent Forward <https://github.com/Tencent/Forward>`_\ )
-
-* 方法三：...
-
-构建引擎
-^^^^^^^^
-
-.. code-block:: c++
-
-   nvinfer1::IRuntime * mTrtRunTime = nullptr;
-   mTrtRunTime = createInferRuntime(gLogger);
-   assert(mTrtRunTime != nullptr);
-
-   //1st arg: The memory that holds the serialized engine.
-   //2nd arg: The size of the memory in bytes.
-   mTrtEngine = mTrtRunTime->deserializeCudaEngine(data.get(), length, nullptr);
-   assert(mTrtEngine != nullptr);
-
-导出引擎
-^^^^^^^^
+* logger：logger是共用的
 
 
-* 保存序列化engine
-
-.. code-block:: c++
-
-   void saveEngine(std::string fileName)
-   {
-     if (mTrtEngine) {
-       // 先序列化再写入以二进制的方式写入文件
-       nvinfer1::IHostMemory * data = mTrtEngine->serialize();
-       std::ofstream file;
-       file.open(fileName, std::ios::binary | std::ios::out);
-       if (!file.is_open()) {
-         std::cout << "read create engine file" << fileName << " failed" << std::endl;
-         return;
-       }
-
-       file.write((const char *)data->data(), data->size());
-       file.close();
-     }
-   };
-
-`术语 <https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html#glossary>`_
--------------------------------------------------------------------------------------------------
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115160310062.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115160310062.png
+   :alt: image-20220115160310062
 
 
-* 
-  `序列化 <https://en.wikipedia.org/wiki/Serialization>`_\ ：序列化模型能够更好的存储模型
+command
+-------
 
-* 
-  network definition：TensorRT中model的别称
-
-* 
-  plan：序列化后的优化模型(inference model)/TensorRT导出的模型 - An optimized inference engine in a serialized format.
+trtexec
+^^^^^^^
 
 
-  .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211227151748279.png
-     :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211227151748279.png
-     :alt: image-20211227151748279
+* 各种option的含义可参考\ `here <https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html#runtime>`_\ 和\ ``trtexec -h``\ 的输出
 
+.. prompt:: bash $,# auto
 
-* 
-  engine：被TensorRT builder优化好的模型(model)
+   $ trtexec --onnx=fcn-resnet101.onnx --fp16 --workspace=64 \
+   --minShapes=input:1x3x256x256 \
+   --optShapes=input:1x3x1026x1282 \
+   --maxShapes=input:1x3x1440x2560 \
+   --buildOnly \
+   --saveEngine=fcn-resnet101.engine
+   --explicitBatch
+   # --buildOnly：不需要inference performance measurements
+   # --saveEngine: 模型导出
 
-* 
-  In **CUDA**\ , the **host** refers to the CPU and its memory, while the **device** refers to the GPU and its memory. Code run on the **host** can manage memory on both the **host** and **device**\ , and also launches **kernels** which are functions executed on the **device**.
+   # e.g.
+   $ trtexec --onnx=pfe_baseline32000.onnx --fp16 --workspace=16384 --saveEngine=pfe_baseline_fp16.engine 
+   $ trtexec --onnx=rpn_baseline.onnx --fp16 --workspace=16384 --saveEngine=rpn_baseline_fp16.engine
+
+TensorRT plugin
+---------------
+
+plugin为TensorRT的精髓，提供了一个接口进行自定义算子的导入
 
 DEBUG
 -----
@@ -158,7 +86,7 @@ DEBUG
          |          ^~~~~~~~~~~
 
 error: ‘class nvinfer1::IBuilder’ has no member named ‘buildSerializedNetwork’
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TensorRT版本号不对应：原使用了TensorRT 7.2.3的库，而以下的成员函数是从8.0.1开始才有的
 
@@ -167,12 +95,28 @@ TensorRT版本号不对应：原使用了TensorRT 7.2.3的库，而以下的成�
 Q&A
 ---
 
-为什么plan（TensorRT模型文件）不能够在不同架构下运行？
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+多流为什么有效？
+^^^^^^^^^^^^^^^^
+
+
+* CPU->GPU数据是经过PCIe总线进行传输的。在传输过程中，CPU和GPU处于空闲的等待状态。多流则可以实现数据传输与核函数计算的并行。
+* 多流可以让多个核函数同时计算，充分利用GPU算理
+
+.. note:: 流并非越多越好，GPU内可同时执行的流数量是有限的
+
+
+.. note:: GOU流指的是GPU操作(operation)序列(sequence)
+
+
+`为什么plan（TensorRT模型文件）不能够在不同架构下运行？ <https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#compatibility-serialized-engines>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 架构：e.g. Turing架构（RTX 2060）、Pascal架构(GTX 1080)
 
 但可在相同架构的不同显卡下运行
+
+.. note:: Serialized engines are not portable across platforms or TensorRT versions. Engines are specific to the exact GPU model they were built on (in addition to the platform and the TensorRT version).
+
 
 TensorRT的输入为什么要固定？
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -184,6 +128,8 @@ TensorRT的调优策略？
 
 该部分耗时是最长的。涉及：模型转换、kernel自动调优、算子融合和低精度
 
+kernel自动调优：不需要考虑分支（能解释不同plan）
+
 常用的设置参数
 ^^^^^^^^^^^^^^
 
@@ -192,7 +138,13 @@ TensorRT的调优策略？
 
 .. code-block:: c++
 
-   config->setMaxWorkspaceSize(16_MiB)
+   // IBuilderConfig::setMaxWorkspaceSize
+   auto builder = nvinfer1::createInferBuilder(gLogger);
+   auto config = builder->createBuilderConfig();
+   // config->setMaxWorkspaceSize(128*(1 << 20)); // 128 MiB
+
+   config->setMaxWorkspaceSize(16_MiB);
+   config->setMaxWorkspaceSize(5_GiB);
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211227140227316.png
@@ -200,7 +152,50 @@ TensorRT的调优策略？
    :alt: image-20211227140227316
 
 
-some tatics do not have suffiient workspace memory to run. Increasing workspace size may increase performance, please check verbose output.
+.. note:: One important property is the maximum workspace size. Layer implementations often require a temporary workspace, and this parameter limits the maximum size that any layer in the network can use. If insufficient workspace is provided, it is possible that TensorRT will not be able to find an implementation for a layer.
+
+
+.. note:: some tatics do not have suffiient workspace memory to run. Increasing workspace size may increase performance, please check verbose output.
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211228160528545.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211228160528545.png
+   :alt: image-20211228160528545
+
+
+
+* `Change the workspace size <https://developer.nvidia.com/blog/speeding-up-deep-learning-inference-using-tensorrt/>`_\ ：太低将得到次优的模型
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211229090819788.png" alt="image-20211229090819788" style="zoom: 50%;" />`
+
+`精度配置 <https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#network-level-control>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c++
+
+   config->setFlag(BuilderFlag::kFP16);
+   config->setFlag(BuilderFlag::kINT8);
+
+----
+
+**NOTE**
+
+
+* `查看硬件所支持的精度 <https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix>`_
+
+程序中binding的意思？
+^^^^^^^^^^^^^^^^^^^^^
+
+存储输入输出内存地址的数组(An array of pointers to input and output buffers for the network)，所以单输入单输出的一般的nbBindinds=2
+
+.. code-block:: c++
+
+   int nbBindings = engine->getNbBindings();
+   std::vector<void *> mTrtCudaBuffer;
+   std::vector<int64_t> mTrtBindBufferSize;
+   mTrtCudaBuffer.resize(nbBindings);
+   mTrtBindBufferSize.resize(nbBindings);
 
 TensorRT版本的选择
 ^^^^^^^^^^^^^^^^^^
@@ -208,3 +203,107 @@ TensorRT版本的选择
 
 #. 选择LTS版本的，例如能选7.2就不要选7.0和7.1
 #. 根据显卡来选TensorRT的版本。并不是版本更好越新越好，版本越新仅是对新的显卡优化效果更好，旧的效果反而效果会差一些。（软件TensoRT每次的优化和迭代都是与推出的N卡息息相关）
+
+`官方Q&A <https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#troubleshooting>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+为什么TensorRT的很多对象都有智能指针管理？
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* TensorRT的对象需要调用destroy()进行析构
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220116222110245.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220116222110245.png
+   :alt: image-20220116222110245
+
+
+查看onnx模型的输入和输出大小
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+方法一：使用onnx脚本查看
+
+.. prompt:: bash $,# auto
+
+   $ pip install onnx
+
+相关代码：
+
+.. code-block:: python
+
+   import onnx
+
+   def print_shape_info(channel):
+       for input in eval(f"model.graph.{channel}"):
+           print(input.name, end=": ")
+           # get type of input tensor
+           tensor_type = input.type.tensor_type
+           # check if it has a shape:
+           if tensor_type.HasField("shape"):
+               # iterate through dimensions of the shape:
+               for d in tensor_type.shape.dim:
+                   # the dimension may have a definite (integer) value or a symbolic identifier or neither:
+                   if d.HasField("dim_value"):
+                       print(d.dim_value, end=", ")  # known dimension
+                   elif d.HasField("dim_param"):
+                       print(d.dim_param, end=", ")  # unknown dimension with symbolic name
+                   else:
+                       print("?", end=", ")  # unknown dimension with no name
+           else:
+               print("unknown rank", end="")
+
+   model_path = "....onnx"
+   model = onnx.load(model_path)
+
+   print_shape_info("input")
+   print()
+   print_shape_info("output")
+
+方法二：\ `netron online <https://netron.app/>`_
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Zz7SjGciDpzbgA3F.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Zz7SjGciDpzbgA3F.png
+   :alt: img
+
+
+验证TensorRT engine
+^^^^^^^^^^^^^^^^^^^
+
+
+* 命令行测试
+
+.. prompt:: bash $,# auto
+
+   $ trtexec --shapes=input:32000x64 --loadEngine=pfe_baseline32000.trt
+   # input大小可参考上一节：查看onnx模型的输入和输出大小
+
+`术语 <https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html#glossary>`_
+-------------------------------------------------------------------------------------------------
+
+
+* 
+  `序列化 <https://en.wikipedia.org/wiki/Serialization>`_\ ：序列化模型能够更好的存储模型
+
+* 
+  network definition：TensorRT中model的别称
+
+* 
+  plan：序列化后的\ **优化**\ 模型(inference model)/TensorRT导出的模型 - An optimized inference engine in a serialized format.
+
+
+  .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211227151748279.png
+     :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211227151748279.png
+     :alt: image-20211227151748279
+
+
+* 
+  engine：被TensorRT builder\ **优化好**\ 的模型(model)
+
+* 
+  In **CUDA**\ , the **host** refers to the CPU and its memory, while the **device** refers to the GPU and its memory. Code run on the **host** can manage memory on both the **host** and **device**\ , and also launches **kernels** which are functions executed on the **device**.
+
+* 
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211228112641903.png" alt="image-20211228112641903" style="zoom:67%;" />`

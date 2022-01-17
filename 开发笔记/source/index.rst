@@ -110,6 +110,7 @@ AmBook
    
    deep-learning/rst/cuda-practice.rst
    deep-learning/rst/env-building.rst
-   deep-learning/rst/TensorRT-practice.rst
+   deep-learning/rst/TensorRT-practice.rst   
    deep-learning/rst/preprocess.rst
+   deep-learning/rst/pytorch-practice.rst
    

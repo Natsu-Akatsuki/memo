@@ -264,6 +264,7 @@ $ ./cuda-uninstaller
 | tensorRT 7.0.0   |                 |             |
 | tensorRT 7.2.3   |                 |             |
 | tensorRT 8.0.0.3 | cuda_11.2.r11.2 | cudnn 8.1.1 |
+| tensorRT 8.2.2.1 |                 | cudnn 8.2.1 |
 
 步骤二：[tar包下载与安装](https://developer.nvidia.com/nvidia-tensorrt-download)
 
