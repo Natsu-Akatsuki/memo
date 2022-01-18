@@ -132,6 +132,12 @@ Working directory: $ProjectFileDir$
 
 ![image-20210926235345669](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210926235345669.png)
 
+### PlantUML
+
+- 写uml文件的工具（新建文件即可，可自动渲染文件）
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/r61C0535xyMutAXN.png!thumbnail)
+
 ## 常用快捷键
 
 ### 跳转(navigation)

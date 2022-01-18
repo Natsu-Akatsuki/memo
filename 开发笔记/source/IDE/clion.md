@@ -37,3 +37,9 @@
 ### 设置CmakeLists file template
 
 一种是新建工程使用CMakeLists template，另一种是新建文件使用template
+
+### 删除缓存
+
+### [IDE性能提高](https://www.jetbrains.com/help/clion/performance-tuning-tips.html)
+
+包括增加可用内存、提高代码解析和索引的速度、关闭不必要的插件

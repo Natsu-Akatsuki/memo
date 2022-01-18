@@ -215,6 +215,18 @@ remote deployment
    :alt: image-20210926235345669
 
 
+PlantUML
+^^^^^^^^
+
+
+* 写uml文件的工具（新建文件即可，可自动渲染文件）
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/r61C0535xyMutAXN.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/r61C0535xyMutAXN.png!thumbnail
+   :alt: img
+
+
 常用快捷键
 ----------
 
