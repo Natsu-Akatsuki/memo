@@ -1,0 +1,29 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
+* <&flag>perception
+** detection
+***: **output**
+/perception/object_recognition/detection/clusters **autoware_perception_msgs/DynamicObjectWithFeatureArray**
+/perception/object_recognition/detection/debug/clusters **sensor_msgs/PointCloud2**
+/perception/object_recognition/detection/objects **autoware_perception_msgs/DynamicObjectWithFeatureArray**
+/perception/object_recognition/detection/objects/visualization **visualization_msgs/MarkerArray**;
+
+
+** tracking
+***: **output**
+/perception/object_recognition/tracking/objects **autoware_perception_msgs/DynamicObjectArray**
+/perception/object_recognition/tracking/objects/visualization **visualization_msgs/MarkerArray**;
+
+
+** prediction
+***: **output**
+/perception/object_recognition/objects **/autoware_perception_msgs/DynamicObjectArray**
+/perception/object_recognition/objects/visualization **visualization_msgs/MarkerArray**;
+
+@endmindmap
+
+
+' 为什么到tracking之后数据类型是autoware_perception_msgs/DynamicObjectArray，而不是autoware_perception_msgs/DynamicObjectWithFeatureArray？
+' tracking之后将检测数据解包了（另外前者是局部系，否则是世界系的数据）
+'

@@ -12,7 +12,7 @@ quick tutorial
 * 
   ``sphinx`` , ``MKdocs`` , ``Hexo`` 都可以用来生成html文档
 
-* 
+*
   本次将使用 ``ReadTheDocs`` 部署 ``sphinx`` 生成的文档
 
 步骤一：安装sphinx相关依赖

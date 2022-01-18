@@ -79,9 +79,10 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: sphinx
+   :caption: writing
 
-   sphinx/rst/sphinx-practice.rst
+   writing/rst/sphinx-practice.rst
+   writing/rst/PlantUML-practice.rst.rst
 
 .. toctree::
    :maxdepth: 1
