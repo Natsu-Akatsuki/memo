@@ -57,6 +57,8 @@ ros-practice
 构建元包
 --------
 
+有的时候可能需要catkin build多个包，相应的命令行可能为\ ``catkin build pkg1 pkg2 pkg3``\ 。使用元包则可以简化命令行，其将多个包进行统一管理在一起，最后只需要使用命令行\ ``catkin build meat_pkg``\ 。
+
 参考教程
 ^^^^^^^^
 
