@@ -104,7 +104,7 @@ docker
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-* 安装
+* 安装（或要科学上网）
 
 .. prompt:: bash $,# auto
 
@@ -153,6 +153,8 @@ command
    # 删除容器
    $ docker rm  <container_name>
    $ docker container prune  # 删除所有暂停的容器
+   # 在已启动的容器中再开一个终端
+   $ docker exec -it /bin/bash
 
 构建容器的选项说明
 ^^^^^^^^^^^^^^^^^^
@@ -177,6 +179,17 @@ command
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3HacQGLIn8pYe8Fp.png!thumbnail
    :alt: img
 
+
+压缩/导出镜像
+^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 导出镜像
+   # docker save sleipnir-trt7.2.3 -o sleipnir-trt7.2.3.tar
+   $ docker save <image_name> -o <sleipnir-trt7.2.3.tar>
+   # 导入镜像
+   $ docker load -i <tar file>
 
 Dockerfile
 ----------
@@ -247,11 +260,25 @@ Dockerfile指令
 
 `pcdet <https://github.com/open-mmlab/OpenPCDet/blob/v0.1/docker/Dockerfile>`_\ ：custom linux环境/cuda环境/cudnn环境/自建pytorch环境
 
+`阿里云镜像托管 <https://cr.console.aliyun.com/cn-hangzhou/instance/repositories>`_
+---------------------------------------------------------------------------------------
+
+.. prompt:: bash $,# auto
+
+   # 登录
+   $ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
+   # 拉取
+   $ docker pull registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+   # 推送
+   $ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
+   $ docker tag <ImageId> registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+   $ docker push registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+
 构建镜像技巧
 ------------
 
 
-#. 为减小镜像大小，需要及时删除缓存，例如删除 ``apt packages lists`` 
+#. 为减小镜像大小，需要及时删除缓存，例如删除 ``apt packages lists``
 
 .. prompt:: bash $,# auto
 
@@ -262,7 +289,7 @@ Dockerfile指令
 
 ..
 
-   Official Debian and Ubuntu images `automatically run  <http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fmoby%2Fmoby%2Fblob%2F03e2923e42446dbb830c654d0eec323a0b4ef02a%2Fcontrib%2Fmkimage%2Fdebootstrap%23L82-L105&r=https%3A%2F%2Fdocs.docker.com%2Fdevelop%2Fdevelop-images%2Fdockerfile_best-practices%2F%23dont-install-unnecessary-packages>`_\ ``apt-get clean``\ , so explicit invocation is not required. 
+   Official Debian and Ubuntu images `automatically run <http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fmoby%2Fmoby%2Fblob%2F03e2923e42446dbb830c654d0eec323a0b4ef02a%2Fcontrib%2Fmkimage%2Fdebootstrap%23L82-L105&r=https%3A%2F%2Fdocs.docker.com%2Fdevelop%2Fdevelop-images%2Fdockerfile_best-practices%2F%23dont-install-unnecessary-packages>`_\ ``apt-get clean``\ , so explicit invocation is not required.
 
 
 docker远程连接服务器(for pycharm)
@@ -344,6 +371,13 @@ DEBUG
    # ...
 
 
-* `D-Bus not built with -rdynamic so unable to print a backtrace <https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/>`_
+* 
+  `D-Bus not built with -rdynamic so unable to print a backtrace <https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/>`_
+
 
   * `即通过升级权限，使用privileged <https://shimo.im/docs/h6qXyV9PkwKy9Gdv#anchor-Fd7q>`_\ 来规避问题
+
+* 
+  Invalid MIT-MAGIC-COOKIE-1 keyError
+
+之前还能显示rviz，现在会显示如上报错，重启电脑

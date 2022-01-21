@@ -87,7 +87,7 @@ $ sudo ade update-cli
 
 ### [nvidia-container2](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
-- 安装
+- 安装（或要科学上网）
 
 ```bash
 $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
@@ -129,6 +129,8 @@ $ docker run <image_name>
 # 删除容器
 $ docker rm  <container_name>
 $ docker container prune  # 删除所有暂停的容器
+# 在已启动的容器中再开一个终端
+$ docker exec -it /bin/bash
 ```
 
 ### 构建容器的选项说明
@@ -148,6 +150,16 @@ $ docker system df
 ```
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3HacQGLIn8pYe8Fp.png!thumbnail)
+
+### 压缩/导出镜像
+
+```bash
+# 导出镜像
+# docker save sleipnir-trt7.2.3 -o sleipnir-trt7.2.3.tar
+$ docker save <image_name> -o <sleipnir-trt7.2.3.tar>
+# 导入镜像
+$ docker load -i <tar file>
+```
 
 ## Dockerfile
 
@@ -196,11 +208,24 @@ WORKDIR <dir>
 
 >官网：need a local tar archive in a recognized compression format (identity, gzip, bzip2 or xz)
 
-* 使用场景：可以离线下载完安装包再copy进入镜像中（Due to the network access problem）
+- 使用场景：可以离线下载完安装包再copy进入镜像中（Due to the network access problem）
 
 ## [template](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages)
 
 [pcdet](https://github.com/open-mmlab/OpenPCDet/blob/v0.1/docker/Dockerfile)：custom linux环境/cuda环境/cudnn环境/自建pytorch环境
+
+## [阿里云镜像托管](https://cr.console.aliyun.com/cn-hangzhou/instance/repositories)
+
+```bash
+# 登录
+$ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
+# 拉取
+$ docker pull registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+# 推送
+$ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
+$ docker tag <ImageId> registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+$ docker push registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+```
 
 ## 构建镜像技巧
 
@@ -253,8 +278,8 @@ $ ssh root@host_ip -p <host_port>
 
 - pycharm配置
 
-* 在tools的configuration deployment中配置相关的映射目录
-* 没找到相关文件时，看看是不是root path弄错了
+- 在tools的configuration deployment中配置相关的映射目录
+- 没找到相关文件时，看看是不是root path弄错了
 
 ### [设置容器自启动](https://www.cnblogs.com/royfans/p/11393791.html)
 
@@ -267,7 +292,7 @@ $ docker update --restart=always <container_id>
 
 ## DEBUG
 
-* /usr/bin/dockerd 文件缺失，需重新安装docker
+- /usr/bin/dockerd 文件缺失，需重新安装docker
 
 ```bash
 # Uninstall the Docker Engine, CLI, and Containerd packages:
@@ -276,5 +301,9 @@ $ sudo apt-get purge docker-ce docker-ce-cli containerd.io
 # ...
 ```
 
-* [D-Bus not built with -rdynamic so unable to print a backtrace](https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/)
-  * [即通过升级权限，使用privileged](https://shimo.im/docs/h6qXyV9PkwKy9Gdv#anchor-Fd7q)来规避问题
+- [D-Bus not built with -rdynamic so unable to print a backtrace](https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/)
+  - [即通过升级权限，使用privileged](https://shimo.im/docs/h6qXyV9PkwKy9Gdv#anchor-Fd7q)来规避问题
+
+- Invalid MIT-MAGIC-COOKIE-1 keyError
+
+之前还能显示rviz，现在会显示如上报错，重启电脑
