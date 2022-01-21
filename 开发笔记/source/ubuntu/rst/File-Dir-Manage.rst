@@ -69,6 +69,27 @@ batcat
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210905011156100.png" alt="image-20210905011156100" style="zoom:67%; " />`
 
+查找文件
+--------
+
+locate
+^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install mlocate
+   # 更新数据库
+   $ sudo updatedb
+   $ locate <文件名>
+
+find
+^^^^
+
+.. prompt:: bash $,# auto
+
+   # find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
+   # -name: file name
+
 du
 ^^
 
@@ -173,6 +194,18 @@ tar
 
 .. attention:: 注意命令行中有一个 ``>``
 
+
+pv
+^^
+
+显示解或压缩时的进度条
+
+.. prompt:: bash $,# auto
+
+   # 压缩文件
+   $ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz
+   # 解压缩
+   $ pv <file.tar.gz> | tar -xzf -
 
 软链接
 ------

@@ -301,9 +301,11 @@ $ sudo service resolvconf restart
 ## [查看是否正常解析域名](https://www.geeksforgeeks.org/nslookup-command-in-linux-with-examples/)
 
 ```bash
-# nslookup www.ba.com
+# nslookup www.baidu.com
 $ nslookup <domain_name>
 ```
+
+- [在线解析DNS](https://www.ipaddress.com/)
 
 ## [使用arp查看是否ip冲突](https://www.unixmen.com/find-ip-conflicts-linux/)
 
@@ -443,6 +445,7 @@ $ sudo systemctl enable v2raya.service
 $ sudo bash go.sh --remove
 # 若设置了自启动，还需删除相关service配置文件
 $ sudo systemctl disable v2raya
+# 删除v2raya cookie
 ```
 
 ## 实战

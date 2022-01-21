@@ -363,8 +363,11 @@ nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/
 
 .. prompt:: bash $,# auto
 
-   # nslookup www.ba.com
+   # nslookup www.baidu.com
    $ nslookup <domain_name>
+
+
+* `在线解析DNS <https://www.ipaddress.com/>`_
 
 `使用arp查看是否ip冲突 <https://www.unixmen.com/find-ip-conflicts-linux/>`_
 -------------------------------------------------------------------------------
@@ -536,6 +539,7 @@ Flags  Possible flags include
    $ sudo bash go.sh --remove
    # 若设置了自启动，还需删除相关service配置文件
    $ sudo systemctl disable v2raya
+   # 删除v2raya cookie
 
 实战
 ----

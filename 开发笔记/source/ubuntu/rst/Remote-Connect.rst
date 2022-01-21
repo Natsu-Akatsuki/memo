@@ -67,7 +67,7 @@ vnc
 .. prompt:: bash $,# auto
 
    # 服务端（受控端）安装
-   $ tigervnc-common tigervnc-standalone-server
+   $ sudo apt install tigervnc-common tigervnc-standalone-server
    # 安装完后，设置密码和进行一波初始化
    $ vncserver
 
@@ -128,3 +128,18 @@ vnc
    端口绑定，将bind_address:port映射到host:hostport
 
 ----
+
+`noVNC(web) <https://github.com/novnc/noVNC>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ git clone https://github.com/novnc/noVNC.git
+   # install（也可以通过snap安装）和启动
+   $ ./utils/novnc_proxy --vnc localhost:5901
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oTge9ryVokLqPaFk.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oTge9ryVokLqPaFk.png!thumbnail
+   :alt: img
+

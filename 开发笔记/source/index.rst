@@ -93,6 +93,7 @@ AmBook
    ubuntu/rst/File-Dir-Manage.rst
    ubuntu/rst/Graphics-Setting.rst 
    ubuntu/rst/Grub.rst
+   ubuntu/rst/Hareware-Kernel.rst
    ubuntu/rst/Language-Manage.rst
    ubuntu/rst/Log-Manage.rst  
    ubuntu/rst/Network-Manage.rst

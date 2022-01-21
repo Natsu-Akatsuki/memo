@@ -52,6 +52,24 @@ $ echo "export MANPAGER=\"/bin/bash -c 'col -bx | batcat -l man -p'\"" >> ~/.bas
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210905011156100.png" alt="image-20210905011156100" style="zoom:67%; " />
 
+## 查找文件
+
+### locate
+
+```bash
+$ sudo apt install mlocate
+# 更新数据库
+$ sudo updatedb
+$ locate <文件名>
+```
+
+### find
+
+```bash
+# find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
+# -name: file name
+```
+
 ### du
 
 统计当前目录的文件夹大小
@@ -137,6 +155,17 @@ $ tar -xf <待第二次解压的文件名.tar>
 ```
 
 .. attention:: 注意命令行中有一个 ``>``
+
+### pv
+
+显示解或压缩时的进度条
+
+```bash
+# 压缩文件
+$ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz
+# 解压缩
+$ pv <file.tar.gz> | tar -xzf -
+```
 
 ## 软链接
 

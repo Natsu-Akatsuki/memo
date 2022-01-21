@@ -47,7 +47,7 @@ $ ssh -X user_name@ip_address
 
 ```bash
 # 服务端（受控端）安装
-$ tigervnc-common tigervnc-standalone-server
+$ sudo apt install tigervnc-common tigervnc-standalone-server
 # 安装完后，设置密码和进行一波初始化
 $ vncserver
 ```
@@ -104,3 +104,13 @@ $ vncviewer
 ```
 
 ---
+
+### [noVNC(web)](https://github.com/novnc/noVNC)
+
+```bash
+$ git clone https://github.com/novnc/noVNC.git
+# install（也可以通过snap安装）和启动
+$ ./utils/novnc_proxy --vnc localhost:5901
+```
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oTge9ryVokLqPaFk.png!thumbnail)
