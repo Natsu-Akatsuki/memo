@@ -73,6 +73,28 @@ TensorRT plugin
 
 plugin为TensorRT的精髓，提供了一个接口进行自定义算子的导入
 
+安全机制
+--------
+
+内存分配抛出异常
+^^^^^^^^^^^^^^^^
+
+.. code-block:: cpp
+
+   #ifndef CUDA_CHECK
+   #define CUDA_CHECK(callstr)                                                    \
+     {                                                                            \
+       cudaError_t error_code = callstr;                                          \
+       if (error_code != cudaSuccess) {                                           \
+         std::cerr << "CUDA error " << error_code << " at " << __FILE__ << ":"    \
+                   << __LINE__;                                                   \
+         assert(0);                                                               \
+       }                                                                          \
+     }
+   #endif
+
+   CUDA_CHECK(cudaMemcpyAsync(..., ..., ..., cudaMemcpyHostToDevice));
+
 DEBUG
 -----
 
@@ -279,6 +301,27 @@ TensorRT版本的选择
    $ trtexec --shapes=input:32000x64 --loadEngine=pfe_baseline32000.trt
    # input大小可参考上一节：查看onnx模型的输入和输出大小
 
+`不同execute方法的区别 <https://docs.nvidia.com/deeplearning/tensorrt/api/c_api/classnvinfer1_1_1_i_execution_context.html#a1fba6d417077b30a270d623119d02731>`_
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+* 异步还是同步
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sy5vkbD70RO7JeGR.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sy5vkbD70RO7JeGR.png!thumbnail
+   :alt: img
+
+
+
+* 静态batch还是动态batch
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/enDMt7F7JDOZADZQ.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/enDMt7F7JDOZADZQ.png!thumbnail
+   :alt: img
+
+
 `术语 <https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html#glossary>`_
 -------------------------------------------------------------------------------------------------
 
@@ -304,6 +347,6 @@ TensorRT版本的选择
 * 
   In **CUDA**\ , the **host** refers to the CPU and its memory, while the **device** refers to the GPU and its memory. Code run on the **host** can manage memory on both the **host** and **device**\ , and also launches **kernels** which are functions executed on the **device**.
 
-* 
+-
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211228112641903.png" alt="image-20211228112641903" style="zoom:67%;" />`

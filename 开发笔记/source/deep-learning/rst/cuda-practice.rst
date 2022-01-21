@@ -225,7 +225,7 @@ python extension
 
 
 * 
-  ImportError: libc10.so: cannot open shared object file: No such file or directory：在python文件中首先导入torch，即 import torch 
+  ImportError: libc10.so: cannot open shared object file: No such file or directory：在python文件中首先导入torch（拓展库中有依赖关系），即 import torch
 
 * 
   没有找到ninja：UserWarning: Attempted to use ninja as the BuildExtension backend but we could not find ninja. Falling back to using the slow distutils backend. warnings.warn(msg.format('we could not find ninja.'))
@@ -366,7 +366,7 @@ DEBUG
 -----
 
 
-* .cu文件的主函数需要返回 ``int`` 
+* .cu文件的主函数需要返回 ``int``
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/S3FvLbZPKhCEMjgX.png!thumbnail

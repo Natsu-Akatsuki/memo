@@ -112,6 +112,14 @@ $ lsmod | grep nou
 
 - 取消掉`/usr/lib/modprobe.d`或者`/etc/modprobe.d`中屏蔽nouveau的配置即可
 
+.. attention:: 注意这两个位置都可能有
+
+- 更新内核配置
+
+```bash
+$ sudo update-initramfs -u
+```
+
 #### [5.14内核下用安装包安装驱动有问题](https://bbs.archlinux.org/viewtopic.php?id=268421)
 
 使用NVIDIA-Linux-x86_64-470.57.02安装时会出现如链接上的报错，`error: ‘struct task_struct’ has no member named ‘state’; did you mean ‘__state’?`；从470.74开始该BUG已修复，安装更新的显卡驱动即可。
@@ -253,23 +261,39 @@ $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 $ ./cuda-uninstaller
 ```
 
-## TensorRT
+## [TensorRT](https://developer.nvidia.com/tensorrt)
 
-### 安装
+### [安装](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html)
 
 步骤一：查看相关依赖是否满足（已测试）
 
 | TensorRT 版本    | cuda版本        | cudnn版本   |
 | ---------------- | --------------- | ----------- |
-| tensorRT 7.0.0   |                 |             |
-| tensorRT 7.2.3   |                 |             |
+| tensorRT 7.0.0   | cuda_10.02      | cudnn 7.6.5 |
+| tensorRT 7.2.3   | cuda_11.1       | cudnn 8.1.0 |
 | tensorRT 8.0.0.3 | cuda_11.2.r11.2 | cudnn 8.1.1 |
 | tensorRT 8.2.2.1 |                 | cudnn 8.2.1 |
 
-步骤二：[tar包下载与安装](https://developer.nvidia.com/nvidia-tensorrt-download)
+步骤二：
 
-步骤三：导入环境变量
+[tar包下载与安装](https://developer.nvidia.com/nvidia-tensorrt-download)：更灵活的安装方式，可灵活地切换版本，不需要很严格的版本对应(e.g. cuda/cudnn)
+
+Debian下载：这种下载方式需要解决的依赖问题挺多的，较麻烦的，e.g.：
+
+![image-20220121015313916](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220121015313916.png)
+
+步骤三：导入动态库位置
 
 ```bash
-$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"install_path/lib">
+$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"install_path/lib"
 ```
+
+---
+
+**NOTE**
+
+- [使用wget来下载tensorrt tar包或deb包](https://forums.developer.nvidia.com/t/download-cudnn-via-wget-or-curl/48952/5)：找到带auth token的重定向链接
+
+![image-20220121020150604](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220121020150604.png)
+
+---

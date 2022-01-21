@@ -177,7 +177,7 @@ $ python python test_extension.py
 
 **NOTE**
 
-- ImportError: libc10.so: cannot open shared object file: No such file or directory：在python文件中首先导入torch，即 import torch 
+- ImportError: libc10.so: cannot open shared object file: No such file or directory：在python文件中首先导入torch（拓展库中有依赖关系），即 import torch
 
 - 没有找到ninja：UserWarning: Attempted to use ninja as the BuildExtension backend but we could not find ninja. Falling back to using the slow distutils backend. warnings.warn(msg.format('we could not find ninja.'))
 
@@ -249,8 +249,6 @@ $ nvprof <executable file>
 
 （3）什么样的问题适合GPU，结合日常编程的任务 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/zBugODGh3u7sqNHY.png!thumbnail)（1)GPU控制单元和计算单元是如何结合的？或者说线程束是如何在软件和硬件端被执行。为什么说线程束是执行核函数的最基本单元。
 
-
-
 ## 参考资料
 
 - [CUDA-by-Example](https://github.com/CodedK/CUDA-by-Example-source-code-for-the-book-s-examples-)
@@ -273,7 +271,6 @@ $ nvprof <executable file>
 
 ## DEBUG
 
-- .cu文件的主函数需要返回 `int` 
+- .cu文件的主函数需要返回 `int`
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/S3FvLbZPKhCEMjgX.png!thumbnail)
-

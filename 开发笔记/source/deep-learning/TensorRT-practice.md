@@ -58,7 +58,25 @@ $ trtexec --onnx=rpn_baseline.onnx --fp16 --workspace=16384 --saveEngine=rpn_bas
 
 plugin为TensorRT的精髓，提供了一个接口进行自定义算子的导入
 
+## 安全机制
 
+### 内存分配抛出异常
+
+```cpp
+#ifndef CUDA_CHECK
+#define CUDA_CHECK(callstr)                                                    \
+  {                                                                            \
+    cudaError_t error_code = callstr;                                          \
+    if (error_code != cudaSuccess) {                                           \
+      std::cerr << "CUDA error " << error_code << " at " << __FILE__ << ":"    \
+                << __LINE__;                                                   \
+      assert(0);                                                               \
+    }                                                                          \
+  }
+#endif
+
+CUDA_CHECK(cudaMemcpyAsync(..., ..., ..., cudaMemcpyHostToDevice));
+```
 
 ## DEBUG
 
@@ -144,8 +162,6 @@ config->setFlag(BuilderFlag::kINT8);
 
 - [查看硬件所支持的精度](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)
 
-
-
 ### 程序中binding的意思？
 
 存储输入输出内存地址的数组(An array of pointers to input and output buffers for the network)，所以单输入单输出的一般的nbBindinds=2
@@ -215,8 +231,6 @@ print_shape_info("output")
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Zz7SjGciDpzbgA3F.png)
 
-
-
 ### 验证TensorRT engine
 
 - 命令行测试
@@ -225,6 +239,16 @@ print_shape_info("output")
 $ trtexec --shapes=input:32000x64 --loadEngine=pfe_baseline32000.trt
 # input大小可参考上一节：查看onnx模型的输入和输出大小
 ```
+
+## [不同execute方法的区别](https://docs.nvidia.com/deeplearning/tensorrt/api/c_api/classnvinfer1_1_1_i_execution_context.html#a1fba6d417077b30a270d623119d02731)
+
+- 异步还是同步
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sy5vkbD70RO7JeGR.png!thumbnail)
+
+- 静态batch还是动态batch
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/enDMt7F7JDOZADZQ.png!thumbnail)
 
 ## [术语](https://docs.nvidia.com/deeplearning/tensorrt/quick-start-guide/index.html#glossary)
 
@@ -240,6 +264,6 @@ $ trtexec --shapes=input:32000x64 --loadEngine=pfe_baseline32000.trt
 
 - In **CUDA**, the **host** refers to the CPU and its memory, while the **device** refers to the GPU and its memory. Code run on the **host** can manage memory on both the **host** and **device**, and also launches **kernels** which are functions executed on the **device**.
 
-- 
+-
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211228112641903.png" alt="image-20211228112641903" style="zoom:67%;" />

@@ -137,6 +137,16 @@ nvidia-driver
 
 * 取消掉\ ``/usr/lib/modprobe.d``\ 或者\ ``/etc/modprobe.d``\ 中屏蔽nouveau的配置即可
 
+.. attention:: 注意这两个位置都可能有
+
+
+
+* 更新内核配置
+
+.. prompt:: bash $,# auto
+
+   $ sudo update-initramfs -u
+
 `5.14内核下用安装包安装驱动有问题 <https://bbs.archlinux.org/viewtopic.php?id=268421>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -333,11 +343,11 @@ cuda
    # 执行安装目录的bin文件夹下的
    $ ./cuda-uninstaller
 
-TensorRT
---------
+`TensorRT <https://developer.nvidia.com/tensorrt>`_
+-------------------------------------------------------
 
-安装
-^^^^
+`安装 <https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 步骤一：查看相关依赖是否满足（已测试）
 
@@ -348,11 +358,11 @@ TensorRT
      - cuda版本
      - cudnn版本
    * - tensorRT 7.0.0
-     - 
-     - 
+     - cuda_10.02
+     - cudnn 7.6.5
    * - tensorRT 7.2.3
-     - 
-     - 
+     - cuda_11.1
+     - cudnn 8.1.0
    * - tensorRT 8.0.0.3
      - cuda_11.2.r11.2
      - cudnn 8.1.1
@@ -361,10 +371,35 @@ TensorRT
      - cudnn 8.2.1
 
 
-步骤二：\ `tar包下载与安装 <https://developer.nvidia.com/nvidia-tensorrt-download>`_
+步骤二：
 
-步骤三：导入环境变量
+`tar包下载与安装 <https://developer.nvidia.com/nvidia-tensorrt-download>`_\ ：更灵活的安装方式，可灵活地切换版本，不需要很严格的版本对应(e.g. cuda/cudnn)
+
+Debian下载：这种下载方式需要解决的依赖问题挺多的，较麻烦的，e.g.：
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220121015313916.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220121015313916.png
+   :alt: image-20220121015313916
+
+
+步骤三：导入动态库位置
 
 .. prompt:: bash $,# auto
 
-   $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"install_path/lib">
+   $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"install_path/lib"
+
+----
+
+**NOTE**
+
+
+* `使用wget来下载tensorrt tar包或deb包 <https://forums.developer.nvidia.com/t/download-cudnn-via-wget-or-curl/48952/5>`_\ ：找到带auth token的重定向链接
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220121020150604.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220121020150604.png
+   :alt: image-20220121020150604
+
+
+----
