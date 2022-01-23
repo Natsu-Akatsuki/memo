@@ -128,7 +128,10 @@ $ docker ps  (-a 显示所有的容器，包括暂停的)
 $ docker run <image_name>
 # 删除容器
 $ docker rm  <container_name>
-$ docker container prune  # 删除所有暂停的容器
+# 删除所有暂停的容器
+$ docker container prune
+# or q: Only display container IDs
+$ docker rm $(docker ps --filter status=exited -q)
 # 在已启动的容器中再开一个终端
 $ docker exec -it /bin/bash
 ```
@@ -145,7 +148,7 @@ $ docker exec -it /bin/bash
 
 ### 查看docker占用的空间
 
-```plain
+```bash
 $ docker system df
 ```
 
@@ -209,6 +212,13 @@ WORKDIR <dir>
 >官网：need a local tar archive in a recognized compression format (identity, gzip, bzip2 or xz)
 
 - 使用场景：可以离线下载完安装包再copy进入镜像中（Due to the network access problem）
+
+7. [修改容器中的默认用户](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user)
+
+```
+RUN useradd --no-log-init -m helios -G sudo
+USER helios
+```
 
 ## [template](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages)
 
@@ -306,4 +316,4 @@ $ sudo apt-get purge docker-ce docker-ce-cli containerd.io
 
 - Invalid MIT-MAGIC-COOKIE-1 keyError
 
-之前还能显示rviz，现在会显示如上报错，重启电脑
+之前还能显示rviz，现在则显示如上报错，尝试重启电脑

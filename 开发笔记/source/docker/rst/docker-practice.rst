@@ -152,7 +152,10 @@ command
    $ docker run <image_name>
    # 删除容器
    $ docker rm  <container_name>
-   $ docker container prune  # 删除所有暂停的容器
+   # 删除所有暂停的容器
+   $ docker container prune
+   # or q: Only display container IDs
+   $ docker rm $(docker ps --filter status=exited -q)
    # 在已启动的容器中再开一个终端
    $ docker exec -it /bin/bash
 
@@ -170,7 +173,7 @@ command
 查看docker占用的空间
 ^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: plain
+.. prompt:: bash $,# auto
 
    $ docker system df
 
@@ -254,6 +257,14 @@ Dockerfile指令
 
 
 * 使用场景：可以离线下载完安装包再copy进入镜像中（Due to the network access problem）
+
+
+#. `修改容器中的默认用户 <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user>`_
+
+.. code-block::
+
+   RUN useradd --no-log-init -m helios -G sudo
+   USER helios
 
 `template <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages>`_
 -----------------------------------------------------------------------------------------------------------------------------
@@ -380,4 +391,4 @@ DEBUG
 * 
   Invalid MIT-MAGIC-COOKIE-1 keyError
 
-之前还能显示rviz，现在会显示如上报错，重启电脑
+之前还能显示rviz，现在则显示如上报错，尝试重启电脑
