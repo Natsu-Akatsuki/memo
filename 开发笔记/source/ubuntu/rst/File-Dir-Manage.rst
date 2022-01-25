@@ -439,6 +439,17 @@ sed
      - command的拼接
 
 
+perf
+^^^^
+
+.. prompt:: bash $,# auto
+
+   $ perf 
+   # option:
+   -i:   edit files in place
+   -e:   后接command
+   # perl -i -ep "s/unstable/$(lsb_release -cs)/" changelog
+
 内容提取
 --------
 
@@ -515,6 +526,15 @@ xargs
    $ dirname <absolute_file_name>
    $ basename <absolute_file_name>
    # -s <extension> 去后缀
+
+文件比对
+--------
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install meld
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220123235004476.png" alt="image-20220123235004476" style="zoom:67%;" />`
 
 拓展
 ----

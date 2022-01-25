@@ -333,6 +333,16 @@ $ m2r ${file}&& sed -i -e 's/.. code-block:: bash/.. prompt:: bash $/' -e 's/$ /
 |   -i   | 原地替换 (in-place replacement) |
 |   -e   |          command的拼接          |
 
+### perf
+
+```bash
+$ perf 
+# option:
+-i:   edit files in place
+-e:   后接command
+# perl -i -ep "s/unstable/$(lsb_release -cs)/" changelog
+```
+
 ## 内容提取
 
 ### awk
@@ -402,6 +412,14 @@ $ dirname <absolute_file_name>
 $ basename <absolute_file_name>
 # -s <extension> 去后缀
 ```
+
+## 文件比对
+
+```bash
+$ sudo apt install meld
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220123235004476.png" alt="image-20220123235004476" style="zoom:67%;" />
 
 ## 拓展
 

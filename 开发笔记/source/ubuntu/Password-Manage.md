@@ -28,7 +28,7 @@ $ gpg --export-secret-key <gpg_id> > <file_name.asc>
 $ gpg --import <file_name.asc>
 
 # 方法二：利用ssh+管道操作直接一步到位（完成导出与导入）
-gpg --export-secret-key -a | ssh helios@10.23.21.164 gpg --import -
+$gpg --export-secret-key -a | ssh helios@10.23.21.164 gpg --import -
 ```
 
 ### 常用命令行
@@ -84,3 +84,28 @@ $ git clone <github_remote_repository_url> ~/.password-store
 ```
 
 .. note:: 这种比git命令行多了个pass的优势在于可以不用cd到对应文件夹就能进行git操作
+
+## gpg
+
+* seahorse（管理密钥的可视化程序）
+
+![image-20220124222044526](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220124222044526.png)
+
+### 查看密钥
+
+```bash
+# 查看公钥
+$ gpg --list-key
+# 查看私钥
+$ gpg --list-secret-keys
+```
+
+### gpg对文件解码
+
+```bash
+$ gpg -p <file.gpg>
+```
+
+.. note:: 文件需以gpg为后缀，其中内容类似
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220125003811163.png" alt="image-20220125003811163" style="zoom:67%;" />

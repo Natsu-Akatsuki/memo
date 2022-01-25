@@ -1,0 +1,13 @@
+Source: tutorial
+Section: utils
+Priority: optional
+Maintainer: helios <hong877381@gmail.com>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.4.1
+
+Package: tutorial
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+# each line of the long description must be indented with a single space.
+Description: A short description
+ A long description

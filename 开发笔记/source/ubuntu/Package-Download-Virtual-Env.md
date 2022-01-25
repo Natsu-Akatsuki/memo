@@ -1,4 +1,4 @@
-#  Package && Download && Virtual Env
+# Package && Download && Virtual Env
 
 ## apt && dpkg
 
@@ -6,11 +6,11 @@
 
 ```bash
 $ apt clean                 # 清除安装包
-$ apt remove <pkg_name> 	# 卸载软件，保留配置文件
-$ apt purge <pkg_name>  	# 卸载软件和相关的配置文件
+$ apt remove <pkg_name>  # 卸载软件，保留配置文件
+$ apt purge <pkg_name>   # 卸载软件和相关的配置文件
 $ apt autoremove            # 卸载已无用和自动安装的软件
-$ apt dist-upgrade   		# 升级安装包（升级时会删除一些影响依赖的包）
-$ apt-mark hold	<pkg_name>	# 将某些包设置为手动更新
+$ apt dist-upgrade     # 升级安装包（升级时会删除一些影响依赖的包）
+$ apt-mark hold <pkg_name> # 将某些包设置为手动更新
 
 $ dpkg -i <deb_package>     # 安装包
 # -r: remove
@@ -36,7 +36,7 @@ $ apt-cache depends <package_name>
 
 ```bash
 # Show information about a package
-$ dpkg -I <deb_name>
+$ dpkg -I <archive/deb>
 ```
 
 ### 显示apt包的依赖链(apt dependency chain)
@@ -323,6 +323,112 @@ $ conda install -c conda-forge mamba$ mamba install <package_name>
 * [参数配置文档1](https://conda.io/projects/conda/en/latest/user-guide/configuration/index.html)、[参数配置文档2](https://conda.io/projects/conda/en/latest/configuration.html?highlight=custom_channels%3A)
 
 * [任务导向说明](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/index.html)
+
+## [PPA](https://launchpad.net/ubuntu/+ppas)
+
+### [添加PPA到PC](https://help.launchpad.net/Packaging/PPA/InstallingSoftware)
+
+```bash
+# sudo add-apt-repository ppa:user/ppa-name
+$ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir
+```
+
+.. note:: 本质上是往 ``/etc/apt/sources.list.d``中添加source.list
+
+### [创建PPA](https://help.launchpad.net/Packaging/PPA)
+
+Activating a PPA
+
+### 打包一个文件到PPA
+
+步骤一：[上传GPG到ubuntu server](https://help.ubuntu.com/community/GnuPrivacyGuardHowto)，以让所有客户端可获取
+
+```bash
+# gpg --keyserver keyserver.ubuntu.com --send-keys <yourkeyID>
+$ gpg --keyserver keyserver.ubuntu.com --send-keys 96037357E6D61138
+# 查看是否上传成功
+$ gpg --keyserver hkp://keyserver.ubuntu.com --search-key <yourkeyID>
+```
+
+步骤二：[launchpad中添加GPG密钥](https://launchpad.net/+help-registry/import-pgp-key.html)
+
+![image-20220125003446149](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220125003446149.png)
+
+步骤三：生成template
+
+```bash
+# cd到待打包的文件中
+$ dh_make --createorig -s -y
+$ dh_make -p tutorial_0.0.1 --single --native --copyright mit --email hong877381@gmail.com
+# optioin:
+# -y, --yes             automatic yes to prompts and run non-interactively
+# -s, --single          set package class to single
+# -i, --indep           set package class to arch-independent
+# -l, --library         set package class to library
+# --python              set package class to python
+# --createorig
+$ rm debian/*.ex debian/*.EX   # 删除不需要的文件
+```
+
+.. note:: For dh_make to find the package name and version, the current directory needs to be in the format of <package>-<version>. Alternatively use the_-p flag using the format <name>_<version> to override it. The directory name you have specified is invalid!
+
+* 其中主要是要完善changelog、copyright、control文件
+
+---
+
+**ATTENTION**
+
+![image-20220125105404202](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220125105404202.png)
+
+---
+
+```bash
+$ perl -i -0777 -pe "s/(Copyright: ).+\n +.+/\${1}$(date +%Y) natsu-akatsiku Foo <hong877381@gmail.com>/" copyright
+```
+
+步骤四：构建deb包
+
+* 填写完成后即进行打包和sign
+
+```bash
+$ sudo apt-get install devscripts build-essential lintian
+# 等价于：cd到待打包的目录，构建deb包
+$ dpkg-buildpackage -us -uc
+# option:
+# -us, --unsigned-source      unsigned source package
+# -uc, --unsigned-changes     unsigned .buildinfo and .changes file.
+
+# sign .changes file（会同时把dsc, buildinfo也sign了）
+$ debsign -k <keyID> <filename>.changes
+
+# 要一体化dpkg-buildpackage和debsign命令则可以使用debuild命令
+# 打包和sign文件，注意k后无空格
+$ debuild -k<keyID> -S
+```
+
+步骤五：[上传文件到PPA](https://help.launchpad.net/Packaging/PPA/Uploading)
+
+```bash
+$ sudo apt install dput
+# dput ppa:your-lp-id/ppa <source.changes>
+$ dput ppa:natsu-akatsuki/sleipnir <source.changes>
+```
+
+.. note:: 可查看绑定邮件看上传情况
+
+#### Q&A
+
+* Failed to add key. helios@helios:**~**$ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir. More info: <https://launchpad.net/~natsu-akatsuki/+archive/ubuntu/sleipnir>. Press [ENTER] to continue or Ctrl-c to cancel adding it. Error: signing key fingerprint does not exist. Failed to add key.
+
+> 等一段时间。（已设置GPG的情况下）package上传成功后，不会很快生效，需要等一段时间。
+
+* [上传失败](https://help.launchpad.net/Packaging/UploadErrors)
+
+### 参考资料
+
+* [ppa-guide之十万个为什么](https://itsfoss.com/ppa-guide/)
+
+* [利用debuild整合版工具来构建deb包](https://blog.packagecloud.io/buildling-debian-packages-with-debuild/)
 
 ## 关闭gnome的软件更新自启动
 
