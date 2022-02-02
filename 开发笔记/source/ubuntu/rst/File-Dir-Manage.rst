@@ -27,6 +27,13 @@ jump
    $ wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb
    $ echo 'eval "$(jump shell)"' >> ~/.bashrc
 
+打开文件夹
+----------
+
+.. prompt:: bash $,# auto
+
+   $ xdg-open
+
 查看文件
 --------
 

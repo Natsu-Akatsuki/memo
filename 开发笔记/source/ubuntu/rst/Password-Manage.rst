@@ -104,7 +104,7 @@ Password Manage
    # 拉取到本地
    $ git clone <github_remote_repository_url> ~/.password-store
 
-.. note:: 这种比git命令行多了个pass的优势在于可以不用cd到对应文件夹就能进行git操作
+.. note:: 这种比git命令行多了个pass的优势在于可以不用cd到对应文件夹就能进行git操作；另外每次的编辑操作pass都会自动生成一个commit
 
 
 gpg

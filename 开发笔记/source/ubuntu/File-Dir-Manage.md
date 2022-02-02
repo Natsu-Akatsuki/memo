@@ -15,6 +15,12 @@ $ wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.
 $ echo 'eval "$(jump shell)"' >> ~/.bashrc
 ```
 
+## 打开文件夹
+
+```bash
+$ xdg-open
+```
+
 ## 查看文件
 
 ### more

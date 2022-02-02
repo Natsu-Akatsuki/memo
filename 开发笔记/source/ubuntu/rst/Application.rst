@@ -51,6 +51,58 @@ IDE
 
 * `非官方文档CheatSheet <https://zealusercontributions.vercel.app/>`_
 
+生成PCL docset
+~~~~~~~~~~~~~~
+
+
+* 生成doxygen文档时启动\ ``GENERATE_DOCSET``
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220201205322976.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220201205322976.png
+   :alt: image-20220201205322976
+
+
+
+* `生成docset <https://github.com/chinmaygarde/doxygen2docset>`_
+
+.. prompt:: bash $,# auto
+
+   $ doxygen2docset --doxygen ${HOME}/pcl-pcl-1.12.0/build/doc/doxy
+   gen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
+
+
+* 将生成的docset拷贝到zeal保存docset的位置
+
+生成TensorRT docs
+~~~~~~~~~~~~~~~~~
+
+TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以编译生成docset。因此需要自己从html文件\ `生成docset文件 <https://kapeli.com/docsets#dashDocset>`_\ （步骤一：根据该教程构建相应的文件结构）。在已有html文件的基础上生成docset(\ `html->docset <https://github.com/selfboot/html2Dash>`_\ ).
+
+.. prompt:: bash $,# auto
+
+   # e.g.
+   $ python html2dash.py -n tensorrt cpp
+
+----
+
+**NOTE**
+
+
+* 
+  根据这种方法生成的docset虽然能够直接导入，但是没有classes, funcitons, types等，如下图。可自行添加(\ `Populate the SQLite Index <https://kapeli.com/docsets#dashDocset>`_\ )
+
+  :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220202215416986.png" alt="image-20220202215416986" style="zoom:67%;" />`
+
+* 
+  查看sqlite文件（如\ ``docSet.dsidx``\ ）
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install sqlitebrowser
+
+----
+
 `DEVBOOK <https://usedevbook.com/download?os=linux>`_\ （api搜索引擎）
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

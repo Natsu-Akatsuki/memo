@@ -23,6 +23,8 @@ apt && dpkg
    $ dpkg -i <deb_package>     # 安装包
    # -r: remove
    # -P: purge（此处为大写）
+   # 也可以使用gdebi（需安装），其能更好的解决依赖问题
+   $ gdebi <deb_package>       # 安装
 
 .. note:: apt比apt-get具有更高层的封装
 
@@ -157,17 +159,6 @@ curl
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101171306726.png
    :alt: image-20211101171306726
 
-
-npm
----
-
-常用命令行
-^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   # 下载npm
-   $ sudo apt install nodejs npm
 
 snap
 ----
@@ -512,11 +503,9 @@ Q&A
 ^^^^^^^^
 
 
-* 
-  `ppa-guide之十万个为什么 <https://itsfoss.com/ppa-guide/>`_
-
-* 
-  `利用debuild整合版工具来构建deb包 <https://blog.packagecloud.io/buildling-debian-packages-with-debuild/>`_
+* `ppa-guide之十万个为什么 <https://itsfoss.com/ppa-guide/>`_
+* `利用debuild整合版工具来构建deb包 <https://blog.packagecloud.io/buildling-debian-packages-with-debuild/>`_
+* `debian目录的相关描述 <https://packaging.ubuntu.com/html/debian-dir-overview.html>`_
 
 关闭gnome的软件更新自启动
 -------------------------
