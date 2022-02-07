@@ -99,6 +99,57 @@ cmake
 .. todo:: 暂未清楚不同期导入文件所带来的结果
 
 
+`message输出添加颜色 <https://stackoverflow.com/questions/18968979/how-to-get-colorized-output-with-cmake>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: cmake
+
+   if(NOT WIN32)
+     string(ASCII 27 Esc)
+     set(ColourReset "${Esc}[m")
+     set(ColourBold  "${Esc}[1m")
+     set(Red         "${Esc}[31m")
+     set(Green       "${Esc}[32m")
+     set(Yellow      "${Esc}[33m")
+     set(Blue        "${Esc}[34m")
+     set(Magenta     "${Esc}[35m")
+     set(Cyan        "${Esc}[36m")
+     set(White       "${Esc}[37m")
+     set(BoldRed     "${Esc}[1;31m")
+     set(BoldGreen   "${Esc}[1;32m")
+     set(BoldYellow  "${Esc}[1;33m")
+     set(BoldBlue    "${Esc}[1;34m")
+     set(BoldMagenta "${Esc}[1;35m")
+     set(BoldCyan    "${Esc}[1;36m")
+     set(BoldWhite   "${Esc}[1;37m")
+   endif()
+
+   message("This is normal")
+   message("${Red}This is Red${ColourReset}")
+   message("${Green}This is Green${ColourReset}")
+   message("${Yellow}This is Yellow${ColourReset}")
+   message("${Blue}This is Blue${ColourReset}")
+   message("${Magenta}This is Magenta${ColourReset}")
+   message("${Cyan}This is Cyan${ColourReset}")
+   message("${White}This is White${ColourReset}")
+   message("${BoldRed}This is BoldRed${ColourReset}")
+   message("${BoldGreen}This is BoldGreen${ColourReset}")
+   message("${BoldYellow}This is BoldYellow${ColourReset}")
+   message("${BoldBlue}This is BoldBlue${ColourReset}")
+   message("${BoldMagenta}This is BoldMagenta${ColourReset}")
+   message("${BoldCyan}This is BoldCyan${ColourReset}")
+   message("${BoldWhite}This is BoldWhite\n\n${ColourReset}")
+
+`获取上层目录 <https://cmake.org/cmake/help/latest/command/get_filename_component.html?highlight=get_filename_component>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: cmake
+
+   get_filename_component(PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
+
+.. note:: 在include_directory填路径时使用".."也能生效
+
+
 catkin_make
 -----------
 
@@ -113,7 +164,7 @@ catkin_make
    # 撤销白名单设置
    $ catkin_make -DCATKIN_WHITELIST_PACKAGES=""
 
-.. note:: 要屏蔽某些包被编译，可以创建一个名为 `CATKIN_IGNORE <https://github.com/tier4/velodyne_vls/tree/tier4/master/velodyne_msgs>` _ 的文件到这些包所在的目录下
+.. note:: 要屏蔽某些包被编译，可以创建一个名为 `CATKIN_IGNORE <https://github.com/tier4/velodyne_vls/tree/tier4/master/velodyne_msgs>`_ 的文件到这些包所在的目录下
 
 
 使用ninja编译
@@ -219,6 +270,55 @@ catkin build可以设置配置文档profile
 `deploy a catkin package <https://answers.ros.org/question/226581/deploying-a-catkin-package/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+`colcon <https://colcon.readthedocs.io/en/released/user/quick-start.html>`_
+-------------------------------------------------------------------------------
+
+拓展插件
+^^^^^^^^
+
+`colcon clean <https://github.com/ruffsl/colcon-clean>`_\ ：使用python setup.py安装
+
+常用命令行
+^^^^^^^^^^
+
+`编译 <https://colcon.readthedocs.io/en/released/user/how-to.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 编译工作空间的所有pkg
+   $ colcon build
+
+   # option:
+   # --cmake-args -DCMAKE_BUILD_TYPE=Debug
+   # --event-handlers console_direct+   编译时显示所有编译信息
+   # --event-handlers console_cohesion+  编译完一个包后才显示它的编译信息
+   # --packages-select <name-of-pkg>  编译某个特定的包（不包含其依赖）
+   # --packages-up-to <name-of-pkg>   编译某个特定的包（包含其依赖）
+   # --packages-above <name-of-pkg>  重新编译某个包（和依赖这个包的相关包）
+
+   # source devel/setup.bash的等价命令
+   $ source install/local_setup
+
+.. note:: 暂未发现其支持像catkin build一样的context-aware功能
+
+
+Info
+~~~~
+
+.. prompt:: bash $,# auto
+
+   # 显示当前工作空间的所有包的信息
+   $ colcon list
+   # List all packages in the workspace in topological order and visualize their dependencies
+   $ colcon graph
+
+migration
+^^^^^^^^^
+
+
+* `catkin build -> colcon <https://colcon.readthedocs.io/en/released/migration/catkin_tools.html>`_
+
 DEBUG
 -----
 
@@ -227,7 +327,7 @@ DEBUG
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912141918386.png" alt="image-20210912141918386" style="zoom: 80%; " />`
 
-一般来说catkin build不用像catkin_make一样，需要在cmakelists中指明依赖关系，其能够合理地安排编译顺序，会出现上述问题可检查一波 ``package.xml`` 是否写好了build tag
+检查一波 ``package.xml`` 是否写好了\ ``build tag``
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AYu9WKlHPlES5yu7.png!thumbnail" alt="img" style="zoom:67%; " />`
 
@@ -235,7 +335,7 @@ DEBUG
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-* 在使用TensorRT部署时出现如下的一些报错
+* 在使用TensorRT部署时（make）出现如下的一些报错
 
 .. prompt:: bash $,# auto
 
@@ -243,7 +343,7 @@ DEBUG
    /usr/bin/ld: cannot find -lnvinfer_plugin 
    /usr/bin/ld: cannot find -lcudnn
 
-一种解决方案为使用环境变量 ``LIBRARY_PATH`` 。此前认为时需要修改环境变量 ``LD_LIBRARY_PATH`` ，添加动态库链接搜索路径，但实际上该环境变量，只影响运行期(runtime)链接器 ``ld.so`` 的搜索路径。而不影响编译期(complie time)链接器 ``/usr/bin/ld`` 的搜索路径。要影响编译期链接的话，需要修改环境变量 ``LIBRARY_PATH``
+一种解决方案为使用环境变量 ``LIBRARY_PATH`` 。此前认为时需要修改环境变量 ``LD_LIBRARY_PATH`` ，添加动态库链接搜索路径，但实际上该环境变量只影响运行期(runtime)链接器 ``ld.so`` 的搜索路径。而不影响编译期(complie time)链接器 ``/usr/bin/ld`` 的搜索路径。要影响编译期链接的话，需要修改环境变量 ``LIBRARY_PATH``
 
 .. prompt:: bash $,# auto
 
@@ -289,7 +389,7 @@ No CMAKE_CXX_COMPILER could be find
 未定义的引用（undefined reference）
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-这错错误发生在链接时期。一般来说有以下几种情况。一种是没下载相关的链接库（可locate看一下）；一种是库的冲突，比如ros的opencv库与从源码编译安装到系统的opencv库发生冲突，至依赖被覆盖而使目标文件无法成功链接到库。可卸载安装到系统的opencv库（如用sudo make uninstall来卸载）；一种是已下载但没找到，添加相关搜素路径即可
+该种错误发生在\ **链接**\ 时期。一般来说有以下几种情况。一种是没下载相关的链接库（可locate检测一下）；一种是库的冲突，比如ros的opencv库与从源码编译安装到系统的opencv库发生冲突，至依赖被覆盖而使目标文件无法成功链接到库。可卸载安装到系统的opencv库（如用sudo make uninstall来卸载）；一种是已下载但没找到，添加相关搜素路径即可
 
 imported target \"...\" references the file \"...\" but this file does not exist
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -329,6 +429,11 @@ rslidar和velodyne package的目标文件重名
 
    include_directories($ENV{HOME}/application/TensorRT-7.2.3.4/include/) link_directories($ENV{HOME}/application/TensorRT-7.2.3.4/lib)`
    `
+
+`Failed to compute shorthash for libnvrtc.so <https://blog.csdn.net/xzq1207105685/article/details/117400187>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+在CMakeList.txt开头添加\ ``find_package(PythonInterp REQUIRED)``
 
 `ROS中编译通过但是遇到可执行文件找不到的问题 <https://blog.csdn.net/u014157968/article/details/86516797>`_\ ：指令顺序的重要性
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

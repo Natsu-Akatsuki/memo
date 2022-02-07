@@ -44,13 +44,9 @@ set(SOURCES
 message(${SOURCES})   # src/Hello.cppsrc/main.cpp
 set(env{变量名} 值)    # 获取环境变量 
 message($env{HOME})   # 使用环境变量
-
-
 ```
 
 .. hint:: 单个variable有多个arguments时，用分号将argument进行concatenate后再进行赋值；然而message显示时，不会出现分号；使用一个变量时，不同于 bash可以不加上{}，在 CMakelists中一定要加上
-
-.. note:: add_compile_options()作用于所有编译器，CMAKE_CXX_FLAGS`或`CMAKE_C_FLAGS分别只针对c++，c编译器
 
 ### 生成库
 
@@ -108,7 +104,7 @@ link_directories(dir_path)
 
 .. note:: link_directory只是添加搜索路径，并不起链接作用
 
-### 找库
+### [找库](https://cmake.org/cmake/help/latest/command/find_library.html?highlight=find_library#find-library)
 
 ```cmake
 # find_library (<VAR> name1 [path1 path2 ...])
@@ -117,7 +113,7 @@ find_library(NVCAFFE_PARSER NAMES nvcaffe_parser)
 find_library(NVINFER_PLUGIN NAMES nvinfer_plugin)
 ```
 
-* 要添加搜索路径，可修改`CMAKE_LIBRARY_PATH`
+* 要添加搜索路径，可修改`CMAKE_LIBRARY_PATH`或`CMAKE_PREFIX_PATH`
 
 ```cmake
 # e.g.
@@ -189,9 +185,15 @@ add_compile_options(-std=c++14 -O3)
 target_compile_options(<target_name> PUBLIC "-g")
 # 保留中间产物
 target_compile_options(<target_name> PUBLIC "-save-temps")
+
+# 屏蔽deprecated消息
+set(CMAKE_CXX_FLAGS "-Wno-error=deprecated-declarations -Wno-deprecated-declarations")
+add_compile_options("")
 ```
 
 .. note:: 该选项会覆盖CMAKE_BUILD_TYPE
+
+.. note:: add_compile_options()作用于所有编译器，CMAKE_CXX_FLAGS或CMAKE_C_FLAGS分别只针对c++，c编译器
 
 ### [find_package](https://cmake.org/cmake/help/v3.18/command/find_package.html?highlight=find_package)
 
@@ -291,7 +293,8 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/install/location
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fCeDn3uR7Aeffvas.png!thumbnail)
 
 * 指定安装的内容和相对路径：
-    安装可执行文件，并安装到到指定目录： `${CMAKE_INSTALL_PREFIX}/bin`
+
+安装可执行文件，并安装到到指定目录： `${CMAKE_INSTALL_PREFIX}/bin`
 
 ```cmake
 install (TARGETS <target_name>
@@ -359,6 +362,7 @@ add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL])
 ```cmake
 # 相关待执行的命令； 存储标准输出的变量
 execute_process(COMMAND python -c "from sysconfig import get_paths;print(get_paths()['include'])" OUTPUT_VARIABLE DUMMY)
+execute_process(COMMAND python3 -c "import torch; print(f'{torch.utils.cmake_prefix_path}/Torch', end='')" OUTPUT_VARIABLE Torch_DIR)
 ```
 
 ### 使用通配符找文件
@@ -393,13 +397,120 @@ endfunction()
 download(pts_voxel_encoder_default.onnx 1_8OCQmrPm_R4ZVh70QsS9HZo6uGrlbgz 01b860612e497591c4375d90dff61ef7)
 ```
 
+### cuda
+
+```cmake
+cuda_add_executable(target_name <...cu>)
+cuda_add_library(target_name <library_name>)
+```
+
+### ament
+
+### [ros2 ament](https://docs.ros.org/en/foxy/How-To-Guides/Ament-CMake-Documentation.html)
+
+```cmake
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+
+# 构建目标
+add_library()
+# 或者
+add_executable()
+
+# 链接库
+ament_target_dependencies()
+
+# 导出库
+ament_export_targets()
+ament_export_dependencies()
+
+# The project setup is done by ament_package() and this call must occur exactly once per package. ament_package() installs the package.xml, registers the package with the ament index, and installs config (and possibly target) files for CMake so that it can be found by other packages using find_package
+ament_package() 
+```
+
+* 链接依赖
+
+```cmake
+find_package(Eigen3 REQUIRED)
+ament_target_dependencies(<target_name> Eigen3) # <package_name>
+
+# 等价于
+find_package(Eigen3 REQUIRED)
+target_link_libraries(<target_name> ${EIGEN3_INCLUDE_DIR})
+target_link_directories(<target_name> ${EIGEN3_LIBRARIES})
+
+# 等价于
+find_package(Eigen3 REQUIRED)
+target_link_libraries(<target_name> Eigen3::Eigen)
+```
+
+.. note::  ``ament_target_dependencies``更具优势，``It will also ensure that the include directories of all dependencies are ordered correctly when using overlay workspaces``
+
+#### [ros2 ament auto](https://zhuanlan.zhihu.com/p/438191834)
+
+* 生成目标文件
+
+```cmake
+ament_auto_add_executable(<exec_name> <src>)
+ament_auto_add_library(<lib_name> <src>)
+
+# 等价于：
+add_executable()
+add_library()
+target_include_directories()
+target_link_libraries()
+```
+
+* CmakeLists.txt minimal example
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+project(composition_example)
+ 
+find_package(ament_cmake_auto REQUIRED)
+# automatically link the dependency according to the xml (without find_package)
+ament_auto_find_build_dependencies()
+ 
+ament_auto_add_library(listener_node SHARED src/listener_node.cpp) 
+ament_auto_add_executable(listener_node_exe src/listener_main.cpp)
+
+# replace the export, install and ament_package command
+ament_auto_package()
+```
+
+* xml minimal example
+
+```xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>composition_example</name>
+  <version>0.0.1</version>
+  <description>Example of node composition</description>
+  <maintainer email="my.email@example.com">The Autoware Foundation</maintainer>
+  <license>Apache License 2.0</license>
+ 
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+ 
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+ 
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+ 
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+```
+
 ## Module CheatSheet
 
 ### EIGEN
 
 ```cmake
 find_package(Eigen3 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIRS} )
+include_directories(${EIGEN3_INCLUDE_DIRS})
 ```
 
 ### OpenCV
