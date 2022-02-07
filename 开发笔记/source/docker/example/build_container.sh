@@ -1,22 +1,22 @@
 #!/bin/bash
 set -e
+# ref: http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
 
-XAUTH=/tmp/.docker.xauth
+XAUTH=${HOME}/tmp/.docker.xauth
 if [ ! -f $XAUTH ]
 then
-    xauth_list=$(xauth nlist :0 | sed -e 's/^..../ffff/')
+    xauth_list=$(xauth nlist $DISPLAY | sed -e 's/^..../ffff/')
     if [ ! -z "$xauth_list" ]
     then
-        echo $xauth_list | xauth -f $XAUTH nmerge -
-    else
-        touch $XAUTH
+        # hide the message "tmp/.docker.xauth does not exist"
+        echo $xauth_list | xauth -f $XAUTH nmerge - 2> /dev/null
     fi
     chmod a+r $XAUTH
 fi
 
 # 参数配置
-set_container_name="--name=trt8.2.2-ros2"
-image_name="sleipnir-trt8.2.2-ros2"
+set_container_name="--name=trt7.2.3-ros1"
+image_name="registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:1.0.0"
 
 # 文件挂载
 set_volumes="--volume=${HOME}/change_ws:/change_ws:rw"
@@ -35,7 +35,7 @@ docker run -it --gpus all \
     --env="QT_X11_NO_MITSHM=1" \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    --volume="${HOME}/tmp/.X11-unix:${HOME}/tmp/.X11-unix:rw" \
     --privileged \
     ${set_volumes} \
     ${set_network} \

@@ -261,10 +261,17 @@ Dockerfile指令
 
 #. `修改容器中的默认用户 <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user>`_
 
-.. code-block::
+.. prompt:: bash $,# auto
 
    RUN useradd --no-log-init -m helios -G sudo
    USER helios
+
+
+#. 设置入口函数
+
+.. prompt:: bash $,# auto
+
+   ENTRYPOINT ["/bin/bash"]
 
 `template <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages>`_
 -----------------------------------------------------------------------------------------------------------------------------

@@ -215,9 +215,15 @@ WORKDIR <dir>
 
 7. [修改容器中的默认用户](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user)
 
-```
+```bash
 RUN useradd --no-log-init -m helios -G sudo
 USER helios
+```
+
+8. 设置入口函数
+
+```bash
+ENTRYPOINT ["/bin/bash"]
 ```
 
 ## [template](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages)
