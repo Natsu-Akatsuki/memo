@@ -1,3 +1,6 @@
+.. role:: raw-html-m2r(raw)
+   :format: html
+
 
 third-party library
 ===================
@@ -20,54 +23,240 @@ easydict
 
    $ pip3 install esaydict
 
-`pathlib <https://docs.python.org/3.11/library/pathlib.html>`_
-------------------------------------------------------------------
+IO
+--
 
-.. note:: 支持跨系统使用，解析路径友好；一般会用该模块，来取代 `os` 模块的功能；其支持sorted()方法；一些module比如 `open3d` 不支持 `PosixPath` 类，传参时需要转化为 `str` 型；在Path对象中可使用 `..` 等进行拼接，后续调用 `resolve()` 方法进行解析
+上色：\ `colorama <https://pypi.org/project/colorama/>`_
 
-
-常用代码块
-^^^^^^^^^^
-
-.. code-block:: python
-
-   # 01.导入库
-   from pathlib import Path
-
-   # 02.判断文件或文件夹是否存在
-   <Path object>.exists()：
-
-   # 03.将相对路径转换为绝对路径（resolving any symlinks）    
-   p = Path()   # 默认使用的是当前路径    
-
-   # 04.创建文件夹
-   # parents：若parent目录缺失，则会递归的创建；
-   # exist_ok：文件夹已存在时，不会报错也不会覆盖建文件夹
-   <Path object>.mkdir(parents=True, exist_ok=True)
-
-   # 05.通配符模式（列出通配符的文件）
-   # 返回的是generator，可以使用list()将其转换为列表
-   image_path = (Path('/home/helios/image/').glob('*.jpg'))
-
-   # 06.添加后缀
-   <Path object>.with_suffix('.jpg')
-
-.. hint:: 一些常用属性，以\"/home/helios/path.py\"为例
+multithreading
+--------------
 
 
+* `native_id和identity的区别？ <https://docs.python.org/3/library/threading.html#threading.get_ident>`_
 
-* 其 ``name`` (即basename) 为path.py
-* 其 ``parent`` (即dirname) 为/home/helios
-* 其 ``stem`` 为path（不带后缀的basename）
-
-参考资料
-^^^^^^^^
-
-
-* `csdn资料 <https://blog.csdn.net/itanders/article/details/88754606>`_
+前者是操作系统对线程的标识号，后者是python的标识号
 
 numpy
 -----
+
+向量操作
+^^^^^^^^
+
+
+* vector product
+
+.. code-block:: python
+
+   a = [1, 2, 3]
+   b = [2, 3, 4]
+   c = np.dot(a, b) # 14
+   c = a.dot(b)
+
+
+* matrix multiplication
+
+.. code-block:: python
+
+   a = np.array([1, 2, 3])
+   b = np.array([2, 2, 2]).T
+   c = np.matmul(a, b)
+   c = a.matmul(b)
+   c = a @ b
+
+.. note:: 不会严格地执行矩阵相乘，np会根据输入进行调整
+
+
+e.g：有关广播机制
+
+.. code-block:: python
+
+   # 预期：
+   | 1 2 |                     | 1*1  2*1 |
+   | 3 4 |  @  | 1 2 3 4 |  =  | 3*2  4*2 |
+   | 5 6 |                     | 5*3  6*3 |
+   | 7 8 |                     | 7*4  8*4 |
+
+   # 则需要先进行reshape操作：
+   reshape使广播机制成立，然后在向量广播操作后，可以使用hadamard积（element-wise）
+   广播操作：
+                                  | 1  1|
+   | 1 2 3 4 |.reshape(-1,1)  ->  | 2  2|
+                                  | 3  3|
+                                  | 4  4|
+
+.. note:: 广播操作满足最后一维的大小一样即可
+
+
+
+* hadamard product (i.e element-wise product)
+
+.. code-block:: python
+
+   a = [[1,1],[2,2]]
+   b = [[2,3],[3,2]]
+   c = a * b  # [[2,3],[6,4]]
+
+矩阵运算
+^^^^^^^^
+
+求逆
+~~~~
+
+.. code-block:: python
+
+   np.linalg.inv(<矩阵>)
+
+创建数组
+^^^^^^^^
+
+.. code-block:: python
+
+   # 传shape(tuple)
+   np.zeros((448,224,30))
+
+创建对角阵
+~~~~~~~~~~
+
+.. code-block:: python
+
+   # 自定义对角元
+   np.diag((2,3)) # [[2,0],[0,3]]
+   # 单位阵（方阵）
+   np.identity(2) # [[1,0],[0,1]]
+   # 非方阵
+   np.eye()
+
+flatten
+^^^^^^^
+
+.. code-block:: python
+
+   # Return a flattened copy of the matrix.
+   # All N elements of the matrix are placed into a single row. 保持原来维度
+   m = np.matrix([[1,2], [3,4]])
+   m.flatten()  # matrix([[1, 2, 3, 4]])
+
+   # 返回一维
+   m = np.matrix([[1,2], [3,4]])
+   np.ravel(m) # [1, 2, 3, 4]]
+
+结构体
+^^^^^^
+
+.. code-block:: python
+
+   import numpy as np
+
+   structure = np.zeros(3, dtype=[("colour", (np.uint8, 3)), ("label", np.bool)])
+
+   structure[0]["colour"] = [0, 218, 130]
+   structure[0]["label"] = True
+   structure[1]["colour"] = [245, 59, 255]
+   structure[1]["label"] = True
+
+数据堆叠
+^^^^^^^^
+
+.. code-block:: python
+
+   np.stack(list) 
+
+   # 水平方向的堆叠
+   extrinsic_matrix = np.hstack([rotation_m, tvec])
+   # 垂直方向的堆叠
+   extrinsic_matrix = np.vstack([extrinsic_matrix, [0, 0, 0, 1]])
+
+
+* 一维数组的堆叠
+
+np.column_stack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 等价于np.hstack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 
+
+np.row_stack((\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) ) 等价于np.vstack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 
+
+索引
+^^^^
+
+切片索引
+~~~~~~~~
+
+.. code-block:: python
+
+   # 表示索引倒数第一行第一列的数据
+   Mat(-1,0)
+
+----
+
+**ATTENTION**
+
+
+* 在numpy中进行 ``切片索引`` 时，应使用单括号和多逗号，不能用多括号
+
+.. code-block:: plain
+
+   mask[1:2][3:4]  ×
+   mask[1:2, 3:4]  √
+
+
+* 而索引单个元素时，则效果一致，没有区别e.g. array [0][1] == array[0,1]
+* np一维数组shape的表示为（N,）\ **（含逗号）**
+
+----
+
+布尔索引
+~~~~~~~~
+
+
+* 适用于构建mask，来对数据进行筛查
+
+.. code-block:: python
+
+   mask = (temp > 0) & (temp < 89.6) & \
+          (temp > -22.4) & (temp < 22.4)
+   pointcloud = pointcloud[mask]
+
+函数
+^^^^
+
+符号函数
+~~~~~~~~
+
+.. code-block:: python
+
+   # -1 if x<0
+   # 0  if x=0
+   # 1  if x>0
+   np.sign()
+
+逻辑运算
+^^^^^^^^
+
+.. code-block:: python
+
+   # 按位与/或
+   np.bitwise_or(<bool_np_arrayA>, <bool_np_array>)  # 等价于&
+   np.bitwise_and(<bool_np_arrayA>, <bool_np_array>) # 等价于|
+
+强制类型转换
+^^^^^^^^^^^^
+
+.. code-block:: python
+
+   # only apply for scalar object
+   np.int/float()
+   # apply for numpy object
+   ().astype()
+
+属性
+^^^^
+
+.. code-block:: python
+
+   arr_np.flags.writeable # 读写权限
+   arr_np.flags.c_contiguous
+   arr_np.flags.fortran
+   arr_np.flags.f_contiguous
+   # The array owns the memory it uses or borrows it from another object. 是否是引用
+   arr_np.flags.owndata
 
 实战
 ^^^^
@@ -82,33 +271,119 @@ numpy矩阵相乘运算cpu占用率大
    os.environ["OMP_NUM_THREADS"] = "1"
    import numpy as np
 
-scipy
------
+获取某个值的索引位置
+~~~~~~~~~~~~~~~~~~~~
 
-`计算凸包 <https://www.tutorialspoint.com/scipy/scipy_spatial.htm>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: python
 
-.. prompt:: bash $,# auto
+   np.argwhere(img == 255)
 
-   import numpy as np
-   from scipy.spatial import ConvexHull
-   points = np.random.rand(10, 2) # 30 random points in 2-D
-   hull = ConvexHull(points)
-   import matplotlib.pyplot as plt
-   plt.plot(points[:,0], points[:,1], 'o')
-   for simplex in hull.simplices:
-       plt.plot(points[simplex,0], points[simplex,1], 'k-')
-   plt.show()
+行向量变为列向量
+~~~~~~~~~~~~~~~~
 
-https://realpython.com/python-menus-toolbars/
+.. code-block:: python
+
+   # 方法一：
+   ().reshape(-1,1)
+   # 方法二：
+   <np_array>[:, None]
+   # np.newaxis是None的alias
+
+.. note:: 对一维数组进行转置并不会生成(1,N)或(N,1)
+
+
+Ellipsis 省略号...
+~~~~~~~~~~~~~~~~~~
+
+是冒号':'的拓展，避免写多个:，如[:, :, 0]等价于[..., 0]；索引时只能存在一个
 
 opencv
 ------
 
-VideoWriter
-^^^^^^^^^^^
+使用摄像头
+^^^^^^^^^^
 
-生成视频流
+
+* example1
+
+.. code-block:: python
+
+   import cv2
+   capture = cv2.VideoCapture(0)
+
+   # VideoCaptureProperties
+   capture.set(3, 1280)  # 常用配置属性，宽
+   capture.set(4, 720)    # 高
+   capture.set(5, 30)      # 帧率
+   while (True):
+       ret, frame = capture.read()                           
+       cv2.imshow('frame', frame)
+       # return the Unicode code point for a one-character string.
+       if cv2.waitKey(1) == ord('q'):
+           break
+
+
+* example2
+
+.. code-block:: python
+
+   camera_open_flag = False
+   while not camera_open_flag:
+       try:
+           cap = cv2.VideoCapture(0)
+           # 配置显示图片的宽、高、帧率
+           cap.set(3, 1280)
+           cap.set(4, 720)
+           cap.set(5, 8)
+           if cap.isOpened:
+               print('successfully open camara')
+               camera_open_flag = True
+       except:
+           time.sleep(1)
+           print('retry to open the camera')
+
+`两张图片的叠放 <https://blog.csdn.net/fanjiule/article/details/81607873>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 营造图层叠放效果
+
+.. code-block:: python
+
+   import cv2
+   # 加权系数、偏置项
+   add_img =  cv2.addWeighted(img_1, 0.7, img_2, 0.3, 0)
+
+
+* 掩膜操作
+
+判断点是否在某个多边形中
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   import cv2
+   # 轮廓点、测试点、是否返回距离(ture：表示该点在多边形中)
+   left_sign = cv2.pointPolygonTest(contour_, test_point, False)
+   # 其返回值是浮点型
+
+图片读写
+^^^^^^^^
+
+.. code-block:: python
+
+   # 读图片
+   img = cv2.imread(image_path)
+   # 显示图片
+   cv2.imshow("窗口名称", img)
+   # + 限定尺寸大小(W,H)
+   cv2.imshow('窗口名称', cv2.resize(img, dsize=(600, 320)))
+
+视频流
+^^^^^^
+
+
+* 生成视频流
 
 .. code-block:: python
 
@@ -122,10 +397,76 @@ VideoWriter
 
        vout.release()
 
-`读写视频流 <https://learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/>`_
 
-collections
------------
+* `读写视频流 <https://learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/>`_
+
+窗口
+^^^^
+
+.. code-block:: python
+
+   # 定义窗口名称
+   cv2.namedWindow("窗口名称")
+   cv2.destroyAllWindows()
+
+通道转换
+^^^^^^^^
+
+.. code-block:: python
+
+   # 颜色通道/空间变换
+   cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+按键
+^^^^
+
+.. code-block:: python
+
+   key = cv2.waitKey(1)
+   if key & 0xFF == ord('q'):
+       break
+
+标定
+^^^^
+
+去畸变
+~~~~~~
+
+.. code-block:: python
+
+   distortion = np.loadtxt("畸变系数txt文件")
+   intrinsic_matrix = np.loadtxt("内参矩阵")
+   # 消除图像distortion
+   img = cv2.undistort(img, intrinsic_matrix, distortion)
+
+添加元素
+^^^^^^^^
+
+加圆
+~~~~
+
+
+* 给定中心位置和半径画实心或空心圆
+
+.. code-block:: python
+
+   photo = cv2.imread('<图形路径>')
+   cv2.circle(photo, center=(500, 400), radius=100, color=(0, 0, 255), thickness=2)
+
+   # 可视化2D的投影点云
+   for (x, y), c in zip(pts_2d, color):
+       # 图片，圆心位置位置，圆半径，圆颜色，边界厚度（-1：填充）
+       cv2.circle(img, (x, y), 1, [c[2], c[1], c[0]], -1)
+
+交互操作
+^^^^^^^^
+
+.. code-block:: python
+
+   # ret: tuple(four element)
+   ROI = cv2.selectROIs(img, fromCenter=False, showCrosshair=True)
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220208163816121.png" alt="image-20220208163816121" style="zoom:67%;" />`
 
 图形化
 ------
@@ -240,3 +581,119 @@ pyinstaller的GUI版本
 
 `nuitka推荐教程 <https://zhuanlan.zhihu.com/p/133303836>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`pathlib <https://docs.python.org/3.11/library/pathlib.html>`_
+------------------------------------------------------------------
+
+.. note:: 支持跨系统使用，解析路径友好；一般会用该模块，来取代 `os` 模块的功能；其支持sorted()方法；一些module比如 `open3d` 不支持 `PosixPath` 类，传参时需要转化为 `str` 型；在Path对象中可使用 `..` 等进行拼接，后续调用 `resolve()` 方法进行解析
+
+
+常用代码块
+^^^^^^^^^^
+
+.. code-block:: python
+
+   # 01.导入库
+   from pathlib import Path
+
+   # 02.判断文件或文件夹是否存在
+   <Path object>.exists()：
+
+   # 03.将相对路径转换为绝对路径（resolving any symlinks）    
+   p = Path()   # 默认使用的是当前路径    
+
+   # 04.创建文件夹
+   # parents：若parent目录缺失，则会递归的创建；
+   # exist_ok：文件夹已存在时，不会报错也不会覆盖建文件夹
+   <Path object>.mkdir(parents=True, exist_ok=True)
+
+   # 05.通配符模式（列出通配符的文件）
+   # 返回的是generator，可以使用list()将其转换为列表
+   image_path = (Path('/home/helios/image/').glob('*.jpg'))
+
+   # 06.添加后缀
+   <Path object>.with_suffix('.jpg')
+
+.. hint:: 一些常用属性，以\"/home/helios/path.py\"为例
+
+
+
+* 其 ``name`` (即basename) 为path.py
+* 其 ``parent`` (即dirname) 为/home/helios
+* 其 ``stem`` 为path（不带后缀的basename）
+
+参考资料
+^^^^^^^^
+
+
+* `csdn资料 <https://blog.csdn.net/itanders/article/details/88754606>`_
+
+命令行解析
+----------
+
+`argparse <https://docs.python.org/3/library/argparse.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 关键词参数命令行解析
+
+.. code-block:: python
+
+   import argparse
+   # 步骤一：创解析器
+   parser = argparse.ArgumentParser(description="arg parser")
+
+   # 步骤二：添加参数
+   parser.add_argument('--cfg_file', type=str, default='cfgs/default.yml', help='specify the config for evaluation')
+
+   parser.add_argument('--eval_all', action='store_true', default=False, help='whether to evaluate all checkpoints')
+
+   parser.add_argument('--start_epoch', default=0, type=int, help='ignore the checkpoint smaller than this epoch')
+
+   parser.add_argument('--set', dest='set_cfgs', default=None, nargs=argparse.REMAINDER, help='set extra config keys if needed')
+
+   # 步骤三：解析参数（return Namespace object）
+   args = parser.parse_args()
+
+   # 可以调用vars(args)得到字典object
+
+
+* 位置参数命令行解释
+
+.. code-block:: python
+
+   import sys 
+   sys.argv.__len__()
+   ... = sys.argv[1]
+   # [0]一般对应的是文件名
+
+`fire <https://github.com/google/python-fire>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`typer <https://typer.tiangolo.com/#example>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+主要用于开发命令行工具
+
+scipy
+-----
+
+`计算凸包 <https://www.tutorialspoint.com/scipy/scipy_spatial.htm>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   import numpy as np
+   from scipy.spatial import ConvexHull
+   points = np.random.rand(10, 2) # 30 random points in 2-D
+   hull = ConvexHull(points)
+   import matplotlib.pyplot as plt
+   plt.plot(points[:,0], points[:,1], 'o')
+   for simplex in hull.simplices:
+       plt.plot(points[simplex,0], points[simplex,1], 'k-')
+   plt.show()
+
+https://realpython.com/python-menus-toolbars/
+
+ 
+-

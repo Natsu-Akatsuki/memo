@@ -62,7 +62,7 @@ AmBook
    :caption: python
 
    python/rst/builtin-library.rst
-   python/rst/extension.rst
+   python/rst/DebugUtils.rst
    python/rst/python-practice.rst
    python/rst/third-party-library.rst
 

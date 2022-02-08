@@ -221,42 +221,6 @@ collections
    # 删除某个键值对
    del d["two"]
 
-`argparse <https://docs.python.org/3/library/argparse.html>`_
------------------------------------------------------------------
-
-
-* 关键词参数命令行解析
-
-.. code-block:: python
-
-   import argparse
-   # 步骤一：创解析器
-   parser = argparse.ArgumentParser(description="arg parser")
-
-   # 步骤二：添加参数
-   parser.add_argument('--cfg_file', type=str, default='cfgs/default.yml', help='specify the config for evaluation')
-
-   parser.add_argument('--eval_all', action='store_true', default=False, help='whether to evaluate all checkpoints')
-
-   parser.add_argument('--start_epoch', default=0, type=int, help='ignore the checkpoint smaller than this epoch')
-
-   parser.add_argument('--set', dest='set_cfgs', default=None, nargs=argparse.REMAINDER, help='set extra config keys if needed')
-
-   # 步骤三：解析参数（return Namespace object）
-   args = parser.parse_args()
-
-   # 可以调用vars(args)得到字典object
-
-
-* 位置参数命令行解释
-
-.. code-block:: python
-
-   import sys 
-   sys.argv.__len__()
-   ... = sys.argv[1]
-   # [0]一般对应的是文件名
-
 `subprocess（创建一个终端来执行程序） <https://docs.python.org/3.7/library/subprocess.html>`_
 -------------------------------------------------------------------------------------------------
 
