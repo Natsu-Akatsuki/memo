@@ -46,7 +46,10 @@ docker
 
    $ sudo groupadd docker           # 创建一个docker组
    $ sudo usermod -aG docker $USER  # 将用户添加到该组中
-   $ newgrp docker                  # 使配置生效
+   $ newgrp docker                  # 使配置生效，若未生效尝试重启或注销
+
+.. note:: 用于规避如下错误Got permission denied while trying to connect to the Docker daemon socket
+
 
 
 * docker自启动
@@ -158,6 +161,9 @@ command
    $ docker rm $(docker ps --filter status=exited -q)
    # 在已启动的容器中再开一个终端
    $ docker exec -it /bin/bash
+   # 将容器打包为镜像
+   # docker commit -a="author_name" -m="commit_msg" 77fba26ef98f rangenet:1.0
+   $ docker commit -a="author_name" -m="commit_msg" <container_id> <img_name:version>
 
 构建容器的选项说明
 ^^^^^^^^^^^^^^^^^^
@@ -273,10 +279,12 @@ Dockerfile指令
 
    ENTRYPOINT ["/bin/bash"]
 
-`template <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages>`_
------------------------------------------------------------------------------------------------------------------------------
+`例程 <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages>`_
+-------------------------------------------------------------------------------------------------------------------------
 
 `pcdet <https://github.com/open-mmlab/OpenPCDet/blob/v0.1/docker/Dockerfile>`_\ ：custom linux环境/cuda环境/cudnn环境/自建pytorch环境
+
+`rangenet <https://github.com/Natsu-Akatsuki/RangeNetTrt8/blob/master/docker/Dockerfile-tensorrt8.2.2>`_\ ：ubuntu20.04/trt8/ros1/cuda11.1/cudnn8/pytorch
 
 `阿里云镜像托管 <https://cr.console.aliyun.com/cn-hangzhou/instance/repositories>`_
 ---------------------------------------------------------------------------------------

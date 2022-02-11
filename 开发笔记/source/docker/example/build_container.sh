@@ -1,18 +1,20 @@
 #!/bin/bash
-set -e
-# ref: http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
+
+# for debug
+# set -x 
+if [ ! -d ${HOME}/tmp} ]
+then
+    mkdir ${HOME}/tmp
+fi
+
+if [ ! -d ${HOME}/change_ws} ]
+then
+    mkdir ${HOME}/change_ws
+fi
 
 XAUTH=${HOME}/tmp/.docker.xauth
-if [ ! -f $XAUTH ]
-then
-    xauth_list=$(xauth nlist $DISPLAY | sed -e 's/^..../ffff/')
-    if [ ! -z "$xauth_list" ]
-    then
-        # hide the message "tmp/.docker.xauth does not exist"
-        echo $xauth_list | xauth -f $XAUTH nmerge - 2> /dev/null
-    fi
-    chmod a+r $XAUTH
-fi
+touch $XAUTH
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | sudo xauth -f $XAUTH nmerge -
 
 # 参数配置
 set_container_name="--name=trt7.2.3-ros1"
