@@ -10,6 +10,11 @@
 
 ### [espanso](https://espanso.org/)(代码块)
 
+```bash
+# 查看配置文档路径
+$ espanso path
+```
+
 ## IDE
 
 ### [vscode](https://code.visualstudio.com/Download)
@@ -32,7 +37,7 @@ $ sudo apt install code
 $ sudo apt install zeal
 ```
 
-* [非官方文档CheatSheet](https://zealusercontributions.vercel.app/)
+- [非官方文档CheatSheet](https://zealusercontributions.vercel.app/)
 
 #### 生成PCL docset
 
@@ -71,6 +76,23 @@ $ python html2dash.py -n tensorrt cpp
 ```bash
 $ sudo apt install sqlitebrowser
 ```
+
+#### 生成rclcpp docset
+
+```bash
+# 步驟一：导入仓库
+$ git clone https://github.com/ros2/rclcpp
+# 步驟二：添加GENERATE_DOCSET = YES 到Doxyfile
+# 步骤三：生成doxygen docs
+$ doxygen Doxyfile
+# 步骤四：生成docset
+$ doxygen2docset --doxygen <src> --docset <dst>
+# 步骤五：将生成的docset拷贝到zeal保存docset的位置
+```
+
+#### 常用可导入的docset
+
+- ROS: <https://github.com/beckerpascal/ros.org.docset>（自行下载和导入）
 
 ---
 
@@ -183,51 +205,52 @@ $ asciinema auth
 
 ### [插件](https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher)
 
-* [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon)：实现网页端的代码查看
+- [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon)：实现网页端的代码查看
 
   <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916222502087.png" alt="image-20210916222502087" style="zoom:67%; " />
 
-* [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon)：实现网页端的代码查看（mark: 内容检索，函数定义和声明的跳转）
+- [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon)：实现网页端的代码查看（mark: 内容检索，函数定义和声明的跳转）
 
-* [Github 加速](https://chrome.google.com/webstore/detail/github加速/mfnkflidjnladnkldfonnaicljppahpg)
+- [Github 加速](https://chrome.google.com/webstore/detail/github加速/mfnkflidjnladnkldfonnaicljppahpg)
 
-* [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher)
+- [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher)
 
-* [Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)（生成navigation侧边栏，便于跳转和浏览）
+- [Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)（生成navigation侧边栏，便于跳转和浏览）
   <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ReWZED8Jd1ySFSWT.png!thumbnail" alt="img" style="zoom:50%; " />
   
-* [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon)（去广告）
+- [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon)（去广告）
 
-* [TabFloater](https://chrome.google.com/webstore/detail/tabfloater-picture-in-pic/iojgbjjdoanmhcmmihbapiejfbbadhjd/related)（悬浮标签页，便于同步查看标签页）
+- [TabFloater](https://chrome.google.com/webstore/detail/tabfloater-picture-in-pic/iojgbjjdoanmhcmmihbapiejfbbadhjd/related)（悬浮标签页，便于同步查看标签页）
 
-* [simple allow copy](https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-ntp-icon)（复制网页内容，如360，百度文库页面的内容）
+- [simple allow copy](https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-ntp-icon)（复制网页内容，如360，百度文库页面的内容）
 
-* [picture in picture](https://chrome.google.com/webstore/detail/picture-in-picture-for-ch/ekoomohieogfomodjdjjfdammloodeih?utm_source=chrome-ntp-icon)（视频画中画）
+- [picture in picture](https://chrome.google.com/webstore/detail/picture-in-picture-for-ch/ekoomohieogfomodjdjjfdammloodeih?utm_source=chrome-ntp-icon)（视频画中画）
 
-* [DevDocs](https://chrome.google.com/webstore/detail/devdocs/mnfehgbmkapmjnhcnbodoamcioleeooe)（API文档浏览）[DeepL web端翻译插件](https://github.com/WumaCoder/mini-tools)翻译时较慢
+- [DevDocs](https://chrome.google.com/webstore/detail/devdocs/mnfehgbmkapmjnhcnbodoamcioleeooe)（API文档浏览）[DeepL web端翻译插件](https://github.com/WumaCoder/mini-tools)翻译时较慢
 
-* [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon)（[使用说明](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html)）用于标签分组
+- [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon)（[使用说明](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html)）用于标签分组
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/5mY5ahYPg6tePg10.png!thumbnail" alt="img" style="zoom: 50%; " />
 
-* [papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（[使用说明](https://papaly.com/#speeddial)）（标签页分类管理）
-* [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon)（分屏工具）
-* [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon)（下载管理器）插件管理
-* [Extensions Manager](https://chrome.google.com/webstore/detail/extensions-manager-aka-sw/lpleipinonnoibneeejgjnoeekmbopbc/related?hl=en)（插件管理器)
-* [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related)（截图工具：只适用于浏览页截图，功能类似微信截图)
-* [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related)（页面检索工具）（默认快捷键为`ctrl+shift+F`）
+- [papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（[使用说明](https://papaly.com/#speeddial)）（标签页分类管理）
+- [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon)（分屏工具）
+- [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon)（下载管理器）插件管理
+- [Extensions Manager](https://chrome.google.com/webstore/detail/extensions-manager-aka-sw/lpleipinonnoibneeejgjnoeekmbopbc/related?hl=en)（插件管理器)
+- [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related)（截图工具：只适用于浏览页截图，功能类似微信截图)
+- [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related)（页面检索工具）（默认快捷键为`ctrl+shift+F`）
+- [proxy-switchomega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?utm_source=chrome-ntp-icon)
 
 ### [快捷键](https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts)
 
-* 标签页管理
+- 标签页管理
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916133726380.png" alt="image-20210916133726380" style="zoom:67%; " />
 
-* word-based shortcuts
+- word-based shortcuts
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/v46dYETnTrY2Qzvl.png!thumbnail)
 
-* 补充
+- 补充
 
 | 作用            | 快捷键       |
 | --------------- | ------------ |
@@ -239,8 +262,9 @@ $ asciinema auth
 
 ### 拓展功能
 
-* [添加稍后在看](https://www.jiangweishan.com/article/hulianwang23408230948098.html)`chrome://flags/#read-later`
-* 设置拓展插件的快捷键`chrome://extensions/shortcuts`
+- [添加稍后在看](https://www.jiangweishan.com/article/hulianwang23408230948098.html)`chrome://flags/#read-later`
+
+- 设置拓展插件的快捷键`chrome://extensions/shortcuts`
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eQYfh8NvsiaYjbWO.png!thumbnail)
 
@@ -257,15 +281,19 @@ $ sudo apt-get install com.qq.weixin.deepin
 
 **NOTE**
 
-- 非中文系统下兼容中文显示（不兼容时将显示乱码）
+出现的任何问题可参考[github issue](https://github.com/zq1997/deepin-wine/issues)（如闪退、中文显示为方框）
 
-将 `/opt/deepinwine/tools/run_v2.sh` 中  `WINE_CMD`  那一行修改为  `WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"`
+- [wechat崩溃与闪退->暂时版本降级](https://github.com/zq1997/deepin-wine/issues/250)
 
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/APzjdGYgf7AsOtST.png!thumbnail" alt="img" style="zoom:67%;" />
-
-- 没有找到快捷方式
-
-重启或注销
+```bash
+# 卸载之前的版本
+$ sudo apt purge com.qq.weixin.deepin
+# 下载deb包并重新安装
+$ wget https://com-store-packages.uniontech.com/appstore/pool/appstore/c/com.qq.weixin.deepin/com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
+$ sudo dpkg -i com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
+# 禁用升级
+$ sudo apt-mark hold com.qq.weixin.deepin
+```
 
 ---
 

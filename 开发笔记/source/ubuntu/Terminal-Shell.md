@@ -279,9 +279,22 @@ $ read -r -p "Are You Sure? [Y/n] " input
 
 ### [判断语法](https://www.cnblogs.com/mlfz/p/11427760.html)
 
-使用中括号作为shell的判断式
+* 使用方括号作为shell的判断式
+
+```bash
+# 判断变量是否非空
+temp="..."
+[ -z "$temp" ] 单对中括号变量必须要加双引号
+[[ -z $temp ]] 双对括号，变量不用加双引号
+```
 
 .. attention:: 注意空格，[空格... 空格]
+
+* 拓展资料：
+
+1. [方括号的等价含义](https://unix.stackexchange.com/questions/99185/what-do-square-brackets-mean-without-the-if-on-the-left)
+
+2. [test command](https://linuxhint.com/bash-test-command/) (or man test)
 
 ## 命令行补全
 
@@ -303,7 +316,7 @@ $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt
 
 * 使用history时，显示的是命令行 `历史列表` 的内容。此处的 `历史列表` 即 `当前终端执行过的命令` +读取 `~/.bash_history` 得到的历史记录（默认打开终端时读取一次）
 
-*  只有终端 `logout` 后才会将终端输入过的命令行加入到 `~/.bash_history` 中
+* 只有终端 `logout` 后才会将终端输入过的命令行加入到 `~/.bash_history` 中
 
 * 如果不需要等终端 `logout(ctrl+d/exit)` 后才将命令行写入文件中，使得新开一个终端按history就能看到所有终端执行过的命令行），可添加该行到 `~/.bashrc` ；安装了 :ref:`hstr`. 的话，该部分会自动添加。
 

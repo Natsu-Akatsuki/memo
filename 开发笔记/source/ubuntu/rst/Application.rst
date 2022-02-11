@@ -20,6 +20,11 @@ Application(common use)
 `espanso <https://espanso.org/>`_\ (代码块)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. prompt:: bash $,# auto
+
+   # 查看配置文档路径
+   $ espanso path
+
 IDE
 ---
 
@@ -100,6 +105,26 @@ TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以
 .. prompt:: bash $,# auto
 
    $ sudo apt install sqlitebrowser
+
+生成rclcpp docset
+~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 步驟一：导入仓库
+   $ git clone https://github.com/ros2/rclcpp
+   # 步驟二：添加GENERATE_DOCSET = YES 到Doxyfile
+   # 步骤三：生成doxygen docs
+   $ doxygen Doxyfile
+   # 步骤四：生成docset
+   $ doxygen2docset --doxygen <src> --docset <dst>
+   # 步骤五：将生成的docset拷贝到zeal保存docset的位置
+
+常用可导入的docset
+~~~~~~~~~~~~~~~~~~
+
+
+* ROS: https://github.com/beckerpascal/ros.org.docset（自行下载和导入）
 
 ----
 
@@ -283,6 +308,7 @@ knotes（可置顶的便签）
 * `Extensions Manager <https://chrome.google.com/webstore/detail/extensions-manager-aka-sw/lpleipinonnoibneeejgjnoeekmbopbc/related?hl=en>`_\ （插件管理器)
 * `Awesome Screenshot & Screen Recorder <https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related>`_\ （截图工具：只适用于浏览页截图，功能类似微信截图)
 * `Quick Find for Google Chrome <https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related>`_\ （页面检索工具）（默认快捷键为\ ``ctrl+shift+F``\ ）
+* `proxy-switchomega <https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?utm_source=chrome-ntp-icon>`_
 
 `快捷键 <https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -325,8 +351,11 @@ knotes（可置顶的便签）
 ^^^^^^^^
 
 
-* `添加稍后在看 <https://www.jiangweishan.com/article/hulianwang23408230948098.html>`_\ ``chrome://flags/#read-later``
-* 设置拓展插件的快捷键\ ``chrome://extensions/shortcuts``
+* 
+  `添加稍后在看 <https://www.jiangweishan.com/article/hulianwang23408230948098.html>`_\ ``chrome://flags/#read-later``
+
+* 
+  设置拓展插件的快捷键\ ``chrome://extensions/shortcuts``
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eQYfh8NvsiaYjbWO.png!thumbnail
@@ -349,17 +378,20 @@ knotes（可置顶的便签）
 
 **NOTE**
 
-
-* 非中文系统下兼容中文显示（不兼容时将显示乱码）
-
-将 ``/opt/deepinwine/tools/run_v2.sh`` 中  ``WINE_CMD``  那一行修改为  ``WINE_CMD="LC_ALL=zh_CN.UTF-8 deepin-wine"``
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/APzjdGYgf7AsOtST.png!thumbnail" alt="img" style="zoom:67%;" />`
+出现的任何问题可参考\ `github issue <https://github.com/zq1997/deepin-wine/issues>`_\ （如闪退、中文显示为方框）
 
 
-* 没有找到快捷方式
+* `wechat崩溃与闪退->暂时版本降级 <https://github.com/zq1997/deepin-wine/issues/250>`_
 
-重启或注销
+.. prompt:: bash $,# auto
+
+   # 卸载之前的版本
+   $ sudo apt purge com.qq.weixin.deepin
+   # 下载deb包并重新安装
+   $ wget https://com-store-packages.uniontech.com/appstore/pool/appstore/c/com.qq.weixin.deepin/com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
+   $ sudo dpkg -i com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
+   # 禁用升级
+   $ sudo apt-mark hold com.qq.weixin.deepin
 
 ----
 

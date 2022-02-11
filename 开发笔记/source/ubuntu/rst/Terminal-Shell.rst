@@ -380,10 +380,28 @@ bash option
 `判断语法 <https://www.cnblogs.com/mlfz/p/11427760.html>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-使用中括号作为shell的判断式
+
+* 使用方括号作为shell的判断式
+
+.. prompt:: bash $,# auto
+
+   # 判断变量是否非空
+   temp="..."
+   [ -z "$temp" ] 单对中括号变量必须要加双引号
+   [[ -z $temp ]] 双对括号，变量不用加双引号
 
 .. attention:: 注意空格，[空格... 空格]
 
+
+
+* 拓展资料：
+
+
+#. 
+   `方括号的等价含义 <https://unix.stackexchange.com/questions/99185/what-do-square-brackets-mean-without-the-if-on-the-left>`_
+
+#. 
+   `test command <https://linuxhint.com/bash-test-command/>`_ (or man test)
 
 命令行补全
 ----------

@@ -336,8 +336,8 @@ $ sudo arp-scan -l <-I device_name>
 $ netstat
 # -a: all
 # -n：(numerical)显示数值型地址
-# -l：(listen)仅显示正在监听的sockets
 # -p：显示socket对应的pid和程序
+# -l：(listen)仅显示正在监听的sockets
 # -t: 列出tcp封包信息（一般与浏览器有关）
 # -u：列出utp封包信息
 $ sudo netstat -anp | grep 32345
@@ -424,6 +424,11 @@ $ traceroute <ip/domain_name>
 
 ## [科学上网v2raya](https://v2raya.org/docs/prologue/installation/debian/)
 
+- 全局代理开启后，任何tcp流量都会经过代理
+- 要主机作为网关，让其他主机或docker也使用代理，则需要开启局域网共享
+
+### 安装
+
 ```bash
 $ curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash
 $ sudo systemctl disable v2ray --now 
@@ -447,6 +452,28 @@ $ sudo bash go.sh --remove
 $ sudo systemctl disable v2raya
 # 删除v2raya cookie
 ```
+
+### 实战
+
+#### [指定代理路由](https://github.com/v2rayA/v2rayA/issues/376)（[routingA文档](https://v2raya.org/docs/manual/routinga/)）
+
+- ieee设置直连而不进行代理
+
+```go
+# GFWList模式
+default: direct
+# 学术网站
+domain(geosite:google-scholar)->proxy
+domain(geosite:category-scholar-!cn, geosite:category-scholar-cn)->direct
+# domain(ext:"LoyalsoldierSite.dat:gfw", ext:"LoyalsoldierSite.dat:greatfire")->proxy
+domain(geosite:geolocation-!cn)->proxy
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220211142133128.png" alt="image-20220211142133128" style="zoom:67%;" />
+
+#### [各种代理的区别](https://v2raya.org/docs/prologue/quick-start/#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86)
+
+- 透明代理、系统代理、浏览器代理
 
 ## 实战
 
@@ -534,8 +561,9 @@ $ ethstatus -i eno1
 
 **ATTENTION**
 
-* 注意需要sudo，否则配置不生效
-* 此处是 bps ，而不是 Bps
+- 注意需要sudo，否则配置不生效
+
+- 此处是 bps ，而不是 Bps
 
 ---
 

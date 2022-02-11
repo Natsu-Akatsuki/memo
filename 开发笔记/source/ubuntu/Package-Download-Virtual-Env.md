@@ -16,7 +16,7 @@ $ dpkg -i <deb_package>     # 安装包
 # -r: remove
 # -P: purge（此处为大写）
 # 也可以使用gdebi（需安装），其能更好的解决依赖问题
-$ gdebi <deb_package>		# 安装
+$ gdebi <deb_package>  # 安装
 ```
 
 .. note:: apt比apt-get具有更高层的封装
@@ -102,6 +102,9 @@ $ pip list --outdate     # 查看可升级的包
 $ pip install --user <pkg_name>
 # ---清除pip缓存--- #
 $ rm -r ~/.cache/pip
+# ---卸载包及其依赖--- #
+# pip install pip-autoremove
+$ pip-autoremove <pkg
 ```
 
 .. attention:: pip没有一键升级所有安装包的命令行，感觉是因为他不能够解决python包的依赖问题
@@ -141,14 +144,15 @@ $ sudo snap remove <pkg>              # 卸载snap中安装的包
 $ sudo apt autoremove --purge snapd   # 卸载snap-core
 ```
 
-## conda配置
+## conda
 
-### 安装anaconda
+### 安装
 
 步骤一：[下载安装包](https://www.anaconda.com/products/individual)
 
 ```bash
 $ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
+$ conda update conda
 ```
 
 步骤二：交互模式执行安装包（此方法可顺带初始化conda）
@@ -240,13 +244,15 @@ $ conda update conda
 ### 清理
 
 ```bash
-# 删除 
+# 删除缓存、索引等
 $ conda clean -a
 # 删除环境
-$ conda remove -n <env_name> --all
+$ conda env remove -n <env_name>
 # 删除包
-$ conda uninstall -n <env_name>
+$ conda remove -n <env_name> <pkg>
 ```
+
+.. note:: 注意conda使用的是remove而不是install（该命令能够根据依赖关系删包）
 
 ### 触发命令行补全
 
@@ -255,14 +261,14 @@ conda并不提供内部补全的插件，需要[安装第三方插件](https://g
 步骤一：安装
 
 ```bash
-$ conda install -c conda-forge conda-bash-completion
+$ conda install -n base -c conda-forge conda-bash-completion
 ```
 
 步骤二：添加到~/.bashrc
 
 ```bash
 # 配置conda代码补全
-CONDA_ROOT="~/anaconda3"
+CONDA_ROOT="${HOME}/anaconda3"
 if [[ -r $CONDA_ROOT/etc/profile.d/bash_completion.sh ]]; then
     source $CONDA_ROOT/etc/profile.d/bash_completion.sh
 fi
@@ -302,7 +308,8 @@ $ conda activate <环境名>  && conda-unpack
 用[mamba](https://github.com/mamba-org/mamba)来安装包
 
 ```bash
-$ conda install -c conda-forge mamba$ mamba install <package_name>
+$ conda install -n base -c conda-forge mamba
+$ mamba install <package_name>
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CP0aVRAsWIAQWpl3.png!thumbnail" alt="img" style="zoom:50%; " />
@@ -312,10 +319,9 @@ $ conda install -c conda-forge mamba$ mamba install <package_name>
 ### 拓展资料
 
 * [conda 说明文档](https://docs.conda.io/projects/conda/en/latest/user-guide/)
-
 * [参数配置文档1](https://conda.io/projects/conda/en/latest/user-guide/configuration/index.html)、[参数配置文档2](https://conda.io/projects/conda/en/latest/configuration.html?highlight=custom_channels%3A)
-
 * [任务导向说明](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/index.html)
+* [conda-vs-pip-vs-virtualenv-commands](https://docs.conda.io/projects/conda/en/latest/commands.html#conda-vs-pip-vs-virtualenv-commands)
 
 ## [PPA](https://launchpad.net/ubuntu/+ppas)
 
