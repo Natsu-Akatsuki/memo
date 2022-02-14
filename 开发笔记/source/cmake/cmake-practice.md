@@ -22,6 +22,13 @@ $ wget https://github.com/Kitware/CMake/releases/download/v3.18.3/cmake-3.18.3.t
 $ ./bootstrap --qt-gui
 ```
 
+### 编译参数
+
+```bash
+# Wno-dev非ninja的编译参数，常应用于屏蔽PCL的警告
+$ cmake -Wno-dev
+```
+
 ### 使用conda环境的cmake文件
 
 在conda环境安装了相关包之后，需要conda activate才能使用其cmake文件，如果不activate的话，需要类似如下类型的参数配置

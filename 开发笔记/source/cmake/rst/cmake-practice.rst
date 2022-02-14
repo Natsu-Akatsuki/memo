@@ -33,6 +33,14 @@ cmake
    # 要安装cmake-qt-gui时需要添加如下option
    $ ./bootstrap --qt-gui
 
+编译参数
+^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # Wno-dev非ninja的编译参数，常应用于屏蔽PCL的警告
+   $ cmake -Wno-dev
+
 使用conda环境的cmake文件
 ^^^^^^^^^^^^^^^^^^^^^^^^
 

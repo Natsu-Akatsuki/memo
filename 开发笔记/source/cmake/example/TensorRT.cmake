@@ -7,6 +7,7 @@ find_library(CUBLAS_LIBRARIES cublas HINTS
   ${CUDA_TOOLKIT_ROOT_DIR}/lib64
   ${CUDA_TOOLKIT_ROOT_DIR}/lib
 )
+include_directories(${CUDA_INCLUDE_DIRS})
 message("CUDA Libs: ${CUDA_LIBRARIES}")
 message("CUDA Headers: ${CUDA_INCLUDE_DIRS}")
 
