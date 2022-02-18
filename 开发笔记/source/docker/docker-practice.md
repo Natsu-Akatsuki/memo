@@ -54,9 +54,15 @@ $ sudo systemctl enable docker
 $ docker run hello-world
 ```
 
+### [uninstall](https://blog.kehan.xyz/2020/08/06/Ubuntu-18-04-%E5%9C%A8-Clion-%E4%B8%AD%E4%BD%BF%E7%94%A8-Docker-%E6%8F%92%E4%BB%B6/)
+
+```bash
+$ sudo apt purge docker-ce docker-ce-cli containerd.io
+```
+
 ### [docker-compose](https://docs.docker.com/compose/install/)
 
-该工具可用来缩短个人配置开发环境的时间（暂未深入体会这个工具）
+可用于同时启动多个容器
 
 - 安装
 
@@ -105,18 +111,30 @@ $ sudo systemctl restart docker
 **NOTE**
 
 - `Error response from daemon: could not select device driver "" with capabilities: [[gpu]]`：重装nvidia-docker即可（ `apt install` + `重启服务` ）
-
 - `gpg: no valid OpenPGP data found`，[使用代理](https://github.com/NVIDIA/nvidia-docker/issues/1367)
 
----
-
-## command
+## 常用命令行
 
 ### 镜像
 
 ```bash
-$ docker pull <image_name>      # 从远程仓拉取镜像
-$ docker rmi  <image_name>      # 删除镜像
+# 从远程仓拉取镜像
+$ docker pull <image_name>
+# 删除镜像
+$ docker rmi  <image_name>
+# 导出镜像
+# e.g. docker save sleipnir-trt7.2.3 -o sleipnir-trt7.2.3.tar
+$ docker save <image_name> -o <sleipnir-trt7.2.3.tar>
+# 导入镜像
+$ docker load -i <tar file>
+# 从文件创建镜像
+$ docker build .
+# option:
+# -q:             构建时终端不输出任何信息
+# -f:             指定构建时用到到文件名 
+# -t:             镜像名 repository/img_name:version 
+# --network host: 使用主机的网络模式
+# .               Dockerfile文件的所在路径
 ```
 
 ### 容器
@@ -139,11 +157,8 @@ $ docker exec -it /bin/bash
 # 将容器打包为镜像
 # docker commit -a="author_name" -m="commit_msg" 77fba26ef98f rangenet:1.0
 $ docker commit -a="author_name" -m="commit_msg" <container_id> <img_name:version>
-```
-
-### 构建容器的选项说明
-
-```bash
+# 构建容器
+$ docker run <option> PATH
 # --gpus all: 容器可用的GPU ('all' to pass all GPUs)
 # --privileged: 提供更多的访问权限
 # -t: 在容器中启动一个终端
@@ -151,39 +166,9 @@ $ docker commit -a="author_name" -m="commit_msg" <container_id> <img_name:versio
 # -d: 后台运行
 ```
 
-### 查看docker占用的空间
-
-```bash
-$ docker system df
-```
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3HacQGLIn8pYe8Fp.png!thumbnail)
-
-### 压缩/导出镜像
-
-```bash
-# 导出镜像
-# docker save sleipnir-trt7.2.3 -o sleipnir-trt7.2.3.tar
-$ docker save <image_name> -o <sleipnir-trt7.2.3.tar>
-# 导入镜像
-$ docker load -i <tar file>
-```
-
 ## Dockerfile
 
-### 从文件构建容器
-
-```bash
-$ docker build .
-# option:
-# -q:             构建时终端不输出任何信息
-# -f:             指定构建时用到到文件名 
-# -t:             镜像名 repository/img_name:version 
-# --network host: 使用主机的网络模式
-# .               Dockerfile文件的所在路径
-```
-
-### Dockerfile指令
+### 指令
 
 1. 只有RUN、COPY、ADD才会生成镜像层，[使用基础镜像：FROM](https://docs.docker.com/engine/reference/builder/#from)
 
@@ -221,7 +206,8 @@ WORKDIR <dir>
 7. [修改容器中的默认用户](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user)
 
 ```bash
-RUN useradd --no-log-init -m helios -G sudo
+# useradd -m <user_name> && yes <password> | passwd <user_name>
+RUN useradd -m helios && yes helios | passwd helios
 USER helios
 ```
 
@@ -231,24 +217,11 @@ USER helios
 ENTRYPOINT ["/bin/bash"]
 ```
 
-## [例程](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages)
+### [例程](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages)
 
 [pcdet](https://github.com/open-mmlab/OpenPCDet/blob/v0.1/docker/Dockerfile)：custom linux环境/cuda环境/cudnn环境/自建pytorch环境
 
 [rangenet](https://github.com/Natsu-Akatsuki/RangeNetTrt8/blob/master/docker/Dockerfile-tensorrt8.2.2)：ubuntu20.04/trt8/ros1/cuda11.1/cudnn8/pytorch
-
-## [阿里云镜像托管](https://cr.console.aliyun.com/cn-hangzhou/instance/repositories)
-
-```bash
-# 登录
-$ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
-# 拉取
-$ docker pull registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
-# 推送
-$ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
-$ docker tag <ImageId> registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
-$ docker push registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
-```
 
 ## 构建镜像技巧
 
@@ -262,47 +235,84 @@ $ rm -rf /var/lib/apt/lists/*
 
 >Official Debian and Ubuntu images [automatically run](http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fmoby%2Fmoby%2Fblob%2F03e2923e42446dbb830c654d0eec323a0b4ef02a%2Fcontrib%2Fmkimage%2Fdebootstrap%23L82-L105&r=https%3A%2F%2Fdocs.docker.com%2Fdevelop%2Fdevelop-images%2Fdockerfile_best-practices%2F%23dont-install-unnecessary-packages)`apt-get clean`, so explicit invocation is not required.
 
-## docker远程连接服务器(for pycharm)
+## 实战
 
-- 要专业版pycharm
+### 查看docker占用大小
 
-- 假定容器端口已进行了映射  -p  13300<host_port>:22<container_port>
+```bash
+$ docker system df
+```
 
-- 容器中需要下载ssh
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3HacQGLIn8pYe8Fp.png!thumbnail)
+
+### 启动tcp端口
+
+```bash
+# expose docker tcp port
+$ sudo vim /lib/systemd/system/docker.service
+# 在ExecStart，后面追加 -H tcp://127.0.0.1:2375
+$ ...
+$ systemctl daemon-reload
+$ systemctl restart docker
+```
+
+### [阿里云镜像托管](https://cr.console.aliyun.com/cn-hangzhou/instance/repositories)
+
+```bash
+# 登录
+$ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
+# 拉取
+$ docker pull registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+# 推送
+$ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
+$ docker tag <ImageId> registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+$ docker push registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
+```
+
+### docker远程连接服务器
+
+for Jetbrain
+
+#### 配置项
+
+1. 专业版pycharm
+
+2. 假定容器端口已进行了映射  -p  13300<host_port>:22<container_port>
+
+3. 容器中需要下载ssh
 
 ```bash
 $ apt install openssh-server
 ```
 
-- 修改ssh的配置文件
+4. 修改ssh的配置文件
 
 ```bash
 # 将PermitRootLogin prohibit-passwd 改为 PermitRootLogin yes
 $ vim /etc/ssh/sshd_config
 ```
 
-- 使配置文件生效
+5. 使配置文件生效
 
 ```bash
 $ service ssh restart
 ```
 
-- 设置ssh登录密码
+6. 设置ssh登录密码
 
 ```bash
 $ passwd 
 ```
 
-- (test) 在当前电脑上测试看是否能连通
+7. (test) 在当前电脑上测试看是否能连通
 
 ```bash
 $ ssh root@host_ip -p <host_port>
 ```
 
-- pycharm配置
+8. pycharm配置：在tools的configuration deployment中配置相关的映射目录
 
-- 在tools的configuration deployment中配置相关的映射目录
-- 没找到相关文件时，看看是不是root path弄错了
+.. note:: 没找到相关文件时，可检查是不是root path弄错了
 
 ### [设置容器自启动](https://www.cnblogs.com/royfans/p/11393791.html)
 
@@ -313,20 +323,25 @@ $ docker run --restart=always
 $ docker update --restart=always <container_id>
 ```
 
-## DEBUG
-
-- /usr/bin/dockerd 文件缺失，需重新安装docker
+#### /usr/bin/dockerd文件缺失
 
 ```bash
 # Uninstall the Docker Engine, CLI, and Containerd packages:
-$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
+$ sudo apt purge docker-ce docker-ce-cli containerd.io
 # reinstall docker
 # ...
 ```
 
-- [D-Bus not built with -rdynamic so unable to print a backtrace](https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/)
-  - [即通过升级权限，使用privileged](https://shimo.im/docs/h6qXyV9PkwKy9Gdv#anchor-Fd7q)来规避问题
+### [D-Bus not built with -rdynamic so unable to print a backtrace](https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/)
 
-- Invalid MIT-MAGIC-COOKIE-1 keyError
+[通过升级权限，使用privileged](https://shimo.im/docs/h6qXyV9PkwKy9Gdv#anchor-Fd7q)来规避问题
 
-之前还能显示rviz，现在则显示如上报错，尝试重启电脑
+### 重启大法好
+
+实测适用于：
+
+- Invalid MIT-MAGIC-COOKIE-1 keyError/could not connect to display :0
+
+## 推荐阅读
+
+- [docker practice for Chinese](https://github.com/yeasy/docker_practice)
