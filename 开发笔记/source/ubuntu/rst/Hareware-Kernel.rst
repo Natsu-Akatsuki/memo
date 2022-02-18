@@ -286,6 +286,14 @@ bluetoothctl
    $ sync 
    $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"
 
+清理swap
+~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 直接清除（需内存有足够的空间来处理swap的数据）
+   $ sudo swapoff -a; sudo swapon -a
+
 CPU
 ^^^
 
@@ -419,8 +427,8 @@ CPU
 .. attention:: 修改完后记得apply
 
 
-其他实战
-~~~~~~~~
+挂载
+~~~~
 
 
 * 命令行实现U盘挂载
@@ -443,6 +451,7 @@ CPU
 
    $ sudo mount -o remount rw <挂载点>
    # -o: option
+   # --bind： mount --bind <olddir> <newdir> 重新挂载
 
 情况二：文件名不兼容(for windows)
 
@@ -598,6 +607,25 @@ USB
 
 内核
 ----
+
+apt安装
+^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ version = "5.11.0-44"
+   $ sudo apt install linux-image-${version}-generic linux-header-${version}-generic
+   linux-modules-${version}-generic linux-modules-extra-${version}-generic
+
+.. note:: 遗漏module模块或无法识别wifi/声卡模块
+
+
+查看已安装的内核版本
+^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ dpkg --get-selections | grep linux-image
 
 升级内核以解决硬件驱动无法识别的问题
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -756,3 +784,33 @@ USB
 .. prompt:: bash $,# auto
 
    $ edquota <user_name>
+
+`使用chroot修复系统 <https://help.ubuntu.com/community/LiveCdRecovery>`_
+----------------------------------------------------------------------------
+
+
+* chroot的作用相当于在系统B（引导盘）执行系统A（受损系统）的可执行文件，以下为使用chroot来修复镜像
+
+.. prompt:: bash $,# auto
+
+   # 挂载系统盘
+   # mount <device_name> <mount_point>
+   $ sudo mount /dev/sda1 /mnt
+   $ sudo mount --bind /dev /mnt/dev
+   $ sudo mount --bind /proc /mnt/proc
+   $ sudo mount --bind /sys /mnt/sys
+   $ sudo mount <boot位置> /mnt/boot
+   # 切换根目录
+   $ sudo chroot /mnt
+
+   # todo ...
+
+   # 取消挂载
+   $ umount /mnt/boot
+   $ umount /mnt/sys
+   $ umount /mnt/proc
+   $ umount /mnt/dev
+   $ umount /mnt/
+
+
+* `其他应用 <https://help.ubuntu.com/community/LiveCdRecovery>`_\ （已尝试过可修改分区）

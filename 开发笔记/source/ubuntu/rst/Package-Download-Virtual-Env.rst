@@ -391,7 +391,7 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
    # sudo add-apt-repository ppa:user/ppa-name
    $ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir
 
-.. note:: 本质上是往 ``/etc/apt/sources.list.d``中添加source.list
+.. note:: 本质上是往 ``/etc/apt/sources.list.d`` 中添加source.list
 
 
 `创建PPA <https://help.launchpad.net/Packaging/PPA>`_

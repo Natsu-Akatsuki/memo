@@ -223,6 +223,13 @@ $ sync
 $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches" 
 ```
 
+#### 清理swap
+
+```bash
+# 直接清除（需内存有足够的空间来处理swap的数据）
+$ sudo swapoff -a; sudo swapon -a
+```
+
 ### CPU
 
 #### 更改CPU工作模式
@@ -314,7 +321,7 @@ $ sudo parted device_name print
 
 .. attention:: 修改完后记得apply
 
-#### 其他实战
+#### 挂载
 
 * 命令行实现U盘挂载
 
@@ -333,6 +340,7 @@ $ mount <device_name> <mount_point>
 ```bash
 $ sudo mount -o remount rw <挂载点>
 # -o: option
+# --bind： mount --bind <olddir> <newdir> 重新挂载              
 ```
 
 情况二：文件名不兼容(for windows)
@@ -440,6 +448,22 @@ KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="06
 ```
 
 ## 内核
+
+### apt安装
+
+```bash
+$ version = "5.11.0-44"
+$ sudo apt install linux-image-${version}-generic linux-header-${version}-generic
+linux-modules-${version}-generic linux-modules-extra-${version}-generic
+```
+
+.. note:: 遗漏module模块或无法识别wifi/声卡模块
+
+### 查看已安装的内核版本
+
+```bash
+$ dpkg --get-selections | grep linux-image
+```
 
 ### 升级内核以解决硬件驱动无法识别的问题
 
@@ -556,3 +580,30 @@ $ quotaon -v <相关路径>
 ```bash
 $ edquota <user_name>
 ```
+
+## [使用chroot修复系统](https://help.ubuntu.com/community/LiveCdRecovery)
+
+* chroot的作用相当于在系统B（引导盘）执行系统A（受损系统）的可执行文件，以下为使用chroot来修复镜像
+
+```bash
+# 挂载系统盘
+# mount <device_name> <mount_point>
+$ sudo mount /dev/sda1 /mnt
+$ sudo mount --bind /dev /mnt/dev
+$ sudo mount --bind /proc /mnt/proc
+$ sudo mount --bind /sys /mnt/sys
+$ sudo mount <boot位置> /mnt/boot
+# 切换根目录
+$ sudo chroot /mnt
+
+# todo ...
+
+# 取消挂载
+$ umount /mnt/boot
+$ umount /mnt/sys
+$ umount /mnt/proc
+$ umount /mnt/dev
+$ umount /mnt/
+```
+
+* [其他应用](https://help.ubuntu.com/community/LiveCdRecovery)（已尝试过可修改分区）

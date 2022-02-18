@@ -373,7 +373,7 @@ bash option
    # -i：启动交互式的脚本（若没显式制定-i，bash会根据代码是否有IO交互，隐式加上 -i ）
    # -v：执行脚本前，先显示脚本内容
    # -x：显示正在执行的命令行(commands)和其参数(arguments)
-   # -e：若有一个命令行返回值为非0则退出脚本
+   # -e：若有一个命令行返回值为非0则退出(end)脚本
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vc2ZAhmLzlmLH17y.png!thumbnail" alt="img" style="zoom:67%; " />`
 
@@ -389,6 +389,14 @@ bash option
    temp="..."
    [ -z "$temp" ] 单对中括号变量必须要加双引号
    [[ -z $temp ]] 双对括号，变量不用加双引号
+
+   # 一般配合if语法使用
+   # if [...]
+   # then
+   # fi  
+
+   # 常用：
+   # -d: 文件夹存在
 
 .. attention:: 注意空格，[空格... 空格]
 

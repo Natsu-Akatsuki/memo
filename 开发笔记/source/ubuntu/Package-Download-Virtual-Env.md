@@ -332,7 +332,7 @@ $ mamba install <package_name>
 $ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir
 ```
 
-.. note:: 本质上是往 ``/etc/apt/sources.list.d``中添加source.list
+.. note:: 本质上是往 ``/etc/apt/sources.list.d`` 中添加source.list
 
 ### [创建PPA](https://help.launchpad.net/Packaging/PPA)
 
