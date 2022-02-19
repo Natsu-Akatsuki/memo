@@ -79,3 +79,19 @@ GRUB_GFXPAYLOAD_LINUX=keep
 
 在bios设置启动引导优先级，优先为ubuntu
 
+## grub界面显示异常
+
+```bash
+$ sudo update-grub
+```
+
+## [制作多重引导](https://www.linuxbabe.com/apps/create-multiboot-usb-linux-windows-iso)
+
+步骤一：安装[Ventory](https://github.com/ventoy/Ventoy/releases)并用其格式化U盘
+
+步骤二：安装镜像并导入到U盘
+
+镜像网站参考：
+
+* ubuntu
+* [kubuntu](https://kubuntu.org/getkubuntu/)
