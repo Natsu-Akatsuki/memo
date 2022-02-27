@@ -72,7 +72,6 @@ AmBook
    :caption: ros
 
    ros/rst/command-api.rst
-   ros/rst/launch.rst
    ros/rst/nodelet.rst   
    ros/rst/ros-practice.rst
 
