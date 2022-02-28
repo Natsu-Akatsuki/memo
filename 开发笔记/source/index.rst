@@ -22,8 +22,8 @@ AmBook
    :hidden:
    :caption: cmake
 
-   cmake/rst/cmake-practice.rst
-   cmake/rst/semantic.rst
+   cmake/rst/CmakePractice.rst
+   cmake/rst/Semantic.rst
 
 .. toctree::
    :maxdepth: 1

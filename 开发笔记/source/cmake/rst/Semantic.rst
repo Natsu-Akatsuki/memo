@@ -75,8 +75,8 @@ Alias target
        src/main.cpp
    )
    message(${SOURCES})   # src/Hello.cppsrc/main.cpp
-   set(env{变量名} 值)    # 获取环境变量 
-   message($env{HOME})   # 使用环境变量
+   set(ENV{变量名} 值)    # 获取环境变量（注意ENV需要大写）
+   message($ENV{HOME})   # 使用环境变量
 
 .. hint:: 单个variable有多个arguments时，用分号将argument进行concatenate后再进行赋值；然而message显示时，不会出现分号；使用一个变量时，不同于 bash可以不加上{}，在 CMakelists中一定要加上
 
@@ -90,6 +90,7 @@ Alias target
 
    add_library(target_name STATIC 文件名)     # 静态库
    add_library(target_name SHARED 文件名)     # 动态库
+   add_library(target_name OBJECT 文件名)     # object file
 
 生成可执行文件
 ^^^^^^^^^^^^^^
@@ -188,6 +189,13 @@ Alias target
    :alt: img
 
 
+添加宏
+^^^^^^
+
+.. code-block:: cmake
+
+   add_definitions(-DPERFORMANCE_LOG)
+
 `修改target属性 <https://cmake.org/cmake/help/v3.18/manual/cmake-properties.7.html#target-properties>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -234,6 +242,9 @@ Alias target
 `给target添加编译选项 <https://cmake.org/cmake/help/latest/command/target_compile_options.html?highlight=target_compile_options>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
+* 普通编译项
+
 .. code-block:: cmake
 
    # e.g.
@@ -251,6 +262,13 @@ Alias target
 
 .. note:: add_compile_options()作用于所有编译器，CMAKE_CXX_FLAGS或CMAKE_C_FLAGS分别只针对c++，c编译器
 
+
+
+* `优化编译项目 <https://www.zhihu.com/question/443340911>`_
+
+.. code-block:: cmake
+
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
 
 `find_package <https://cmake.org/cmake/help/v3.18/command/find_package.html?highlight=find_package>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

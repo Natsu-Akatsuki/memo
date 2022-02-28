@@ -1,6 +1,17 @@
-# cmake-practice
+# CmakePractice
 
 <p align="right">Author: kuzen, Natsu-Akatsuki</p>
+
+## make
+
+### [make uninstall](https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#can-i-do-make-uninstall-with-cmake)
+
+默认不提供make uninstall，需要自己定义。相关内容等价于：
+
+```bash
+# 但并不能删除相关的文件夹
+$ xargs rm < install_manifest.txt
+```
 
 ## cmake
 
@@ -282,9 +293,11 @@ $ colcon graph
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912141918386.png" alt="image-20210912141918386" style="zoom: 80%; " />
 
-检查一波 `package.xml` 是否写好了`build tag`
+检查一：检查一波 `package.xml` 是否写好了`build tag`
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/AYu9WKlHPlES5yu7.png!thumbnail" alt="img" style="zoom:67%; " />
+
+检查二：若使用catkin build的话检查一波是否将find_package(catkin REQUIRED...)放置于第三方库find_package的前面（具体原因未知，此为经验性结论）
 
 ### /usr/bin/ld: cannot find -l
 

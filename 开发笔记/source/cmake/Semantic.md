@@ -42,8 +42,8 @@ set(SOURCES
     src/main.cpp
 )
 message(${SOURCES})   # src/Hello.cppsrc/main.cpp
-set(env{变量名} 值)    # 获取环境变量 
-message($env{HOME})   # 使用环境变量
+set(ENV{变量名} 值)    # 获取环境变量（注意ENV需要大写）
+message($ENV{HOME})   # 使用环境变量
 ```
 
 .. hint:: 单个variable有多个arguments时，用分号将argument进行concatenate后再进行赋值；然而message显示时，不会出现分号；使用一个变量时，不同于 bash可以不加上{}，在 CMakelists中一定要加上
@@ -55,6 +55,7 @@ message($env{HOME})   # 使用环境变量
 ```cmake
 add_library(target_name STATIC 文件名)     # 静态库
 add_library(target_name SHARED 文件名)     # 动态库
+add_library(target_name OBJECT 文件名)		# object file
 ```
 
 ### 生成可执行文件
@@ -138,6 +139,12 @@ target_link_libraries(target_name library_name)
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/GVwiCAlL2biYLEkP.png!thumbnail)
 
+### 添加宏
+
+```cmake
+add_definitions(-DPERFORMANCE_LOG)
+```
+
 ### [修改target属性](https://cmake.org/cmake/help/v3.18/manual/cmake-properties.7.html#target-properties)
 
 ```cmake
@@ -179,6 +186,8 @@ add_dependencies(<target> [<target-dependency>]...)
 
 ### [给target添加编译选项](https://cmake.org/cmake/help/latest/command/target_compile_options.html?highlight=target_compile_options)
 
+* 普通编译项
+
 ```cmake
 # e.g.
 add_compile_options(-std=c++14 -O3)
@@ -194,6 +203,12 @@ add_compile_options("")
 .. note:: 该选项会覆盖CMAKE_BUILD_TYPE
 
 .. note:: add_compile_options()作用于所有编译器，CMAKE_CXX_FLAGS或CMAKE_C_FLAGS分别只针对c++，c编译器
+
+* [优化编译项目](https://www.zhihu.com/question/443340911)
+
+```cmake
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+```
 
 ### [find_package](https://cmake.org/cmake/help/v3.18/command/find_package.html?highlight=find_package)
 
