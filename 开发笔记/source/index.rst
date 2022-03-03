@@ -61,10 +61,10 @@ AmBook
    :hidden:
    :caption: python
 
-   python/rst/builtin-library.rst
+   python/rst/BuiltinLibrary.rst
    python/rst/DebugUtils.rst
-   python/rst/python-practice.rst
-   python/rst/third-party-library.rst
+   python/rst/PythonPractice.rst
+   python/rst/ThirdPartyLibrary.rst
 
 .. toctree::
    :maxdepth: 1

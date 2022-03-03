@@ -2,8 +2,8 @@
    :format: html
 
 
-python practice
-===============
+PythonPractice
+==============
 
 exec vs setattr (time)
 ----------------------
@@ -60,7 +60,7 @@ python的 ``信号回调函数`` 的定义和执行只能在\ **主线程**\ 中
 
    import signal
    def keyboard_interrupt_handler(signal, frame):
-       pass
+    pass
    signal.signal(signal.SIGINT, keyboard_interrupt_handler)
 
 信号的默认处理机制
@@ -112,3 +112,33 @@ python的 ``信号回调函数`` 的定义和执行只能在\ **主线程**\ 中
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220208113642115.png
    :alt: image-20220208113642115
 
+
+构建配置文件
+------------
+
+
+* 
+  在大型深度学习模型中，通常需要使用配置文件存储参数
+
+* 
+  方法一：基于python构建，内部存储字典数据，然后到时import python文件（参考livox_detection）
+
+.. code-block:: python
+
+   # config/config.py
+   CLASSES = ['car', 'bus', 'truck', 'pedestrian', 'bimo']
+
+----
+
+.. code-block:: python
+
+   # 另一文件用于调用该配置
+   import config.config as cfg
+
+
+* 方法二：基于yaml存放配置参数，然后调用内置库读取（参考OpenPCDet）
+
+.. code-block:: python
+
+   DATASET: 'KittiDataset'
+   DATA_PATH: '../data/kitti'

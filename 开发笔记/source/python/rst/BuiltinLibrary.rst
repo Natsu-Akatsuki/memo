@@ -2,40 +2,17 @@
    :format: html
 
 
-builtin-library-practice
-========================
+BuiltinLibrary
+==============
 
-os
---
+collections
+-----------
 
-设置环境变量
-^^^^^^^^^^^^
+`defaultdict <https://docs.python.org/3/library/collections.html#defaultdict-objects>`_
+-------------------------------------------------------------------------------------------
 
-.. code-block:: python
 
-   import os
-
-   # 设置环境变量
-   os.environ["..."] = "value"
-   # 获取环境变量
-   os.getenv("环境变量名")
-
-signal
-------
-
-.. code-block:: python
-
-   def handle_int(sig, frame):
-       """
-       自定义信号回调函数
-       Returns:
-
-       """
-       print("get signal: %s, I will quit" % sig)
-       sys.exit(0)
-
-   if __name__ == '__main__':
-       signal.signal(2, handle_int)
+* `defaultdict和dict的区别？ <https://www.jianshu.com/p/bbd258f99fd3>`_\ （没键时会返回工厂函数默认值）
 
 `multiprocessing <https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing>`_
 ------------------------------------------------------------------------------------------------------
@@ -116,6 +93,45 @@ python多进程中定义信号处理函数、自定义进程类
        time.sleep(1)
        print(f'fatherProcess: {os.getpid()}')
 
+os
+--
+
+设置环境变量
+^^^^^^^^^^^^
+
+.. code-block:: python
+
+   import os
+
+   # 设置环境变量
+   os.environ["..."] = "value"
+   # 获取环境变量
+   os.getenv("环境变量名")
+
+signal
+------
+
+.. code-block:: python
+
+   def handle_int(sig, frame):
+       """
+       自定义信号回调函数
+       Returns:
+
+       """
+       print("get signal: %s, I will quit" % sig)
+       sys.exit(0)
+
+   if __name__ == '__main__':
+       signal.signal(2, handle_int)
+
+`shutils <https://docs.python.org/3/library/shutil.html#>`_
+---------------------------------------------------------------
+
+.. prompt:: bash $,# auto
+
+   # 数据拷贝
+
 `struct <https://docs.python.org/3/library/struct.html>`_
 -------------------------------------------------------------
 
@@ -186,15 +202,6 @@ https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-liter
 
 ----
 
-collections
------------
-
-`defaultdict <https://docs.python.org/3/library/collections.html#defaultdict-objects>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-* `defaultdict和dict的区别？ <https://www.jianshu.com/p/bbd258f99fd3>`_\ （没键时会返回工厂函数默认值）
-
 `字典操作 <https://docs.python.org/3/library/stdtypes.html?highlight=dict#mapping-types-dict>`_
 ---------------------------------------------------------------------------------------------------
 
@@ -221,8 +228,8 @@ collections
    # 删除某个键值对
    del d["two"]
 
-`subprocess（创建一个终端来执行程序） <https://docs.python.org/3.7/library/subprocess.html>`_
--------------------------------------------------------------------------------------------------
+`subprocess <https://docs.python.org/3.7/library/subprocess.html>`_
+-----------------------------------------------------------------------
 
 subprocess.call
 ^^^^^^^^^^^^^^^
@@ -238,3 +245,37 @@ subprocess.call
    # option:
    # cwd: <change working directory 路径跳转，此为执行命令的路径，可为相对路径>
    # env: <环境变量>
+
+Q&A
+^^^
+
+
+* os.system和subprocess的区别？(\ `ref <https://docs.python.org/3/library/subprocess.html#replacing-os-system>`_\ )
+
+后者是前者的超集，可更自定义和灵活（能处理SIGINT和SIGQUIT信号）
+
+.. prompt:: bash $,# auto
+
+   sts = os.system("mycmd" + " myarg")
+   # becomes
+   retcode = call("mycmd" + " myarg", shell=True)
+
+time
+----
+
+.. code-block:: python
+
+   import time
+   # measure wall time
+   start = time.time()
+   print('TIME(ms)  is=',1000 * (time.time() - start))
+
+   # Return the value (in fractional seconds) of the sum of the system and user CPU time of the current process. It does not include time elapsed during sleep. It is process-wide by definition.
+   # measure process time
+   start = time.process_time()
+   print('TIME(ms)  is=',1000 * (time.process_time() - start))
+
+migration
+^^^^^^^^^
+
+python3.8后已移除time.clock()，可以使用time.perf_counter()或time.process_time()方法替代

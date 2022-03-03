@@ -2,8 +2,8 @@
    :format: html
 
 
-third-party library
-===================
+ThirdPartyLibrary
+=================
 
 easydict
 --------
@@ -26,7 +26,153 @@ easydict
 IO
 --
 
-上色：\ `colorama <https://pypi.org/project/colorama/>`_
+`colorama <https://pypi.org/project/colorama/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+设置print颜色
+
+glob
+^^^^
+
+内置库
+
+.. code-block:: python
+
+   import glob
+   glob.glob(<含通配符的文件夹路径>)
+   # 绝对路径
+   print(glob.glob('/home/*.rviz'))
+   # return: ['/home/detection.rviz', '/home/default.rviz']
+   # 相对路径
+   print(glob.glob('*.rviz'))
+   # return: ['detection.rviz', 'default.rviz']
+
+numpy
+^^^^^
+
+
+* 
+  ``<np对象>.tofile(<文件名(str)>)`` 将数组的数据以 ``二进制`` 的格式写入文件（需要指定数据类型和数据形状），不保存数组形状和数据类型
+
+* 
+  ``np.fromfile()`` 将其读回时需要指定数据类型，并按需进行形状上的修改
+
+.. code-block:: python
+
+   # 从kitti bin文件中读取点云的坐标值
+   np.fromfile(<文件名(str)>, dtype=np.float32).reshape(-1,4)[:,0:3]
+
+
+* ``np.loadtxt()`` 读取txt文件
+
+.. code-block:: python
+
+   # 从modelnetv40的txt文件中读取点云的坐标数据
+   np.loadtxt(<文件名(str)>, delimiter=',', dtype=np.float32)[:,0:3]
+
+
+* np.savetxt() 将列表或numpy数组导出为txt文件
+
+.. code-block:: python
+
+   np.savetxt(<文件名(str)>, <需要保存的数据>, fmt='%06u')
+
+其中fmt中表示对输出数据的格式化，补0操作仅适用于数值型数据，经实测，"%06s"时不会进行补0操作
+
+os
+^^
+
+内置库
+
+.. code-block:: python
+
+   import os
+   # 返回指定路径下的文件或文件夹列表
+   dirs = os.listdir(<某个路径名(str)>)
+   # 路径拼接
+   os.path.join(<某个路径名(str)>, <某个路径名(str)>)
+   # 返回某个文件的base name
+   os.path.basename(filename)
+   # 分离拓展名和文件名
+   os.path.splitext(filename)
+
+shutil
+^^^^^^
+
+
+* 需要相关的文件夹已经创建，否则会显示"no such file or directory"
+
+.. code-block:: python
+
+   import shutil
+   # 拷贝文件
+   shutil.copy(src=..., dst=...)
+   # 剪切文件
+   shutil.move(src=..., dst=...)
+
+内置语法
+^^^^^^^^
+
+.. code-block:: python
+
+   with open(<文件名(str)>,'r') as f:
+     f.readlines()        # 一次性读取全部（返回的是列表）
+     (or) for line in f:  # 迭代地读取
+
+.. note:: 从bin文件中进行读取更省时间，从txt读点云(10000,6) 需要80ms，从bin读点云需要4ms
+
+
+IO模块总结
+^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - **module**
+     - return object type
+     - 
+   * - pickle（外置库）
+     - python object
+     - 二进制数据存储 .pkl
+   * - numpy（外置库）
+     - ndarray object
+     - 
+   * - yaml（外置库pyyaml）
+     - python object(dict)
+     - .yaml
+
+
+都需要open出一个IO object才能 load / dump
+
+.. code-block:: python
+
+   import pickle
+   with open(<文件名(str)>, 'wb') as f:
+     pickle.dump(object:f)
+
+   with open(<文件名(str)>, 'rb') as f:
+     infos = pickle.load(object:f)
+
+----
+
+.. code-block:: python
+
+   import numpy as np
+   with open(<文件名(str)>, 'wb') as f:
+     np.tofile(object:f)
+
+   with open(<文件名(str)>, 'rb') as f:
+     infos = np.fromfile(object:f)
+
+----
+
+.. code-block:: python
+
+   import yaml
+   with open('<文件名(str)>', 'r') as f:  # 可使用相对路径
+       yaml_config = yaml.load(f, Loader=yaml.FullLoader)
+
+----
 
 multithreading
 --------------
@@ -96,6 +242,13 @@ e.g：有关广播机制
    b = [[2,3],[3,2]]
    c = a * b  # [[2,3],[6,4]]
 
+
+* cross: 向量叉乘
+
+.. code-block:: python
+
+   np.cross(A, B)
+
 矩阵运算
 ^^^^^^^^
 
@@ -106,16 +259,34 @@ e.g：有关广播机制
 
    np.linalg.inv(<矩阵>)
 
-创建数组
+计算协方差矩阵
+~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # (m,n) 共有n个数据，每个数据包含m个属性
+   # Each row of m represents a variable, and each column a single observation of all those variables. Also see rowvar below.
+   x1 = np.array([[1, 1, 2, 4, 2], [1, 3, 3, 4, 4]])
+   y1 = np.cov(x1, bias=True) # [[1.2 0.8], [0.8 1.2]]
+
+.. attention:: 默认使用的是无偏估计(bias=False即/(n-1))
+
+
+创建矩阵
 ^^^^^^^^
+
+零矩阵
+~~~~~~
 
 .. code-block:: python
 
    # 传shape(tuple)
    np.zeros((448,224,30))
+   # 初始化代价矩阵
+   iou_matrix = np.zeros((len(detections), len(trackers)), dtype=np.float32)
 
-创建对角阵
-~~~~~~~~~~
+对角阵
+~~~~~~
 
 .. code-block:: python
 
@@ -169,9 +340,9 @@ flatten
 
 * 一维数组的堆叠
 
-np.column_stack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 等价于np.hstack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 
+np.column_stack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 等价于np.hstack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ )等价于np.stack((np_arrayA,np_arrayB),axis=1)
 
-np.row_stack((\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) ) 等价于np.vstack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) 
+np.row_stack((\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) ) 等价于np.vstack(\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ )等价于np.stack((np_arrayA,np_arrayB),axis=0)
 
 索引
 ^^^^
@@ -199,6 +370,13 @@ np.row_stack((\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) )
 
 * 而索引单个元素时，则效果一致，没有区别e.g. array [0][1] == array[0,1]
 * np一维数组shape的表示为（N,）\ **（含逗号）**
+
+-
+
+.. code-block:: python
+
+   arr = np.array([1, 3, 4, 5, 7])
+   >>> arr[1:-1] # 3, 4, 5（不包含7）
 
 ----
 
@@ -292,10 +470,78 @@ numpy矩阵相乘运算cpu占用率大
 .. note:: 对一维数组进行转置并不会生成(1,N)或(N,1)
 
 
-Ellipsis 省略号...
-~~~~~~~~~~~~~~~~~~
+Ellipsis 省略号
+~~~~~~~~~~~~~~~
 
-是冒号':'的拓展，避免写多个:，如[:, :, 0]等价于[..., 0]；索引时只能存在一个
+...是冒号':'的拓展，避免写多个:，如[:, :, 0]等价于[..., 0]；索引时只能存在一个
+
+
+open3D
+------
+
+点云实例化
+^^^^^^^^^^
+
+.. code-block:: python
+
+   # np -> o3d object
+   point_cloud_o3d = o3d.geometry.PointCloud()
+   # append geometry(without intensity)
+   point_cloud_o3d.points = o3d.utility.Vector3dVector(pointcloud[:,:3])
+
+.. attention:: 不能有强度信息（该接口现不支持）
+
+
+去地面
+^^^^^^
+
+.. code-block:: python
+
+   import open3d as o3d
+
+   pcd = o3d.io.read_point_cloud("livox_pointcloud.pcd")
+   # 平面模型参数
+   plane_model, inliers = pcd.segment_plane(distance_threshold=0.05, ransac_n=3, num_iterations=1000)
+   inlier_cloud = pcd.select_by_index(inliers)
+   inlier_cloud.paint_uniform_color([1.0, 0, 0])
+   outlier_cloud = pcd.select_by_index(inliers, invert=True)
+   o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220209220528192.png" alt="image-20220209220528192" style="zoom:50%;" />`
+
+滤波
+^^^^
+
+
+* `基于统计学滤波 <http://www.open3d.org/docs/release/python_api/open3d.geometry.PointCloud.html?highlight=remove_statistical_outlier#open3d.geometry.PointCloud.remove_statistical_outlier>`_\ （剔除离群点）
+
+.. code-block:: python
+
+   pcd = o3d.io.read_point_cloud("livox_pointcloud.pcd")
+   filtered_pc, inliers = pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
+
+ML
+^^
+
+安装
+~~~~
+
+.. prompt:: bash $,# auto
+
+   # 使用官方的指定的pytorch, cuda版本，否则要源码编译
+   $ git clone https://github.com/isl-org/Open3D-ML.git
+   $ cd Open3D-ML
+   $ pip install -r requirements-torch-cuda.txt
+   # 测试安装效果
+   $ python -c "import open3d.ml.torch as ml3d"
+
+.. note:: 其集成度较高，适用于训练和预测（不适合于**部署**）
+
+
+VIS
+^^^
+
+（至2021.2.11）其可视化交互界面的文档暂时不是很全，上手比较麻烦
 
 opencv
 ------
@@ -675,6 +921,24 @@ pyinstaller的GUI版本
 
 主要用于开发命令行工具
 
+`pyttsx3 <https://pyttsx3.readthedocs.io/en/latest/engine.html>`_
+---------------------------------------------------------------------
+
+
+* 文本转语音
+
+.. code-block:: python
+
+   import pyttsx3
+
+   engine = pyttsx3.init()
+   # to fix bug: Full dictionary is not installed for 'zh'
+   # 使用普通话语音包
+   engine.setProperty('voice', 'zh')
+   # 设置语速
+   engine.setProperty('rate', 130)
+   pyttsx3.speak('测试')
+
 scipy
 -----
 
@@ -693,7 +957,75 @@ scipy
        plt.plot(points[simplex,0], points[simplex,1], 'k-')
    plt.show()
 
-https://realpython.com/python-menus-toolbars/
+读取数据(DL)
+------------
 
- 
--
+以下几种读取常规的图片时速度基本一样
+
+matplotlib
+^^^^^^^^^^
+
+.. code-block:: python
+
+   from matplotlib import image
+   matplotlib_image = image.imread('<str 图片路径>')
+
+opencv
+^^^^^^
+
+读取后直接为np类型的数据，layout为(H,W,C)，若是彩色图，则显色模式为(B,G,R)(三通道uint8)；其可根据图像的类型自行调节是读取rgb还是灰度值。但推荐加入\ ``.convert``\ 使代码更具可读性
+
+.. code-block:: python
+
+   import cv2
+   cv2_image = cv2.imread(<str 图片路径>)
+
+PIL
+^^^
+
+pytorch在读取数据时使用\ **PIL**\ 较多
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ pip install pillow
+   # 如果要显示图片的话需要安装imagemagick
+   $ sudo apt install imagemagick
+
+
+* rgb图读取后的layout为(W,H)，转为numpy后的layout为(H,W,C)，显色模式为rgb
+
+.. code-block:: python
+
+   from PIL import Image
+   import numpy as np
+   pil_image = np.asarray(Image.open(<str 图片路径>))
+
+.. note:: 读取后的图片在pytorch中不能直接使用而需要转换下通道（对应于transpose(2,0,1)）。实际上在pytorch中使用transforms.Totensor时即完成了该步骤。
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220303202020834.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220303202020834.png
+   :alt: image-20220303202020834
+
+
+skimage
+^^^^^^^
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ pip install scikit-image
+
+
+* 效果等同于opencv
+
+.. code-block:: python
+
+   from skimage import io
+   io_image = io.imread(<str 图片路径>)
