@@ -1,6 +1,6 @@
 
-Environment Setting
-===================
+EnvSetup
+========
 
 cudnn和TensorRT的tar包下载页面需要使用NVIDIA账号登入
 
@@ -26,7 +26,7 @@ nvidia-driver
 即使用ubuntu开发者提供的驱动包，会有更好的兼容性
 
 
-* 方案二：用apt 安装显卡驱动
+* 方案二：用apt安装显卡驱动
 
 本部分等价于在gui来安装显卡驱动
 
@@ -304,7 +304,7 @@ KMS使能内核区(kernel space)设置分辨率和颜色深度，而不是在用
 安装
 ^^^^
 
-步骤一：\ `tar包下载 <https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html>`_
+步骤一：\ `tar包下载 <https://developer.nvidia.com/cudnn>`_
 
 步骤二：解压与赋值
 
@@ -369,11 +369,14 @@ cuda
    * - tensorRT 8.2.2.1
      - 
      - cudnn 8.2.1
+   * - tensorRT 8.2.3.0
+     - cuda_11.4.r11.4
+     - cudnn 8.2.4
 
 
 步骤二：
 
-`tar包下载与安装 <https://developer.nvidia.com/nvidia-tensorrt-download>`_\ ：更灵活的安装方式，可灵活地切换版本，不需要很严格的版本对应(e.g. cuda/cudnn)
+`tar包下载与安装 <https://developer.nvidia.com/tensorrt>`_\ ：更灵活的安装方式，可灵活地切换版本，不需要很严格的版本对应(e.g. cuda/cudnn)
 
 Debian下载：这种下载方式需要解决的依赖问题挺多的，较麻烦的，e.g.：
 

@@ -107,11 +107,11 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: deep-learning
+   :caption: DeepLearning
    
-   deep-learning/rst/cuda-practice.rst
-   deep-learning/rst/env-building.rst
-   deep-learning/rst/TensorRT-practice.rst   
-   deep-learning/rst/preprocess.rst
-   deep-learning/rst/pytorch-practice.rst
+   DeepLearning/rst/CUDAPractice.rst
+   DeepLearning/rst/EnvSetup.rst
+   DeepLearning/rst/TensorRTPractice.rst
+   DeepLearning/rst/ONNXPractice.rst
+   DeepLearning/rst/PytorchPractice.rst
    

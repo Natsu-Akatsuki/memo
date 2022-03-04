@@ -1,4 +1,4 @@
-# Environment Setting
+# EnvSetup
 
 cudnn和TensorRT的tar包下载页面需要使用NVIDIA账号登入
 
@@ -16,7 +16,7 @@ cudnn和TensorRT的tar包下载页面需要使用NVIDIA账号登入
 
 即使用ubuntu开发者提供的驱动包，会有更好的兼容性
 
-- 方案二：用apt 安装显卡驱动
+- 方案二：用apt安装显卡驱动
 
 本部分等价于在gui来安装显卡驱动
 
@@ -226,7 +226,7 @@ $ radeontop -c
 
 ### 安装
 
-步骤一：[tar包下载](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)
+步骤一：[tar包下载](https://developer.nvidia.com/cudnn)
 
 步骤二：解压与赋值
 
@@ -273,10 +273,11 @@ $ ./cuda-uninstaller
 | tensorRT 7.2.3   | cuda_11.1       | cudnn 8.1.0 |
 | tensorRT 8.0.0.3 | cuda_11.2.r11.2 | cudnn 8.1.1 |
 | tensorRT 8.2.2.1 |                 | cudnn 8.2.1 |
+| tensorRT 8.2.3.0 | cuda_11.4.r11.4 | cudnn 8.2.4 |
 
 步骤二：
 
-[tar包下载与安装](https://developer.nvidia.com/nvidia-tensorrt-download)：更灵活的安装方式，可灵活地切换版本，不需要很严格的版本对应(e.g. cuda/cudnn)
+[tar包下载与安装](https://developer.nvidia.com/tensorrt)：更灵活的安装方式，可灵活地切换版本，不需要很严格的版本对应(e.g. cuda/cudnn)
 
 Debian下载：这种下载方式需要解决的依赖问题挺多的，较麻烦的，e.g.：
 
