@@ -2,8 +2,8 @@
    :format: html
 
 
-git practice
-============
+GitPractice
+===========
 
 `查看annotation <https://www.jetbrains.com/help/pycharm/investigate-changes.html#annotate_blame>`_
 ------------------------------------------------------------------------------------------------------
@@ -57,16 +57,13 @@ http使用push和pull都需要显式在命令行输入口令（账号、密码�
 
    $ ssh -T git@github.com
 
-利用hook防止用不合法的邮箱进行commit
-------------------------------------
-
-知识点
-^^^^^^
+Hook
+----
 
 
-#. git ``hook``\ 是一个脚本（bash或者python均可），是执行一些git的操作前或者操作后需要运行的脚本
-#. ``hook``\ 可以根据触发的时机分为两类：客户端(clien-side)或者服务端(server-side)，前者如git commit/merge，后者如服务端接收到推送的commit
-#. 执行\ ``git init``\ 后会有一系列的hook模板在\ ``.git/hooks``\ 下生成，以供参考，可以在此基础上进行修改
+* git ``hook``\ 是一个脚本（bash或者python均可），是执行一些git的操作前或者操作后需要运行的脚本
+* ``hook``\ 可以根据触发的时机分为两类：客户端(clien-side)或者服务端(server-side)，前者如git commit/merge，后者如服务端接收到推送的commit
+* 执行\ ``git init``\ 后会有一系列的hook模板在\ ``.git/hooks``\ 下生成，以供参考，可以在此基础上进行修改
 
 .. prompt:: bash $,# auto
 
@@ -88,11 +85,29 @@ http使用push和pull都需要显式在命令行输入口令（账号、密码�
 .. attention:: 使用前面提到的 `git/hook` 中的脚本，并不能同步到远程仓
 
 
-参考资料
-^^^^^^^^
+`Precommit <https://pre-commit.com/#install>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+使用gitcommit可以生成本地的git hook
+
+.. prompt:: bash $,# auto
+
+   # 安装
+   $ pip install pre-commit
+   # run pre-commit install to set up the git hook scripts
+   $ pre-commit install
+   # 手动触发precommit
+   $ pre-commit run --all-files
+
+----
+
+**案例**
 
 
-#. `怎样防止同事用QQ邮箱提交公司代码 <https://mp.weixin.qq.com/s/nTujGu1tbde--X3KEO22WA>`_
+* `precommit 添加isort <https://www.architecture-performance.fr/ap_blog/some-pre-commit-git-hooks-for-python/>`_
+* `怎样防止同事用QQ邮箱提交公司代码 <https://mp.weixin.qq.com/s/nTujGu1tbde--X3KEO22WA>`_
+
+----
 
 `删除历史记录中不合适的数据 <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository>`_
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -179,10 +194,7 @@ BFG
 
 * 相应的配置文件为 ``.git/info/exclude`` 和 ``.gitignore`` ，前者为 ``git init`` 时创建；后者一般上传至远程仓，跟别人共享一份配置
 * J家 IDE可以用\ ``.ignore``\ 插件来生成.ignore模板文件
-* `.ignore中的一些语法 <https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository>`_
-
-  * 遵从通配符模式找文件，\ **默认递归**\ 地查找工作空间的文件
-  * 开头加上\ ``/``\ 表示取消递归
+* `.ignore中的一些语法 <https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository>`_\ ：遵从通配符模式找文件，\ **默认递归**\ 地查找工作空间的文件；开头加上\ ``/``\ 表示\ **取消递归**
 
 回溯到某个commit
 ----------------
@@ -399,7 +411,7 @@ revert
 一般用得较多的就是对远程仓分支和本地仓分支的合并 ``merge`` ，merge有几种情况，一种是不需要解决冲突的，一种是需要解决冲突的
 
 删除分支
---------
+^^^^^^^^
 
 .. prompt:: bash $,# auto
 
@@ -409,6 +421,24 @@ revert
    $ git branch -D <branch_name>
    # 删除远程分支
    $ git branch -r -D <branch_name>
+
+子仓库
+------
+
+参考\ ``man gitsubmodules``
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220317085145018.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220317085145018.png
+   :alt: image-20220317085145018
+
+
+.. prompt:: bash $,# auto
+
+   # 移除子仓库在.gitlink和.gitmodules中相关的元数据、还有其工作空间
+   $ git rm <submodule path> && git commit
+   # 手动移除子仓库的git文件
+   $ rm -rf <GIT_DIR>/modules/<name>
 
 环境变量
 --------
@@ -514,6 +544,18 @@ README
 
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/prusa_vs_ender.png" alt="img" width=200 height=100 align="left"/>`
+
+
+* `gif图片图破 <http://progsharing.blogspot.com/2018/06/gifs-on-github-pages-content-length.html>`_\ ：链接的gif图不能超过5Mb
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115094459924.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115094459924.png
+   :alt: image-20220115094459924
+
+
+`术语 <https://git-scm.com/docs/gitglossary>`_
+--------------------------------------------------
 
 拓展资料
 --------

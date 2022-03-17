@@ -1,5 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
-### CMake template
+>>> CMake template >>>
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -12,7 +11,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
-### ROS template
+>>> ROS template >>>
 devel/
 logs/
 build/
@@ -65,7 +64,7 @@ qtcreator-*
 # Catkin custom files
 CATKIN_IGNORE
 
-### Linux template
+>>> Linux template
 *~
 
 # temporary files which can be created if a process still has a handle open of a deleted file
@@ -80,7 +79,7 @@ CATKIN_IGNORE
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
-### C template
+>>> C template >>>
 # Prerequisites
 *.d
 
@@ -134,7 +133,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-### C++ template
+>>> C++ template >>>
 # Prerequisites
 *.d
 
@@ -168,7 +167,7 @@ dkms.conf
 *.out
 *.app
 
-### CUDA template
+>>> CUDA template >>>
 *.i
 *.ii
 *.gpu
@@ -176,11 +175,12 @@ dkms.conf
 *.cubin
 *.fatbin
 
-### Example user template template
-### Example user template
-
+>>> IDE >>>
 # IntelliJ project files
 .idea
 *.iml
 out
 gen
+
+>>> User custom >>>
+cmake-*
