@@ -89,7 +89,7 @@ wifi配置(for nmcli)
 
 .. prompt:: bash $,# auto
 
-   nmcli dev wifi show
+   $ nmcli dev wifi show
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173513012.png" alt="image-20210825173513012" style="zoom:67%; " />`
 
@@ -98,7 +98,7 @@ wifi配置(for nmcli)
 
 .. prompt:: bash $,# auto
 
-   sudo nmcli dev wifi connect <wifi_ssid> password <password>
+   $ sudo nmcli dev wifi connect <wifi_ssid> password <password>
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173745117.png" alt="image-20210825173745117" style="zoom:67%; " />`
 
@@ -591,7 +591,7 @@ Flags  Possible flags include
 同时收发激光雷达数据和上网
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-使用了激光雷达后无法使用无线上网： ``路由规则`` （i.e. 描述数据传输的路径）配置不妥当。 
+使用了激光雷达后无法使用无线上网： ``路由规则`` （i.e. 描述数据传输的路径）配置不妥当。
 
 以下 ``路由规则`` 为：目的地ip为 ``192.168.1.*`` 时使用有线网卡 ``enp89s0`` 进行广播；目的地ip为 ``192.168.43.*`` 时使用无线网卡 ``wlp0s20f3`` 进行广播；同理目的地ip为 ``169.254.*.*`` 时使用有线网卡 ``enp89s0``\ ；其他目的地ip则使用metric最小的默认路由，相关的数据经过有线网卡 ``enp89s0`` ，传输到网关 ``192.168.1.1`` （理论上应该是经过无线网卡 ``wlp0s20f3`` ，传输到网关 ``192.168.43.1`` ）
 

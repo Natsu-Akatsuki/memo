@@ -89,7 +89,7 @@ $ sudo update-grub
 
 步骤一：安装[Ventory](https://github.com/ventoy/Ventoy/releases)并用其格式化U盘
 
-步骤二：安装镜像并导入到U盘
+步骤二：安装镜像并导入到U盘后即可使用
 
 镜像网站参考：
 

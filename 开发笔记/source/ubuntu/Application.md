@@ -1,4 +1,4 @@
-# Application(common use)
+# com(common use)
 
 ## 文档编辑
 
@@ -48,8 +48,7 @@ $ sudo apt install zeal
 - [生成docset](https://github.com/chinmaygarde/doxygen2docset)
 
 ```bash
-$ doxygen2docset --doxygen ${HOME}/pcl-pcl-1.12.0/build/doc/doxy
-gen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
+$ doxygen2docset --doxygen ${HOME}/pcl-pcl-1.12.0/build/doc/doxygen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
 ```
 
 - 将生成的docset拷贝到zeal保存docset的位置
@@ -59,8 +58,8 @@ gen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
 TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以编译生成docset。因此需要自己从html文件[生成docset文件](https://kapeli.com/docsets#dashDocset)（步骤一：根据该教程构建相应的文件结构）。在已有html文件的基础上生成docset([html->docset](https://github.com/selfboot/html2Dash)).
 
 ```bash
-# e.g.
-$ python html2dash.py -n tensorrt cpp
+# e.g. python html2dash.py -n <docsset_name> <src_dir>
+$ python html2dash.py -n tensorrt_docset tensorrt
 ```
 
 ---
@@ -92,7 +91,8 @@ $ doxygen2docset --doxygen <src> --docset <dst>
 
 #### 常用可导入的docset
 
-- ROS: <https://github.com/beckerpascal/ros.org.docset>（自行下载和导入）
+- [ROS1](https://github.com/beckerpascal/ros.org.docset): 需下载和导入
+- [pytorch cpp docs](https://github.com/pytorch/cppdocs)：需下载、转换和导入
 
 ---
 
@@ -104,12 +104,28 @@ $ doxygen2docset --doxygen <src> --docset <dst>
 $ sudo apt install knotes
 ```
 
-### [zotera（论文资料管理）](https://www.zotero.org/download/)
+### [zotero（论文资料管理）](https://www.zotero.org/download/)
+
+#### 安装
+
+- 脚本安装
 
 ```bash
 # 步骤一：解压后执行脚本 set_launcher_icon
 # 步骤二：添加软链接: e.g:
 $ ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop
+```
+
+- [apt安装](https://github.com/retorquere/zotero-deb)
+
+```bash
+$ wget -qO- https://apt.retorque.re/file/zotero-apt/install.sh | sudo bash
+$ sudo apt update
+$ sudo apt install zotero # zotero-beta
+
+# 卸载
+$ wget -qO- https://apt.retorque.re/file/zotero-apt/uninstall.sh | sudo bash
+$ sudo apt-get purge zotero
 ```
 
 #### 导出中文引用
@@ -141,6 +157,8 @@ $ ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop
 ---
 
 ## 云盘
+
+### [坚果云](https://www.jianguoyun.com/s/downloads/linux)
 
 ### [百度云](https://pan.baidu.com/download/)
 
@@ -240,6 +258,7 @@ $ asciinema auth
 - [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related)（页面检索工具）（默认快捷键为`ctrl+shift+F`）
 - [proxy-switchomega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?utm_source=chrome-ntp-icon)
 - [ar5iv](https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon)（在arxiv上增设ar5iv接口）
+- [omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon)（有点命令行管理操作的味道）
 
 ### [快捷键](https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts)
 

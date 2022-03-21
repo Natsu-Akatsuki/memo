@@ -2,8 +2,8 @@
    :format: html
 
 
-Application(common use)
-=======================
+com(common use)
+===============
 
 文档编辑
 --------
@@ -73,8 +73,7 @@ IDE
 
 .. prompt:: bash $,# auto
 
-   $ doxygen2docset --doxygen ${HOME}/pcl-pcl-1.12.0/build/doc/doxy
-   gen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
+   $ doxygen2docset --doxygen ${HOME}/pcl-pcl-1.12.0/build/doc/doxygen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
 
 
 * 将生成的docset拷贝到zeal保存docset的位置
@@ -86,8 +85,8 @@ TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以
 
 .. prompt:: bash $,# auto
 
-   # e.g.
-   $ python html2dash.py -n tensorrt cpp
+   # e.g. python html2dash.py -n <docsset_name> <src_dir>
+   $ python html2dash.py -n tensorrt_docset tensorrt
 
 ----
 
@@ -124,7 +123,8 @@ TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以
 ~~~~~~~~~~~~~~~~~~
 
 
-* ROS: https://github.com/beckerpascal/ros.org.docset（自行下载和导入）
+* `ROS1 <https://github.com/beckerpascal/ros.org.docset>`_\ : 需下载和导入
+* `pytorch cpp docs <https://github.com/pytorch/cppdocs>`_\ ：需下载、转换和导入
 
 ----
 
@@ -138,14 +138,33 @@ knotes（可置顶的便签）
 
    $ sudo apt install knotes
 
-`zotera（论文资料管理） <https://www.zotero.org/download/>`_
+`zotero（论文资料管理） <https://www.zotero.org/download/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+安装
+~~~~
+
+
+* 脚本安装
 
 .. prompt:: bash $,# auto
 
    # 步骤一：解压后执行脚本 set_launcher_icon
    # 步骤二：添加软链接: e.g:
    $ ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop
+
+
+* `apt安装 <https://github.com/retorquere/zotero-deb>`_
+
+.. prompt:: bash $,# auto
+
+   $ wget -qO- https://apt.retorque.re/file/zotero-apt/install.sh | sudo bash
+   $ sudo apt update
+   $ sudo apt install zotero # zotero-beta
+
+   # 卸载
+   $ wget -qO- https://apt.retorque.re/file/zotero-apt/uninstall.sh | sudo bash
+   $ sudo apt-get purge zotero
 
 导出中文引用
 ~~~~~~~~~~~~
@@ -182,6 +201,9 @@ knotes（可置顶的便签）
 
 云盘
 ----
+
+`坚果云 <https://www.jianguoyun.com/s/downloads/linux>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 `百度云 <https://pan.baidu.com/download/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -310,6 +332,7 @@ knotes（可置顶的便签）
 * `Quick Find for Google Chrome <https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related>`_\ （页面检索工具）（默认快捷键为\ ``ctrl+shift+F``\ ）
 * `proxy-switchomega <https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?utm_source=chrome-ntp-icon>`_
 * `ar5iv <https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon>`_\ （在arxiv上增设ar5iv接口）
+* `omni <https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon>`_\ （有点命令行管理操作的味道）
 
 `快捷键 <https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

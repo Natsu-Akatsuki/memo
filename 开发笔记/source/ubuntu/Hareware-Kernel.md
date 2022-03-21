@@ -147,7 +147,7 @@ $ sudo update-pciids
 
 #### hcitool
 
-- 查看当前蓝牙设备
+* 查看当前蓝牙设备
 
 ```bash
 $ hcitool dev
@@ -155,7 +155,7 @@ $ hcitool dev
 #   hci0 30:E3:7A:1C:FE:E3
 ```
 
-- 配置蓝牙连接
+* 配置蓝牙连接
 
 ```bash
 # 打开设备
@@ -228,6 +228,12 @@ $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"
 ```bash
 # 直接清除（需内存有足够的空间来处理swap的数据）
 $ sudo swapoff -a; sudo swapon -a
+```
+
+#### [查看使用交换空间的进程](https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/)
+
+```bash
+$ for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r
 ```
 
 ### CPU
@@ -359,7 +365,7 @@ $ sudo blkid
 
 windows默认不支持ext4文件系统的读写，需要下载软件实现额外的支持
 
-- U盘格式化（for KDE）：Disks
+* U盘格式化（for KDE）：Disks
 
 ![image-20220104145417626](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220104145417626.png)
 
@@ -533,7 +539,7 @@ $ sudo do-release-upgrade
 
 ### 内核模块
 
-*  `.ko` 为模块后缀
+* `.ko` 为模块后缀
 
 #### 常用指令
 

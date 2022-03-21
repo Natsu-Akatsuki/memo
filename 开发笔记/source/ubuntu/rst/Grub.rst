@@ -120,7 +120,7 @@ grub界面显示异常
 
 步骤一：安装\ `Ventory <https://github.com/ventoy/Ventoy/releases>`_\ 并用其格式化U盘
 
-步骤二：安装镜像并导入到U盘
+步骤二：安装镜像并导入到U盘后即可使用
 
 镜像网站参考：
 

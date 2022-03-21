@@ -66,7 +66,7 @@ nmcli dev wifi
 ### 显示当前wifi的相关信息
 
 ```bash
-nmcli dev wifi show
+$ nmcli dev wifi show
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173513012.png" alt="image-20210825173513012" style="zoom:67%; " />
@@ -74,7 +74,7 @@ nmcli dev wifi show
 ### 命令行连接wifi
 
 ```bash
-sudo nmcli dev wifi connect <wifi_ssid> password <password>
+$ sudo nmcli dev wifi connect <wifi_ssid> password <password>
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173745117.png" alt="image-20210825173745117" style="zoom:67%; " />
@@ -322,11 +322,11 @@ $ sudo arp-scan -l <-I device_name>
 
 ## 查看是否正常地分配到ip
 
-* 网卡已正确获取IP地址：
+- 网卡已正确获取IP地址：
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/pb4XovJl3q1QlGQ1.png!thumbnail" style="zoom: 80%; " />
 
-* 网卡未正确获得IP地址：
+- 网卡未正确获得IP地址：
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/pb4XovJl3q1QlGQ1.png!thumbnail" alt="img" style="zoom: 80%; " />
 
@@ -479,15 +479,15 @@ domain(geosite:geolocation-!cn)->proxy
 
 ### 网络故障排除清单
 
-* 是否有网卡，有网卡后，网卡是否启动
-* 网卡是否正确的配置，用ifconfig判断是否正确获得了ip
-* dns是否正确的配置
-* 是否有ip冲突（使用DHCP自动分配或重新静态绑定个未使用的ip）
-* 是否启动了代理
+- 是否有网卡，有网卡后，网卡是否启动
+- 网卡是否正确的配置，用ifconfig判断是否正确获得了ip
+- dns是否正确的配置
+- 是否有ip冲突（使用DHCP自动分配或重新静态绑定个未使用的ip）
+- 是否启动了代理
 
 ### 同时收发激光雷达数据和上网
 
-使用了激光雷达后无法使用无线上网： `路由规则` （i.e. 描述数据传输的路径）配置不妥当。 
+使用了激光雷达后无法使用无线上网： `路由规则` （i.e. 描述数据传输的路径）配置不妥当。
 
 以下 `路由规则` 为：目的地ip为 `192.168.1.*` 时使用有线网卡 `enp89s0` 进行广播；目的地ip为 `192.168.43.*` 时使用无线网卡 `wlp0s20f3` 进行广播；同理目的地ip为 `169.254.*.*` 时使用有线网卡 `enp89s0`；其他目的地ip则使用metric最小的默认路由，相关的数据经过有线网卡 `enp89s0` ，传输到网关 `192.168.1.1` （理论上应该是经过无线网卡 `wlp0s20f3` ，传输到网关 `192.168.43.1` ）
 

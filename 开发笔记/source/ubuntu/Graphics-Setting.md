@@ -179,7 +179,7 @@ XFCE为轻量级的display manager
 ## 使用nvidia渲染的opengl
 
 ```bash
-$ _NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia <命令行>
+$ __NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia <命令行>
 ```
 
 ## 黑屏DEBUG

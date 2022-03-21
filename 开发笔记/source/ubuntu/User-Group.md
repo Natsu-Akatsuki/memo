@@ -150,9 +150,13 @@ $ chgrp -R <group_name> <directory/file>
 
 用户A创建文件或文件夹时，该文件的文件组所有者属性从属于 `有效用户组`
 
-### 给文件夹增加SGID权限
+### chmod
 
 ```bash
+# chmod [OPTION]... MODE[,MODE]... FILE...
+$ chmod -R 777 .
+# -R: 递归
+# 给文件夹增加SGID权限
 $ chmod g+s <directory>
 ```
 

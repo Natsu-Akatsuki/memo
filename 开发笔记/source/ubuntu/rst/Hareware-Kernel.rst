@@ -294,6 +294,13 @@ bluetoothctl
    # 直接清除（需内存有足够的空间来处理swap的数据）
    $ sudo swapoff -a; sudo swapon -a
 
+`查看使用交换空间的进程 <https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r
+
 CPU
 ^^^
 

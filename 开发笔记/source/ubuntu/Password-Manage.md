@@ -50,6 +50,7 @@ $ pass -c <pass_name>
 * 加、修、删密码
 
 ```bash
+# 进行前需要先初始化
 # 添加密码
 $ psss insert <pass_name>
 # 修改密码
@@ -60,10 +61,11 @@ $ pass rm <pass_name>
 
 ### 初始化pass
 
-存储和读取任何密码都需要进行初始化，以使能gpg进行加密和解密
+**存储和读取任何密码都需要进行初始化**，以使能gpg进行加密和解密
 
 ```bash
-$ pass init <gpg-id or email>>
+# gpg-id为创建gpg时的用户名
+$ pass init <gpg-id or email>
 ```
 
 .. note:: 密码名可以带斜杠 `/`
@@ -109,3 +111,10 @@ $ gpg -p <file.gpg>
 .. note:: 文件需以gpg为后缀，其中内容类似
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220125003811163.png" alt="image-20220125003811163" style="zoom:67%;" />
+
+## [设置命令行界面免密码登录](https://blog.csdn.net/linzhiji/article/details/117336433)
+
+- [有关该命令行的具体描述](https://askubuntu.com/questions/819117/how-can-i-get-autologin-at-startup-working-on-ubuntu-server-16-04-1)
+
+
+

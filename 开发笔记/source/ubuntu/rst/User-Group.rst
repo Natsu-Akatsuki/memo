@@ -180,11 +180,15 @@ switch user
 
 用户A创建文件或文件夹时，该文件的文件组所有者属性从属于 ``有效用户组``
 
-给文件夹增加SGID权限
-^^^^^^^^^^^^^^^^^^^^
+chmod
+^^^^^
 
 .. prompt:: bash $,# auto
 
+   # chmod [OPTION]... MODE[,MODE]... FILE...
+   $ chmod -R 777 .
+   # -R: 递归
+   # 给文件夹增加SGID权限
    $ chmod g+s <directory>
 
 .. hint:: SGID权限即用户在该文件夹下的有效用户组为该文件夹下的用户组；用户在该文件夹下添加的文件或文件夹，这些实体的用户组权限跟该文件夹用户组权限相同
