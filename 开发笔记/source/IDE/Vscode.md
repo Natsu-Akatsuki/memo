@@ -117,6 +117,25 @@ $ sudo pip3 install flawfinder
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907093539625.png" alt="image-20210907093539625" style="zoom:67%; " />
 
+* markdown lint(markdown文档规范化)
+
+```json
+// 配置文档示例
+"markdownlint.config": {
+    "MD013": {
+        "code_blocks": false
+    },
+    "MD014": false,
+    "MD033": false,
+    "line-length": false,
+    "no-inline-html": {
+        "allowed_elements": [
+            
+        ]
+    }
+}
+```
+
 ### 其他
 
 * markdown math：给vscode中markdown添加数学支持（latex）
@@ -126,6 +145,7 @@ $ sudo pip3 install flawfinder
 * Code Spell Checker：拼写检查与修正
 * Live Share: 实时协作写代码（微软官方插件）
 * Live Share Audio：为Live Share开启语音交流（微软官方插件）
+* meld diff：文本比对（支持粘贴版）
 
 ## 实战
 
@@ -258,4 +278,3 @@ pandoc常用选项：
 | :--------------: | :--------------------------: |
 |     括号跳转     | ctrl+shift+\  (i.e. ctrl+\|) |
 | 打开最近工作空间 |            ctrl+r            |
-

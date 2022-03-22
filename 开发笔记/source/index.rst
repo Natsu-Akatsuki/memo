@@ -45,9 +45,8 @@ AmBook
    :hidden:
    :caption: IDE
 
-   IDE/rst/vscode.rst
-   IDE/rst/clion.rst
-   IDE/rst/pycharm.rst
+   IDE/rst/Jetbrain.rst
+   IDE/rst/Vscode.rst   
 
 .. toctree::
    :maxdepth: 1
