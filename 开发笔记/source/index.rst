@@ -35,6 +35,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: env
+
+   env/rst/Driver.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: git
 
    git/rst/GitPractice.rst
