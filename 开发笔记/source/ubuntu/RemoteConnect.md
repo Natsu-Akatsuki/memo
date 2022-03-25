@@ -1,4 +1,4 @@
-# Remote Connect
+# RemoteConnect
 
 ## ssh
 
@@ -50,22 +50,25 @@ $ ssh -X user_name@ip_address
 $ sudo apt install tigervnc-common tigervnc-standalone-server
 # 安装完后，设置密码和进行一波初始化
 $ vncserver
+
+# 关闭某个vncserver
+$ vncserver -kill :1
 ```
 
 ### 服务端修改配置文档
 
-添加文件`~.vnc/xstartup`
+添加文件`~/.vnc/xstartup`
 
-* 使用KDE ssdm display manager
+* 使用**KDE ssdm display manager**
 
 ```bash
 #!/bin/bash
 unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
+unset DBUS_SESSION_BUS_ADDRESSt
 dbus-launch startplasma-x11
 ```
 
-* 使用xfce display manager
+* 使用**xfce display manager**
 
 ```bash
 #!/bin/bash
@@ -78,7 +81,11 @@ exec startxfce4
 
 ```bash
 # 尺寸/配置文件/控制端口号
-$ vncserver [-geometry 1920x1080] [-xstartup /usr/bin/xterm] :1 
+# vncserver [-geometry 1920x1080] [-xstartup /usr/bin/xterm] :1
+# 默认根据~/.vnc/xstartup的内容进行启动
+$ vncserver -geometry 1920x1080 
+# 重新设置vnc密码
+$ vncpasswd
 ```
 
 ### 启动vnc client
@@ -107,10 +114,19 @@ $ vncviewer
 
 ### [noVNC(web)](https://github.com/novnc/noVNC)
 
+- 以web端的方式交付vnc
+
 ```bash
-$ git clone https://github.com/novnc/noVNC.git
+$ git clone https://github.com/novnc/noVNC.git --depth=1
 # install（也可以通过snap安装）和启动
 $ ./utils/novnc_proxy --vnc localhost:5901
 ```
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/oTge9ryVokLqPaFk.png!thumbnail)
+
+.. note:: 在vnc server端启动
+
+.. note:: 跟vnc viewer一样无法传special key进行操作
+
+
+

@@ -2,8 +2,8 @@
    :format: html
 
 
-File && Dir Manage
-==================
+FileDirManage
+=============
 
 
 .. raw:: html
@@ -96,6 +96,15 @@ find
 
    # find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
    # -name: file name
+
+
+* 文件类型：
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220323140153693.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220323140153693.png
+   :alt: image-20220323140153693
+
 
 du
 ^^
@@ -388,7 +397,32 @@ spacevim下的常用快捷键：
    # 案例：对/etc/passwd的内容以账号id进行排序
    $ cat /etc/passwd | sort -t ':' -k 3 -n
 
-文件替换
+diff
+^^^^
+
+记录文件改变的内容/不同的地方
+
+.. prompt:: bash $,# auto
+
+   $ diff A B
+
+patch
+^^^^^
+
+
+* 
+  `相关案例 <https://www.runoob.com/linux/linux-comm-patch.html>`_
+
+* 
+  根据文件的不同还原文件
+
+.. prompt:: bash $,# auto
+
+   # patch - apply a diff file to an original
+   $ patch [options] [originalfile [patchfile]]
+   e.g. patch -pnum patchfile
+
+文本替换
 --------
 
 sed
@@ -399,7 +433,7 @@ sed
 
 .. prompt:: bash $,# auto
 
-   sed [OPTION] {script-only-if-no-other-script} [input-file]...
+   $ sed [OPTION] {script-only-if-no-other-script} [input-file]...
 
    {script-only-if-no-other-script}
    s/<正则表达式（待替换的内容）>/<替换的内容>/：使用正则表达式进行替换
@@ -413,7 +447,7 @@ sed
 .. prompt:: bash $,# auto
 
    # 替换code-block为prompt-block
-   $ m2r ${file}&& sed -i -e 's/.. prompt:: bash $,# auto/.. prompt:: bash $,# auto/' ${fileDirname}/${fileBasenameNoExtension}.rst
+   $ m2r ${file} && sed -i -e 's/.. prompt:: bash $,# auto/.. prompt:: bash $,# auto/' ${fileDirname}/${fileBasenameNoExtension}.rst
 
    # 替换code-block为prompt-block
    # 去掉行首的第一个$ prompt
@@ -533,6 +567,9 @@ xargs
    $ dirname <absolute_file_name>
    $ basename <absolute_file_name>
    # -s <extension> 去后缀
+
+   # 统计new line个数≈行数
+   $ wc -
 
 文件比对
 --------

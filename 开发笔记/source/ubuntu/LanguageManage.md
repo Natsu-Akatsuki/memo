@@ -1,4 +1,4 @@
-# Language Manage
+# LanguageManage
 
 ## 查看当前语系信息
 

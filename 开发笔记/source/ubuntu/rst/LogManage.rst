@@ -2,8 +2,8 @@
    :format: html
 
 
-Log Manage
-==========
+LogManage
+=========
 
 查看内核日志
 ------------

@@ -1,4 +1,4 @@
-# Password Manage
+# PasswordManage
 
 ## 基于命令行的密码管理([pass](https://wiki.archlinux.org/title/Pass))
 

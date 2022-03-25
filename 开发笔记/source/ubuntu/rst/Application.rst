@@ -2,8 +2,8 @@
    :format: html
 
 
-com(common use)
-===============
+Application
+===========
 
 文档编辑
 --------
@@ -216,7 +216,7 @@ knotes（可置顶的便签）
 
 .. prompt:: bash $,# auto
 
-   $ pip install gdown
+   $ pip install -U gdown
    $ gdown <url>
 
    # e.g.

@@ -1,4 +1,4 @@
-# com(common use)
+# Application
 
 ## 文档编辑
 
@@ -167,7 +167,7 @@ $ sudo apt-get purge zotero
 #### [gdown](https://github.com/wkentaro/gdown)下载文件
 
 ```bash
-$ pip install gdown
+$ pip install -U gdown
 $ gdown <url>
 
 # e.g.

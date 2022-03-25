@@ -1,4 +1,4 @@
-# Hareware && Kernel
+# Hareware&&Kernel
 
 ## 监控资源
 
@@ -458,9 +458,8 @@ KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="06
 ### apt安装
 
 ```bash
-$ version = "5.11.0-44"
-$ sudo apt install linux-image-${version}-generic linux-header-${version}-generic
-linux-modules-${version}-generic linux-modules-extra-${version}-generic
+$ version="5.11.0-44"
+$ sudo apt install linux-image-${version}-generic linux-headers-${version}-generic linux-modules-${version}-generic linux-modules-extra-${version}-generic
 ```
 
 .. note:: 遗漏module模块或无法识别wifi/声卡模块
@@ -490,10 +489,13 @@ $ sudo apt-get update
 $ sudo apt-get install linux-generic-5.12
 ```
 
-* (recommend)在ubuntu20.04升级到5.10+(oem)
+* (recommend)在ubuntu20.04升级到5.10+(oem)，[HWE](https://ubuntu.com/kernel/lifecycle)
 
 ```bash
 $ apt install linux-oem-20.04b
+
+# 2022.3.23: 5.13
+$ sudo apt-get install --install-recommends linux-generic-hwe-20.04
 ```
 
 #### 拓展资料
@@ -539,24 +541,28 @@ $ sudo do-release-upgrade
 
 ### 内核模块
 
-* `.ko` 为模块后缀
+- `.ko`内核模块后缀，一般位于`/lib/moudles/$(uname -r)/kernel`下
 
 #### 常用指令
 
 ```bash
 $ lsmod       # 查看已加载的内核模块（可显示某个模块被调用的情况）
-$ modinfo <module_name>      # 查看内核模块的描述信息
+$ modinfo <module_name>      # 查看内核模块（包括.ko文件）的描述信息
 $ modprobe <module_name>     # 加载内核模块（自动解决依赖问题）
 $ modprobe -r <module_name>  # unload内核模块（自动解决依赖问题）
 ```
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/1aanmMC4HTegOW8H.png!thumbnail)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/1aanmMC4HTegOW8H.png!thumbnail" alt="img" style="zoom:50%;" />
 
 #### 设置模块自启动
 
 将相关模块放置于配置文档 `/etc/modules`
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/P06oQFeLsuYRmDeI.png!thumbnail)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/P06oQFeLsuYRmDeI.png!thumbnail" alt="img" style="zoom:50%;" />
+
+#### 拓展资料
+
+- [load/unload内核](https://opensource.com/article/18/5/how-load-or-unload-linux-kernel-module)
 
 ## 限制用户使用资源(optional)
 
@@ -566,7 +572,7 @@ $ modprobe -r <module_name>  # unload内核模块（自动解决依赖问题）
 $ ulimit -a
 ```
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/TWAvA2t4Oy0sLJpw.png!thumbnail)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/TWAvA2t4Oy0sLJpw.png!thumbnail" alt="img" style="zoom:50%;" />
 
 ### [修改用户ext磁盘资源](https://wiki.archlinux.org/title/Disk_quota)
 

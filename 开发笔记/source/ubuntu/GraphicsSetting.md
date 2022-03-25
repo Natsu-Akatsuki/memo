@@ -1,4 +1,4 @@
-# Graphics Setting
+# GraphicsSetting
 
 ## 安装与卸载窗口管理器
 

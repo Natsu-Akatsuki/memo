@@ -1,4 +1,4 @@
-# File && Dir Manage
+# FileDirManage
 
 <p align="right">Author: kuzen, Natsu-Akatsuki</p>
 
@@ -75,6 +75,10 @@ $ locate <文件名>
 # find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
 # -name: file name
 ```
+
+- 文件类型：
+
+![image-20220323140153693](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220323140153693.png)
 
 ### du
 
@@ -294,14 +298,34 @@ $ sort
 $ cat /etc/passwd | sort -t ':' -k 3 -n
 ```
 
-## 文件替换
+### diff
+
+记录文件改变的内容/不同的地方
+
+```bash
+$ diff A B
+```
+
+### patch
+
+- [相关案例](https://www.runoob.com/linux/linux-comm-patch.html)
+
+- 根据文件的不同还原文件
+
+```bash
+# patch - apply a diff file to an original
+$ patch [options] [originalfile [patchfile]]
+e.g. patch -pnum patchfile
+```
+
+## 文本替换
 
 ### sed
 
 * 语法
 
 ```bash
-sed [OPTION] {script-only-if-no-other-script} [input-file]...
+$ sed [OPTION] {script-only-if-no-other-script} [input-file]...
 
 {script-only-if-no-other-script}
 s/<正则表达式（待替换的内容）>/<替换的内容>/：使用正则表达式进行替换
@@ -313,7 +337,7 @@ s/<正则表达式（待替换的内容）>/<替换的内容>/：使用正则表
 
 ```bash
 # 替换code-block为prompt-block
-$ m2r ${file}&& sed -i -e 's/.. code-block:: bash/.. prompt:: bash $,# auto/' ${fileDirname}/${fileBasenameNoExtension}.rst
+$ m2r ${file} && sed -i -e 's/.. code-block:: bash/.. prompt:: bash $,# auto/' ${fileDirname}/${fileBasenameNoExtension}.rst
 
 # 替换code-block为prompt-block
 # 去掉行首的第一个$ prompt
@@ -417,6 +441,9 @@ $ xargs rm < install_manifest.txt
 $ dirname <absolute_file_name>
 $ basename <absolute_file_name>
 # -s <extension> 去后缀
+
+# 统计new line个数≈行数
+$ wc -
 ```
 
 ## 文件比对

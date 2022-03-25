@@ -2,8 +2,8 @@
    :format: html
 
 
-Network Manage
-==============
+NetworkManage
+=============
 
 `ubuntu server使用的是systemd-networkd（也称networkd）来管理网络，ubuntu desktop使用的是network-manager（也称NetworkManger）来管理网络 <https://www.reddit.com/r/linuxadmin/comments/klhcpt/few_questions_about_networkmanager_vs/>`_
 
