@@ -1,4 +1,4 @@
-# docker practice
+# DockerPractice
 
 ## [Install](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine)
 
@@ -98,9 +98,8 @@ $ sudo ade update-cli
 - 安装（或要科学上网）
 
 ```bash
-$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey | sudo apt-key add - && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+      
 $ sudo apt-get update
 $ sudo apt-get install -y nvidia-docker2
 $ sudo systemctl restart docker
@@ -164,7 +163,10 @@ $ docker run <option> PATH
 # -t: 在容器中启动一个终端
 # -i: 与容器的标准输入进行交互（一般跟-t一起使用）
 # -d: 后台运行
+# -p：端口映射 8888:8888
 ```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328114409807.png" alt="image-20220328114409807" style="zoom:67%;" />
 
 ## Dockerfile
 
@@ -259,7 +261,7 @@ $ systemctl restart docker
 ### [阿里云镜像托管](https://cr.console.aliyun.com/cn-hangzhou/instance/repositories)
 
 ```bash
-# 登录
+# 登录 docker login 无
 $ docker login --username=<...> registry.cn-hangzhou.aliyuncs.com
 # 拉取
 $ docker pull registry.cn-hangzhou.aliyuncs.com/gdut-iidcc/sleipnir:<镜像版本号>
@@ -307,6 +309,7 @@ $ passwd
 7. (test) 在当前电脑上测试看是否能连通
 
 ```bash
+# ssh root@127.0.0.1 -p 13300
 $ ssh root@host_ip -p <host_port>
 ```
 
@@ -341,6 +344,23 @@ $ sudo apt purge docker-ce docker-ce-cli containerd.io
 实测适用于：
 
 - Invalid MIT-MAGIC-COOKIE-1 keyError/could not connect to display :0
+
+### [图形化界面](http://wiki.ros.org/docker/Tutorials/GUI)
+
+## X server
+
+### VNC
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220326225033665.png" alt="image-20220326225033665" style="zoom: 50%;" />
+
+##  web端docker管理工具
+
+```bash
+$ docker pull portainer/portainer
+$ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --restart=always --name prtainer portainer/portainer
+```
+
+![image-20220328135012736](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png)
 
 ## 推荐阅读
 

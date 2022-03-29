@@ -2,7 +2,7 @@
 FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
 
 # >>> 修改源，并安装apt包 >>>
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.gdut.edu.cn/@g /etc/apt/sources.list \
     && apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         apt-utils \
