@@ -60,27 +60,6 @@ $ docker run hello-world
 $ sudo apt purge docker-ce docker-ce-cli containerd.io
 ```
 
-### [docker-compose](https://docs.docker.com/compose/install/)
-
-可用于同时启动多个容器
-
-- 安装
-
-```bash
-$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-$ sudo chmod +x /usr/local/bin/docker-compose
-```
-
-- 常用命令行
-
-```bash
-# --- 需在docker-compose.yml文件所在目录运行
-# 列举compose管理中的容器
-$ docker-compose ps  
-# 删除compose管理下的容器 -v(删除匿名卷) -f（跳过confirm stage）
-$ docker-compose rm   
-```
-
 ### [ade](https://ade-cli.readthedocs.io/en/latest/install.html#requirements)
 
 - 安装
@@ -225,6 +204,62 @@ ENTRYPOINT ["/bin/bash"]
 
 [rangenet](https://github.com/Natsu-Akatsuki/RangeNetTrt8/blob/master/docker/Dockerfile-tensorrt8.2.2)：ubuntu20.04/trt8/ros1/cuda11.1/cudnn8/pytorch
 
+## [Docker-compose](https://docs.docker.com/compose/install/)
+
+可用于同时启动多个容器；相比于自己写脚本，能**更方便地管理容器**
+
+- 安装
+
+```bash
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+
+# apt 也能装但版本较老，一些新特性不支持如deploy
+$ apt install docker-compose # 1.25.0
+```
+
+- 常用命令行
+
+```bash
+# 需在docker-compose.yml文件所在目录运行
+# 列举compose管理中的容器
+$ docker-compose ps  
+# 删除compose管理下的容器 -v(删除匿名卷) -f（跳过confirm stage）
+$ docker-compose rm   
+# 启动当前目录下管理的容器 -d(后台模式)
+$ docker-compose up
+```
+
+- 实例
+
+```yml
+version: "3.9"
+services:
+  ubuntu-20.04-desktop:
+    image: ubuntu-20.04-desktop-gnome:latest
+    build:
+      context: . # 构建方式
+      dockerfile: Dockerfile
+    container_name: ubuntu-desktop
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    network_mode: "host"
+    ports:
+      - "3000"
+      - "8000:8000"
+      - "49100:22"
+      - "127.0.0.1:8001:8001"
+    dns:
+      - 223.5.5.5
+      - 223.6.6.6
+      - 8.8.8.8
+      - 119.29.29.29
+    restart: always # 设置自启动
+```
+
 ## 构建镜像技巧
 
 1. 为减小镜像大小，需要及时删除缓存，例如删除 `apt packages lists`
@@ -353,7 +388,7 @@ $ sudo apt purge docker-ce docker-ce-cli containerd.io
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220326225033665.png" alt="image-20220326225033665" style="zoom: 50%;" />
 
-##  web端docker管理工具
+## web端docker管理工具
 
 ```bash
 $ docker pull portainer/portainer
@@ -361,6 +396,16 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --rest
 ```
 
 ![image-20220328135012736](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png)
+
+## Q&A
+
+- [docker容器的内核能否跟主机的内核不一致？](https://stackoverflow.com/questions/31012297/uname-a-returning-the-same-in-docker-host-or-any-docker-container)
+
+其是保持一致的
+
+- failed to get D-Bus connection
+
+将CMD或者ENTRYPOINT设置为/usr/sbin/init，同时使用--privileged
 
 ## 推荐阅读
 

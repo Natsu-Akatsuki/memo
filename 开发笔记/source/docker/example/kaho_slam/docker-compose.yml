@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  kaho-slam:
+    image: 877381/slam:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kaho-slam
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    network_mode: "host"
+    ports:
+      - "15900:5900" # vncserverPORT
+      - "18888:8888" # jupyterPORT
+      - "31111:22"   # pycharmPORT
+      - "6006:6006"  # tensorboardPORT
+    dns:
+      - 223.5.5.5
+      - 223.6.6.6
+      - 8.8.8.8
+      - 119.29.29.29
+    restart: always # 设置自启动
+    shm_size: 8G
+    volumes: 
+      - ${HOME}/change_ws:/change_ws:rw
