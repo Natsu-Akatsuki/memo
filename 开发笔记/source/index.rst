@@ -50,6 +50,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Hareware
+
+   Hareware/rst/Camera.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: IDE
 
    IDE/rst/Jetbrain.rst
