@@ -21,17 +21,27 @@ Q&A
 
 
 
-* 相机
+* 测试相机：
 
 .. list-table::
    :header-rows: 1
 
    * - 型号
      - 描述
+     - 价格
+     - datasheet
    * - realsense d435i
-     - 已不再生产
-   * - `zed <https://www.stereolabs.com/>`_
-     - 需要配合含nvidia的设备
+     - （双目，intel，立体视觉）停产，RGB为卷帘，其他为全局快门，带IMU
+     - 2500+
+     - 
+   * - `zed2 <https://www.stereolabs.com/>`_
+     - （双目，stereoLab，立体视觉）使用其sdk需要配合含nvidia的设备（显存需大于2G），带IMU，卷帘快门，0.2-20 m，室内外
+     - 4000+
+     - `detail <https://www.stereolabs.com/assets/datasheets/zed2-camera-datasheet.pdf>`_
+   * - AR023Z
+     - （单目：Leopard Imaging）相遇于阿波罗相机套件，支持外部触发，卷帘快门
+     - 4000-4500
+     - `detail <https://www.leopardimaging.com/uploads/LI-USB30-AR023ZWDR_datasheet.pdf>`_
 
 
 Realsense
@@ -82,7 +92,7 @@ Driver
    $ sudo make install
 
    # 添加udev
-   $ ./scripts/setup_udev_rules.sh
+   $ bas./scripts/setup_udev_rules.sh
 
    # test:
    $ realsense-viewer
@@ -215,7 +225,7 @@ Q&A
    :alt: image-20220405153747888
 
 
-.. note:: 可用于填写vins的配置文档
+.. note:: 可用于填写vins的配置文档（应该也是坐标系变换）
 
 
 .. code-block:: yaml
@@ -239,3 +249,137 @@ Q&A
 
 
 * `3种深度相机 realsense 官方 <https://www.intelrealsense.com/beginners-guide-to-depth/>`_
+
+ZED
+---
+
+Driver
+^^^^^^
+
+安装其提供的SDK
+
+----
+
+**Q&A**
+
+
+* 安装包为zed...cuda_11.5是否意味着一定要装cuda11.5？
+
+实测不需要，cuda11.1也可以无损运行
+
+----
+
+测试
+^^^^
+
+.. prompt:: bash $,# auto
+
+   $ ./usr/local/zed/tools/ZED_Explorer
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220408151611757.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220408151611757.png
+   :alt: image-20220408151611757
+
+
+.. prompt:: bash $,# auto
+
+   # SLAM demo
+   $ ./usr/local/zed/tools/ZEDfu
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/9p3grHNRiglgTaac.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/9p3grHNRiglgTaac.png!thumbnail
+   :alt: img
+
+
+DEBUG
+^^^^^
+
+
+* `官网查错清单 <https://support.stereolabs.com/hc/en-us/articles/360010101213-What-do-I-do-if-my-ZED-ZED-Mini-ZED2-ZED2i-is-not-working->`_
+
+----
+
+**NOTE**
+
+
+* ZED Explorer不需要cuda/nvidia显卡
+
+----
+
+
+* 诊断工具
+
+.. prompt:: bash $,# auto
+
+   $ ./usr/local/zed/tools/ZED_Diagnostic
+
+心得总结
+^^^^^^^^
+
+
+* 
+  不同于d435i深度的计算是在设备端的，zed2是在host端的。如果用官方提供的sdk获取深度的话，则需要使用cuda，也就是需要N卡支持。不用它的sdk获取深度的话，则需要自己实现。
+
+* 
+  zed2相机没有红外发射器，不适用于\ **低光照**\ 的场景；基于rgb图像的立体视觉恢复深度+CNN获得视差图
+
+  :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220412192952887.png" alt="image-20220412192952887" style="zoom:50%;" />`
+
+* 
+  zed2使用GPU的话，至少需要2GB的显存
+
+* 支持5.13的内核驱动
+
+v4l2
+----
+
+v4l2设备支持vlc media player打开
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install v4l-utils
+
+
+* 查看相机所有属性
+
+.. prompt:: bash $,# auto
+
+   # v4l2-ctl -d <设备名> -all
+   $ v4l2-ctl -d /dev/video0 --all
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3XpxjcSwtiaE2DHP.jpg!thumbnail" alt="img" style="zoom: 67%; " />`
+
+
+* 查看相机支持的像素格式
+
+.. prompt:: bash $,# auto
+
+   # v4l2-ctl --list-formats -d <设备名>
+   $ v4l2-ctl --list-formats -d /dev/video0
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HBOuewxlOL2nODH3.jpg!thumbnail" alt="img" style="zoom: 33%; " />`
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WHtCs1tGSJbLycNu.jpg!thumbnail" alt="img" style="zoom: 33%; " />`
+
+
+* 查看相机支持的分辨率和帧率
+
+.. prompt:: bash $,# auto
+
+   # v4l2-ctl --list-formats-ext -d <设备名>
+   $ v4l2-ctl --list-formats-ext -d /dev/video2
+
+
+* `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422)%20to%20YUV420P/>`_
+
+vlc media player
+^^^^^^^^^^^^^^^^
+
+无法显示USB相机的视频流时可尝试配置高级模式
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211110105514078.png" alt="image-20211110105514078" style="zoom:50%;" />`
