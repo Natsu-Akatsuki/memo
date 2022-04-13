@@ -5,6 +5,26 @@
 ThirdPartyLibrary
 =================
 
+`numba <https://numba.readthedocs.io/en/stable/user/5minguide.html>`_
+-------------------------------------------------------------------------
+
+安装
+^^^^
+
+.. prompt:: bash $,# auto
+
+   # conda ...
+   $ conda install numba 
+   # pip ...
+   $ pip install numba
+
+使用清单
+^^^^^^^^
+
+
+* 函数是否完全支持numba加速（如：numba不支持np.reshape，np.max只支持first argument，np.linalg.norm只支持前两个argument）
+* 数据类型是否已显式指出或者能根据上下文infer出来
+
 easydict
 --------
 
@@ -29,7 +49,31 @@ IO
 `colorama <https://pypi.org/project/colorama/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-设置print颜色
+彩色print
+
+.. code-block:: python
+
+   from colorama import Fore, Back, Style
+   print(Fore.RED + 'some red text')
+   print(Back.GREEN + 'and with a green background')
+   print(Style.DIM + 'and in dim text')
+   print(Style.RESET_ALL)
+   print('back to normal now')
+
+print
+^^^^^
+
+.. code-block:: python
+
+   print("\033[1;36m 字体颜色：青色\033[0m")
+
+   # 消除之前的print格式化操作对现在的影响\033[
+   # 消除当前的print格式化操作对后面的影响\033[0m       
+   # 1; 字体加粗
+   # 36m 颜色配置
+
+   # print只输出一行
+   print("...",end='\r')  # \r为跳转到首行
 
 glob
 ^^^^
@@ -174,6 +218,88 @@ IO模块总结
 
 ----
 
+matplotlib
+----------
+
+component
+^^^^^^^^^
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/anatomy.png" alt="../../_images/anatomy.png" style="zoom: 25%;" />`
+
+
+* matplotlib在figure中绘图，创建figure的几种方法：
+
+.. code-block:: python
+
+   fig = plt.figure()  # an empty figure with no Axes
+   fig, ax = plt.subplots()  # a figure with a single Axes
+   fig, axs = plt.subplots(2, 2)  # a figure with a 2x2 grid of Axes
+
+.. note:: An Axes is an Artist attached to a Figure that contains a region for plotting data, and usually includes two (or three in the case of 3D) Axis objects (be aware of the difference between Axes and Axis)
+
+
+实例
+^^^^
+
+`给bar添加label <https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_label_demo.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+构建条形图
+~~~~~~~~~~
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220309144728846.png" alt="image-20220309144728846" style="zoom:50%;" />`
+
+.. code-block:: python
+
+   import matplotlib.pyplot as plt
+   import numpy as np
+   import matplotlib
+
+   fig, ax = plt.subplots(dpi=300)
+
+   labels = ["00", "10", "20", "30", "40", "50", "60", "70", "80", "90"]
+
+   X = np.random.uniform(60, 100, 10)
+   Y = np.arange(len(labels))  # the label locations
+
+   # barh
+   bar_height = 0.3
+   acc = ax.barh(Y + bar_height / 2, X, color="red", label='Accuracy', height=bar_height, alpha=0.6)
+   recall = ax.barh(Y - bar_height / 2, X, color="blue", label='Recall', height=bar_height, alpha=0.6)
+
+   # axis label
+   ax.set_xlabel('Metrics')
+   ax.set_ylabel('Epoch')
+
+   ax.set_yticks(ticks=Y, labels=labels)
+
+   bar_padding = 3
+   ax.bar_label(acc, fmt='%.2f', fontsize=6, padding=bar_padding)
+   ax.bar_label(recall, fmt='%.2f', fontsize=6, padding=bar_padding)
+
+   # legend(放置于右上方）
+   ax.legend(loc='upper right')
+   plt.show()
+
+可视化散点图
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from sklearn.decomposition import PCA
+   import numpy as np
+   import matplotlib.pyplot as plt
+
+   sample = np.random.randn(500, 4)
+   colors = np.array(['blue', 'red'])
+   proj_xy = PCA(n_components=2).fit_transform(sample)  # (N * 3, 2)
+   plt.scatter(proj_xy[:250, 0], proj_xy[:250, 1], s=5, color="red")
+   plt.scatter(proj_xy[250:, 0], proj_xy[250:, 1], s=5, color="blue")
+
+   plt.show()
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220313231308602.png" alt="image-20220313231308602" style="zoom: 67%;" />`
+
 multithreading
 --------------
 
@@ -181,6 +307,25 @@ multithreading
 * `native_id和identity的区别？ <https://docs.python.org/3/library/threading.html#threading.get_ident>`_
 
 前者是操作系统对线程的标识号，后者是python的标识号
+
+concurrent
+----------
+
+.. code-block:: python
+
+   import concurrent.futures as futures
+
+
+   def func(idx):
+       return idx
+
+
+   num_worker = 4
+   datas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+   with futures.ThreadPoolExecutor(num_worker) as executor:
+       infos = executor.map(func, datas)
+
+   print(list(infos))  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 numpy
 -----
@@ -230,7 +375,7 @@ e.g：有关广播机制
                                   | 3  3|
                                   | 4  4|
 
-.. note:: 广播操作满足最后一维的大小一样即可
+.. note:: 广播操作需满足从最后一维开始，至少有一个维度的维数相同或者为1或者为0(scalar)
 
 
 
@@ -249,6 +394,14 @@ e.g：有关广播机制
 
    np.cross(A, B)
 
+向量化操作
+^^^^^^^^^^
+
+
+* 其向量化操作并不能提高速度，只是提高易用性
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220406211457847.png" alt="image-20220406211457847" style="zoom:50%;" />`
+
 矩阵运算
 ^^^^^^^^
 
@@ -257,7 +410,13 @@ e.g：有关广播机制
 
 .. code-block:: python
 
+   # 求逆
    np.linalg.inv(<矩阵>)
+   # 另一种形式为：np.matrix(<2D array>).I
+   # 求行列式
+   np.linalg.det()
+   # 解方程
+   np.linalg.solve(a<np.matrix>, b)
 
 计算协方差矩阵
 ~~~~~~~~~~~~~~
@@ -414,15 +573,20 @@ np.row_stack((\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) )
    np.bitwise_or(<bool_np_arrayA>, <bool_np_array>)  # 等价于&
    np.bitwise_and(<bool_np_arrayA>, <bool_np_array>) # 等价于|
 
-强制类型转换
-^^^^^^^^^^^^
+类型转换
+^^^^^^^^
 
 .. code-block:: python
 
    # only apply for scalar object
    np.int/float()
-   # apply for numpy object
+   # apply for numpy object (类型c++的static_cast)
    ().astype()
+
+   numA = np.float32(1)
+   numB = numA.view(np.uint32)
+   print(numB) # 1065353216（类似c++中的reinterpret_cast）
+   print(numA.astype(np.uint32)) # 1（类似c++中的static_cast）
 
 属性
 ^^^^
@@ -435,6 +599,14 @@ np.row_stack((\ :raw-html-m2r:`<np_arrayA>`\ ,\ :raw-html-m2r:`<np_arrayB>`\ ) )
    arr_np.flags.f_contiguous
    # The array owns the memory it uses or borrows it from another object. 是否是引用
    arr_np.flags.owndata
+
+拓维
+^^^^
+
+.. code-block:: python
+
+   # (3,3) -> (1000,3,3)
+   np.exapnd_(a,axis=0).repeat(1000,axis=0)
 
 实战
 ^^^^
@@ -475,6 +647,17 @@ Ellipsis 省略号
 
 ...是冒号':'的拓展，避免写多个:，如[:, :, 0]等价于[..., 0]；索引时只能存在一个
 
+
+`numpy for matlab <https://numpy.org/doc/stable/user/numpy-for-matlab-users.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+分块矩阵的合并
+
+.. code-block:: python
+
+   import numpy as np
+   matA = np.arange(0, 12).reshape(3, 4)
+   mat = np.block([[matA, matA], [matA, matA]])
 
 open3D
 ------
@@ -613,8 +796,8 @@ opencv
    left_sign = cv2.pointPolygonTest(contour_, test_point, False)
    # 其返回值是浮点型
 
-图片读写
-^^^^^^^^
+图片读写和显示
+^^^^^^^^^^^^^^
 
 .. code-block:: python
 
@@ -713,6 +896,15 @@ opencv
    ROI = cv2.selectROIs(img, fromCenter=False, showCrosshair=True)
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220208163816121.png" alt="image-20220208163816121" style="zoom:67%;" />`
+
+colormap
+^^^^^^^^
+
+.. code-block:: python
+
+   import cv2
+   im = cv2.imread('test.jpg', cv2.IMREAD_GRAYSCALE)
+   imC = cv2.applyColorMap(im, cv2.COLORMAP_JET)
 
 图形化
 ------
@@ -860,6 +1052,20 @@ pyinstaller的GUI版本
    # 06.添加后缀
    <Path object>.with_suffix('.jpg')
 
+.. list-table::
+   :header-rows: 1
+
+   * - os
+     - Path
+     - description
+   * - `\ ``os.path.isdir()`` <https://docs.python.org/3.11/library/os.path.html#os.path.isdir>`_
+     - `\ ``Path.is_dir()`` <https://docs.python.org/3.11/library/pathlib.html#pathlib.Path.is_dir>`_
+     - 判断是否是文件夹
+   * - `\ ``os.path.isfile()`` <https://docs.python.org/3.11/library/os.path.html#os.path.isfile>`_
+     - `\ ``Path.is_file()`` <https://docs.python.org/3.11/library/pathlib.html#pathlib.Path.is_file>`_
+     - 判断是否是文件
+
+
 .. hint:: 一些常用属性，以\"/home/helios/path.py\"为例
 
 
@@ -897,6 +1103,9 @@ pyinstaller的GUI版本
    parser.add_argument('--start_epoch', default=0, type=int, help='ignore the checkpoint smaller than this epoch')
 
    parser.add_argument('--set', dest='set_cfgs', default=None, nargs=argparse.REMAINDER, help='set extra config keys if needed')
+
+   # --epochs E, -e E Number of epochs (添加用例m)
+   parser.add_argument('--epochs', '-e', metavar='E', type=int, default=5, help='Number of epochs')
 
    # 步骤三：解析参数（return Namespace object）
    args = parser.parse_args()
@@ -957,6 +1166,74 @@ scipy
        plt.plot(points[simplex,0], points[simplex,1], 'k-')
    plt.show()
 
+进度条
+------
+
+tqdm
+^^^^
+
+
+* template
+
+.. code-block:: python
+
+   from tqdm import tqdm
+   from time import sleep
+
+   # 每次更新+100->总共为1000
+   # Epoch 1: description: 100%|██████████| 1000/1000 [00:01<00:00, 983.91img/s, acc=0.9, loss=0.1]
+   for epoch in range(10):
+       with tqdm(total=1000, desc=f"Epoch {epoch}: description", unit="img") as pbar:
+           for i in range(10):
+               sleep(0.1)
+               pbar.update(100)
+               pbar.set_postfix(loss=0.1, acc=0.9)
+
+
+* trange
+
+.. code-block:: python
+
+   from tqdm import trange
+
+   # 等价于tq
+   for i in trange(100):
+       sleep(0.01)
+
+atpbar
+^^^^^^
+
+多进程进度条
+
+.. code-block:: python
+
+   import multiprocessing
+   from time import sleep
+
+   from atpbar import atpbar, find_reporter, flush, register_reporter
+
+
+   def preprocess(seq):
+       if seq > 2:
+           for _ in atpbar(range(200), name=f"seq {seq}"):
+               sleep(0.01)
+       else:
+           for _ in atpbar(range(100), name=f"seq {seq}"):
+               sleep(0.1)
+
+
+   reporter = find_reporter()
+
+   process_num = 4
+   data = [0, 1, 2, 3]
+   with multiprocessing.Pool(process_num, register_reporter, [reporter]) as p:
+       ret = p.map(preprocess, data)
+       flush()
+
+适用于标准终端：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220414014006649.png" alt="image-20220414014006649"  />`
+
 读取数据(DL)
 ------------
 
@@ -1001,7 +1278,8 @@ pytorch在读取数据时使用\ **PIL**\ 较多
 
    from PIL import Image
    import numpy as np
-   pil_image = np.asarray(Image.open(<str 图片路径>))
+   # 读取rgb时应该添加RGB否则会添加a通道
+   pil_image = np.asarray(Image.open(<str 图片路径>).convert('RGB'))
 
 .. note:: 读取后的图片在pytorch中不能直接使用而需要转换下通道（对应于transpose(2,0,1)）。实际上在pytorch中使用transforms.Totensor时即完成了该步骤。
 

@@ -142,3 +142,196 @@ python的 ``信号回调函数`` 的定义和执行只能在\ **主线程**\ 中
 
    DATASET: 'KittiDataset'
    DATA_PATH: '../data/kitti'
+
+python中的路径问题
+------------------
+
+在windows中读取文件可以使用"\"，但在字符串里面"\"会被当成转义字符，所以要在字符串前加"r"避免转义。windows下的路径也可以使用"/"
+
+.. code-block:: python
+
+   # e.g.
+   "C:/Users/Administrator/Desktop"
+
+字符串处理
+----------
+
+常见操作
+^^^^^^^^
+
+.. code-block:: python
+
+   # 默认去开头/结尾的空格和换行符 \n
+   <str>.strip()
+   # 以某个符号为分界点进行分割（不包含该符号）；默认分割符为空格和换行符
+   <str>.split()
+
+`格式化处理 <https://www.cnblogs.com/dancy0dante/p/12772656.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 格式化
+     - 描述
+   * - %s
+     - 字符串
+   * - %10s
+     - 右对齐，占位符10位（空格补齐）
+   * - %.2s
+     - 只保留两位的字符串
+   * - %10.2s
+     - 10位字符串，只保留两位的字符串
+   * - r"str"
+     - 不对字符串进行转义操作
+   * - u"str"
+     - 以Unicode格式进行编码
+
+
+.. code-block:: python
+
+   num = 100
+   print(f"{num:0>4d}") # 0100
+
+实例
+^^^^
+
+
+* 读取文件P2字段的标定数据
+
+.. code-block:: python
+
+   # 去头去尾（去\n等回车符）-> 以空格为分隔符进行分割 -> 去除'P2:'字符串 -> 类型转换(str->num) -> reshape 得到变换矩阵
+   np.array(lines[2].strip().split(' ')[1:], dtype=np.float32).reshape(3, 4)
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/J4aqiFVnL2EchiUN.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/J4aqiFVnL2EchiUN.png!thumbnail
+   :alt: img
+
+
+`深拷贝和浅拷贝 <https://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html>`_
+----------------------------------------------------------------------------------------------------------
+
+.. code-block:: python
+
+   # 浅拷贝：外层对象地址改变，内层对象地址不改变
+   copy.copy()
+   # 深拷贝：内外层对象地址均改变
+   copy.deepcopy()
+
+语法
+----
+
+内置变量
+^^^^^^^^
+
+字典
+~~~~
+
+用B字典的键值更新A字典的键值
+
+.. code-block:: python
+
+   A = {"a": 1, "b": 2}
+   B = {"a": 3, "b": 3, "c": 4}
+   A.update(B)
+   print(A) # {'a': 3, 'b': 3, 'c': 4}
+
+列表
+~~~~
+
+.. code-block:: python
+
+   # 列表翻转
+   A = [1,4,5,7]
+   A_rev = list(reversed(A)) # list(迭代器)
+
+   # 列表移除某个值（只能移除第一个出现的值）
+   A.remove(<list>)
+
+   A.append(B) # 将列表B以元素的形式加入到列表A中
+   A.extend(B) # 列表B的元素加入到列表B中
+
+集合
+~~~~
+
+.. code-block:: python
+
+   # 交集
+   A & B
+
+匿名函数
+^^^^^^^^
+
+.. code-block:: python
+
+   add = lambda x,y:x + y
+   add(4,3)
+
+继承
+^^^^
+
+
+* 子类不重写init方法，则实例化时自动调用父类的init方法；子类重写init方法后，又想调用父类的init则需要
+
+.. code-block:: python
+
+   # 等价于：父类名称.__init__(self, 参数1, 参数2，...)
+   super(子类，self).__init__(参数1, 参数2, ...)
+
+
+* 多继承时，如果子类没有重写init，实例时自动调用的是第一个类的init方法
+
+`for else <https://blog.csdn.net/wj1066/article/details/81913696>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+迭代完成后执行else后的语句
+
+实战
+----
+
+判断一个数（浮点数）是否是整数
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   # 方法一：
+   (num).is_integer
+
+   # 方法二：
+   num % 1 == 0
+
+编码转换
+^^^^^^^^
+
+str和byte的转换
+~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # byte -> str
+   <byte>.decode()
+   # str -> byte
+   <str>.encode()
+
+img和base64的转换
+~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # img转为base64
+   with open("img_path", 'rb') as f:
+       # 将图片编码成base64 string数据，
+       b64str = base64.b64encode(f.read()).decode()
+
+指定脚本运行的解释器
+^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 相对路径（取决于当前的虚拟环境）
+   #!/usr/bin/env python   
+   # 绝对路径
+   #!/usr/bin/python2.7
+   # 该解释器配置可以被命令行指定的python覆盖
