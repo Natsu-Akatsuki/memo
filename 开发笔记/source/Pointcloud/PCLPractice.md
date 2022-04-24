@@ -1,4 +1,4 @@
-# pcl-practice
+# PCLPractice
 
 ## 将强度转为RGB
 
@@ -60,7 +60,7 @@ def bgr_to_hex(color_np):
 
 ## [自定义点云类型](https://github.com/RobustFieldAutonomyLab/LeGO-LOAM/blob/master/LeGO-LOAM/include/utility.h)
 
-![image-20220112190723590](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220112190723590.png)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220112190723590.png" alt="image-20220112190723590" style="zoom:50%;" />
 
 ## 点云读写
 
@@ -80,9 +80,10 @@ pcl::io::savePCDFileBinaryCompressed("file.pcd",cloud);
 ### [读点云](https://pcl.readthedocs.io/projects/tutorials/en/latest/reading_pcd.html#reading-pcd)
 
 ```c++
-pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-if (pcl::io::loadPCDFile<pcl::PointXYZ>("file.pcd", *cloud) == -1) {
-    PCL_ERROR("Couldn't read file test_pcd.pcd \n");
+typedef pcl::PointXYZ PointType;
+pcl::PointCloud<PointType>::Ptr cloud(new pcl::PointCloud<PointType>);
+if (pcl::io::loadPCDFile<PointType>("file.pcd", *cloud) == -1) {
+    PCL_ERROR("Couldn't read file\n");
     return (-1);
 }
 ```
@@ -120,13 +121,23 @@ if (kdtree.radiusSearch(searchPoint, radius, pointIdxRadiusSearch, pointRadiusSq
 ## 下采样
 
 ```cpp
-typedef pcl::PointXYZI PointType;
-// 进行下采样
-pcl::PointCloud<PointType>::Ptr cloud_filtered(new pcl::PointCloud<PointType>);
-pcl::VoxelGrid<PointType> vg;
-vg.setInputCloud(cloud);
-vg.setLeafSize(0.01f, 0.01f, 0.01f);
-vg.filter(*cloud_filtered);
+typedef pcl::PointXYZ PointType;
+pcl::PointCloud<PointType>::Ptr fcloud;
+
+//// Applies Voxel Grid filter to cloud.
+/// in: leaf_size (size of voxel, in meters), cloud (to be filtered)
+/// out: (in class) fcloud (filtered cloud)
+void applyVoxelFilter(float leaf_size, pcl::PointCloud<PointType>::Ptr cloud);
+
+void applyVoxelFilter(float leaf_size, pcl::PointCloud<PointType>::Ptr cloud,
+                      pcl::PointCloud<PointType>::Ptr fcloud) {
+ fcloud.reset(new pcl::PointCloud<PointType>);
+ 
+ pcl::VoxelGrid<PointType> vg;
+ vg.setInputCloud (cloud);
+ vg.setLeafSize (leaf_size, leaf_size, leaf_size); 
+ vg.filter (*fcloud);
+}
 ```
 
 ## [各种代码块](https://segmentfault.com/a/1190000007125502)
@@ -188,41 +199,103 @@ instance_pointcloud_pub_.publish(output_msg);
 
 ### [对ros点云进行TF变换](http://docs.ros.org/en/indigo/api/pcl_ros/html/namespacepcl__ros.html#a34090d5c8739e1a31749ccf0fd807f91)
 
-- ros点云 + eigen tf
-
-```c++
-sensor_msgs::PointCloud2 pointcloud_with_z_offset;
-// 1*3 -> 3*3 -> 4*4
-Eigen::Affine3f z_up_translation(Eigen::Translation3f(0, 0, z_offset));
-Eigen::Matrix4f z_up_transform = z_up_translation.matrix();
-pcl_ros::transformPointCloud(z_up_transform, transformed_cloud,
-transformed_cloud);
-```
-
 - ros点云 + ros TF + eigen tf
 
 ```c++
-try
+bool LidarApolloInstanceSegmentation::transformCloud(const sensor_msgs::PointCloud2& input, sensor_msgs::PointCloud2& transformed_cloud, float z_offset)
 {
- geometry_msgs::TransformStamped transform_stamped;
- transform_stamped =
- tf_buffer_.lookupTransform(target_frame_, input.header.frame_id, input.header.stamp, ros::Duration(0.5));
- Eigen::Matrix4f affine_matrix = tf2::transformToEigen(transform_stamped.transform).matrix().cast<float>();
- pcl_ros::transformPointCloud(affine_matrix, input, transformed_cloud);
- transformed_cloud.header.frame_id = target_frame_;
-}
-catch (tf2::TransformException& ex)
-{
- ROS_WARN("%s", ex.what());
- return false;
+  // transform pointcloud to target_frame
+  if (target_frame_ != input.header.frame_id)
+  {
+    try
+    {
+      geometry_msgs::TransformStamped transform_stamped;
+      // 得到target_frame_->input_frame的坐标系变换；input_frame在target_frame_的位姿；将input_frame的点云转换到target_frame_的坐标变换
+      transform_stamped =
+          tf_buffer_.lookupTransform(target_frame_, input.header.frame_id, input.header.stamp, ros::Duration(0.5));
+      Eigen::Matrix4f affine_matrix = tf2::transformToEigen(transform_stamped.transform).matrix().cast<float>();
+      pcl_ros::transformPointCloud(affine_matrix, input, transformed_cloud);
+      transformed_cloud.header.frame_id = target_frame_;
+    }
+    catch (tf2::TransformException& ex)
+    {
+      ROS_WARN("%s", ex.what());
+      return false;
+    }
+  }
+  else
+  {
+    transformed_cloud = input;
+  }
+
+  // move pointcloud z_offset in z axis
+  // 点云z数据 + z_offset
+  sensor_msgs::PointCloud2 pointcloud_with_z_offset;
+  Eigen::Affine3f z_up_translation(Eigen::Translation3f(0, 0, z_offset));
+  Eigen::Matrix4f z_up_transform = z_up_translation.matrix();
+  pcl_ros::transformPointCloud(z_up_transform, transformed_cloud, transformed_cloud);
+
+  return true;
 }
 ```
+
+.. note:: PCL有一个点云TF的接口；对于对点的坐标进行变换的话，不是用遍历的方案，而是采用矩阵相乘的方式
 
 ## 常用typedef
 
 ```c++
 typedef pcl::PointXYZI PointType;
 PointType nanPoint;
+```
+
+## 滤波
+
+### 基于统计量的滤波
+
+对每个点找近邻点，该点称为核心点；认为**邻域点到核心点的距离差**（这个统计量）服从正态分布，若邻域点的距离差大于某个阈值则剔除掉该点
+
+```c++
+#include <pcl/point_types.h>
+#include <pcl/filters/statistical_outlier_removal.h>
+
+typedef pcl::PointXYZ PointT
+int main(int argc, char **argv) {
+
+  pcl::PointCloud<PointT>::Ptr cloud(new pcl::PointCloud <PointT>);
+  pcl::PointCloud<PointT>::Ptr cloud_filtered(new pcl::PointCloud <PointT>);
+  // Create the filtering object
+  pcl::StatisticalOutlierRemoval <PointT> sor;
+  sor.setInputCloud(cloud);
+  // 样本数/领域点为50，标准差因子为1, query点的标准差大于1m时则认为是离群点
+  sor.setMeanK(50);
+  sor.setStddevMulThresh(1.0);
+  sor.filter(*cloud_filtered);
+
+  return (0);
+}
+```
+
+### crop滤波
+
+```c++
+#include <pcl/filters/crop_box.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl_conversions/pcl_conversions.h>
+typedef pcl::PointXYZRGB PointT;
+
+// camera frame right, bottom, forward
+constexpr float min_range[3] = {-2.5, -2.0, 0.0};
+constexpr float max_range[3] = {2.5, 2.0, 3.0};
+constexpr float leaf_size = 0.01;
+
+pcl::PointCloud<PointT>::Ptr pointcloud_pcl(new pcl::PointCloud<PointT>);
+pcl::CropBox<PointT> crop;
+crop.setMin(Eigen::Vector4f(min_range[0], min_range[1], min_range[2], 1.0));
+crop.setMax(Eigen::Vector4f(max_range[0], max_range[1], max_range[2], 1.0));
+crop.setInputCloud(pointcloud_pcl);
+crop.setKeepOrganized(true);
+crop.filter(*pointcloud_pcl);
 ```
 
 ## 知识点

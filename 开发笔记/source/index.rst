@@ -71,9 +71,9 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: pointcloud
+   :caption: Pointcloud
 
-   pointcloud/rst/pcl-practice.rst   
+   Pointcloud/rst/PCLPractice.rst   
 
 .. toctree::
    :maxdepth: 1
