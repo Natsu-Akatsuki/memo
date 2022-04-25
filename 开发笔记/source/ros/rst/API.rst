@@ -1,6 +1,6 @@
 
-ros command and api
-===================
+API
+===
 
 
 .. raw:: html

@@ -1,4 +1,4 @@
-# ros-practice
+# RosPractice
 
 ## [基于ros环境导入某个package下的python包](https://roboticsbackend.com/ros-import-python-module-from-another-package/)
 
@@ -192,7 +192,9 @@ pcl/BAGReader
 ...
 ```
 
-## 回调函数同时接收多个数据进行处理
+## 回调函数
+
+### 同时接收多个数据进行处理
 
 ```c++
 // 导入相关头文件
@@ -216,6 +218,21 @@ typedef message_filters::sync_policies::ApproximateTime<
 
 typedef message_filters::Synchronizer<SyncPolicy> Sync;
 Sync sync_;
+```
+
+### Ptr类型
+
+> [sensor_msgs::ImageConstPtr](https://docs.ros.org/en/diamondback/api/sensor_msgs/html/namespaces.html)是什么类型数据？
+
+* 共享指针
+
+![image-20220206215812571](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220206215812571.png)
+
+实际可以如此使用：
+
+```c++
+void TensorrtYolo::callback(const sensor_msgs::Image::Ptr& in_image_msg)
+void TensorrtYolo::callback(const sensor_msgs::Image::Ptr in_image_msg)
 ```
 
 ## [使用gdb调试launch中的节点](http://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20Nodes%20in%20Valgrind%20or%20GDB)
@@ -496,7 +513,7 @@ test01 = test01()
 
 ```xml
 <!-- static_transform_publisher x y z yaw pitch roll 父 子坐标系 -->
-<node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_lidar" args="0, 0, 0, 0, 0, 0 lidar  camera" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_lidar" args="0, 0, 0, 0, 0, 0 lidar camera" />
 ```
 
 ### 图形化查看TF树
@@ -517,6 +534,42 @@ $ rosrun tf2_tools view_frames.py
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/latency.gif)
 
 * 参考资料：[csdn](https://blog.csdn.net/qq_32618327/article/details/121650164)
+
+## 传感器
+
+### 相机
+
+* 将数据从opencv->ros时，一般采用bgr编码方式（opencv原本的数据默认即bgr通道）
+
+```c++
+cv_bridge::CvImagePtr cv_ptr;
+try                 
+{ // 不提供第二个参数时将等效于"passthrough"，不对图片进行变换
+ cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+}
+catch (cv_bridge::Exception& e)
+{
+    ROS_ERROR("cv_bridge exception: %s", e.what());
+    return;
+}
+
+// Update GUI Window
+ image_pub_.publish(cv_ptr->toImageMsg());
+```
+
+* 参考资料：
+
+1. [cv_bridge](http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages)
+
+---
+
+**NOTE**
+
+* opencv默认使用**bgr通道**，im.read读图片的时候是使用bgr通道；im.show正常显示图片需要使用bgr通道；im.write写图片也是需要使用bgr通道（[reference](https://stackoverflow.com/questions/50963283/python-opencv-imshow-doesnt-need-convert-from-bgr-to-rgb)）
+
+*
+
+---
 
 ## TroubleShooting
 

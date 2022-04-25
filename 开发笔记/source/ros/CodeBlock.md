@@ -1,10 +1,6 @@
-## 05.代码块
+# CodeBlock
 
 pub.getNumSubscribers()
-
-
-
-
 
 ## [rostopic](http://docs.ros.org/en/diamondback/api/rostopic/html/)
 
@@ -16,14 +12,10 @@ pub.getNumSubscribers()
  self.sub_ = rospy.Subscriber("主题名", self.ros_type, <回调函数>)
 ```
 
-
-
-
-
 ## 获取handle
 
 ```c++
-/ 适合于nodelet
+// 适合于nodelet
 private_nh_ = getPrivateNodeHandle();
 nh_ = getNodeHandle();
 ```
@@ -48,8 +40,6 @@ debug_pub_ = private_nh_.advertise<sensor_msgs::PointCloud2>("debug/clusters", 1
 
 - [回调函数的写法](https://wiki.ros.org/roscpp_tutorials/Tutorials/UsingClassMethodsAsCallbacks)
 
-
-
 ## rosnode simple
 
 ```c++
@@ -64,10 +54,6 @@ int main(int argc, char* argv[])
   return 0;
 }
 ```
-
-
-
-
 
 ## 功能函数
 
