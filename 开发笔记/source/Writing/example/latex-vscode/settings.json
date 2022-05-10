@@ -1,0 +1,138 @@
+{
+  "latex-workshop.latex.recipe.default": "PDFLaTex",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "--output-directory=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "xelatex no pdf",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "--output-directory=%OUTDIR%",
+        "-no-pdf",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "xdvipdfmx",
+      "command": "xdvipdfmx",
+      "args": [
+        "%OUTDIR%/%DOCFILE%",
+        "-o %OUTDIR%/%DOCFILE%.pdf"
+      ]
+    },
+    {
+      "name": "xelatex-with-shell-escape",
+      "command": "xelatex",
+      "args": [
+        "--shell-escape",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "--output-directory=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "--output-directory=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "pdflatex-with-shell-escape",
+      "command": "pdflatex",
+      "args": [
+        "--shell-escape",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "--output-directory=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": []
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": [
+        "%OUTDIR%/%DOCFILE%"
+      ],
+      "env": {
+        "TEXMFOUTPUT": "%OUTDIR%"
+      }
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": [
+        "%OUTDIR%/%DOCFILE%"
+      ],
+      "env": {
+        "TEXMFOUTPUT": "%OUTDIR%"
+      }
+    },
+    {
+      "name": "makeindex",
+      "command": "makeindex",
+      "args": [
+        "%DOCFILE%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "PDFLaTex",
+      "tools": [
+        "pdflatex",
+      ]
+    },
+    {
+      "name": "latexmk 🔃",
+      "tools": [
+        "latexmk"
+      ]
+    },
+    {
+      "name": "latexmk (latexmkrc)",
+      "tools": [
+        "latexmk_rconly"
+      ]
+    },
+    {
+      "name": "latexmk (lualatex)",
+      "tools": [
+        "lualatexmk"
+      ]
+    },
+    {
+      "name": "pdflatex ➞ bibtex ➞ pdflatex × 2",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "pdflatex",
+        "pdflatex"
+      ]
+    }
+  ]
+}

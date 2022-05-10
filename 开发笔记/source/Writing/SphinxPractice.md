@@ -1,6 +1,6 @@
-# sphinx-practice
+# SphinxPractice
 
-## quick tutorial
+## quick start
 
 - `sphinx` , `MKdocs` , `Hexo` 都可以用来生成html文档
 

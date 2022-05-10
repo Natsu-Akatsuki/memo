@@ -22,7 +22,7 @@ AmBook
    :caption: C++
 
    c++/rst/ProgrammingModel.rst
- 
+
 .. toctree::
    :maxdepth: 1
    :hidden:
@@ -66,14 +66,14 @@ AmBook
    :caption: IDE
 
    IDE/rst/Jetbrain.rst
-   IDE/rst/Vscode.rst   
+   IDE/rst/Vscode.rst
 
 .. toctree::
    :maxdepth: 1
    :hidden:
    :caption: Pointcloud
 
-   Pointcloud/rst/PCLPractice.rst   
+   Pointcloud/rst/PCLPractice.rst
 
 .. toctree::
    :maxdepth: 1
@@ -88,32 +88,35 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: ros
+   :caption: ROS
 
-   ros/rst/command-api.rst
-   ros/rst/nodelet.rst   
-   ros/rst/ros-practice.rst
+   ros/rst/API.rst
+   ros/rst/CodeBlock.rst
+   ros/rst/Nodelet.rst
+   ros/rst/RosPractice.rst
+   ros/rst/RosPracticePlus.rst
 
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: writing
+   :caption: Writing
 
-   writing/rst/sphinx-practice.rst
-   writing/rst/PlantUML-practice.rst.rst
+   Writing/rst/LatexPractice.rst
+   Writing/rst/PlantUMLPractice.rst
+   Writing/rst/SphinxPractice.rst
 
 .. toctree::
    :maxdepth: 1
    :hidden:
    :caption: ubuntu
 
-   ubuntu/rst/Application.rst 
+   ubuntu/rst/Application.rst
    ubuntu/rst/FileDirManage.rst
-   ubuntu/rst/GraphicsSetting.rst 
+   ubuntu/rst/GraphicsSetting.rst
    ubuntu/rst/Grub.rst
    ubuntu/rst/HarewareKernel.rst
    ubuntu/rst/LanguageManage.rst
-   ubuntu/rst/LogManage.rst  
+   ubuntu/rst/LogManage.rst
    ubuntu/rst/NetworkManage.rst
    ubuntu/rst/PasswordManage.rst
    ubuntu/rst/PackageManage.rst
@@ -122,15 +125,14 @@ AmBook
    ubuntu/rst/ServiceSetting.rst
    ubuntu/rst/TerminalShell.rst
    ubuntu/rst/UserGroup.rst
-                                                      
+
 .. toctree::
    :maxdepth: 1
    :hidden:
    :caption: DeepLearning
-   
+
    DeepLearning/rst/CUDAPractice.rst
    DeepLearning/rst/EnvSetup.rst
    DeepLearning/rst/TensorRTPractice.rst
    DeepLearning/rst/ONNXPractice.rst
    DeepLearning/rst/PytorchPractice.rst
-   

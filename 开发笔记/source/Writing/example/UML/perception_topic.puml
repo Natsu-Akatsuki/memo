@@ -24,6 +24,5 @@
 @endmindmap
 
 
-' 为什么到tracking之后数据类型是autoware_perception_msgs/DynamicObjectArray，而不是autoware_perception_msgs/DynamicObjectWithFeatureArray？
-' tracking之后将检测数据解包了（另外前者是局部系，否则是世界系的数据）
+
 '

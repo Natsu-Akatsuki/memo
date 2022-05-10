@@ -1,0 +1,72 @@
+@startmindmap
+'https://plantuml.com/mindmap-diagram
+
+* <&flag>unet
+** ConvBlockModule
+***: **Conv2D**
+kernel_size：(64, 3, 3)
+padding: same
+stride: (1, 1);
+****:**Conv2D**
+BN->RELU;
+*****:**Conv2D**
+kernel_size：(64, 3, 3)
+padding: same
+stride: (1, 1);
+****** BN->RELU
+
+** UpBlockModule
+***:**Conv2D**
+kernel_size：(64, 3, 3)
+padding: same
+stride: (1, 1);
+**** BN->RELU
+
+** Unet
+***:**UpBlockModule**
+ConvBlockModule
+
+AveragePooling2D
+Dropout
+ConvBlockModule
+
+AveragePooling2D
+Dropout
+ConvBlockModule
+
+AveragePooling2D
+Dropout
+ConvBlockModule
+
+AveragePooling2D
+Dropout
+ConvBlockModule
+Dropout
+UpBlockModule;
+
+****: **skip**
+concatenate
+ConvBlockModule
+dropout
+UpBlockModule
+
+concatenate
+ConvBlockModule
+dropout
+UpBlockModule
+
+concatenate
+ConvBlockModule
+dropout
+UpBlockModule
+
+concatenate
+ConvBlockModule
+;
+
+
+@endmindmap
+
+
+
+'

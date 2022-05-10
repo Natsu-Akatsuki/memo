@@ -1,6 +1,6 @@
 
-PlantUML-practice
-=================
+PlantUMLPractice
+================
 
 `安装 <https://plantuml.com/zh/download>`_
 ----------------------------------------------
