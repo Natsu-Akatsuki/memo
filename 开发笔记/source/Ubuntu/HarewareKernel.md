@@ -66,51 +66,6 @@ $ zenith
 
 ## 管理硬件
 
-### v4l2
-
-v4l2设备支持vlc media player打开
-
-* 安装
-
-```bash
-$ sudo apt install v4l-utils
-```
-
-* 查看相机所有属性
-
-```bash
-# v4l2-ctl -d <设备名> -all
-$ v4l2-ctl -d /dev/video0 --all
-```
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3XpxjcSwtiaE2DHP.jpg!thumbnail" alt="img" style="zoom: 67%; " />
-
-* 查看相机支持的像素格式
-
-```bash
-# v4l2-ctl --list-formats -d <设备名>
-$ v4l2-ctl --list-formats -d /dev/video0
-```
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HBOuewxlOL2nODH3.jpg!thumbnail" alt="img" style="zoom: 33%; " />
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WHtCs1tGSJbLycNu.jpg!thumbnail" alt="img" style="zoom: 33%; " />
-
-* 查看相机支持的分辨率和帧率
-
-```bash
-# v4l2-ctl --list-formats-ext -d <设备名>
-$ v4l2-ctl --list-formats-ext -d /dev/video2
-```
-
-* `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422)%20to%20YUV420P/>`_
-
-#### vlc media player
-
-无法显示USB相机的视频流时可尝试配置高级模式
-
-![image-20211110105514078](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211110105514078.png)
-
 ### 监控设备温度
 
 ```bash
@@ -458,7 +413,7 @@ KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="06
 ### apt安装
 
 ```bash
-$ version="5.11.0-44"
+$ version="5.4.0-109" 
 $ sudo apt install linux-image-${version}-generic linux-headers-${version}-generic linux-modules-${version}-generic linux-modules-extra-${version}-generic
 ```
 
@@ -492,11 +447,29 @@ $ sudo apt-get install linux-generic-5.12
 * (recommend)在ubuntu20.04升级到5.10+(oem)，[HWE](https://ubuntu.com/kernel/lifecycle)
 
 ```bash
-$ apt install linux-oem-20.04b
+$ apt install linux-oem-20.04
 
 # 2022.3.23: 5.13
 $ sudo apt-get install --install-recommends linux-generic-hwe-20.04
 ```
+
+---
+
+**NOTE**
+
+* [OEM(original equipment manufacturer)和HWE的区别？](https://askubuntu.com/questions/1385205/what-is-the-difference-between-a-oem-kernel-and-a-hwe-kernel)
+
+前者提供更新的内核支持
+
+* 一般来说ubuntu的内核对新版的电脑适配较差（表现WIFI模块、显卡模块异常），因此一般都要安装OEM版本
+
+```bash
+$ sudo apt update
+$ sudo apt install linux-oem-20.04
+$ sudo apt upgrade
+```
+
+---
 
 #### 拓展资料
 
@@ -541,7 +514,7 @@ $ sudo do-release-upgrade
 
 ### 内核模块
 
-- `.ko`内核模块后缀，一般位于`/lib/moudles/$(uname -r)/kernel`下
+* `.ko`内核模块后缀，一般位于`/lib/moudles/$(uname -r)/kernel`下
 
 #### 常用指令
 
@@ -562,7 +535,7 @@ $ modprobe -r <module_name>  # unload内核模块（自动解决依赖问题）
 
 #### 拓展资料
 
-- [load/unload内核](https://opensource.com/article/18/5/how-load-or-unload-linux-kernel-module)
+* [load/unload内核](https://opensource.com/article/18/5/how-load-or-unload-linux-kernel-module)
 
 ## 限制用户使用资源(optional)
 
@@ -619,3 +592,22 @@ $ umount /mnt/
 ```
 
 * [其他应用](https://help.ubuntu.com/community/LiveCdRecovery)（已尝试过可修改分区）
+
+## 修复引导
+
+在引导盘的try-ubuntu下安装boot-repair
+
+```bash
+$ sudo add-apt-repository ppa:yannubuntu/boot-repair
+$ sudo apt-get update
+$ sudo apt install boot-repair mdadm
+$ boot-repair
+```
+
+## 安装双系统
+
+假定硬盘上已有windows系统
+
+步骤一：在windows系统上进行磁盘空间的压缩，得到free space
+
+步骤二：制作引导盘，并进行安装（需设置引导启动顺序，部分电脑需关闭安全模式）

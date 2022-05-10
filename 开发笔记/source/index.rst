@@ -108,23 +108,23 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: ubuntu
+   :caption: Ubuntu
 
-   ubuntu/rst/Application.rst
-   ubuntu/rst/FileDirManage.rst
-   ubuntu/rst/GraphicsSetting.rst
-   ubuntu/rst/Grub.rst
-   ubuntu/rst/HarewareKernel.rst
-   ubuntu/rst/LanguageManage.rst
-   ubuntu/rst/LogManage.rst
-   ubuntu/rst/NetworkManage.rst
-   ubuntu/rst/PasswordManage.rst
-   ubuntu/rst/PackageManage.rst
-   ubuntu/rst/ProcessManage.rst
-   ubuntu/rst/RemoteConnect.rst
-   ubuntu/rst/ServiceSetting.rst
-   ubuntu/rst/TerminalShell.rst
-   ubuntu/rst/UserGroup.rst
+   Ubuntu/rst/Application.rst
+   Ubuntu/rst/FileDirManage.rst
+   Ubuntu/rst/GraphicsSetting.rst
+   Ubuntu/rst/Grub.rst
+   Ubuntu/rst/HarewareKernel.rst
+   Ubuntu/rst/LanguageManage.rst
+   Ubuntu/rst/LogManage.rst
+   Ubuntu/rst/NetworkManage.rst
+   Ubuntu/rst/PasswordManage.rst
+   Ubuntu/rst/PackageManage.rst
+   Ubuntu/rst/ProcessManage.rst
+   Ubuntu/rst/RemoteConnect.rst
+   Ubuntu/rst/ServiceSetting.rst
+   Ubuntu/rst/TerminalShell.rst
+   Ubuntu/rst/UserGroup.rst
 
 .. toctree::
    :maxdepth: 1

@@ -12,10 +12,16 @@
 步骤一：增设用户
 
 ```bash
-# 增设用户
+# 增设用户 
+# useradd -m helios -G s
+# useradd ${USER} -u ${UID} -U -d /home/${USER} -m -s /bin/bash
 $ useradd -m <user_name> -G <group_name>
-# m：建立家目录
-# G：将用户添加到某用户组
+# -m：建立家目录
+# -G：将用户添加到某用户组
+# -u：指用户ID
+# -U：创建跟用户名同名的用户组
+# -d：指定家目录的路径
+# -s：指定使用的s
 ```
 
 .. attention:: 添加多个用户组时，需使用多次-G
@@ -115,6 +121,7 @@ $ hostname <new-name>
 
 ```bash
 $ groupadd <group_name>
+# -s <用户组名> 创建系统用户
 ```
 
 ### 删除用户组

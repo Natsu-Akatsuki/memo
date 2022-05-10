@@ -104,10 +104,24 @@ $ pip install --user <pkg_name>
 $ rm -r ~/.cache/pip
 # ---卸载包及其依赖--- #
 # pip install pip-autoremove
-$ pip-autoremove <pkg
+$ pip-autoremove <pkg_name>
 ```
 
 .. attention:: pip没有一键升级所有安装包的命令行，感觉是因为他不能够解决python包的依赖问题
+
+.. note:: pip的配置文件存放于 ``~/.config/pip``
+
+## pkg-config
+
+- .pc文件存储了包的元数据（包的库/头文件安装位置等信息）
+
+```bash
+# 查看系统的安装包
+$ pkg-config --list-all | grep opencv
+# 查看安装包的版本
+$ pkg-config --modversion opencv4
+$ more /usr/lib/x86_64-linux-gnu/pkgconfig/opencv4.pc
+```
 
 ## wget
 
@@ -238,7 +252,7 @@ $ conda env create -f 文件名.yml
 ### 升级conda
 
 ```bash
-$ conda update conda
+(base) $ conda update conda
 ```
 
 ### 清理
@@ -315,6 +329,16 @@ $ mamba install <package_name>
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CP0aVRAsWIAQWpl3.png!thumbnail" alt="img" style="zoom:50%; " />
 
 #### [多用户下conda的配置](https://docs.anaconda.com/anaconda/install/multi-user/)
+
+#### 包冲突问题
+
+![image-20220410110813587](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220410110813587.png)
+
+卸载有冲突的包
+
+```bash
+$ conda uninstall liblapack liblapacke libcblas libblas
+```
 
 ### 拓展资料
 

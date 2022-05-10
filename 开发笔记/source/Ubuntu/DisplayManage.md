@@ -1,17 +1,19 @@
-# GraphicsSetting
+# DisplayManage
 
 ## 安装与卸载窗口管理器
 
-### KDE
+### [KDE](https://itsfoss.com/install-kde-on-ubuntu/)
 
 ```bash
-# 安装
+# 安装（至上而下越来越全）
+$ sudo apt install kde-plasma-desktop
 $ sudo apt install kubuntu-desktop
+$ sudo apt install kubuntu-full
 ```
 
 ### GNOME
 
-* [安装(for ubuntu20.04)  tutorial](https://linuxconfig.org/how-to-install-gnome-on-ubuntu-20-04-lts-focal-fossa)
+* [安装(for ubuntu20.04) tutorial](https://linuxconfig.org/how-to-install-gnome-on-ubuntu-20-04-lts-focal-fossa)
 
 ```bash
 # 装完整版的gnome
@@ -112,17 +114,18 @@ $ xrandr --output eDP-1 --right-of HDMI-1
 
 #### 显示桌面
 
-- 显示桌面：meta+D
-- 任务管理器（win概念）： ctrl+ESC
-- 切换task manager（底部）： meta+数字
-- 窗口游走：meta+alt+方向键
-- 窗口挪动： meta+方向键
+* 显示桌面：meta+D
+* 任务管理器（win概念）： ctrl+ESC
+
+* 切换task manager（底部）： meta+数字
+* 窗口游走：meta+alt+方向键
+* 窗口挪动： meta+方向键
 
 #### 修改可视化效果
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xnJDGkG83cK0ntvP.png!thumbnail)
 
-- activity游走：meta+tab
+* activity游走：meta+tab
 
 创建activity：
 
@@ -134,19 +137,19 @@ alt+space
 
 ### 文件夹
 
-- 在文件夹图形化界面下，跳转到家目录：alt+home
+* 在文件夹图形化界面下，跳转到家目录：alt+home
 
-- 创建新的dolphin：meta+e
+* 创建新的dolphin：meta+e
 
 ## 配置X11
 
 * X windows system是一个网络框架，包含客户端(X client)和服务端(X server)
 * X windows system是一个软件
 
-- X server用于管理硬件；X client用于管理应用程序
+* X server用于管理硬件；X client用于管理应用程序
 
-- 配置文件默认放在 `/etc/X11` 目录下
-- 日志文件默认为`/var/log/Xorg.0.log`
+* 配置文件默认放在 `/etc/X11` 目录下
+* 日志文件默认为`/var/log/Xorg.0.log`
 
 ### 为什么默认情况下没有`/etc/X11/xorg.conf`
 
@@ -184,12 +187,12 @@ $ __NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIB
 
 ## 黑屏DEBUG
 
-- 有光标(cursor)：/boot空间不够
+* 有光标(cursor)：/boot空间不够
 
 ## [创建快捷方式](https://wiki.archlinux.org/title/desktop_entries)
 
-- 存放桌面快捷方式的位置：/usr/share/application
-- [exec 使用说明](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html)
+* 存放桌面快捷方式的位置：/usr/share/application
+* [exec 使用说明](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html)
 
 ### 添加pycharm快捷方式
 
@@ -212,5 +215,52 @@ Icon=图标的位置
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/dgH8iQP5jrkgW2hE.png!thumbnail)
 
 此时可加上 `-i` 这个选项来创建交互式的bash来执行脚本`bash -i -c "source ~/.bashrc"`  
+
+---
+
+## 某些应用程序有黑边
+
+```bash
+# 启动X11 compositor
+$ compton -b
+```
+
+## 配置wayland
+
+### 安装
+
+```bash
+# for KDE
+$ sudo apt install plasma-workspace-wayland
+```
+
+### 应用
+
+### [waydroid](https://docs.waydro.id/usage/install-on-desktops)
+
+Ubuntu下运行安卓
+
+```bash
+# 导入ppa
+$ export DISTRO="focal" && sudo curl https://repo.waydro.id/waydroid.gpg --output /usr/share/keyrings/waydroid.gpg && echo "deb [signed-by=/usr/share/keyrings/waydroid.gpg] https://repo.waydro.id/ $DISTRO main" > ~/waydroid.list && sudo mv ~/waydroid.list /etc/apt/sources.list.d/waydroid.list && sudo apt update
+
+# 安装
+$ sudo apt install waydroid
+
+# 初始化配置
+$ sudo waydroid init
+# 启动waydroid服务
+$ sudo systemctl start waydroid-container
+
+$ waydroid show-full-ui
+```
+
+---
+
+**NOTE**
+
+* [参考资料 archlinux](https://wiki.archlinux.org/title/Waydroid)
+
+* [X11和wayland的切换](https://itsfoss.com/switch-xorg-wayland/)
 
 ---

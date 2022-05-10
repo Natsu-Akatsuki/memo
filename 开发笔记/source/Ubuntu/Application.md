@@ -119,7 +119,7 @@ $ ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop
 - [apt安装](https://github.com/retorquere/zotero-deb)
 
 ```bash
-$ wget -qO- https://apt.retorque.re/file/zotero-apt/install.sh | sudo bash
+$ wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
 $ sudo apt update
 $ sudo apt install zotero # zotero-beta
 
@@ -146,15 +146,63 @@ $ sudo apt-get purge zotero
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/go5s7zX8R3Aa0VEG.png!thumbnail" alt="img" style="zoom:67%;" />
 
----
+- [zotfile](http://zotfile.com)：挪动文件夹
+- [zotero-folder-import](https://github.com/retorquere/zotero-folder-import) (暂不适用于0.6)
+- [坚果云与zotera](https://help.jianguoyun.com/?p=3168)
+- [Zotero PDF Translate](https://github.com/windingwind/zotero-pdf-translate)：内置翻译
+- [从SCI-HUB直接获取文献](https://zhuanlan.zhihu.com/p/268375930)
+- [Zotero Storage Scanner](https://github.com/retorquere/zotero-storage-scanner)：移除无效或者重复的attachments (暂不适用于0.6)
 
-**NOTE**
+#### 实战
 
 知网导出国标引用
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fRrnPl2ntRl0cgIh.png!thumbnail" alt="img" style="zoom:80%;" />
 
----
+### httrack
+
+#### [安装](http://www.httrack.com/page/2/en/index.html)
+
+```bash
+# CLI版本
+$ sudo apt install httrack
+# 提供前端
+$ sudo apt install webhttrack
+```
+
+#### 使用方法
+
+```bash
+$ website=atomicobject.com
+$ httrack https://${website} \
+   -${website}/assets/* \
+   +${website}/*.css \
+   +${website}/*.js \
+   -${website}/documents/* \
+   -${website}/uploadedImages/* \
+   --path "~/httrack-copies/atomicobject/" \
+   --verbose
+```
+
+### 实例
+
+#### 爬取[lldb](https://lldb.llvm.org/cpp_reference/)
+
+```
+$ website=https://lldb.llvm.org/cpp_reference/
+$ httrack https://${website} \
+   -${website}/assets/* \
+   +${website}/*.css \
+   +${website}/*.js \
+
+   --path "~/httrack-copies/atomicobject/" \
+   --verbose
+   
+$ httrack lldb.llvm.org/python_reference \
+   +lldb.llvm.org/python_reference/*.html \
+   --path "~/httrack-copies/atomicobject/" \
+   --verbose   
+```
 
 ## 云盘
 

@@ -76,7 +76,7 @@ $ locate <文件名>
 # -name: file name
 ```
 
-- 文件类型：
+* 文件类型：
 
 ![image-20220323140153693](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220323140153693.png)
 
@@ -308,9 +308,9 @@ $ diff A B
 
 ### patch
 
-- [相关案例](https://www.runoob.com/linux/linux-comm-patch.html)
+* [相关案例](https://www.runoob.com/linux/linux-comm-patch.html)
 
-- 根据文件的不同还原文件
+* 根据文件的不同还原文件
 
 ```bash
 # patch - apply a diff file to an original
@@ -372,6 +372,20 @@ $ perf
 -e:   后接command
 # perl -i -ep "s/unstable/$(lsb_release -cs)/" changelog
 ```
+
+### tee
+
+```bash
+tee /etc/apt/sources.list > /dev/null << EOF
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+EOF \
+```
+
+.. note:: 传统和原始的Docker build不支持这种写法。它是逐行解析的。所以要不使用echo，要不使用新的解析方式  `here_document <https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md#here-documents>`_
 
 ## 内容提取
 

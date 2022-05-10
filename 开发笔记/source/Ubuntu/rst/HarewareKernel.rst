@@ -90,62 +90,6 @@ zenith
 管理硬件
 --------
 
-v4l2
-^^^^
-
-v4l2设备支持vlc media player打开
-
-
-* 安装
-
-.. prompt:: bash $,# auto
-
-   $ sudo apt install v4l-utils
-
-
-* 查看相机所有属性
-
-.. prompt:: bash $,# auto
-
-   # v4l2-ctl -d <设备名> -all
-   $ v4l2-ctl -d /dev/video0 --all
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/3XpxjcSwtiaE2DHP.jpg!thumbnail" alt="img" style="zoom: 67%; " />`
-
-
-* 查看相机支持的像素格式
-
-.. prompt:: bash $,# auto
-
-   # v4l2-ctl --list-formats -d <设备名>
-   $ v4l2-ctl --list-formats -d /dev/video0
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HBOuewxlOL2nODH3.jpg!thumbnail" alt="img" style="zoom: 33%; " />`
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WHtCs1tGSJbLycNu.jpg!thumbnail" alt="img" style="zoom: 33%; " />`
-
-
-* 查看相机支持的分辨率和帧率
-
-.. prompt:: bash $,# auto
-
-   # v4l2-ctl --list-formats-ext -d <设备名>
-   $ v4l2-ctl --list-formats-ext -d /dev/video2
-
-
-* `手写yuyv转yuv420 <http://blog.mchook.cn/2018/03/07/YUYV(YUV422)%20to%20YUV420P/>`_
-
-vlc media player
-~~~~~~~~~~~~~~~~
-
-无法显示USB相机的视频流时可尝试配置高级模式
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211110105514078.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211110105514078.png
-   :alt: image-20211110105514078
-
-
 监控设备温度
 ^^^^^^^^^^^^
 
@@ -620,7 +564,7 @@ apt安装
 
 .. prompt:: bash $,# auto
 
-   $ version="5.11.0-44"
+   $ version="5.4.0-109" 
    $ sudo apt install linux-image-${version}-generic linux-headers-${version}-generic linux-modules-${version}-generic linux-modules-extra-${version}-generic
 
 .. note:: 遗漏module模块或无法识别wifi/声卡模块
@@ -664,10 +608,30 @@ apt安装
 
 .. prompt:: bash $,# auto
 
-   $ apt install linux-oem-20.04b
+   $ apt install linux-oem-20.04
 
    # 2022.3.23: 5.13
    $ sudo apt-get install --install-recommends linux-generic-hwe-20.04
+
+----
+
+**NOTE**
+
+
+* `OEM(original equipment manufacturer)和HWE的区别？ <https://askubuntu.com/questions/1385205/what-is-the-difference-between-a-oem-kernel-and-a-hwe-kernel>`_
+
+前者提供更新的内核支持
+
+
+* 一般来说ubuntu的内核对新版的电脑适配较差（表现WIFI模块、显卡模块异常），因此一般都要安装OEM版本
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt update
+   $ sudo apt install linux-oem-20.04
+   $ sudo apt upgrade
+
+----
 
 拓展资料
 ~~~~~~~~
@@ -817,3 +781,24 @@ apt安装
 
 
 * `其他应用 <https://help.ubuntu.com/community/LiveCdRecovery>`_\ （已尝试过可修改分区）
+
+修复引导
+--------
+
+在引导盘的try-ubuntu下安装boot-repair
+
+.. prompt:: bash $,# auto
+
+   $ sudo add-apt-repository ppa:yannubuntu/boot-repair
+   $ sudo apt-get update
+   $ sudo apt install boot-repair mdadm
+   $ boot-repair
+
+安装双系统
+----------
+
+假定硬盘上已有windows系统
+
+步骤一：在windows系统上进行磁盘空间的压缩，得到free space
+
+步骤二：制作引导盘，并进行安装（需设置引导启动顺序，部分电脑需关闭安全模式）

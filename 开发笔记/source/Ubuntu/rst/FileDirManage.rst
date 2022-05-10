@@ -491,6 +491,22 @@ perf
    -e:   后接command
    # perl -i -ep "s/unstable/$(lsb_release -cs)/" changelog
 
+tee
+^^^
+
+.. prompt:: bash $,# auto
+
+   tee /etc/apt/sources.list > /dev/null << EOF
+   deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+   deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+   deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+   deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+   deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+   EOF \
+
+.. note:: 传统和原始的Docker build不支持这种写法。它是逐行解析的。所以要不使用echo，要不使用新的解析方式  `here_document <https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md#here-documents>`_
+
+
 内容提取
 --------
 
