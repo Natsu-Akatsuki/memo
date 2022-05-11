@@ -3,25 +3,29 @@
 ## 查看当前语系信息
 
 ```bash
-$ echo ${LANG} 
-$ locale      # 查看当前终端的语系信息
-$ localectl   # 查看当前系统的语系信息
+# 查看当前终端的语系信息
+$ echo ${LANG}
+$ locale
+# 查看当前系统的语系信息
+$ localectl
+# 查看当前系统支持语系
+$ locale -a
+# e.g. en_US.UTF-8/ zh_CN.UTF-8
 ```
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/nOL2Al83fjAN3b3u.png!thumbnail)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220511165556136.png" alt="image-20220511165556136" style="zoom:50%;" />
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vwZa6waF2KX9SxJd.png!thumbnail)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vwZa6waF2KX9SxJd.png!thumbnail" alt="img" style="zoom:50%;" />
 
-.. note:: 英文语系：en_US.UTF-8；中文语系：zh_CN.UTF-8，可通过 ``locale -a`` 命令行看支持的语系
- LANG ：有关终端标准输出的语系
-
-## 修改当前语系
+## [修改当前语系](https://lintut.com/how-to-set-up-system-locale-on-ubuntu-18-04/)
 
 ```bash
 # >>> 修改系统语系 >>>
 # 方法一：直接修改配置文件(/etc/default/locale)
+$ update-locale # 可以通过该命令行进行生成
 # 方法二：通过命令行修改配置文件 e.g.
 $ localectl set-locale LANG=en_US.UTF-8
+
 # >>> 修改终端语系 >>>
 # 方法一：通过环境变量进行修改
 $ export ...

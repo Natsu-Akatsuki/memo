@@ -393,14 +393,17 @@ $ apt install barrier
 ### fcitx框架下的搜狗输入法
 
 - [下载官网安装包](https://pinyin.sogou.com/linux/)
-- [官文下载帮助文档](https://pinyin.sogou.com/linux/help.php)（基本操作如下）
+- [官文下载帮助文档](https://pinyin.sogou.com/linux/help.php)（基本操作如下，已测试4.0+版本）
 
 ````bash
 # 安装fcitx输入法框架 
 $ sudo apt install fcitx 
+# 安装相关依赖包
+$ sudo apt install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2 libgsettings-qt1
+# 卸载ibus
+$ sudo apt purge ibus
 # dpkg安装输入法deb包 
-$ ... 
-# 中间过程缺什么依赖弄什么依赖
+$ ...
 ````
 
 ---
@@ -411,7 +414,7 @@ $ ...
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/STA9CbAkpD8p5CXj.png!thumbnail)
 
-- 更多debug线索可参考link
+- [没有输入法窗口](https://askubuntu.com/questions/1406597/how-to-get-sogou-pinyin-ime-work-properly-in-ubuntu-22-04)
 
 ---
 

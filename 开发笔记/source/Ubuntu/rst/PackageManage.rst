@@ -38,7 +38,7 @@ apt && dpkg
 .. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
 
 
-查看apt包的依赖信息
+查看apt包的相关信息
 ^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto
@@ -48,7 +48,7 @@ apt && dpkg
    # 仅显示依赖信息
    $ apt-cache depends <package_name>
 
-显示deb包的依赖信息
+显示deb包的相关信息
 ^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto

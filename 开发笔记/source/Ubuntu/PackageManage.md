@@ -25,7 +25,7 @@ $ gdebi <deb_package>  # 安装
 
 .. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
 
-### 查看apt包的依赖信息
+### 查看apt包的相关信息
 
 ```bash
 # 除了显示依赖信息还会显示package的其他信息（如maintainer,recommends packages）
@@ -34,7 +34,7 @@ $ apt show <package_name>
 $ apt-cache depends <package_name>
 ```
 
-### 显示deb包的依赖信息
+### 显示deb包的相关信息
 
 ```bash
 # Show information about a package

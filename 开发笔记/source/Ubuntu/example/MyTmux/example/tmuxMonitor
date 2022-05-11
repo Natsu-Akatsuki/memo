@@ -1,0 +1,8 @@
+#!/bin/bash
+# create a new session called ros
+tmux new -s tmuxMonitor -d
+tmux split -v
+tmux send -t 1 'htop' ENTER
+tmux send -t 2 'watch -n 2 nvidia-smi' ENTER
+
+tmux a
