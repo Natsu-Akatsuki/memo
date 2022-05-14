@@ -162,10 +162,15 @@ $ sudo apt autoremove --purge snapd   # 卸载snap-core
 
 ### 安装
 
-步骤一：[下载安装包](https://www.anaconda.com/products/individual)
+步骤一：[下载安装包(anaconda3)](https://www.anaconda.com/products/individual)，[miniconda3](https://conda.io/projects/conda/en/latest/user-guide/install/linux.html)
 
 ```bash
-$ wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O ./anaconda.sh
+# 完整版anaconda3
+$ https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh -O ./anaconda.sh
+$ conda update conda
+
+# miniconda3
+$ wget -c https://repo.anaconda.com/miniconda/Miniconda3-py39_4.11.0-Linux-x86_64.sh
 $ conda update conda
 ```
 
@@ -187,6 +192,14 @@ $ conda update conda
 ```
 
 ---
+
+### [卸载](https://docs.anaconda.com/anaconda/install/uninstall/)
+
+```bash
+(base) $ conda install anaconda-clean
+(base) $ anaconda-clean
+$ rm -rf ~/anaconda3
+```
 
 ### 配置文档
 
@@ -290,6 +303,17 @@ fi
 
 .. attention:: 记得修改对应的目录
 
+### 通道设置
+
+```bash
+# 查看通道
+$ conda config --show channels
+# 添加conda-forge作为通道
+$ conda config --add channels conda-forge
+# 安装时指定特定通道
+$ conda install -n base --override-channels -c conda-forge mamba=0.23.1
+```
+
 ### 环境复制
 
 * 本地环境的复制
@@ -315,24 +339,26 @@ $ conda activate <环境名>  && conda-unpack
 
 .. hint:: 虽然conda pack最终的效果是生成一个压缩包，但跟自己用tar生成的压缩包不同，其还在压缩时添加了一些用于解决导出的python包路径错误问 的脚本，如conda-unpack。
 
-### 实战
+### mamba
 
 #### 多线程提高下载速度
 
-用[mamba](https://github.com/mamba-org/mamba)来安装包
+用[mamba](https://github.com/mamba-org/mamba)来安装包，建议基础环境使用miniconda，否则安装时要花很长的时间检查的依赖
 
 ```bash
-$ conda install -n base -c conda-forge mamba
+$ conda install -n base --override-channels -c conda-forge mamba=0.23.1
 $ mamba install <package_name>
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CP0aVRAsWIAQWpl3.png!thumbnail" alt="img" style="zoom:50%; " />
 
+### 实战
+
 #### [多用户下conda的配置](https://docs.anaconda.com/anaconda/install/multi-user/)
 
 #### 包冲突问题
 
-![image-20220410110813587](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220410110813587.png)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220410110813587.png" alt="image-20220410110813587" style="zoom:67%;" />
 
 卸载有冲突的包
 

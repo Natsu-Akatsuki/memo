@@ -1,20 +1,5 @@
 # Application
 
-## 文档编辑
-
-### [WPS](https://www.wps.cn/product/wpslinux)(office)
-
-### [typora](https://typora.io/#linux)(markdown)
-
-.. note:: typora暂不支持代码块功能(code snippet)，需第三方支持
-
-### [espanso](https://espanso.org/)(代码块)
-
-```bash
-# 查看配置文档路径
-$ espanso path
-```
-
 ## IDE
 
 ### [vscode](https://code.visualstudio.com/Download)
@@ -29,179 +14,12 @@ $ sudo apt install code
 
 ### [J家 toolbox](https://www.jetbrains.com/zh-cn/toolbox-app/download/download-thanks.html?platform=linux)
 
-## 资料管理
+### knotes
 
-### [Zeal（离线文档管理）](https://zealdocs.org/download.html)
-
-```bash
-$ sudo apt install zeal
-```
-
-- [非官方文档CheatSheet](https://zealusercontributions.vercel.app/)
-
-#### 生成PCL docset
-
-- 生成doxygen文档时启动`GENERATE_DOCSET`
-
-![image-20220201205322976](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220201205322976.png)
-
-- [生成docset](https://github.com/chinmaygarde/doxygen2docset)
-
-```bash
-$ doxygen2docset --doxygen ${HOME}/pcl-pcl-1.12.0/build/doc/doxygen/html/ --docset ${HOME}/pcl-pcl-1.12.0/doc/docset/
-```
-
-- 将生成的docset拷贝到zeal保存docset的位置
-
-#### 生成TensorRT docs
-
-TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以编译生成docset。因此需要自己从html文件[生成docset文件](https://kapeli.com/docsets#dashDocset)（步骤一：根据该教程构建相应的文件结构）。在已有html文件的基础上生成docset([html->docset](https://github.com/selfboot/html2Dash)).
-
-```bash
-# e.g. python html2dash.py -n <docsset_name> <src_dir>
-$ python html2dash.py -n tensorrt_docset tensorrt
-```
-
----
-
-**NOTE**
-
-- 根据这种方法生成的docset虽然能够直接导入，但是没有classes, funcitons, types等，如下图。可自行添加([Populate the SQLite Index](https://kapeli.com/docsets#dashDocset))
-
-  <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220202215416986.png" alt="image-20220202215416986" style="zoom:67%;" />
-
-- 查看sqlite文件（如`docSet.dsidx`）
-
-```bash
-$ sudo apt install sqlitebrowser
-```
-
-#### 生成rclcpp docset
-
-```bash
-# 步驟一：导入仓库
-$ git clone https://github.com/ros2/rclcpp
-# 步驟二：添加GENERATE_DOCSET = YES 到Doxyfile
-# 步骤三：生成doxygen docs
-$ doxygen Doxyfile
-# 步骤四：生成docset
-$ doxygen2docset --doxygen <src> --docset <dst>
-# 步骤五：将生成的docset拷贝到zeal保存docset的位置
-```
-
-#### 常用可导入的docset
-
-- [ROS1](https://github.com/beckerpascal/ros.org.docset): 需下载和导入
-- [pytorch cpp docs](https://github.com/pytorch/cppdocs)：需下载、转换和导入
-
----
-
-### [DEVBOOK](https://usedevbook.com/download?os=linux)（api搜索引擎）
-
-### knotes（可置顶的便签）
+可置顶的便签
 
 ```bash
 $ sudo apt install knotes
-```
-
-### [zotero（论文资料管理）](https://www.zotero.org/download/)
-
-#### 安装
-
-- 脚本安装
-
-```bash
-# 步骤一：解压后执行脚本 set_launcher_icon
-# 步骤二：添加软链接: e.g:
-$ ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop
-```
-
-- [apt安装](https://github.com/retorquere/zotero-deb)
-
-```bash
-$ wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
-$ sudo apt update
-$ sudo apt install zotero # zotero-beta
-
-# 卸载
-$ wget -qO- https://apt.retorque.re/file/zotero-apt/uninstall.sh | sudo bash
-$ sudo apt-get purge zotero
-```
-
-#### 导出中文引用
-
-- 添加中文引用
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/facUg6IFrhhiYcSW.png!thumbnail" alt="img" style="zoom:67%;" />
-
-- 插入文献引用到word文档
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/facUg6IFrhhiYcSW.png!thumbnail" alt="img" style="zoom:67%;" />
-
-#### 插件
-
-- [Zotero Connector](https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc/related)
-
-安装方式：
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/go5s7zX8R3Aa0VEG.png!thumbnail" alt="img" style="zoom:67%;" />
-
-- [zotfile](http://zotfile.com)：挪动文件夹
-- [zotero-folder-import](https://github.com/retorquere/zotero-folder-import) (暂不适用于0.6)
-- [坚果云与zotera](https://help.jianguoyun.com/?p=3168)
-- [Zotero PDF Translate](https://github.com/windingwind/zotero-pdf-translate)：内置翻译
-- [从SCI-HUB直接获取文献](https://zhuanlan.zhihu.com/p/268375930)
-- [Zotero Storage Scanner](https://github.com/retorquere/zotero-storage-scanner)：移除无效或者重复的attachments (暂不适用于0.6)
-
-#### 实战
-
-知网导出国标引用
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fRrnPl2ntRl0cgIh.png!thumbnail" alt="img" style="zoom:80%;" />
-
-### httrack
-
-#### [安装](http://www.httrack.com/page/2/en/index.html)
-
-```bash
-# CLI版本
-$ sudo apt install httrack
-# 提供前端
-$ sudo apt install webhttrack
-```
-
-#### 使用方法
-
-```bash
-$ website=atomicobject.com
-$ httrack https://${website} \
-   -${website}/assets/* \
-   +${website}/*.css \
-   +${website}/*.js \
-   -${website}/documents/* \
-   -${website}/uploadedImages/* \
-   --path "~/httrack-copies/atomicobject/" \
-   --verbose
-```
-
-### 实例
-
-#### 爬取[lldb](https://lldb.llvm.org/cpp_reference/)
-
-```
-$ website=https://lldb.llvm.org/cpp_reference/
-$ httrack https://${website} \
-   -${website}/assets/* \
-   +${website}/*.css \
-   +${website}/*.js \
-
-   --path "~/httrack-copies/atomicobject/" \
-   --verbose
-   
-$ httrack lldb.llvm.org/python_reference \
-   +lldb.llvm.org/python_reference/*.html \
-   --path "~/httrack-copies/atomicobject/" \
-   --verbose   
 ```
 
 ## 云盘
@@ -230,7 +48,7 @@ $ gdown <url>
 .. note:: apt安装的版本较旧，推荐用源码装或者deb包安装
 
 ```bash
-$ wget https://github.com/flameshot-org/flameshot/releases/download/v0.10.2/flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
+$ wget https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
 $ sudo dpkg -i flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
 ```
 
@@ -364,6 +182,12 @@ $ sudo apt-mark hold com.qq.weixin.deepin
 ```
 
 ---
+
+### 电脑通信
+
+#### [ToDesk](https://www.todesk.com/linux.html)
+
+2022.5.12 4.1.0测评：ubuntu下为不稳定版本/容易连接不上/没有windows下的文件拖拽和传输功能/提供的卸载方法卸载不干净
 
 ## 键鼠跨机
 

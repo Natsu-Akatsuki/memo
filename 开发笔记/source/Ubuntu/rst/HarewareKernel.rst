@@ -378,11 +378,8 @@ CPU
 .. attention:: 修改完后记得apply
 
 
-挂载
-~~~~
-
-
-* 命令行实现U盘挂载
+命令行实现U盘挂载
+~~~~~~~~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -408,11 +405,10 @@ CPU
 
 例如linux允许文件名带 ``:`` ，win不允许带 ``:`` ，因此不能进行粘贴操作
 
+`开机自启动挂载 <https://blog.csdn.net/okhymok/article/details/76616892>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* 
-  `开机自启动挂载 <https://blog.csdn.net/okhymok/article/details/76616892>`_
-
-  修改 ``/etc/fstab`` 配置文档，详细说明可看使用文档 ``man fstab``\ ，查看UUID和type可使用命令行
+ 修改 ``/etc/fstab`` 配置文档，详细说明可看使用文档 ``man fstab``\ ，查看UUID和type可使用命令行
 
 .. prompt:: bash $,# auto
 
@@ -431,6 +427,23 @@ windows默认不支持ext4文件系统的读写，需要下载软件实现额外
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220104145417626.png
    :alt: image-20220104145417626
 
+
+`修复NTFS硬盘 <https://blog.csdn.net/laoyiin/article/details/4128591>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # e.g.
+   $ ntfsfix /dev/sdb1
+
+----
+
+**NOTE**
+
+
+* Windows is hibernated, refused to mount：关闭windows的开机快速启动
+
+----
 
 `输入设备 <https://wiki.archlinux.org/title/Xorg>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -797,8 +810,14 @@ apt安装
 安装双系统
 ----------
 
-假定硬盘上已有windows系统
-
-步骤一：在windows系统上进行磁盘空间的压缩，得到free space
+步骤一：假定硬盘上已有windows系统，在windows系统上进行磁盘空间的压缩，得到free space；若已有free space则可以直接跳过这个操作
 
 步骤二：制作引导盘，并进行安装（需设置引导启动顺序，部分电脑需关闭安全模式）
+
+步骤三：安装时分盘（一般都用ext4格式）
+
+**拓展资料**\ ：
+
+
+* `国外教程 <https://www.hellotech.com/guide/for/how-to-install-linux-on-windows-10>`_
+* `加装硬盘+双系统教程 <https://www.cnblogs.com/masbay/p/10745170.html>`_
