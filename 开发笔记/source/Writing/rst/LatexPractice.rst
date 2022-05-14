@@ -14,8 +14,9 @@ LatexPractice
 .. prompt:: bash $,# auto
 
    $ wget -c https://mirror.ctan.org/systems/texlive/tlnet/install-tl.zip
-   $ unzip install-tl.zip && cd install-tl
-   # 该图形化界面可以选择镜像源
+   $ unzip install-tl.zip
+   # cd到解压目录
+   # note: 该图形化界面可以选择镜像源
    $ sudo ./install-tl -gui
 
 添加环境变量
@@ -23,7 +24,7 @@ LatexPractice
 
 .. prompt:: bash $,# auto
 
-   # 配置latex环境 
+   # 配置latex环境
    $ export MANPATH=${MAT_PATH}:"/usr/local/texlive/2022/texmf-dist/doc/man" 
    $ export INFOPATH=${INFOPATH}:"/usr/local/texlive/2022/texmf-dist/doc/info" 
    $ export PATH=${PATH}:"/usr/local/texlive/2022/bin/x86_64-linux"
@@ -119,6 +120,13 @@ LTeX
 ~~~~
 
 latex/ markdown的文本语法检查
+
+同步pdf和latex文本的位置
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+根据pdf定位到latex的位置：ctrl+点击pdf某个位置
+
+根据latex位置定位到pdf的位置：命令行SyncTeX
 
 实战
 ----
