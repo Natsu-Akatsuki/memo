@@ -198,6 +198,10 @@ target_compile_options(<target_name> PUBLIC "-save-temps")
 # 屏蔽deprecated消息
 set(CMAKE_CXX_FLAGS "-Wno-error=deprecated-declarations -Wno-deprecated-declarations")
 add_compile_options("")
+
+# -Wno-deprecated 
+# -O3：优化等级为3
+# -march=native：使用本机的编译指令（代码运行速度或会提高）
 ```
 
 .. note:: 该选项会覆盖CMAKE_BUILD_TYPE
@@ -371,6 +375,12 @@ include(vtkCompilerChecks)  # /VTK-8.2.0/CMake/vtkCompilerChecks.cmake
 ```cmake
 add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL])
 ```
+
+- `include`和`add_subdirectory`的区别？([details](https://stackoverflow.com/questions/48509911/cmake-add-subdirectory-vs-include))
+
+add_subdirectory会有不同的变量作用域；
+
+外面的编译选项会传递到add_subdirectory中（子工程可以覆盖它）
 
 ### [执行命令行](https://blog.csdn.net/qq_28584889/article/details/97758450)
 
