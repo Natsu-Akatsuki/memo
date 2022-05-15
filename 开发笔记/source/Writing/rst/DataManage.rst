@@ -28,7 +28,7 @@ DataManage
 Gist
 ----
 
-管理代码块，配合Vscode GistPAD使用有奇效
+管理代码块，配合插件\ ``Vscode GistPAD``\ 使用有奇效
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220514000206988.png" alt="image-20220514000206988" style="zoom: 50%;" />`
 
@@ -184,19 +184,22 @@ TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以
 ^^^^
 
 
-* `Zotero Connector <https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc/related>`_
+* 
+  `Zotero Connector <https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc/related>`_\ ：浏览器插件
 
-安装方式：
+* 
+  `Zotfile <http://zotfile.com>`_\ ：挪动zoterm item的附件位置和重命名
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/go5s7zX8R3Aa0VEG.png!thumbnail" alt="img" style="zoom:67%;" />`
-
-
-* `zotfile <http://zotfile.com>`_\ ：挪动文件夹
-* `zotero-folder-import <https://github.com/retorquere/zotero-folder-import>`_ (暂不适用于0.6)
-* `坚果云与zotera <https://help.jianguoyun.com/?p=3168>`_
+* `Zutilo <https://github.com/wshanks/Zutilo>`_\ ：设置更多的快捷键/修改zotero item的附件链接
 * `Zotero PDF Translate <https://github.com/windingwind/zotero-pdf-translate>`_\ ：内置翻译
-* `从SCI-HUB直接获取文献 <https://zhuanlan.zhihu.com/p/268375930>`_
-* `Zotero Storage Scanner <https://github.com/retorquere/zotero-storage-scanner>`_\ ：移除无效或者重复的attachments (暂不适用于0.6)
+* `Zotero-scihub <https://github.com/ethanwillis/zotero-scihub>`_\ ：基于DOI从scihub获取附件
+* `坚果云与zotero <https://help.jianguoyun.com/?p=3168>`_\ 同步（webdav）设置：实际使用情况较少
+* `Jasminum <https://github.com/l0o0/jasminum>`_\ ：爬取知网文献
+* `Zotero-doi-manager <https://github.com/bwiernik/zotero-shortdoi>`_\ ：爬取DOI
+* `Zotero-better-bibtex <https://github.com/retorquere/zotero-better-bibtex>`_\ ：管理引文
+* `Zotero translators <https://github.com/ykt98/translators_CN-master>`_\ ：增设中文translators
+* （不推荐）\ `Zotero Storage Scanner <https://github.com/retorquere/zotero-storage-scanner>`_\ ：移除无效或者重复的attachments (暂不适用于0.6)
+* （不推荐）\ `Zotero-folder-import <https://github.com/retorquere/zotero-folder-import>`_ (暂不适用于0.6)
 
 实战
 ^^^^
@@ -217,4 +220,43 @@ TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以
 知网导出国标引用
 ~~~~~~~~~~~~~~~~
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fRrnPl2ntRl0cgIh.png!thumbnail" alt="img" style="zoom:80%;" />`
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fRrnPl2ntRl0cgIh.png!thumbnail" alt="img" style="zoom: 50%;" />`
+
+四种路径的含义
+~~~~~~~~~~~~~~
+
+
+* 一般为了文献附件同步，会将zotfile的附件目录跟链接文件的基目录设为一致
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220516012148102.png" alt="image-20220516012148102" style="zoom: 67%;" />`
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220516013521077.png" alt="image-20220516013521077" style="zoom:50%;" />`
+
+
+* 设置相对路径时，链接文件的路径将解析为base_directory/linked_file_path（PS：链接文件在sqlite的路径以attachments:开头）；而stored文件则以盘符开头
+* 存放sqlite文件的位置
+
+哪种同步工具较好用
+~~~~~~~~~~~~~~~~~~
+
+实测使用坚果云时，会遇到在ubuntu/windows下设为同步的文件夹，无法在windows/ubuntu下打开的情况。暂时使用百度云进行同步。
+
+附件目录错误
+~~~~~~~~~~~~
+
+方法一：使用Zutilo修改附录
+
+方法二：删除原本的附录，重新添加（选择自动添加PDF）
+
+方法三：（批量）\ `修改sqlite数据库 <https://zhuanlan.zhihu.com/p/437714189>`_\ ，转绝对路径
+
+.. code-block:: sqlite
+
+   # e.g. 绝对路径->相对路径
+   SELECT * FROM itemAttachments;
+   update itemAttachments set path = replace(path,'/media/helios/Thesis/Zotero/storage/','attachments:')
+
+.. note:: 修改完成后或要将本地数据来覆盖远程的元数据
+
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220516014029985.png" alt="image-20220516014029985" style="zoom:67%;" />`

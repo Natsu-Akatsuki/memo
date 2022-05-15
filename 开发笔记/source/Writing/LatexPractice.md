@@ -52,6 +52,18 @@ $ export PATH=${PATH}:"/usr/local/texlive/2022/bin/x86_64-linux"
 \end{figure}
 ```
 
+### [文本颜色](https://tex.stackexchange.com/questions/17104/how-to-change-color-for-a-block-of-texts)
+
+```latex
+\usepackage{xcolor}
+\begin{document}
+
+This is a sample text in black.
+\textcolor{blue}{This is a sample text in blue.}
+
+\end{document}
+```
+
 ### 文本居中
 
 ```latex
@@ -65,6 +77,15 @@ $ export PATH=${PATH}:"/usr/local/texlive/2022/bin/x86_64-linux"
 - `\cal`[花体](https://www.cnblogs.com/xiaofeisnote/p/13423726.html)  ；`\mathbb` [空体](https://www.overleaf.com/learn/latex/Mathematical_fonts)
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uBiXd1DVMqM5e3o5.png!thumbnail" alt="img" style="zoom:50%;" />
+
+### 构建引用
+
+```latex
+\bibliographystyle{IEEEtran} 
+\bibliography{<.bst文件名>}
+```
+
+
 
 ## IDE
 
@@ -97,18 +118,6 @@ latex/ markdown的文本语法检查
 根据latex位置定位到pdf的位置：命令行SyncTeX
 
 ## 实战
-
-### [给文本添加颜色](https://tex.stackexchange.com/questions/17104/how-to-change-color-for-a-block-of-texts)
-
-```latex
-\usepackage{xcolor}
-\begin{document}
-
-This is a sample text in black.
-\textcolor{blue}{This is a sample text in blue.}
-
-\end{document}
-```
 
 ### [IEEE中文模板](https://blog.csdn.net/qq_34447388/article/details/86488686)
 

@@ -64,6 +64,19 @@ Semantic
      \caption{肘型机械臂}
    \end{figure}
 
+`文本颜色 <https://tex.stackexchange.com/questions/17104/how-to-change-color-for-a-block-of-texts>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: latex
+
+   \usepackage{xcolor}
+   \begin{document}
+
+   This is a sample text in black.
+   \textcolor{blue}{This is a sample text in blue.}
+
+   \end{document}
+
 文本居中
 ^^^^^^^^
 
@@ -81,6 +94,14 @@ Semantic
 * ``\cal``\ `花体 <https://www.cnblogs.com/xiaofeisnote/p/13423726.html>`_  ；\ ``\mathbb`` `空体 <https://www.overleaf.com/learn/latex/Mathematical_fonts>`_
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uBiXd1DVMqM5e3o5.png!thumbnail" alt="img" style="zoom:50%;" />`
+
+构建引用
+^^^^^^^^
+
+.. code-block:: latex
+
+   \bibliographystyle{IEEEtran} 
+   \bibliography{<.bst文件名>}
 
 IDE
 ---
@@ -130,19 +151,6 @@ latex/ markdown的文本语法检查
 
 实战
 ----
-
-`给文本添加颜色 <https://tex.stackexchange.com/questions/17104/how-to-change-color-for-a-block-of-texts>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: latex
-
-   \usepackage{xcolor}
-   \begin{document}
-
-   This is a sample text in black.
-   \textcolor{blue}{This is a sample text in blue.}
-
-   \end{document}
 
 `IEEE中文模板 <https://blog.csdn.net/qq_34447388/article/details/86488686>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

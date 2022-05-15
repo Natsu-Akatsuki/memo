@@ -101,7 +101,7 @@ AmBook
    :hidden:
    :caption: Writing
 
-   Writing/rst/DataManage.rst   
+   Writing/rst/DataManage.rst
    Writing/rst/LatexPractice.rst
    Writing/rst/PlantUMLPractice.rst
    Writing/rst/SphinxPractice.rst
