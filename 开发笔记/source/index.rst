@@ -56,6 +56,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Go
+
+   Go/rst/GoPractice.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Hareware
 
    Hareware/rst/Camera.rst
