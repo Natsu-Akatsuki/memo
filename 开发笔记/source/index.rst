@@ -78,6 +78,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Javascript
+
+   Javascript/rst/JsPractice.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Pointcloud
 
    Pointcloud/rst/PCLPractice.rst
