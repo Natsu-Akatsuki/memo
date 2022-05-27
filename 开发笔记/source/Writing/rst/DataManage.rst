@@ -36,7 +36,7 @@ Typora
 ------
 
 
-* 现已付费，无官方显式提供提供的deb包
+* 现已付费，官方显式提供提供的deb包可查看\ `details <https://typora.io/windows/dev_release.html>`_
 * 无代码块功能
 
 Recoll
@@ -196,7 +196,7 @@ TensorRT的文档是直接提供了doxygen文档，而不像pcl docs一样可以
 * `坚果云与zotero <https://help.jianguoyun.com/?p=3168>`_\ 同步（webdav）设置：实际使用情况较少
 * `Jasminum <https://github.com/l0o0/jasminum>`_\ ：爬取知网文献
 * `Zotero-doi-manager <https://github.com/bwiernik/zotero-shortdoi>`_\ ：爬取DOI
-* `Zotero-better-bibtex <https://github.com/retorquere/zotero-better-bibtex>`_\ ：管理引文
+* `Zotero-better-bibtex <https://github.com/retorquere/zotero-better-bibtex>`_\ ：管理引文(\ `docs <https://retorque.re/zotero-better-bibtex/>`_\ )
 * `Zotero translators <https://github.com/ykt98/translators_CN-master>`_\ ：增设中文translators
 * （不推荐）\ `Zotero Storage Scanner <https://github.com/retorquere/zotero-storage-scanner>`_\ ：移除无效或者重复的attachments (暂不适用于0.6)
 * （不推荐）\ `Zotero-folder-import <https://github.com/retorquere/zotero-folder-import>`_ (暂不适用于0.6)

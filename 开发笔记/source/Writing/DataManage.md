@@ -27,7 +27,7 @@ $ espanso path
 
 ## Typora
 
-- 现已付费，无官方显式提供提供的deb包
+- 现已付费，官方显式提供提供的deb包可查看[details](https://typora.io/windows/dev_release.html)
 - 无代码块功能
 
 ## Recoll
@@ -152,7 +152,7 @@ $ sudo apt-get purge zotero
 - [坚果云与zotero](https://help.jianguoyun.com/?p=3168)同步（webdav）设置：实际使用情况较少
 - [Jasminum](https://github.com/l0o0/jasminum)：爬取知网文献
 - [Zotero-doi-manager](https://github.com/bwiernik/zotero-shortdoi)：爬取DOI
-- [Zotero-better-bibtex](https://github.com/retorquere/zotero-better-bibtex)：管理引文
+- [Zotero-better-bibtex](https://github.com/retorquere/zotero-better-bibtex)：管理引文([docs](https://retorque.re/zotero-better-bibtex/))
 - [Zotero translators](https://github.com/ykt98/translators_CN-master)：增设中文translators
 - （不推荐）[Zotero Storage Scanner](https://github.com/retorquere/zotero-storage-scanner)：移除无效或者重复的attachments (暂不适用于0.6)
 - （不推荐）[Zotero-folder-import](https://github.com/retorquere/zotero-folder-import) (暂不适用于0.6)
