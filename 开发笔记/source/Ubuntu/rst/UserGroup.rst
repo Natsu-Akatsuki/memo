@@ -41,6 +41,7 @@ User&&Group
 
 .. prompt:: bash $,# auto
 
+   # 记住添加用户名，否则可能改密码不生效
    $ sudo passwd <user_name>
 
 .. hint:: 一般账户对应的ID≥1000，系统账户则<1000；系统账户主要用来执行系统所需的服务，默认不会建立家目录

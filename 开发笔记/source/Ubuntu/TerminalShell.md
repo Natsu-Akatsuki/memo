@@ -350,3 +350,14 @@ n：（读）将文件中相对于历史列表增加的命令行 追加到终端
 #### whereis和which的区别？
 
 前者搜索范围（database）更广，后者只在 `PATH` 中寻找
+
+## 注销
+
+- [for KDE](https://fostips.com/log-out-command-linux-desktops/)
+
+```bash
+$ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
+# 重定向
+$ alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 0 3"
+```
+

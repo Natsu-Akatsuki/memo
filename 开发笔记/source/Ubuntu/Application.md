@@ -60,6 +60,9 @@ $ sudo dpkg -i flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
 $ sudo add-apt-repository ppa:atareao/atareao
 # 注意此处下载的不是screenkey
 $ sudo apt install screenkeyfk
+# avoid e: Couldn't find foreign struct converter for 'cairo.Context'
+$ sudo apt install python3-gi-cairo
+
 ```
 
 - [终端命令行录制](https://asciinema.org/)
@@ -282,3 +285,10 @@ $ sudo systemctl isolate graphical.target
 ```
 
 ---
+
+## 文本编辑器
+
+### 配置Kate
+
+- [配置其显示行数](https://superuser.com/questions/918189/how-to-make-kate-remember-to-always-show-line-numbers)
+

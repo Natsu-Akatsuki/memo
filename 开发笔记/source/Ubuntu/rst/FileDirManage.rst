@@ -219,7 +219,7 @@ pv
 .. prompt:: bash $,# auto
 
    # 压缩文件
-   $ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz
+   $ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz>
    # 解压缩
    $ pv <file.tar.gz> | tar -xzf -
 
@@ -680,6 +680,18 @@ xargs
 
 
 .. note:: *, +, ? 称为限定符或数量符
+
+
+
+* 贪婪和懒惰
+
+.. list-table::
+   :header-rows: 1
+
+   * - pattern
+     - function
+   * - *?
+     - 重复任意次，但尽可能少重复
 
 
 拓展资料

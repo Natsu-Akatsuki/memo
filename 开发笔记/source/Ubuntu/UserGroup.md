@@ -30,6 +30,7 @@ $ useradd -m <user_name> -G <group_name>
 步骤二：修改密码
 
 ```bash
+# 记住添加用户名，否则可能改密码不生效
 $ sudo passwd <user_name>
 ```
 

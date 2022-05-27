@@ -179,7 +179,7 @@ screen（终端复用）
    $ ./install.sh  
    $ # Follow the instructions to edit ~/.config/fontconfig/conf.d/30-icons.conf
 
-步骤二：\ `\ **源码**\ 编译nnn <https://github.com/jarun/nnn/wiki/Advanced-use-cases#file-icons>`_
+步骤二：\ `源码编译nnn <https://github.com/jarun/nnn/wiki/Advanced-use-cases#file-icons>`_
 
 .. prompt:: bash $,# auto
 
@@ -358,7 +358,7 @@ shell脚本
    $ read -r -p "Are You Sure? [Y/n] " input 
    $ read -p "Remove all RealSense cameras attached. Hit any key when ready"
    # -p：输入时显示提示信息
-   # -r: 不支持字符串转义  do not allow backslashes to escape any characters
+   # -r: 不支持字符串转义 do not allow backslashes to escape any characters
    `
 
 bash option
@@ -402,11 +402,11 @@ bash option
 
    # Get the linux kernel and change into source tree
    if [ ! -d ${kernel_name} ]; then
-       mkdir ${kernel_name}
-       cd ${kernel_name}
-       git init
-       git remote add origin git://kernel.ubuntu.com/ubuntu/ubuntu-${ubuntu_codename}.git
-       cd ..
+    mkdir ${kernel_name}
+    cd ${kernel_name}
+    git init
+    git remote add origin git://kernel.ubuntu.com/ubuntu/ubuntu-${ubuntu_codename}.git
+    cd ..
    fi
 
 .. attention:: 注意空格，[空格... 空格]
@@ -472,3 +472,15 @@ whereis和which的区别？
 ~~~~~~~~~~~~~~~~~~~~~~
 
 前者搜索范围（database）更广，后者只在 ``PATH`` 中寻找
+
+注销
+----
+
+
+* `for KDE <https://fostips.com/log-out-command-linux-desktops/>`_
+
+.. prompt:: bash $,# auto
+
+   $ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
+   # 重定向
+   $ alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 0 3"

@@ -172,7 +172,7 @@ $ tar -xf <待第二次解压的文件名.tar>
 
 ```bash
 # 压缩文件
-$ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz
+$ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz>
 # 解压缩
 $ pv <file.tar.gz> | tar -xzf -
 ```
@@ -513,6 +513,12 @@ $ sudo apt install meld
 | char\{m, n\} |   重复m-n个的前导符    |
 
 .. note:: *, +, ? 称为限定符或数量符
+
+- 贪婪和懒惰
+
+| pattern |          function          |
+| :-----: | :------------------------: |
+|   *?    | 重复任意次，但尽可能少重复 |
 
 #### 拓展资料
 

@@ -149,7 +149,7 @@ $ connect <mac_address>
 
 ### 显卡
 
-#### [安装显卡驱动](https://natsu-akatsuki.readthedocs.io/en/latest/ubuntu%E7%AC%94%E8%AE%B0/rst/%E7%A1%AC%E4%BB%B6%E4%B8%8E%E5%86%85%E6%A0%B8%E7%AE%A1%E7%90%86.html#id25)
+#### [安装显卡驱动](https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html)
 
 #### [限制显卡功率](https://blog.csdn.net/zjc910997316/article/details/113867906)
 
@@ -167,6 +167,26 @@ $ nvidia-smi --query-gpu=temperature.gpu --format=csv
 ```
 
 ![image-20211101163639065](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101163639065.png)
+
+### 显示器
+
+- 基于图形化界面配置
+
+```bash
+$ sudo apt install arandr
+$ arandr
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/rTmX8u3MBO6R8Mqb.png!thumbnail" alt="img" style="zoom:67%; " />
+
+.. note:: KDE可调用 ``Display Configuration`` 
+
+- 基于命令行
+
+```bash
+# 令eDP-1屏幕位于HDMI-1屏幕的右边
+$ xrandr --output eDP-1 --right-of HDMI-1
+```
 
 ### 内存
 
@@ -426,7 +446,7 @@ KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="06
 ### apt安装
 
 ```bash
-$ version="5.4.0-109" 
+$ version="5.8.0-63" 
 $ sudo apt install linux-image-${version}-generic linux-headers-${version}-generic linux-modules-${version}-generic linux-modules-extra-${version}-generic
 ```
 
@@ -498,7 +518,7 @@ $ sudo apt upgrade
 
 ```bash
 # 有ros时需卸载18版本的ros
-$ sudo apt purge --autoremove ros-melodic-*
+$ sudo apt purge --autoremove ros-$ROS_DISTRO-*
 ```
 
 * 步骤二：删源
@@ -517,7 +537,7 @@ $ sudo apt upgrade
 $ sudo do-release-upgrade
 ```
 
-.. note:: 若 ``do-release-upgrade`` 没找到可用的发行版，可以看看是不是 ``/etc/update-manager/release-upgrades`` 中禁用了更新；用这种方法若从16.04升级到20.04需要经过两次升级(16.04->18.04->20.04)
+.. note:: 若 ``do-release-upgrade`` 没找到可用的发行版，可以看看是不是 ``/etc/update-manager/release-upgrades`` 中禁用了更新；若从16.04升级到20.04，用这种方法，需要经过两次升级(16.04->18.04->20.04)
 
 #### 拓展资料
 
@@ -608,7 +628,8 @@ $ umount /mnt/
 
 ## 修复引导
 
-在引导盘的try-ubuntu下安装boot-repair
+- 适用于grub丢失的场景
+- 需在引导盘的try-ubuntu下安装boot-repair
 
 ```bash
 $ sudo add-apt-repository ppa:yannubuntu/boot-repair

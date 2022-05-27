@@ -396,6 +396,16 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
 .. hint:: 虽然conda pack最终的效果是生成一个压缩包，但跟自己用tar生成的压缩包不同，其还在压缩时添加了一些用于解决导出的python包路径错误问 的脚本，如conda-unpack。
 
 
+版本回退
+^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 查看已有的版本
+   $ conda list --revision
+   # 回退
+   $ conda install
+
 mamba
 ^^^^^
 
