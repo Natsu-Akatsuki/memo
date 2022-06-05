@@ -152,3 +152,10 @@ AmBook
    DeepLearning/rst/TensorRTPractice.rst
    DeepLearning/rst/ONNXPractice.rst
    DeepLearning/rst/PytorchPractice.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Standard
+
+   Standard/rst/Standard.rst
