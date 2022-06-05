@@ -158,6 +158,8 @@ Open in VSCode
 * 配置文件默认放在 `/etc/X11` 目录下
 * 日志文件默认为`/var/log/Xorg.0.log`
 
+* 只有$DISPLAY变量有值，才能够使用Xserver服务，如tty1没有该变量， 所以无法顺利执行图形化应用程序，如执行xclock，会返回"can't open display"
+
 #### 为什么默认情况下没有`/etc/X11/xorg.conf`
 
 X server启动时会自行检测系统的显卡，屏幕类型，然后 `自行搭配优化的驱动程序` 加载，[如果要自定义的话，建议通过覆盖的形式](https://unix.stackexchange.com/questions/505088/x-configure-doesnt-work-number-of-created-screens-does-not-match-number-of-d)
@@ -230,7 +232,7 @@ XFCE为轻量级的display manager
 
 ### Stacking Window Managers
 
-#### **[Metacity](https://en.wikipedia.org/wiki/Metacity)**
+#### [Metacity](https://en.wikipedia.org/wiki/Metacity)
 
 ### Tilting Window Managers
 
@@ -257,12 +259,31 @@ qdbus org.kde.KWin /KWin reconfigure
 
 [系统依赖较高，至少需要ubuntu21+](https://volian.org/bismuth/)
 
-## [创建快捷方式](https://wiki.archlinux.org/title/desktop_entries)
+### [Compositor](https://dev.to/l04db4l4nc3r/compositors-in-linux-1hhb)
+
+用于调整窗口的特效 / 透明度；有时应用程序存在黑边时则可以启动合成器
+
+#### kwin compositor
+
+一般直接用KDE环境默认的合成器即可，使用一些轻量级的桌面环境时才需要下载额外的合成器
+
+#### [compton](https://github.com/chjj/compton)
+
+```bash
+# 启动X11 compositor
+$ compton -b
+```
+
+#### [picom](https://github.com/yshui/picom)
+
+* apt for ubuntu20.10+；其他版本需要源码安装；[ppa安装](https://libredd.it/r/kde/comments/p822c2/perfect_kde_plasma_compositing_combo_kwin_picom/)
+
+## [Create Link](https://wiki.archlinux.org/title/desktop_entries)
 
 * 存放桌面快捷方式的位置：/usr/share/application
 * [exec 使用说明](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html)
 
-### 添加pycharm快捷方式
+* 增加pycharm快捷方式
 
 ```bash
 [Desktop Entry]
@@ -271,7 +292,7 @@ Type=Application
 
 Exec=bash -c "命令行1 && 命令行2"
 Terminal=false
-Icon=图标的位置
+Icon=图标的绝对位置
 ```
 
 ---
@@ -286,15 +307,8 @@ Icon=图标的位置
 
 ---
 
-## 实战
+## Debug
 
-### 黑屏
+### Black Screen
 
 * 有光标(cursor)：/boot空间不够
-
-### 某些应用程序有黑边
-
-```bash
-# 启动X11 compositor
-$ compton -b
-```

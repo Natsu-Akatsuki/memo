@@ -1,14 +1,24 @@
 # Terminal&&Shell
 
-## [tmux](https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html)（终端复用）
+## Application
 
-### 安装
+### [Konsole](https://ambook.readthedocs.io/zh/latest/Ubuntu/rst/AppearanceManage.html#konsole)
+
+自从用了konsole的分屏后就很少用tmux了
+
+```bash
+$ sudo apt install konsole
+```
+
+### [Tmux](https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html)
+
+#### 安装
 
 ```bash
 $ sudo apt install -y tmux
 ```
 
-### 配置文档
+#### 配置文档
 
 触发配置文档生效
 
@@ -18,7 +28,7 @@ $ tmux source ~/.tmux.conf`
 
 .. note:: 配置文档所在位置为 `~/.tmux.conf`
 
-### 分屏
+#### 分屏
 
 ![image-20210902091648903](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902091648903.png)
 
@@ -33,7 +43,7 @@ $ tmux split -h
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902094739706.png" alt="image-20210902094739706" style="zoom:67%; " />
 
-### pane操作
+#### pane操作
 
 * 显示panes
 
@@ -50,13 +60,13 @@ $ tmux select-pane <-t pane_id>
 # pane id可通过display-panes来知悉
 ```
 
-### session操作
+#### session操作
 
 * 创建session
 
 ![image-20210902093923093](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902093923093.png)
 
-### 常用快捷键
+#### 常用快捷键
 
 该部分快捷键包含自定义的快捷键
 
@@ -70,15 +80,15 @@ $ tmux select-pane <-t pane_id>
 |                粘贴板：粘贴                 | 前导符+p  |
 |             粘贴板：选择性粘贴              | 前导符+P  |
 
-### 实战
+#### 实战
 
-#### [自定义配置](https://github.com/Natsu-Akatsuki/MyTmux)
+- [自定义配置](https://github.com/Natsu-Akatsuki/MyTmux)
 
-#### [复制pane的文字](https://blog.csdn.net/RobertFlame/article/details/92794332)
+- [复制pane的文字](https://blog.csdn.net/RobertFlame/article/details/92794332)
 
 需要在使用前使用 `shift`
 
-#### 安装tpm
+- 安装tpm
 
 安装后，后续可用前导符+I（大写）进行插件安装
 
@@ -86,34 +96,30 @@ $ tmux select-pane <-t pane_id>
 $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-#### 面板缩放(zoom)
+- 面板缩放(zoom)： `前导符+z`
 
- `前导符+z`
-
-## terminator（终端复用）
+### Terminator
 
 * 安装与使用
 
-```bas
+```bash
 $ sudo apt install terminator
 $ terminator
 ```
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HLG3YQFJyk39WIM5.png!thumbnail)
-
 * [常用快捷键](https://blog.csdn.net/zhangkzz/article/details/90524066)
 
-## screen（终端复用）
+### Screen
 
 略
 
-## [yakuake（顶部终端）](https://github.com/KDE/yakuake)
+### [Yakuake](https://github.com/KDE/yakuake)
 
-暂时感觉用处不大
+顶部终端，暂感觉用处不大（2022.06.04）
 
-## [nnn](https://github.com/jarun/nnn)（基于终端的文件管理）
+### [NNN](https://github.com/jarun/nnn)
 
-### 应用
+基于终端的文件管理
 
 #### 显示icon
 
@@ -148,87 +154,32 @@ $ sudo make O_ICONS=1
 
 ---
 
-## 终端常用快捷键
+## Appearance
 
-* [终端的艺术](https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md)
-* ShortCut Table
-
-|    快捷键     |           作用           |
-| :-----------: | :----------------------: |
-|    ctrl+w     |       删除一个单词       |
-|    ctrl+7     |     撤销操作(cancel)     |
-|    ctrl+u     |        剪切至开头        |
-|    ctrl+k     |        剪切至末尾        |
-|    ctrl+y     |           粘贴           |
-| ctrl+←/ctrl+→ | 以单词为单位进行左右跳转 |
-|    ctrl+#     |      注释当前命令行      |
-
-.. attention:: 此处快捷键的剪切板并不是系统的剪切板
-
-## 界面配置
-
-* 界面分为 `命令行界面` 和 `图像化界面`
-
-* `命令行界面` ，又称为 `终端界面`，对应的tty为 `ttyX`
-
-* ubuntu下默认提供6个 `终端界面` 给用户登录，每个终端界面下启动的 `terminal` 对应的tty为 `pts/X`
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/e2wbM5698Gcp7CcW.png!thumbnail)
-
-### 查看某些按键的特殊效果
+### cowsay
 
 ```bash
-$ stty -a
+$ apt install cowsay
+$ cowsay <...文本>
 ```
 
-### [配置特殊的终端效果](https://www.cnblogs.com/robinunix/p/11635560.html)
+### echo
 
-一般用在bash脚本中，该选项对应于 `bash [option]`
+- echo颜色
 
 ```bash
-# 启动调试模式，输出详细的日志（会标准输出当前执行的命令）
-$ set -x
-# 若脚本执行有问题，则直接退出脚本
-$ set -e
+$ echo -e "\e[32mComplete \e[0m"
+$ \e 等价于 \033
+$ echo -e "\033[32mComplete \033[0m"
 ```
 
-### 切换界面
+### figlet
 
-```bash
-# 查询当前默认的界面（命令行界面or终端界面）
-$ systemctl get-default
-# 切换界面(依次为命令行界面和终端界面)
-$ systemctl isolate multi-user.target
-$ systemctl isolate graphical.target
-# 设置默认界面
-$ systemctl set-default graphical.target
-```
+- 字体符号化
 
-### 终端显示特殊的信息
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/QutNVaj257Fg5yrN.png!thumbnail" alt="img" style="zoom:67%;" />
 
-* 想要在输入密码时，有提示信息，可修改`/etc/ssh/sshd_config`的`Banner`字段
-* 想要在登录界面中，添加提示信息，可
-
-```bash
-$ sudo apt install landscape-common
-# 添加bash文件到/etc/update-motd.d/，其中文件顺序从小到大进行执行
-$ ...
-```
-
-## 拓展工具
-
-### 录制按键
-
-```bash
-$ script <output_file_name>
-# 命令行操作
-# 结束操作
-$ exit
-```
-
-### [解析命令行](https://explainshell.com/)
-
-## shell脚本
+## Shell
 
 ### 首行配置
 
@@ -245,6 +196,17 @@ $1：取命令行的第1个参数（序号从0开始）
 ${@:2} ：取所有的参数，取从第2个开始的所有参数 
 $? ：获取上一个命令行返回的exit code
 ````
+
+### [配置特殊的终端效果](https://www.cnblogs.com/robinunix/p/11635560.html)
+
+一般用在bash脚本中，该选项对应于 `bash [option]`
+
+```bash
+# 启动调试模式，输出详细的日志（会标准输出当前执行的命令）
+$ set -x
+# 若脚本执行有问题，则直接退出脚本
+$ set -e
+```
 
 ### 输入输出流重定向
 
@@ -265,6 +227,8 @@ $ read -p "Remove all RealSense cameras attached. Hit any key when ready"
 # -p：输入时显示提示信息
 # -r: 不支持字符串转义 do not allow backslashes to escape any characters
 ````
+
+### [自定义函数](https://blog.csdn.net/bornfree5511/article/details/109091233)
 
 ### bash option
 
@@ -315,19 +279,116 @@ fi
 
 2. [test command](https://linuxhint.com/bash-test-command/) (or man test)
 
-## 命令行补全
+### [for语法](https://blog.csdn.net/guodongxiaren/article/details/41911437)
+
+```bash
+#!/bin/bash
+ans=0
+for i in {1..100}; do
+    let ans+=$i
+done
+echo $ans
+```
+
+## Shortcut
+
+- 快捷键：
+
+|     快捷键      |            作用             |
+| :-------------: | :-------------------------: |
+|     ctrl+w      |        删除一个单词         |
+| ctrl+7 / ctrl+8 | 撤销操作(cancel) / 取消撤销 |
+|     ctrl+u      |         剪切至开头          |
+|     ctrl+k      |         剪切至末尾          |
+|     ctrl+y      |            粘贴             |
+|  ctrl+←/ctrl+→  |  以单词为单位进行左右跳转   |
+|     ctrl+#      |       注释当前命令行        |
+
+.. attention:: 此处快捷键的剪切板并不是系统的剪切板
+
+* 拓展资料：[终端的艺术](https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md)
+
+## SpecialInfo
+
+* 想要在输入密码时，有提示信息，可修改`/etc/ssh/sshd_config`的`Banner`字段
+* 想要在登录界面中，添加提示信息，可
+
+```bash
+$ sudo apt install landscape-common
+# 添加bash文件到/etc/update-motd.d/，其中文件顺序从小到大进行执行
+```
+
+## TTY
+
+* 界面分为 `命令行界面` 和 `图像化界面`
+
+* `命令行界面` ，又称为 `终端界面`，对应的tty为 `ttyX`
+
+* ubuntu下默认提供6个 `终端界面` 给用户登录，每个终端界面下启动的 `terminal` 对应的tty为 `pts/X`
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/e2wbM5698Gcp7CcW.png!thumbnail)
+
+### 查看某些按键的特殊效果
+
+```bash
+$ stty -a
+```
+
+### 切换界面
+
+```bash
+# 查询当前默认的界面（命令行界面or终端界面）
+$ systemctl get-default
+# 切换界面(依次为命令行界面和终端界面)
+$ systemctl isolate multi-user.target
+$ systemctl isolate graphical.target
+# 设置默认界面
+$ systemctl set-default graphical.target
+```
+
+### 注销
+
+- [for KDE](https://fostips.com/log-out-command-linux-desktops/)
+
+```bash
+$ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
+# 重定向
+$ alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 0 3"
+```
+
+## TUI
+
+### [Textual](https://github.com/Textualize/textual)
+
+python模块，暂时没感觉到适用的地方（2022.6.5）
+
+### Dialog
+
+- [Cody的探索日记](https://codychen.me/2020/29/linux-shell-%E7%9A%84%E5%9C%96%E5%BD%A2%E4%BA%92%E5%8B%95%E5%BC%8F%E4%BB%8B%E9%9D%A2-dialog/)
+- [Sleipnir.Setup的工程](https://github.com/GDUT-IIDCC/Sleipnir.setup/blob/ubuntu20/Setup.sh)
+
+## Extension
 
 ### [hstr](https://github.com/dvorka/hstr)
+
+命令行补全工具
 
 ```bash
 $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt-get install hstr && hstr --show-configuration >> ~/.bashrc && . ~/.bashrc
 ```
 
-## 内置命令行
+### script
 
-### 查看历史命令行
+命令行录制工具
 
-#### [history](https://zhuanlan.zhihu.com/p/248520994)
+```bash
+$ script <output_file_name>
+# 命令行操作
+# 结束操作
+$ exit
+```
+
+#### [History](https://zhuanlan.zhihu.com/p/248520994)
 
 * 默认存放数据的文件为 `~/.bash_history`
 
@@ -345,19 +406,5 @@ export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 # option:
 a：（写）将历史列表中相对于文件增加的命令行 追加到文件中
 n：（读）将文件中相对于历史列表增加的命令行 追加到终端的历史列表中
-```
-
-#### whereis和which的区别？
-
-前者搜索范围（database）更广，后者只在 `PATH` 中寻找
-
-## 注销
-
-- [for KDE](https://fostips.com/log-out-command-linux-desktops/)
-
-```bash
-$ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
-# 重定向
-$ alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 0 3"
 ```
 

@@ -5,137 +5,35 @@
 Hareware&&Kernel
 ================
 
-监控资源
+DualSystem
+----------
+
+在win的基础下安装ubuntu
+^^^^^^^^^^^^^^^^^^^^^^^
+
+步骤一：假定硬盘上已有windows系统，在windows系统上进行磁盘空间的压缩，得到free space；若已有free space则可以直接跳过这个操作
+
+步骤二：制作引导盘，并进行安装（需设置引导启动顺序，部分电脑需\ **关闭安全模式**\ ）
+
+步骤三：安装时分盘（一般都用ext4格式）
+
+.. note:: 分区时至少需要根目录和交换空间，其他可不用
+
+
+**拓展资料**\ ：
+
+
+* `国外教程 <https://www.hellotech.com/guide/for/how-to-install-linux-on-windows-10>`_
+* `加装硬盘+双系统教程 <https://www.cnblogs.com/masbay/p/10745170.html>`_
+
+`从ubuntu卸载windows系统 <https://www.youtube.com/watch?v=0HVX0kEC5NU>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Hareware
 --------
 
-进程
-^^^^
-
-htop(进程)
-~~~~~~~~~~
-
-一般查看当前用户下最占用cpu（P）和内存（M）的进程
-
-
-* 命令行
-
-.. prompt:: bash $,# auto
-
-   # 只查看当前用户的进程
-   $ htop -u $(whoami)
-
-
-* 交互式快捷键
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904001431390.png" alt="image-20210904001431390" style="zoom:50%; " />`
-
-
-* 配置项
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904002516344.png" alt="image-20210904002516344" style="zoom:67%; " />`
-
-查看进程树
-~~~~~~~~~~
-
-
-* 图形化界面（for KDE）
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210910181315174.png" alt="image-20210910181315174" style="zoom:50%; " />`
-
-
-* `命令行 <https://www.howtoforge.com/linux-pstree-command/>`_
-
-.. prompt:: bash $,# auto
-
-   $ pstree [user]
-   -s：查看指定pid的父进程
-   -u：显示user
-   -p：显示pid号
-   -T：隐藏线程
-   -t：显示线程全称
-   -a：显示对应的命令行
-   -g：显示组ID
-
-综合
-~~~~
-
-zenith
-^^^^^^
-
-
-* 可从\ `此处 <https://github.com/bvaisvil/zenith/releases>`_\ 下载相应的deb包(e.g. zenith_0.12.0-1_amd64.deb)
-
-.. prompt:: bash $,# auto
-
-   $ cd ~/application
-   $ wget -c https://github.com/bvaisvil/zenith/releases/download/0.12.0/zenith_0.12.0-1_amd64.deb
-   $ sudo dpkg -i zenith_0.12.0-1_amd64.deb
-
-
-* 启动
-
-.. prompt:: bash $,# auto
-
-   $ zenith
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904004618016.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904004618016.png
-   :alt: image-20210904004618016
-
-
-.. note:: 该可执行文件/命令行能快速提供有价值的信息
-
-
-管理硬件
---------
-
-监控设备温度
-^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ sudo apt install lm-sensors
-   $ watch -n 2 sensors
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/IY7gtxIT4cnCmLb0.png!thumbnail" alt="img" style="zoom:67%; " />`
-
-查看设备信息
-^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ lspci   # pci接口设备信息
-   $ lsusb   # usb设备信息
-   $ lshw -c <device_name>  # ls hardware
-
-
-* lshw\ `可查询的设备 <https://ezix.org/project/wiki/HardwareLiSter>`_\ ：
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vT62MX2KMPNm9DcH.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vT62MX2KMPNm9DcH.png!thumbnail
-   :alt: img
-
-
-
-* 显卡信息显示不完全
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/UX2Bxt3z3hB4vskl.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/UX2Bxt3z3hB4vskl.png!thumbnail
-   :alt: img
-
-
-.. prompt:: bash $,# auto
-
-   # 可先更新数据库
-   $ sudo update-pciids
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sV507p45ylC7xEa6.png!thumbnail" alt="img" style="zoom:67%; " />`
-
-蓝牙
-^^^^
+Bluetool
+^^^^^^^^
 
 hcitool
 ~~~~~~~
@@ -189,86 +87,6 @@ bluetoothctl
    # 进行配对
    $ connect <mac_address>
 
-显卡
-^^^^
-
-`安装显卡驱动 <https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`限制显卡功率 <https://blog.csdn.net/zjc910997316/article/details/113867906>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   # --persistence-mode= Set persistence mode: 0/DISABLED, 1/ENABLED
-   $ sudo nvidia-smi -pm 1
-   # --power-limit= Specifies maximum power management limit in watts.
-   $ sudo nvidia-smi -pl 150
-
-显示温度
-~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   $ nvidia-smi --query-gpu=temperature.gpu --format=csv
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101163639065.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211101163639065.png
-   :alt: image-20211101163639065
-
-
-显示器
-^^^^^^
-
-
-* 基于图形化界面配置
-
-.. prompt:: bash $,# auto
-
-   $ sudo apt install arandr
-   $ arandr
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/rTmX8u3MBO6R8Mqb.png!thumbnail" alt="img" style="zoom:67%; " />`
-
-.. note:: KDE可调用 ``Display Configuration`` 
-
-
-
-* 基于命令行
-
-.. prompt:: bash $,# auto
-
-   # 令eDP-1屏幕位于HDMI-1屏幕的右边
-   $ xrandr --output eDP-1 --right-of HDMI-1
-
-内存
-^^^^
-
-清除内存缓存
-~~~~~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   # 可先将内存数据写入到硬盘中，再清缓存
-   $ sync 
-   $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"
-
-清理swap
-~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   # 直接清除（需内存有足够的空间来处理swap的数据）
-   $ sudo swapoff -a; sudo swapon -a
-
-`查看使用交换空间的进程 <https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   $ for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r
-
 CPU
 ^^^
 
@@ -284,30 +102,123 @@ CPU
    # 查看本机CPU支持的模式：                 
    $ sudo cpufreq-info
 
-压力测试
-~~~~~~~~
+`Device Bind <https://wiki.archlinux.org/title/Udev>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-相关工具为stress, s-tui
+基于计算机设备端口号的绑定固定名称
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+步骤一：查看当前串口
 
 .. prompt:: bash $,# auto
 
-   $ sudo apt install s-tui stress
+   $ ls /dev/ttyUSB*
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907110949467.png" alt="image-20210907110949467"  />`
+步骤二：查看串口详细信息
 
-实战
-~~~~
+.. prompt:: bash $,# auto
 
-
-* 温度过高。可通过 ``dmesg`` 或 ``journalctl`` 查看日志信息（日志等级不一定为err）
-
-..
-
-   mce: CPUx: Package temperature above threshold, cpu clock throttled
+   $ udevadm info /dev/ttyUSB*
 
 
-硬盘
-^^^^
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz8pWieZ3CVLihbE.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz8pWieZ3CVLihbE.png!thumbnail
+   :alt: img
+
+
+.. note:: 图中红框处为端口对应的硬件上的USB口 ID
+
+
+步骤三：创建文件
+
+.. prompt:: bash $,# auto
+
+   $ cat /etc/udev/rules.d/com_port.rules
+
+步骤四：添加内容
+
+.. prompt:: bash $,# auto
+
+   ACTION=="add",KERNELS=="{ID}",SUBSYSTEMS=="usb",MODE:="0777",SYMLINK+="{name}"
+
+.. note:: 其中{ID}为红框处的USB口ID，{name}为该端口别名
+
+
+`udev配置语法 <https://blog.csdn.net/xiaoliu5396/article/details/46531893?locationNum=2>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+实战：相机端口绑定(/dev/video*)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+步骤一：看属性
+
+.. prompt:: bash $,# auto
+
+   # 查看硬件设备生厂商和销售商id
+   $ dmesg 
+   # 或 
+   $ udevadm info -a <设备挂载点> | grep id
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sbk14kPkgUQz5qIm.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sbk14kPkgUQz5qIm.png!thumbnail
+   :alt: img
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ORJOpxs27Z2j2JHf.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ORJOpxs27Z2j2JHf.png!thumbnail
+   :alt: img
+
+
+步骤二：构建规则文档
+
+.. prompt:: bash $,# auto
+
+   KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="0666", SYMLINK+="camera0"
+
+Graphics card
+^^^^^^^^^^^^^
+
+`安装显卡驱动 <https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`限制显卡功率 <https://blog.csdn.net/zjc910997316/article/details/113867906>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # --persistence-mode= Set persistence mode: 0/DISABLED, 1/ENABLED
+   $ sudo nvidia-smi -pm 1
+   # --power-limit= Specifies maximum power management limit in watts.
+   $ sudo nvidia-smi -pl 150
+
+显示器
+~~~~~~
+
+
+* 基于图形化界面配置
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install arandr
+   $ arandr
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/rTmX8u3MBO6R8Mqb.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+.. note:: KDE可调用 ``Display Configuration``
+
+
+
+* 基于命令行
+
+.. prompt:: bash $,# auto
+
+   # 令eDP-1屏幕位于HDMI-1屏幕的右边
+   $ xrandr --output eDP-1 --right-of HDMI-1
+
+Hard disk
+^^^^^^^^^
 
 
 * 文件系统的类型： ``xfs`` 、 ``ext4`` ...
@@ -469,8 +380,69 @@ windows默认不支持ext4文件系统的读写，需要下载软件实现额外
 
 ----
 
-`输入设备 <https://wiki.archlinux.org/title/Xorg>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`dd命令 <https://snapshooter.com/blog/how-to-clone-your-linux-harddrive-with-dd>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+测试时，dd命令是在try ubuntu下进行的；两个硬盘的型号一致
+
+
+* 硬盘与分区
+
+.. prompt:: bash $,# auto
+
+   # 拷贝硬盘 
+   # if: src of: dst
+   $ dd if=/dev/sdb of=/dev/sdc
+   # 拷贝分区
+   $ dd if=/dev/sdbc of=/dev/sdcd status=progress
+
+
+* 追加压缩功能
+
+.. prompt:: bash $,# auto
+
+   $ dd if=/dev/sdb status=progress | gzip -c > /mnt/backup.img.gz
+   $ gunzip -c /mnt/backup.img.gz | dd of=/dev/sdb status=progress
+
+.. note:: 不进行压缩的话，原来硬盘分配多大，现在就是多大（不管有没有利用完）
+
+
+Hareware info
+^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ lspci   # pci接口设备信息
+   $ lsusb   # usb设备信息
+   $ lshw -c <device_name>  # ls hardware
+
+
+* lshw\ `可查询的设备 <https://ezix.org/project/wiki/HardwareLiSter>`_\ ：常用net
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vT62MX2KMPNm9DcH.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vT62MX2KMPNm9DcH.png!thumbnail
+   :alt: img
+
+
+
+* 显卡信息显示不完全
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/UX2Bxt3z3hB4vskl.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/UX2Bxt3z3hB4vskl.png!thumbnail
+   :alt: img
+
+
+.. prompt:: bash $,# auto
+
+   # 可先更新数据库
+   $ sudo update-pciids
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sV507p45ylC7xEa6.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+`IO device <https://wiki.archlinux.org/title/Xorg>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
@@ -483,6 +455,68 @@ windows默认不支持ext4文件系统的读写，需要下载软件实现额外
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/qRGjseKCAT2Tlq66.png!thumbnail
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/qRGjseKCAT2Tlq66.png!thumbnail
    :alt: img
+
+
+Memory
+^^^^^^
+
+清理缓存
+~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 可先将内存数据写入到硬盘中，再清缓存
+   $ sync 
+   $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"
+
+清理swap
+~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 直接清除（需内存有足够的空间来处理swap的数据）
+   $ sudo swapoff -a; sudo swapon -a
+
+`查看使用交换空间的进程 <https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r
+
+Temperature
+^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install lm-sensors
+   $ watch -n 2 sensors
+
+   # 显示显卡温度
+   $ nvidia-smi --query-gpu=temperature.gpu --format=csv
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/IY7gtxIT4cnCmLb0.png!thumbnail" alt="img" style="zoom:67%; " />`
+
+压力测试
+~~~~~~~~
+
+相关工具为stress, s-tui
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install s-tui stress
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907110949467.png" alt="image-20210907110949467"  />`
+
+实战
+~~~~
+
+
+* 温度过高。可通过 ``dmesg`` 或 ``journalctl`` 查看日志信息（日志等级不一定为err）
+
+..
+
+   mce: CPUx: Package temperature above threshold, cpu clock throttled
 
 
 USB
@@ -518,94 +552,18 @@ USB
    :alt: preview
 
 
-`外设绑定 <https://wiki.archlinux.org/title/Udev>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Kernel
+------
 
-基于计算机设备端口号的绑定固定名称
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+当无法使用无法识别wifi，声卡模块，或无法调节亮度时，可能是当前的硬件缺乏适配的驱动。可以通过升级内核来升级硬件驱动。
 
-步骤一：查看当前串口
-
-.. prompt:: bash $,# auto
-
-   $ ls /dev/ttyUSB*
-
-步骤二：查看串口详细信息
+安装
+^^^^
 
 .. prompt:: bash $,# auto
 
-   $ udevadm info /dev/ttyUSB*
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz8pWieZ3CVLihbE.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sz8pWieZ3CVLihbE.png!thumbnail
-   :alt: img
-
-
-.. note:: 图中红框处为端口对应的硬件上的USB口 ID
-
-
-步骤三：创建文件
-
-.. prompt:: bash $,# auto
-
-   $ cat /etc/udev/rules.d/com_port.rules
-
-步骤四：添加内容
-
-.. prompt:: bash $,# auto
-
-   ACTION=="add",KERNELS=="{ID}",SUBSYSTEMS=="usb",MODE:="0777",SYMLINK+="{name}"
-
-.. note:: 其中{ID}为红框处的USB口ID，{name}为该端口别名
-
-
-`udev配置语法 <https://blog.csdn.net/xiaoliu5396/article/details/46531893?locationNum=2>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-实战：相机端口绑定(/dev/video*)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-步骤一：看属性
-
-.. prompt:: bash $,# auto
-
-   # 查看硬件设备生厂商和销售商id
-   $ dmesg 
-   # 或 
-   $ udevadm info -a <设备挂载点> | grep id
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sbk14kPkgUQz5qIm.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sbk14kPkgUQz5qIm.png!thumbnail
-   :alt: img
-
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ORJOpxs27Z2j2JHf.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ORJOpxs27Z2j2JHf.png!thumbnail
-   :alt: img
-
-
-步骤二：构建规则文档
-
-.. prompt:: bash $,# auto
-
-   KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="0666", SYMLINK+="camera0"
-
-内核
-----
-
-apt安装
-^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ version="5.8.0-63" 
-   $ sudo apt install linux-image-${version}-generic linux-headers-${version}-generic linux-modules-${version}-generic linux-modules-extra-${version}-generic
-
-.. note:: 遗漏module模块或无法识别wifi/声卡模块
-
+   $ version="5.8.0-63-generic" 
+   $ sudo apt install linux-image-${version} linux-headers-${version} linux-modules-${version} linux-modules-extra-${version}
 
 查看已安装的内核版本
 ^^^^^^^^^^^^^^^^^^^^
@@ -636,19 +594,20 @@ apt安装
 .. prompt:: bash $,# auto
 
    $ sudo add-apt-repository ppa:tuxinvader/lts-mainline
-   $ sudo apt-get update
+   $ sudo apt update
    # e.g. install v5.12
-   $ sudo apt-get install linux-generic-5.12
+   $ sudo apt install linux-generic-5.12
 
 
-* (recommend)在ubuntu20.04升级到5.10+(oem)，\ `HWE <https://ubuntu.com/kernel/lifecycle>`_
+* (recommend)在ubuntu20.04升级到5.10+(oem)或\ `HWE <https://ubuntu.com/kernel/lifecycle>`_
 
 .. prompt:: bash $,# auto
 
+   # oem:
    $ apt install linux-oem-20.04
 
-   # 2022.3.23: 5.13
-   $ sudo apt-get install --install-recommends linux-generic-hwe-20.04
+   # hwe: 2022.3.23: 5.13
+   $ sudo apt install --install-recommends linux-generic-hwe-20.04
 
 ----
 
@@ -711,7 +670,7 @@ apt安装
    $ sudo apt upgrade
    $ sudo do-release-upgrade
 
-.. note:: 若 ``do-release-upgrade`` 没找到可用的发行版，可以看看是不是 ``/etc/update-manager/release-upgrades`` 中禁用了更新；若从16.04升级到20.04，用这种方法，需要经过两次升级(16.04->18.04->20.04)
+.. note:: 若 ``do-release-upgrade`` 没找到可用的发行版，可以看看是不是 ``/etc/update-manager/release-upgrades`` 中禁用了更新；若从16.04升级到20.04，用这种方法，需要经过两次升级（16.04->18.04->20.04）；20.04->22.04，也是需要经过两次升级（20.04->21.04->22.04）
 
 
 拓展资料
@@ -753,8 +712,8 @@ apt安装
 
 * `load/unload内核 <https://opensource.com/article/18/5/how-load-or-unload-linux-kernel-module>`_
 
-限制用户使用资源(optional)
---------------------------
+LimitUserResource
+-----------------
 
 显示当前的限制状态
 ^^^^^^^^^^^^^^^^^^
@@ -789,8 +748,93 @@ apt安装
 
    $ edquota <user_name>
 
-`使用chroot修复系统 <https://help.ubuntu.com/community/LiveCdRecovery>`_
-----------------------------------------------------------------------------
+Monitor
+-------
+
+进程
+^^^^
+
+htop(进程)
+~~~~~~~~~~
+
+一般查看当前用户下最占用cpu（\ **P**\ ）和内存（\ **M**\ ）的进程
+
+
+* 命令行
+
+.. prompt:: bash $,# auto
+
+   # 只查看当前用户的进程
+   $ htop -u $(whoami)
+
+
+* 交互式快捷键
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904001431390.png" alt="image-20210904001431390" style="zoom:50%; " />`
+
+
+* 配置项
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904002516344.png" alt="image-20210904002516344" style="zoom:67%; " />`
+
+查看进程树
+~~~~~~~~~~
+
+
+* 图形化界面（for KDE）
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210910181315174.png" alt="image-20210910181315174" style="zoom:50%; " />`
+
+
+* `命令行 <https://www.howtoforge.com/linux-pstree-command/>`_
+
+.. prompt:: bash $,# auto
+
+   $ pstree [user]
+   -s：查看指定pid的父进程
+   -u：显示user
+   -p：显示pid号
+   -T：隐藏线程
+   -t：显示线程全称
+   -a：显示对应的命令行
+   -g：显示组ID
+
+综合
+~~~~
+
+zenith
+^^^^^^
+
+
+* 可从\ `此处 <https://github.com/bvaisvil/zenith/releases>`_\ 下载相应的deb包(e.g. zenith_0.12.0-1_amd64.deb)
+
+.. prompt:: bash $,# auto
+
+   $ cd ~/application
+   $ wget -c https://github.com/bvaisvil/zenith/releases/download/0.13.1/zenith_0.13.0-1_amd64.deb -O /tmp/zenith.deb
+   $ sudo dpkg -i /tmp/zenith.deb
+
+
+* 启动
+
+.. prompt:: bash $,# auto
+
+   $ zenith
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904004618016.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210904004618016.png
+   :alt: image-20210904004618016
+
+
+.. note:: 该可执行文件/命令行能快速提供有价值的信息
+
+
+RepairSystem
+------------
+
+`Chroot <https://help.ubuntu.com/community/LiveCdRecovery>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * chroot的作用相当于在系统B（引导盘）执行系统A（受损系统）的可执行文件，以下为使用chroot来修复镜像
@@ -818,32 +862,3 @@ apt安装
 
 
 * `其他应用 <https://help.ubuntu.com/community/LiveCdRecovery>`_\ （已尝试过可修改分区）
-
-修复引导
---------
-
-
-* 适用于grub丢失的场景
-* 需在引导盘的try-ubuntu下安装boot-repair
-
-.. prompt:: bash $,# auto
-
-   $ sudo add-apt-repository ppa:yannubuntu/boot-repair
-   $ sudo apt-get update
-   $ sudo apt install boot-repair mdadm
-   $ boot-repair
-
-安装双系统
-----------
-
-步骤一：假定硬盘上已有windows系统，在windows系统上进行磁盘空间的压缩，得到free space；若已有free space则可以直接跳过这个操作
-
-步骤二：制作引导盘，并进行安装（需设置引导启动顺序，部分电脑需关闭安全模式）
-
-步骤三：安装时分盘（一般都用ext4格式）
-
-**拓展资料**\ ：
-
-
-* `国外教程 <https://www.hellotech.com/guide/for/how-to-install-linux-on-windows-10>`_
-* `加装硬盘+双系统教程 <https://www.cnblogs.com/masbay/p/10745170.html>`_

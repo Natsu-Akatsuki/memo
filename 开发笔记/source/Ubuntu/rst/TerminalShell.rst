@@ -5,18 +5,30 @@
 Terminal&&Shell
 ===============
 
-`tmux <https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html>`_\ （终端复用）
-----------------------------------------------------------------------------------------
+Application
+-----------
+
+`Konsole <https://ambook.readthedocs.io/zh/latest/Ubuntu/rst/AppearanceManage.html#konsole>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+自从用了konsole的分屏后就很少用tmux了
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install konsole
+
+`Tmux <https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 安装
-^^^^
+~~~~
 
 .. prompt:: bash $,# auto
 
    $ sudo apt install -y tmux
 
 配置文档
-^^^^^^^^
+~~~~~~~~
 
 触发配置文档生效
 
@@ -28,7 +40,7 @@ Terminal&&Shell
 
 
 分屏
-^^^^
+~~~~
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902091648903.png
@@ -48,7 +60,7 @@ Terminal&&Shell
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210902094739706.png" alt="image-20210902094739706" style="zoom:67%; " />`
 
 pane操作
-^^^^^^^^
+~~~~~~~~
 
 
 * 显示panes
@@ -68,7 +80,7 @@ pane操作
    # pane id可通过display-panes来知悉
 
 session操作
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 
 * 创建session
@@ -80,7 +92,7 @@ session操作
 
 
 常用快捷键
-^^^^^^^^^^
+~~~~~~~~~~
 
 该部分快捷键包含自定义的快捷键
 
@@ -106,18 +118,19 @@ session操作
 
 
 实战
-^^^^
+~~~~
 
-`自定义配置 <https://github.com/Natsu-Akatsuki/MyTmux>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`复制pane的文字 <https://blog.csdn.net/RobertFlame/article/details/92794332>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 
+  `自定义配置 <https://github.com/Natsu-Akatsuki/MyTmux>`_
+
+* 
+  `复制pane的文字 <https://blog.csdn.net/RobertFlame/article/details/92794332>`_
 
 需要在使用前使用 ``shift``
 
-安装tpm
-~~~~~~~
+
+* 安装tpm
 
 安装后，后续可用前导符+I（大写）进行插件安装
 
@@ -125,46 +138,37 @@ session操作
 
    $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-面板缩放(zoom)
-~~~~~~~~~~~~~~
 
- ``前导符+z``
+* 面板缩放(zoom)： ``前导符+z``
 
-terminator（终端复用）
-----------------------
+Terminator
+^^^^^^^^^^
 
 
 * 安装与使用
 
-.. code-block:: bas
+.. prompt:: bash $,# auto
 
    $ sudo apt install terminator
    $ terminator
 
 
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HLG3YQFJyk39WIM5.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HLG3YQFJyk39WIM5.png!thumbnail
-   :alt: img
-
-
-
 * `常用快捷键 <https://blog.csdn.net/zhangkzz/article/details/90524066>`_
 
-screen（终端复用）
-------------------
+Screen
+^^^^^^
 
 略
 
-`yakuake（顶部终端） <https://github.com/KDE/yakuake>`_
------------------------------------------------------------
+`Yakuake <https://github.com/KDE/yakuake>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-暂时感觉用处不大
+顶部终端，暂感觉用处不大（2022.06.04）
 
-`nnn <https://github.com/jarun/nnn>`_\ （基于终端的文件管理）
----------------------------------------------------------------
+`NNN <https://github.com/jarun/nnn>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-应用
-^^^^
+基于终端的文件管理
 
 显示icon
 ~~~~~~~~
@@ -205,119 +209,39 @@ screen（终端复用）
 
 ----
 
-终端常用快捷键
---------------
+Appearance
+----------
 
-
-* `终端的艺术 <https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md>`_
-* ShortCut Table
-
-.. list-table::
-   :header-rows: 1
-
-   * - 快捷键
-     - 作用
-   * - ctrl+w
-     - 删除一个单词
-   * - ctrl+7
-     - 撤销操作(cancel)
-   * - ctrl+u
-     - 剪切至开头
-   * - ctrl+k
-     - 剪切至末尾
-   * - ctrl+y
-     - 粘贴
-   * - ctrl+←/ctrl+→
-     - 以单词为单位进行左右跳转
-   * - ctrl+#
-     - 注释当前命令行
-
-
-.. attention:: 此处快捷键的剪切板并不是系统的剪切板
-
-
-界面配置
---------
-
-
-* 
-  界面分为 ``命令行界面`` 和 ``图像化界面``
-
-* 
-  ``命令行界面`` ，又称为 ``终端界面``\ ，对应的tty为 ``ttyX``
-
-* 
-  ubuntu下默认提供6个 ``终端界面`` 给用户登录，每个终端界面下启动的 ``terminal`` 对应的tty为 ``pts/X``
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/e2wbM5698Gcp7CcW.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/e2wbM5698Gcp7CcW.png!thumbnail
-   :alt: img
-
-
-查看某些按键的特殊效果
-^^^^^^^^^^^^^^^^^^^^^^
+cowsay
+^^^^^^
 
 .. prompt:: bash $,# auto
 
-   $ stty -a
+   $ apt install cowsay
+   $ cowsay <...文本>
 
-`配置特殊的终端效果 <https://www.cnblogs.com/robinunix/p/11635560.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+echo
+^^^^
 
-一般用在bash脚本中，该选项对应于 ``bash [option]``
 
-.. prompt:: bash $,# auto
-
-   # 启动调试模式，输出详细的日志（会标准输出当前执行的命令）
-   $ set -x
-   # 若脚本执行有问题，则直接退出脚本
-   $ set -e
-
-切换界面
-^^^^^^^^
+* echo颜色
 
 .. prompt:: bash $,# auto
 
-   # 查询当前默认的界面（命令行界面or终端界面）
-   $ systemctl get-default
-   # 切换界面(依次为命令行界面和终端界面)
-   $ systemctl isolate multi-user.target
-   $ systemctl isolate graphical.target
-   # 设置默认界面
-   $ systemctl set-default graphical.target
+   $ echo -e "\e[32mComplete \e[0m"
+   $ \e 等价于 \033
+   $ echo -e "\033[32mComplete \033[0m"
 
-终端显示特殊的信息
-^^^^^^^^^^^^^^^^^^
+figlet
+^^^^^^
 
 
-* 想要在输入密码时，有提示信息，可修改\ ``/etc/ssh/sshd_config``\ 的\ ``Banner``\ 字段
-* 想要在登录界面中，添加提示信息，可
+* 字体符号化
 
-.. prompt:: bash $,# auto
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/QutNVaj257Fg5yrN.png!thumbnail" alt="img" style="zoom:67%;" />`
 
-   $ sudo apt install landscape-common
-   # 添加bash文件到/etc/update-motd.d/，其中文件顺序从小到大进行执行
-   $ ...
-
-拓展工具
---------
-
-录制按键
-^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ script <output_file_name>
-   # 命令行操作
-   # 结束操作
-   $ exit
-
-`解析命令行 <https://explainshell.com/>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-shell脚本
----------
+Shell
+-----
 
 首行配置
 ^^^^^^^^
@@ -337,6 +261,18 @@ shell脚本
    ${@:2} ：取所有的参数，取从第2个开始的所有参数 
    $? ：获取上一个命令行返回的exit code
    `
+
+`配置特殊的终端效果 <https://www.cnblogs.com/robinunix/p/11635560.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+一般用在bash脚本中，该选项对应于 ``bash [option]``
+
+.. prompt:: bash $,# auto
+
+   # 启动调试模式，输出详细的日志（会标准输出当前执行的命令）
+   $ set -x
+   # 若脚本执行有问题，则直接退出脚本
+   $ set -e
 
 输入输出流重定向
 ^^^^^^^^^^^^^^^^
@@ -360,6 +296,9 @@ shell脚本
    # -p：输入时显示提示信息
    # -r: 不支持字符串转义 do not allow backslashes to escape any characters
    `
+
+`自定义函数 <https://blog.csdn.net/bornfree5511/article/details/109091233>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 bash option
 ^^^^^^^^^^^
@@ -422,23 +361,154 @@ bash option
 #. 
    `test command <https://linuxhint.com/bash-test-command/>`_ (or man test)
 
-命令行补全
-----------
+`for语法 <https://blog.csdn.net/guodongxiaren/article/details/41911437>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   #!/bin/bash
+   ans=0
+   for i in {1..100}; do
+       let ans+=$i
+   done
+   echo $ans
+
+Shortcut
+--------
+
+
+* 快捷键：
+
+.. list-table::
+   :header-rows: 1
+
+   * - 快捷键
+     - 作用
+   * - ctrl+w
+     - 删除一个单词
+   * - ctrl+7 / ctrl+8
+     - 撤销操作(cancel) / 取消撤销
+   * - ctrl+u
+     - 剪切至开头
+   * - ctrl+k
+     - 剪切至末尾
+   * - ctrl+y
+     - 粘贴
+   * - ctrl+←/ctrl+→
+     - 以单词为单位进行左右跳转
+   * - ctrl+#
+     - 注释当前命令行
+
+
+.. attention:: 此处快捷键的剪切板并不是系统的剪切板
+
+
+
+* 拓展资料：\ `终端的艺术 <https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md>`_
+
+SpecialInfo
+-----------
+
+
+* 想要在输入密码时，有提示信息，可修改\ ``/etc/ssh/sshd_config``\ 的\ ``Banner``\ 字段
+* 想要在登录界面中，添加提示信息，可
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install landscape-common
+   # 添加bash文件到/etc/update-motd.d/，其中文件顺序从小到大进行执行
+
+TTY
+---
+
+
+* 
+  界面分为 ``命令行界面`` 和 ``图像化界面``
+
+* 
+  ``命令行界面`` ，又称为 ``终端界面``\ ，对应的tty为 ``ttyX``
+
+* 
+  ubuntu下默认提供6个 ``终端界面`` 给用户登录，每个终端界面下启动的 ``terminal`` 对应的tty为 ``pts/X``
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/e2wbM5698Gcp7CcW.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/e2wbM5698Gcp7CcW.png!thumbnail
+   :alt: img
+
+
+查看某些按键的特殊效果
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ stty -a
+
+切换界面
+^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 查询当前默认的界面（命令行界面or终端界面）
+   $ systemctl get-default
+   # 切换界面(依次为命令行界面和终端界面)
+   $ systemctl isolate multi-user.target
+   $ systemctl isolate graphical.target
+   # 设置默认界面
+   $ systemctl set-default graphical.target
+
+注销
+^^^^
+
+
+* `for KDE <https://fostips.com/log-out-command-linux-desktops/>`_
+
+.. prompt:: bash $,# auto
+
+   $ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
+   # 重定向
+   $ alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 0 3"
+
+TUI
+---
+
+`Textual <https://github.com/Textualize/textual>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python模块，暂时没感觉到适用的地方（2022.6.5）
+
+Dialog
+^^^^^^
+
+
+* `Cody的探索日记 <https://codychen.me/2020/29/linux-shell-%E7%9A%84%E5%9C%96%E5%BD%A2%E4%BA%92%E5%8B%95%E5%BC%8F%E4%BB%8B%E9%9D%A2-dialog/>`_
+* `Sleipnir.Setup的工程 <https://github.com/GDUT-IIDCC/Sleipnir.setup/blob/ubuntu20/Setup.sh>`_
+
+Extension
+---------
 
 `hstr <https://github.com/dvorka/hstr>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+命令行补全工具
 
 .. prompt:: bash $,# auto
 
    $ sudo add-apt-repository ppa:ultradvorka/ppa && sudo apt-get update && sudo apt-get install hstr && hstr --show-configuration >> ~/.bashrc && . ~/.bashrc
 
-内置命令行
-----------
+script
+^^^^^^
 
-查看历史命令行
-^^^^^^^^^^^^^^
+命令行录制工具
 
-`history <https://zhuanlan.zhihu.com/p/248520994>`_
+.. prompt:: bash $,# auto
+
+   $ script <output_file_name>
+   # 命令行操作
+   # 结束操作
+   $ exit
+
+`History <https://zhuanlan.zhihu.com/p/248520994>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -467,20 +537,3 @@ bash option
    # option:
    a：（写）将历史列表中相对于文件增加的命令行 追加到文件中
    n：（读）将文件中相对于历史列表增加的命令行 追加到终端的历史列表中
-
-whereis和which的区别？
-~~~~~~~~~~~~~~~~~~~~~~
-
-前者搜索范围（database）更广，后者只在 ``PATH`` 中寻找
-
-注销
-----
-
-
-* `for KDE <https://fostips.com/log-out-command-linux-desktops/>`_
-
-.. prompt:: bash $,# auto
-
-   $ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
-   # 重定向
-   $ alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 0 3"

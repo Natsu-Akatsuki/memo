@@ -184,6 +184,8 @@ $ sudo dpkg -i com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
 $ sudo apt-mark hold com.qq.weixin.deepin
 ```
 
+- （BUG）22.04下的微信发送截图时会转换为png文件
+
 ---
 
 ### 电脑通信
@@ -291,4 +293,3 @@ $ sudo systemctl isolate graphical.target
 ### 配置Kate
 
 - [配置其显示行数](https://superuser.com/questions/918189/how-to-make-kate-remember-to-always-show-line-numbers)
-

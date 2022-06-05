@@ -150,3 +150,13 @@ $ systemctl daemon-reload
 ```
 
 - [关闭plymouth.service](https://www.suse.com/support/kb/doc/?id=000019766)
+
+## [双系统时间差相差8小时](https://www.cnblogs.com/zongfa/p/7723369.html)
+
+- ubuntu使用bios时间+时区差 / windows使用bios时间
+
+```
+$ sudo ntpdate time.windows.com
+$ sudo hwclock --localtime --systohc
+```
+

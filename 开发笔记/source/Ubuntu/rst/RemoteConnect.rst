@@ -51,6 +51,14 @@ ssh GUI
 .. note:: easyssh实测在ubuntu20下有问题，体感不好
 
 
+
+* `asbru-cm <https://github.com/asbru-cm/asbru-cm>`_
+
+.. prompt:: bash $,# auto
+
+   $ curl 'https://dl.cloudsmith.io/public/asbru-cm/release/cfg/setup/bash.deb.sh' | sudo bash
+   $ sudo apt install asbru-cm
+
 `ConnectBot <https://connectbot.org/>`_\ (安卓端ssh)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -64,15 +72,32 @@ vnc
 安装相关依赖和初始化
 ^^^^^^^^^^^^^^^^^^^^
 
+
+* tigerVNC
+
 .. prompt:: bash $,# auto
 
    # 服务端（受控端）安装
-   $ sudo apt install tigervnc-common tigervnc-standalone-server
+   $ sudo apt install tigervnc-common tigervnc-standalone-server tigervnc-xorg-extension
    # 安装完后，设置密码和进行一波初始化
    $ vncserver
 
    # 关闭某个vncserver
    $ vncserver -kill :1
+
+
+* `turboVNC <https://sourceforge.net/projects/turbovnc/files/>`_
+
+.. prompt:: bash $,# auto
+
+   # 安装
+   $ wget -c "https://downloads.sourceforge.net/project/turbovnc/3.0/turbovnc_3.0_amd64.deb?ts=gAAAAABikQPtLcfRHL3VSbB2izA4d1rmaDANhrm7xE00zhL8-q403sxZhfLgXYz13VHS8v0BHCeeEG49ObEjAfFv44hCZnH5hA%3D%3D&use_mirror=udomain&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fturbovnc%2Ffiles%2F3.0%2F" -O turbovnc_3.0_amd64.deb
+   $ sdpkg -i turbovnc_3.0_amd64.deb
+   # 设置服务
+   $ sudo /lib/systemd/systemd-sysv-install enable tvncserver
+   # vim ~/.bashrc，然后即可等价地使用vncserver和vncviewer...
+   $ TURBOVNC="/opt/TurboVNC/bin"
+   $ export PATH="${TURBOVNC}:$PATH"
 
 服务端修改配置文档
 ^^^^^^^^^^^^^^^^^^
@@ -86,8 +111,50 @@ vnc
 
    #!/bin/bash
    unset SESSION_MANAGER
-   unset DBUS_SESSION_BUS_ADDRESSt
-   dbus-launch startplasma-x11
+   unset DBUS_SESSION_BUS_ADDRESS
+   # startkde e.g. ubuntu18.04
+   dbus-launch startplasma-x11 # startplasma-wayland
+
+----
+
+**NOTE**
+
+
+* `最新的KDE已没有startkde而由startplasma-x11替代 <https://askubuntu.com/questions/746885/start-kde-5-through-vnc>`_\ 了
+
+----
+
+
+* 使用\ **lxqt display manager**\ （可用）
+
+安装：
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install lxqt
+
+启动文档\ ``~/.vnc/xstartup``
+
+.. prompt:: bash $,# auto
+
+   #!/bin/bash
+   startlxqt &
+
+
+* 使用\ **lxde display manager**\ （可用）
+
+安装：
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install startlxde
+
+启动文档\ ``~/.vnc/xstartup``
+
+.. prompt:: bash $,# auto
+
+   #!/bin/bash
+   startlxde &
 
 
 * 使用\ **xfce display manager**
@@ -106,10 +173,23 @@ vnc
 
    # 尺寸/配置文件/控制端口号
    # vncserver [-geometry 1920x1080] [-xstartup /usr/bin/xterm] :1
+   # :1对应5901；:2对应5902
    # 默认根据~/.vnc/xstartup的内容进行启动
-   $ vncserver -geometry 1920x1080 
+   $ vncserver -geometry 1920x1080
    # 重新设置vnc密码
    $ vncpasswd
+
+配置文档
+^^^^^^^^
+
+
+* ``~/.vnc/config``
+
+.. prompt:: bash $,# auto
+
+   geometry=1920x1080
+   localhost # 仅localhost能访问
+   alwaysshared # 其他用户可以同时访问
 
 启动vnc client
 ^^^^^^^^^^^^^^
@@ -120,10 +200,12 @@ vnc
 
    # 安装vncviewer
    $ sudo apt install tigervnc-viewer
+
+   # 构建ssh隧道，连接服务端5901和客户端5901端口
    # ssh helios@192.168.1.112 -L 5901:127.0.0.1:5901
    $ ssh <server username>@<server ip> -L 5901:127.0.0.1:5901
    # 新开一个终端，账号为localhost:5901，密码为服务端的密码
-   $ vncviewer
+   $ vncviewer localhost:5901
 
 ----
 
@@ -135,6 +217,38 @@ vnc
    端口绑定，将bind_address:port映射到host:hostport
 
 ----
+
+VNC自启动
+^^^^^^^^^
+
+
+* 
+  vncserver自1.11开始新增了system服务，binary(\ `heres <https://github.com/TigerVNC/tigervnc/releases>`_\ )，但实测效果不ok（黑屏）
+
+* 
+  TurboVNC/tigerVNC
+
+  /etc/systemd/system/vnc@.service
+
+.. code-block:: service
+
+   [Unit]
+   Description=TurboVNC remote desktop service
+   After=syslog.target network.target
+
+   [Service]
+   Type=simple
+   User=helios
+   PAMName=login
+   PIDFile=/home/helios/.vnc/%H%i.pid
+   ExecStartPre=/bin/bash -c '/opt/TurboVNC/bin/vncserver -kill %i > /dev/null 2>&1 || :'
+   ExecStart=/opt/TurboVNC/bin/vncserver %i -fg -xstartup /home/helios/.vnc/xstartup
+   ExecStop=/bin/bash -c '/opt/TurboVNC/bin/vncserver -kill %i > /dev/null 2>&1 || :'
+
+   [Install]
+   WantedBy=multi-user.target
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220418184210024.png" alt="image-20220418184210024" style="zoom:67%;" />`
 
 `noVNC(web) <https://github.com/novnc/noVNC>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -158,3 +272,22 @@ vnc
 
 
 .. note:: 跟vnc viewer一样无法传special key进行操作
+
+
+BUG
+^^^
+
+
+* 使用VNC会使主机端的一部分应用程序无法使用
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220419095839592.png" alt="image-20220419095839592"  />`
+
+拓展资料
+^^^^^^^^
+
+
+* 
+  `TigerVNC（含常见的Q&A） <https://wiki.archlinux.org/title/TigerVNC_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87>`_\ #%E6%B2%A1%E6%9C%89%E7%AA%97%E5%8F%A3%E8%A3%85%E9%A5%B0/%E8%BE%B9%E6%A1%86/%E6%A0%87%E9%A2%98%E6%A0%8F/%E6%97%A0%E6%B3%95%E7%A7%BB%E5%8A%A8%E7%AA%97%E5%8F%A3)
+
+* 
+  `各种display manager的配置 <https://bytexd.com/how-to-install-configure-vnc-server-on-ubuntu-20-04/>`_\ i

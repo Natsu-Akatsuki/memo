@@ -20,8 +20,8 @@ Grub
 #. 硬件检查和程序加载（hardware is ready）
 #. 内核调用第一个程序 ``systemd`` ， ``systemd`` 调用服务集，来配置基本的软件环境（网络环境、语系环境）
 
-grub启动项设置
---------------
+GrubOption
+----------
 
 修改配置文件
 ^^^^^^^^^^^^
@@ -127,3 +127,17 @@ grub界面显示异常
 
 * ubuntu
 * `kubuntu <https://kubuntu.org/getkubuntu/>`_
+
+修复引导
+--------
+
+
+* 适用于grub丢失的场景
+* 需在引导盘的try-ubuntu下安装boot-repair
+
+.. prompt:: bash $,# auto
+
+   $ sudo add-apt-repository ppa:yannubuntu/boot-repair
+   $ sudo apt-get update
+   $ sudo apt install boot-repair mdadm
+   $ boot-repair

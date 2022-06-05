@@ -252,6 +252,9 @@ knotes
    # 禁用升级
    $ sudo apt-mark hold com.qq.weixin.deepin
 
+
+* （BUG）22.04下的微信发送截图时会转换为png文件
+
 ----
 
 电脑通信

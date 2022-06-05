@@ -203,28 +203,44 @@ $ rm -rf ~/anaconda3
 
 ### 配置文档
 
-* 默认不启动conda环境
+- 默认不启动conda环境
 
 ```bash
 $ conda config --set auto_activate_base false
 ```
 
+- channel的解读：
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7VIzKuXudONhw3oP.png!thumbnail" alt="img" style="zoom:50%;" />
+
+- conda install 时不指定channel (-c url/channel_name)时，则默认用defaults中的源
+- 要重设defaults中的源，可利用字段 default_channels进行替换
+- 在安装指定channel(即加上了 -c )，且在custom_channels中定义了channel_name这个key的value时，则channel_name会被替换为value
+
+```bash
+$ conda install -c pytorch <package_name>
+# 例如如上命令行将转换为：
+$ conda install -c https://mirrors.gdut.edu.cn/anaconda/cloud/pytorch <package_name>
+```
+
+- 如果channel_name不在 `custom_channels` 字段的 `key` 时，则channel_name被替换为channel_alias/channel_name  
+
 ### 查询信息
 
-* 查询当前环境的所有packages的相关信息
+- 查询当前环境的所有packages的相关信息
 
 ```bash
 $ conda list
 # -n <env>: 指定环境
 ```
 
-* 查询当前已安装的conda环境
+- 查询当前已安装的conda环境
 
 ```bash
 $ conda env list
 ```
 
-* 查询安装历史
+- 查询安装历史
 
 ```bash
 $ conda list --revisions
@@ -232,7 +248,7 @@ $ conda list --revisions
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/I1JHF95b6IDEWj7M.png!thumbnail" alt="img" style="zoom:67%; " />
 
-* 查询conda应用程序的相关信息
+- 查询conda应用程序的相关信息
 
 ```bash
 $ conda info
@@ -316,7 +332,7 @@ $ conda install -n base --override-channels -c conda-forge mamba=0.23.1
 
 ### 环境复制
 
-* 本地环境的复制
+- 本地环境的复制
 
 ```bash
 $ conda create --clone <被复制的环境> -n <粘贴的环境名>
@@ -324,7 +340,7 @@ $ conda create --clone <被复制的环境> -n <粘贴的环境名>
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/jOxAQgSIQCmervG3.png!thumbnail" alt="img" style="zoom:67%; " />
 
-* [同操作环境下环境的迁移或部署](https://conda.github.io/conda-pack/)（[中文翻译](https://zhuanlan.zhihu.com/p/87344422)）
+- [同操作环境下环境的迁移或部署](https://conda.github.io/conda-pack/)（[中文翻译](https://zhuanlan.zhihu.com/p/87344422)）
 
 ```bash
 # base环境下安装 
@@ -345,10 +361,8 @@ $ conda activate <环境名>  && conda-unpack
 # 查看已有的版本
 $ conda list --revision
 # 回退
-$ conda install 
+$ conda install --rev <revision number>
 ```
-
-
 
 ### mamba
 
@@ -377,12 +391,22 @@ $ mamba install <package_name>
 $ conda uninstall liblapack liblapacke libcblas libblas
 ```
 
+#### conda / pip install的区别？
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sg1aq9YrmHbnGorp.png!thumbnail" alt="img" style="zoom:50%;" />
+
+- 不同的存放位置
+
+  pip 存放在 anaconda/env/相应的目录中，不可被其他虚拟环境的复用；
+
+  conda 的包则存放在 /pkgs中可被其他conda环境复用，避免再进行一次下载
+
 ### 拓展资料
 
-* [conda 说明文档](https://docs.conda.io/projects/conda/en/latest/user-guide/)
-* [参数配置文档1](https://conda.io/projects/conda/en/latest/user-guide/configuration/index.html)、[参数配置文档2](https://conda.io/projects/conda/en/latest/configuration.html?highlight=custom_channels%3A)
-* [任务导向说明](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/index.html)
-* [conda-vs-pip-vs-virtualenv-commands](https://docs.conda.io/projects/conda/en/latest/commands.html#conda-vs-pip-vs-virtualenv-commands)
+- [conda 说明文档](https://docs.conda.io/projects/conda/en/latest/user-guide/)
+- [参数配置文档1](https://conda.io/projects/conda/en/latest/user-guide/configuration/index.html)、[参数配置文档2](https://conda.io/projects/conda/en/latest/configuration.html?highlight=custom_channels%3A)
+- [任务导向说明](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/index.html)
+- [conda-vs-pip-vs-virtualenv-commands](https://docs.conda.io/projects/conda/en/latest/commands.html#conda-vs-pip-vs-virtualenv-commands)
 
 ## [PPA](https://launchpad.net/ubuntu/+ppas)
 
@@ -432,7 +456,7 @@ $ rm debian/*.ex debian/*.EX   # 删除不需要的文件
 
 .. note:: For dh_make to find the package name and version, the current directory needs to be in the format of <package>-<version>. Alternatively use the_-p flag using the format <name>_<version> to override it. The directory name you have specified is invalid!
 
-* 其中主要是要完善changelog、copyright、control文件
+- 其中主要是要完善changelog、copyright、control文件
 
 ---
 
@@ -448,7 +472,7 @@ $ perl -i -0777 -pe "s/(Copyright: ).+\n +.+/\${1}$(date +%Y) natsu-akatsiku Foo
 
 步骤四：构建deb包
 
-* 填写完成后即进行打包和sign
+- 填写完成后即进行打包和sign
 
 ```bash
 $ sudo apt-get install devscripts build-essential lintian
@@ -478,17 +502,17 @@ $ dput ppa:natsu-akatsuki/sleipnir <source.changes>
 
 #### Q&A
 
-* Failed to add key. helios@helios:**~**$ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir. More info: <https://launchpad.net/~natsu-akatsuki/+archive/ubuntu/sleipnir>. Press [ENTER] to continue or Ctrl-c to cancel adding it. Error: signing key fingerprint does not exist. Failed to add key.
+- Failed to add key. helios@helios:**~**$ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir. More info: <https://launchpad.net/~natsu-akatsuki/+archive/ubuntu/sleipnir>. Press [ENTER] to continue or Ctrl-c to cancel adding it. Error: signing key fingerprint does not exist. Failed to add key.
 
 > 等一段时间。（已设置GPG的情况下）package上传成功后，不会很快生效，需要等一段时间。
 
-* [上传失败](https://help.launchpad.net/Packaging/UploadErrors)
+- [上传失败](https://help.launchpad.net/Packaging/UploadErrors)
 
 ### 参考资料
 
-* [ppa-guide之十万个为什么](https://itsfoss.com/ppa-guide/)
-* [利用debuild整合版工具来构建deb包](https://blog.packagecloud.io/buildling-debian-packages-with-debuild/)
-* [debian目录的相关描述](https://packaging.ubuntu.com/html/debian-dir-overview.html)
+- [ppa-guide之十万个为什么](https://itsfoss.com/ppa-guide/)
+- [利用debuild整合版工具来构建deb包](https://blog.packagecloud.io/buildling-debian-packages-with-debuild/)
+- [debian目录的相关描述](https://packaging.ubuntu.com/html/debian-dir-overview.html)
 
 ## 关闭gnome的软件更新自启动
 

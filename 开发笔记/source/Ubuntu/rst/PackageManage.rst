@@ -250,6 +250,25 @@ conda
 
    $ conda config --set auto_activate_base false
 
+
+* channel的解读：
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7VIzKuXudONhw3oP.png!thumbnail" alt="img" style="zoom:50%;" />`
+
+
+* conda install 时不指定channel (-c url/channel_name)时，则默认用defaults中的源
+* 要重设defaults中的源，可利用字段 default_channels进行替换
+* 在安装指定channel(即加上了 -c )，且在custom_channels中定义了channel_name这个key的value时，则channel_name会被替换为value
+
+.. prompt:: bash $,# auto
+
+   $ conda install -c pytorch <package_name>
+   # 例如如上命令行将转换为：
+   $ conda install -c https://mirrors.gdut.edu.cn/anaconda/cloud/pytorch <package_name>
+
+
+* 如果channel_name不在 ``custom_channels`` 字段的 ``key`` 时，则channel_name被替换为channel_alias/channel_name  
+
 查询信息
 ^^^^^^^^
 
@@ -404,7 +423,7 @@ conda并不提供内部补全的插件，需要\ `安装第三方插件 <https:/
    # 查看已有的版本
    $ conda list --revision
    # 回退
-   $ conda install
+   $ conda install --rev <revision number>
 
 mamba
 ^^^^^
@@ -437,6 +456,19 @@ mamba
 .. prompt:: bash $,# auto
 
    $ conda uninstall liblapack liblapacke libcblas libblas
+
+conda / pip install的区别？
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Sg1aq9YrmHbnGorp.png!thumbnail" alt="img" style="zoom:50%;" />`
+
+
+* 
+  不同的存放位置
+
+  pip 存放在 anaconda/env/相应的目录中，不可被其他虚拟环境的复用；
+
+  conda 的包则存放在 /pkgs中可被其他conda环境复用，避免再进行一次下载
 
 拓展资料
 ^^^^^^^^
