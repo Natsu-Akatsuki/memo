@@ -5,114 +5,32 @@
 DockerPractice
 ==============
 
-`Install <https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine>`_
----------------------------------------------------------------------------------------
+AwesomeProject
+--------------
 
-docker
-^^^^^^
+portainer
+^^^^^^^^^
 
-步骤一(optional）：若有旧版的docker则进行卸载
 
-.. prompt:: bash $,# auto
-
-   $ sudo apt-get remove docker docker-engine docker.io containerd runc
-
-步骤二：
+* web端docker管理工具
 
 .. prompt:: bash $,# auto
 
-   $ sudo apt-get update
-   $ sudo apt-get install -y \
-       apt-transport-https \
-       ca-certificates \
-       curl \
-       gnupg-agent \
-       software-properties-common
-   $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-   $ sudo apt-key fingerprint 0EBFCD88
-   $ sudo add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-      $(lsb_release -cs) \
-      stable"
-   $ sudo apt-get update
-   $ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
-步骤三：\ `postprocess <https://docs.docker.com/engine/install/linux-postinstall/>`_
+   $ docker pull portainer/portainer
+   $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --restart=always --name prtainer portainer/portainer
 
 
-* 不需要使用root权限启动docker
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png
+   :alt: image-20220328135012736
+`nps <https://ehang-io.github.io/nps/#/?id=nps>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. prompt:: bash $,# auto
+Command
+-------
 
-   $ sudo groupadd docker           # 创建一个docker组
-   $ sudo usermod -aG docker $USER  # 将用户添加到该组中
-   $ newgrp docker                  # 使配置生效，若未生效尝试重启或注销
-
-.. note:: 用于规避如下错误Got permission denied while trying to connect to the Docker daemon socket
-
-
-
-* docker自启动
-
-.. prompt:: bash $,# auto
-
-   $ sudo systemctl enable docker
-
-
-* 检验是否安装成功
-
-.. prompt:: bash $,# auto
-
-   $ docker run hello-world
-
-`uninstall <https://blog.kehan.xyz/2020/08/06/Ubuntu-18-04-%E5%9C%A8-Clion-%E4%B8%AD%E4%BD%BF%E7%94%A8-Docker-%E6%8F%92%E4%BB%B6/>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ sudo apt purge docker-ce docker-ce-cli containerd.io
-
-`ade <https://ade-cli.readthedocs.io/en/latest/install.html#requirements>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-* 安装
-
-.. prompt:: bash $,# auto
-
-   $ cd /usr/local/bin
-   $ sudo wget https://gitlab.com/ApexAI/ade-cli/uploads/f6c47dc34cffbe90ca197e00098bdd3f/ade+x86_64
-   $ sudo mv ade+x86_64 ade
-   $ sudo chmod +x ade
-   $ sudo ade update-cli
-
-`nvidia-container2 <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-* 安装（或要科学上网）
-
-.. prompt:: bash $,# auto
-
-   $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey | sudo apt-key add - && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-
-   $ sudo apt-get update
-   $ sudo apt-get install -y nvidia-docker2
-   $ sudo systemctl restart docker
-
-----
-
-**NOTE**
-
-
-* ``Error response from daemon: could not select device driver "" with capabilities: [[gpu]]``\ ：重装nvidia-docker即可（ ``apt install`` + ``重启服务`` ）
-* ``gpg: no valid OpenPGP data found``\ ，\ `使用代理 <https://github.com/NVIDIA/nvidia-docker/issues/1367>`_
-
-常用命令行
-----------
-
-镜像
-^^^^
+Image
+^^^^^
 
 .. prompt:: bash $,# auto
 
@@ -134,8 +52,8 @@ docker
    # --network host: 使用主机的网络模式
    # .               Dockerfile文件的所在路径
 
-容器
-^^^^
+Container
+^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
@@ -166,6 +84,117 @@ docker
    # -p：端口映射 8888:8888
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328114409807.png" alt="image-20220328114409807" style="zoom:67%;" />`
+
+`Install <https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine>`_
+---------------------------------------------------------------------------------------
+
+Docker
+^^^^^^
+
+步骤一：
+
+方法一：单一脚本
+
+.. prompt:: bash $,# auto
+
+   $ curl -fsSL https://get.docker.com -o get-docker.sh
+
+方法二：
+
+.. prompt:: bash $,# auto
+
+   # 若有旧版的docker则进行卸载
+   $ sudo apt-get remove docker docker-engine docker.io containerd runc
+
+   # 安装
+   $ sudo apt-get update
+   $ sudo apt-get install -y \
+       apt-transport-https \
+       ca-certificates \
+       curl \
+       gnupg-agent \
+       software-properties-common
+   $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   $ sudo apt-key fingerprint 0EBFCD88
+   $ sudo add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) \
+      stable"
+   $ sudo apt-get update
+   $ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+步骤二：\ `postprocess <https://docs.docker.com/engine/install/linux-postinstall/>`_
+
+
+* 不需要使用root权限启动docker
+
+.. prompt:: bash $,# auto
+
+   $ sudo groupadd docker           # 创建一个docker组
+   $ sudo usermod -aG docker $USER  # 将用户添加到该组中
+   $ newgrp docker                  # 使配置生效，若未生效尝试重启或注销
+
+.. note:: 用于规避如下错误Got permission denied while trying to connect to the Docker daemon socket
+
+
+
+* docker自启动
+
+.. prompt:: bash $,# auto
+
+   $ sudo systemctl enable docker
+
+
+* 检验是否安装成功
+
+.. prompt:: bash $,# auto
+
+   $ docker run hello-world
+
+`Uninstall <https://blog.kehan.xyz/2020/08/06/Ubuntu-18-04-%E5%9C%A8-Clion-%E4%B8%AD%E4%BD%BF%E7%94%A8-Docker-%E6%8F%92%E4%BB%B6/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt purge docker-ce docker-ce-cli containerd.io
+
+`ADE <https://ade-cli.readthedocs.io/en/latest/install.html#requirements>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ cd /usr/local/bin
+   $ sudo wget https://gitlab.com/ApexAI/ade-cli/uploads/f6c47dc34cffbe90ca197e00098bdd3f/ade+x86_64
+   $ sudo mv ade+x86_64 ade
+   $ sudo chmod +x ade
+   $ sudo ade update-cli
+
+`Nvidia-container2 <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 安装（或要科学上网）
+
+.. prompt:: bash $,# auto
+
+   $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey | sudo apt-key add - && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+   $ sudo apt-get update
+   $ sudo apt-get install -y nvidia-docker2
+   $ sudo systemctl restart docker
+   # test
+   $ docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
+
+----
+
+**NOTE**
+
+
+* ``Error response from daemon: could not select device driver "" with capabilities: [[gpu]]``\ ：重装nvidia-docker即可（ ``apt install`` + ``重启服务`` ）
+* ``gpg: no valid OpenPGP data found``\ ，\ `使用代理 <https://github.com/NVIDIA/nvidia-docker/issues/1367>`_
 
 Dockerfile
 ----------
@@ -241,8 +270,26 @@ Dockerfile
 
 `rangenet <https://github.com/Natsu-Akatsuki/RangeNetTrt8/blob/master/docker/Dockerfile-tensorrt8.2.2>`_\ ：ubuntu20.04/trt8/ros1/cuda11.1/cudnn8/pytorch
 
-`Docker-compose <https://docs.docker.com/compose/install/>`_
-----------------------------------------------------------------
+Trick
+^^^^^
+
+
+#. 为减小镜像大小，需要及时删除缓存，例如删除 ``apt packages lists``
+
+.. prompt:: bash $,# auto
+
+   $ rm -rf /var/lib/apt/lists/*
+
+
+#. 不需要显式触发apt clean
+
+..
+
+   Official Debian and Ubuntu images `automatically run <http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fmoby%2Fmoby%2Fblob%2F03e2923e42446dbb830c654d0eec323a0b4ef02a%2Fcontrib%2Fmkimage%2Fdebootstrap%23L82-L105&r=https%3A%2F%2Fdocs.docker.com%2Fdevelop%2Fdevelop-images%2Fdockerfile_best-practices%2F%23dont-install-unnecessary-packages>`_\ ``apt-get clean``\ , so explicit invocation is not required.
+
+
+`DockerCompose <https://docs.docker.com/compose/install/>`_
+---------------------------------------------------------------
 
 可用于同时启动多个容器；相比于自己写脚本，能\ **更方便地管理容器**
 
@@ -301,26 +348,8 @@ Dockerfile
          - 119.29.29.29
        restart: always # 设置自启动
 
-构建镜像技巧
-------------
-
-
-#. 为减小镜像大小，需要及时删除缓存，例如删除 ``apt packages lists``
-
-.. prompt:: bash $,# auto
-
-   $ rm -rf /var/lib/apt/lists/*
-
-
-#. 不需要显式触发apt clean
-
-..
-
-   Official Debian and Ubuntu images `automatically run <http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fmoby%2Fmoby%2Fblob%2F03e2923e42446dbb830c654d0eec323a0b4ef02a%2Fcontrib%2Fmkimage%2Fdebootstrap%23L82-L105&r=https%3A%2F%2Fdocs.docker.com%2Fdevelop%2Fdevelop-images%2Fdockerfile_best-practices%2F%23dont-install-unnecessary-packages>`_\ ``apt-get clean``\ , so explicit invocation is not required.
-
-
-实战
-----
+Practice
+--------
 
 查看docker占用大小
 ^^^^^^^^^^^^^^^^^^
@@ -430,7 +459,7 @@ for Jetbrain
    $ docker update --restart=always <container_id>
 
 /usr/bin/dockerd文件缺失
-~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
@@ -452,46 +481,29 @@ for Jetbrain
 
 * Invalid MIT-MAGIC-COOKIE-1 keyError/could not connect to display :0
 
-`图形化界面 <http://wiki.ros.org/docker/Tutorials/GUI>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-X server
---------
-
-VNC
-^^^
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220326225033665.png" alt="image-20220326225033665" style="zoom: 50%;" />`
-
-web端docker管理工具
--------------------
-
-.. prompt:: bash $,# auto
-
-   $ docker pull portainer/portainer
-   $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --restart=always --name prtainer portainer/portainer
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png
-   :alt: image-20220328135012736
-
-
-Q&A
----
-
-
-* `docker容器的内核能否跟主机的内核不一致？ <https://stackoverflow.com/questions/31012297/uname-a-returning-the-same-in-docker-host-or-any-docker-container>`_
+`容器内核与主机内核不一致？ <https://stackoverflow.com/questions/31012297/uname-a-returning-the-same-in-docker-host-or-any-docker-container>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 其是保持一致的
 
-
-* failed to get D-Bus connection
+failed to get D-Bus connection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 将CMD或者ENTRYPOINT设置为/usr/sbin/init，同时使用--privileged
 
-推荐阅读
---------
+`图形化界面 <http://wiki.ros.org/docker/Tutorials/GUI>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Xserver
+~~~~~~~
+
+
+* VNC
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220326225033665.png" alt="image-20220326225033665" style="zoom: 50%;" />`
+
+Reference
+---------
 
 
 * `docker practice for Chinese <https://github.com/yeasy/docker_practice>`_

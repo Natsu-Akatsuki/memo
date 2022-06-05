@@ -36,7 +36,7 @@ AmBook
    :hidden:
    :caption: Docker
 
-   docker/rst/DockerPractice.rst
+   Docker/rst/DockerPractice.rst
 
 .. toctree::
    :maxdepth: 1
