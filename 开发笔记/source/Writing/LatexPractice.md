@@ -1,6 +1,6 @@
 # LatexPractice
 
-## [Tex Live](https://www.tug.org/texlive)
+## [TexLive](https://www.tug.org/texlive)
 
 ### 通过图形化界面安装Tex Live
 
@@ -23,7 +23,7 @@ $ export PATH=${PATH}:"/usr/local/texlive/2022/bin/x86_64-linux"
 
 .. note:: 注意避免同时apt安装texlive，否则会有版本冲突问题，导致某些包无法找到
 
-## 工作流
+## WorkFlow
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220526234810223.png" alt="image-20220526234810223" style="zoom: 67%;" />
 
@@ -64,7 +64,7 @@ $ pdflatex -output-directory=build template.tex
 $ pdflatex -output-directory=build template.tex 
 ```
 
-## 编译工具
+## CompileTool
 
 ### [Biber](https://github.com/plk/biber)
 
@@ -80,7 +80,7 @@ $ latexmk -h
 $ latexmk -showextraoptions
 ```
 
-## Semantic
+## Grammar
 
 ### 公式对齐
 
@@ -109,6 +109,12 @@ $ latexmk -showextraoptions
   \includegraphics[width=7cm]{elbow_robot_arm.png}
   \caption{肘型机械臂}
 \end{figure}
+
+% 触发单栏
+\begin{figure*}[htbp]
+    \centerline{\includegraphics[width=1.0\textwidth]{可相对路径}}
+    \caption{...}\label{...}
+\end{figure*}
 ```
 
 ### [文本颜色](https://tex.stackexchange.com/questions/17104/how-to-change-color-for-a-block-of-texts)
@@ -166,7 +172,9 @@ This is a sample text in black.
 
 ## IDE
 
-### Textify
+### Jetbrain
+
+#### Textify
 
 for Jetbrain; 使用内置pdf需要再下一个pdf viewer插件
 
@@ -215,7 +223,7 @@ latex/ markdown的文本语法检查器
 
 根据latex位置定位到pdf的位置：命令行SyncTeX
 
-## 实战
+## Practice
 
 ### [IEEE中文模板](https://blog.csdn.net/qq_34447388/article/details/86488686)
 
@@ -224,7 +232,9 @@ latex/ markdown的文本语法检查器
 - [LaTeX Error: File `newtxmath.sty' not found.](https://tex.stackexchange.com/questions/251405/problem-with-new-mnras-style-files-newtx-on-arxiv)
 - [Package xcolor Warning: Incompatible color definition on line xxx](https://tex.stackexchange.com/questions/150369/incompatible-color-definition-when-using-tikz-with-color-package)
 
-## IEEE模板
+#### [Option clash error](https://nuanceabounds.org/fix-latex-package-option-clash-error-passoptionstopackage/)
+
+## IEEE
 
 ### 关键词
 
@@ -243,7 +253,33 @@ latex/ markdown的文本语法检查器
 \end{enumerate}
 ```
 
-## 拓展包
+## Package
+
+### [导入svg文件](https://www.scivision.dev/include-svg-vector-latex/)
+
+- 前提：安装[inkscape](https://inkscape.org/release/inkscape-1.2/gnulinux/ubuntu/ppa/dl/)
+
+```bash
+$ sudo add-apt-repository ppa:inkscape.dev/stable
+$ sudo apt update
+$ sudo apt install inkscape
+```
+
+- [latex部分](https://www.scivision.dev/include-svg-vector-latex/)：
+
+```latex
+\documentclass{article}
+\usepackage{svg}
+
+\begin{document}
+
+\begin{figure}
+    \centering
+    \includesvg[width=0.6\columnwidth](<...>.svg)
+\end{figure}
+
+\end{document}
+```
 
 ### [插入pdf文件](https://blog.csdn.net/bendanban/article/details/51850659)
 
@@ -269,7 +305,7 @@ latex/ markdown的文本语法检查器
 \hl{...}
 ```
 
-## 拓展插件
+## Plugin
 
 ### [CTEX](http://www.ctex.org/HomePage)
 
@@ -283,8 +319,8 @@ latex/ markdown的文本语法检查器
 $ latexindent a.tex -o b.tex
 ```
 
-## 拓展资料
+## Reference
 
-- [latex 使用说明](https://albertyzp.github.io/)
+- [latex 使用说明](https://albertyzp.github.io/2019/10/15/LaTex%E5%9F%BA%E7%A1%80%E6%89%8B%E5%86%8C/)
 
 - [awesome latex](https://asmcn.icopy.site/awesome/awesome-LaTeX/)

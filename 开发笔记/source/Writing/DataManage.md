@@ -4,6 +4,8 @@
 
 文本补全
 
+- 常用命令行
+
 ```bash
 # 安装
 # 使用旧版本0.7.3时则需要先卸载以避免冲突
@@ -19,6 +21,15 @@ $ espanso start
 $ espanso path
 ```
 
+- 关闭某些快捷键
+
+```yaml
+# 配置文档
+# 对应alt+space（防止跟krunner冲突）
+toggle_key: OFF
+search_shortcut: OFF
+```
+
 ## Gist
 
 管理代码块，配合插件`Vscode GistPAD`使用有奇效
@@ -29,6 +40,19 @@ $ espanso path
 
 - 现已付费，官方显式提供提供的deb包可查看[details](https://typora.io/windows/dev_release.html)
 - 无代码块功能
+
+### Markdown
+
+#### [缩进](https://segmentfault.com/q/1010000000125730)
+
+```markdown
+# special characters
+半方大的空白&ensp;或&#8194;
+全方大的空白&emsp;或&#8195;
+不断行的空白格&nbsp;或&#160;
+
+# 或者全角空格
+```
 
 ## Recoll
 

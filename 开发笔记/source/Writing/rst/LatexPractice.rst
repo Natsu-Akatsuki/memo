@@ -5,8 +5,8 @@
 LatexPractice
 =============
 
-`Tex Live <https://www.tug.org/texlive>`_
----------------------------------------------
+`TexLive <https://www.tug.org/texlive>`_
+--------------------------------------------
 
 通过图形化界面安装Tex Live
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -32,8 +32,8 @@ LatexPractice
 .. note:: 注意避免同时apt安装texlive，否则会有版本冲突问题，导致某些包无法找到
 
 
-工作流
-------
+WorkFlow
+--------
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220526234810223.png" alt="image-20220526234810223" style="zoom: 67%;" />`
 
@@ -84,8 +84,8 @@ bibtex根据aux的元信息，从bib文件中提取相关的参考文献并进�
 
    $ pdflatex -output-directory=build template.tex
 
-编译工具
---------
+CompileTool
+-----------
 
 `Biber <https://github.com/plk/biber>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -108,8 +108,8 @@ Latexmk
    $ latexmk -h
    $ latexmk -showextraoptions
 
-Semantic
---------
+Grammar
+-------
 
 公式对齐
 ^^^^^^^^
@@ -142,6 +142,12 @@ Semantic
      \includegraphics[width=7cm]{elbow_robot_arm.png}
      \caption{肘型机械臂}
    \end{figure}
+
+   % 触发单栏
+   \begin{figure*}[htbp]
+       \centerline{\includegraphics[width=1.0\textwidth]{可相对路径}}
+       \caption{...}\label{...}
+   \end{figure*}
 
 `文本颜色 <https://tex.stackexchange.com/questions/17104/how-to-change-color-for-a-block-of-texts>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -207,8 +213,11 @@ Semantic
 IDE
 ---
 
+Jetbrain
+^^^^^^^^
+
 Textify
-^^^^^^^
+~~~~~~~
 
 for Jetbrain; 使用内置pdf需要再下一个pdf viewer插件
 
@@ -276,8 +285,8 @@ latex/ markdown的文本语法检查器
 
 根据latex位置定位到pdf的位置：命令行SyncTeX
 
-实战
-----
+Practice
+--------
 
 `IEEE中文模板 <https://blog.csdn.net/qq_34447388/article/details/86488686>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -289,8 +298,11 @@ Incompatible Problem
 * `LaTeX Error: File `newtxmath.sty' not found. <https://tex.stackexchange.com/questions/251405/problem-with-new-mnras-style-files-newtx-on-arxiv>`_
 * `Package xcolor Warning: Incompatible color definition on line xxx <https://tex.stackexchange.com/questions/150369/incompatible-color-definition-when-using-tikz-with-color-package>`_
 
-IEEE模板
---------
+`Option clash error <https://nuanceabounds.org/fix-latex-package-option-clash-error-passoptionstopackage/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+IEEE
+----
 
 关键词
 ^^^^^^
@@ -311,8 +323,37 @@ IEEE模板
      \item ...
    \end{enumerate}
 
-拓展包
-------
+Package
+-------
+
+`导入svg文件 <https://www.scivision.dev/include-svg-vector-latex/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 前提：安装\ `inkscape <https://inkscape.org/release/inkscape-1.2/gnulinux/ubuntu/ppa/dl/>`_
+
+.. prompt:: bash $,# auto
+
+   $ sudo add-apt-repository ppa:inkscape.dev/stable
+   $ sudo apt update
+   $ sudo apt install inkscape
+
+
+* `latex部分 <https://www.scivision.dev/include-svg-vector-latex/>`_\ ：
+
+.. code-block:: latex
+
+   \documentclass{article}
+   \usepackage{svg}
+
+   \begin{document}
+
+   \begin{figure}
+       \centering
+       \includesvg[width=0.6\columnwidth](<...>.svg)
+   \end{figure}
+
+   \end{document}
 
 `插入pdf文件 <https://blog.csdn.net/bendanban/article/details/51850659>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -341,8 +382,8 @@ IEEE模板
    \usepackage{soul}
    \hl{...}
 
-拓展插件
---------
+Plugin
+------
 
 `CTEX <http://www.ctex.org/HomePage>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -359,12 +400,12 @@ IEEE模板
 
    $ latexindent a.tex -o b.tex
 
-拓展资料
---------
+Reference
+---------
 
 
 * 
-  `latex 使用说明 <https://albertyzp.github.io/>`_
+  `latex 使用说明 <https://albertyzp.github.io/2019/10/15/LaTex%E5%9F%BA%E7%A1%80%E6%89%8B%E5%86%8C/>`_
 
 * 
   `awesome latex <https://asmcn.icopy.site/awesome/awesome-LaTeX/>`_

@@ -113,16 +113,6 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: Writing
-
-   Writing/rst/DataManage.rst
-   Writing/rst/LatexPractice.rst
-   Writing/rst/PlantUMLPractice.rst
-   Writing/rst/SphinxPractice.rst
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
    :caption: Ubuntu
    
    Ubuntu/rst/AppearanceManage.rst
@@ -159,3 +149,14 @@ AmBook
    :caption: Standard
 
    Standard/rst/Standard.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Writing
+
+   Writing/rst/DataManage.rst
+   Writing/rst/DotPractice.rst
+   Writing/rst/LatexPractice.rst
+   Writing/rst/PlantUMLPractice.rst
+   Writing/rst/SphinxPractice.rst
