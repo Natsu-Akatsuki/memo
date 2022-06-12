@@ -146,6 +146,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Server
+
+   Server/rst/DellServer.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Standard
 
    Standard/rst/Standard.rst
