@@ -2,3 +2,4 @@
 black
 pycln
 isort
+cmakelang

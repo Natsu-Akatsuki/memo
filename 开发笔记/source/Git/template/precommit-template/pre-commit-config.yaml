@@ -24,3 +24,8 @@ repos:
     -   id: isort
         files: "\\.(py)$"
         args: [--settings-path=.precommit.toml]
+-   repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.13
+    hooks:
+    -   id: cmake-format    
+    -   id: cmake-lint

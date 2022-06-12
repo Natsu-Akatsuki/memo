@@ -1,6 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
-### helios template
-# Created by .ignore support plugin (hsz.mobi)
 ### CMake template
 CMakeLists.txt.user
 CMakeCache.txt
@@ -178,6 +176,9 @@ dkms.conf
 *.cubin
 *.fatbin
 
+### catkin template
+.catkin_tools
+
 ### Example user template template
 ### Example user template
 
@@ -186,7 +187,16 @@ dkms.conf
 *.iml
 out
 gen
+cmake-build-release
+cmake-build-debug
+
+# python template
+*.egg-info
 
 ### helios custom
-!开发笔记/Makefile
-/开发笔记/source/_build/html/
+待整合
+指派问题
+build
+_build
+*.idea
+.vscode
