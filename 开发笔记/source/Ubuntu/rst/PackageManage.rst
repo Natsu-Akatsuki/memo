@@ -5,8 +5,8 @@
 PackageManage
 =============
 
-apt && dpkg
------------
+Apt
+---
 
 常用命令行
 ^^^^^^^^^^
@@ -98,15 +98,16 @@ apt && dpkg
 `增删PPA仓库 <https://linuxconfig.org/how-to-list-and-remove-ppa-repository-on-ubuntu-18-04-bionic-beaver-linux>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-DEBUG
-^^^^^
+实战
+^^^^
 
-updates for this repository will not be applied
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`apt update失败 <https://askubuntu.com/questions/1095266/apt-get-update-failed-because-certificate-verification-failed-because-handshake>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-使用apt更新源时会出现如上报错，或同步下系统时间即可
 
-pip
+* updates for this repository will not be applied：使用apt更新源时会出现如上报错，或同步下系统时间即可
+
+PIP
 ---
 
 常用命令行
@@ -136,7 +137,7 @@ pip
 .. note:: pip的配置文件存放于 ``~/.config/pip``
 
 
-pkg-config
+Pkg-config
 ----------
 
 
@@ -150,7 +151,7 @@ pkg-config
    $ pkg-config --modversion opencv4
    $ more /usr/lib/x86_64-linux-gnu/pkgconfig/opencv4.pc
 
-wget
+Wget
 ----
 
 .. prompt:: bash $,# auto
@@ -162,7 +163,7 @@ wget
 .. hint:: aria2据说为增强版wget
 
 
-curl
+Curl
 ----
 
 .. prompt:: bash $,# auto
@@ -180,7 +181,7 @@ curl
    :alt: image-20211101171306726
 
 
-snap
+Snap
 ----
 
 unix-like自带，安装的应用程序有点像docker容器，整体体积会较大
@@ -194,11 +195,11 @@ unix-like自带，安装的应用程序有点像docker容器，整体体积会�
    $ sudo snap remove <pkg>              # 卸载snap中安装的包
    $ sudo apt autoremove --purge snapd   # 卸载snap-core
 
-conda
+Conda
 -----
 
-安装
-^^^^
+安装和升级
+^^^^^^^^^^
 
 步骤一：\ `下载安装包(anaconda3) <https://www.anaconda.com/products/individual>`_\ ，\ `miniconda3 <https://conda.io/projects/conda/en/latest/user-guide/install/linux.html>`_
 
@@ -206,11 +207,13 @@ conda
 
    # 完整版anaconda3
    $ https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh -O ./anaconda.sh
+   # 执行脚本
    $ conda update conda
 
    # miniconda3
    $ wget -c https://repo.anaconda.com/miniconda/Miniconda3-py39_4.11.0-Linux-x86_64.sh
-   $ conda update conda
+   # 执行脚本
+   (base) $ conda update conda
 
 步骤二：交互模式执行安装包（此方法可顺带初始化conda）
 
@@ -328,13 +331,6 @@ conda
 
 ----
 
-升级conda
-^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   (base) $ conda update conda
-
 清理
 ^^^^
 
@@ -435,10 +431,15 @@ mamba
 
 .. prompt:: bash $,# auto
 
-   $ conda install -n base --override-channels -c conda-forge mamba=0.23.1
+   $ conda install -n base --override-channels -c conda-forge mamba=0.24.0
    $ mamba install <package_name>
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CP0aVRAsWIAQWpl3.png!thumbnail" alt="img" style="zoom:50%; " />`
+
+mamba退出码异常无显示
+~~~~~~~~~~~~~~~~~~~~~
+
+尝试安装更高级的版本或者重新安装
 
 实战
 ^^^^
@@ -469,6 +470,17 @@ conda / pip install的区别？
   pip 存放在 anaconda/env/相应的目录中，不可被其他虚拟环境的复用；
 
   conda 的包则存放在 /pkgs中可被其他conda环境复用，避免再进行一次下载
+
+base环境下没有pip
+^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 查看base环境的pip，发现其使用是系统的
+   (base) $ which pip
+   # /usr/bin/pip
+   # 安装pip到conda base环境
+   (base) $ conda install pip
 
 拓展资料
 ^^^^^^^^

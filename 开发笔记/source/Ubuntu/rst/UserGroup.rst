@@ -5,7 +5,7 @@
 User&&Group
 ===========
 
-用户
+User
 ----
 
 配置文档
@@ -23,10 +23,8 @@ User&&Group
 .. prompt:: bash $,# auto
 
    # 增设用户 
-   # useradd -m helios -G s
-   # useradd ${USER} -u ${UID} -U -d /home/${USER} -m -s /bin/bash
-   $ useradd <user_name> -m -s /bin/bash
-   $ useradd -m <user_name> -G <group_name>
+   # useradd helios -m -G do sudo -G docker -s /bin/bash
+   $ useradd <user_name> -m -s /bin/bash -G <group_name>
    # -m：建立家目录
    # -G：将用户添加到某用户组
    # -u：指定用户ID
@@ -139,7 +137,7 @@ switch user
 
    $ hostname <new-name>
 
-用户组
+Groups
 ------
 
 增加用户组
@@ -184,8 +182,8 @@ switch user
 `常用用户组名说明 <https://wiki.debian.org/SystemGroups>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-权限设置
---------
+Access Right
+------------
 
 用户A创建文件或文件夹时，该文件的文件组所有者属性从属于 ``有效用户组``
 
@@ -197,14 +195,15 @@ chmod
    # chmod [OPTION]... MODE[,MODE]... FILE...
    $ chmod -R 777 .
    # -R: 递归
+
    # 给文件夹增加SGID权限
    $ chmod g+s <directory>
 
 .. hint:: SGID权限即用户在该文件夹下的有效用户组为该文件夹下的用户组；用户在该文件夹下添加的文件或文件夹，这些实体的用户组权限跟该文件夹用户组权限相同
 
 
-实战
-----
+Practice
+--------
 
 `Linux服务器遭受黑客攻击时的日志分析排除 <https://blog.csdn.net/wxh0000mm/article/details/102948268>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

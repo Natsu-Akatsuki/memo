@@ -155,8 +155,7 @@ $ systemctl daemon-reload
 
 - ubuntu使用bios时间+时区差 / windows使用bios时间
 
-```
+```bash
 $ sudo ntpdate time.windows.com
 $ sudo hwclock --localtime --systohc
 ```
-

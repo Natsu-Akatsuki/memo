@@ -189,7 +189,7 @@ ServiceSetting
 
 * ubuntu使用bios时间+时区差 / windows使用bios时间
 
-.. code-block::
+.. prompt:: bash $,# auto
 
    $ sudo ntpdate time.windows.com
    $ sudo hwclock --localtime --systohc

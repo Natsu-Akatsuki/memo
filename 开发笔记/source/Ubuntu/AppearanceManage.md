@@ -93,6 +93,10 @@ Open in VSCode
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220523010417070.png" alt="image-20220523010417070" style="zoom:50%;" />
 
+### Screen Login
+
+- 配置login界面
+
 ### Splash
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/MgDV5vsgIAOg6G8G.png!thumbnail" alt="img" style="zoom: 50%; " />
@@ -124,6 +128,10 @@ Open in VSCode
 ### Task Switcher
 
 * 设置compact
+
+### User Manager
+
+- 设置头像
 
 ## KDE Shortcut
 
@@ -228,6 +236,16 @@ XFCE为轻量级的display manager
 
 ---
 
+## Fonts
+
+### [解决jupyter乱码问题](https://blog.csdn.net/BigData_Mining/article/details/111656101)
+
+```bash
+$ wget -c https://github.com/StellarCN/scp_zh/blob/master/fonts/SimHei.ttf?raw=true
+$ sudo cp SimHei.ttf /usr/share/fonts/
+# 重新运行
+```
+
 ## [Windows Manager](https://wiki.archlinux.org/title/Window_manager)
 
 ### Stacking Window Managers
@@ -277,6 +295,12 @@ $ compton -b
 #### [picom](https://github.com/yshui/picom)
 
 * apt for ubuntu20.10+；其他版本需要源码安装；[ppa安装](https://libredd.it/r/kde/comments/p822c2/perfect_kde_plasma_compositing_combo_kwin_picom/)
+
+### Practice
+
+#### [切换windows manager](https://userbase.kde.org/Tutorials/Using_Other_Window_Managers_with_Plasma)
+
+配置文档一般在/usr/share/xsessions
 
 ## [Create Link](https://wiki.archlinux.org/title/desktop_entries)
 

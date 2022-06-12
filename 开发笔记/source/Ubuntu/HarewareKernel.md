@@ -21,7 +21,37 @@
 
 ## Hareware
 
-### Bluetool
+### Battery
+
+#### Energy Saving
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220606003351639.png" alt="image-20220606003351639" style="zoom: 50%;" />
+
+#### 电脑开关机状态
+
+- 休眠、睡眠的状态的区别：[askubuntu](https://askubuntu.com/questions/3369/what-is-the-difference-between-hibernate-and-suspend), [blog](https://simpleit.rocks/linux/ubuntu/difference-suspend-hibernate-call-command/)
+
+```bash
+# 睡眠 suspend to ram / sleep
+$ pm-suspend
+# 休眠 suspend to disk
+$ pm-hibernate
+```
+
+#### [定义唤醒方式](https://wiki.archlinux.org/title/Wakeup_triggers)
+
+#### [配置休眠](https://outhereinthefield.wordpress.com/2019/05/21/enabling-hibernate-on-ubuntu-19-04-disco-dingo/)
+
+```bash
+# 判断是否支持休眠
+$ cat /sys/power/state
+```
+
+#### Q&A
+
+- [suspend and resume immediately for nvidia](https://forums.developer.nvidia.com/t/fixed-suspend-resume-issues-with-the-driver-version-470/187150/3)
+
+### Bluetooth
 
 #### hcitool
 
@@ -185,20 +215,18 @@ $ xrandr --output eDP-1 --right-of HDMI-1
 * 查看**文件系统**的磁盘利用率
 
 ```bash
+$ df
 # -h: human-readable 以可读性强的方式显示
-$ df -h
+# -T: 显示文件系统类型 
 ```
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/GeX9NmnvmOdzae1i.png!thumbnail)
-
-* 显示文件系统类型
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/apYZa6QKOpc4bVgb.png!thumbnail)
 
 * 获取存储设备信息
 
 ```bash
 $ lsblk # ls block device
+# -f：看详细的信息
 ```
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/WoOiWboFRizuIfKU.png!thumbnail)
@@ -289,6 +317,12 @@ $ ntfsfix /dev/sdb1
 * Windows is hibernated, refused to mount：关闭windows的开机快速启动
 
 ---
+
+#### 修复exfat硬盘
+
+```bash
+$ exfatfsck /dev/sdb1
+```
 
 #### [dd命令](https://snapshooter.com/blog/how-to-clone-your-linux-harddrive-with-dd)
 
@@ -382,9 +416,9 @@ $ nvidia-smi --query-gpu=temperature.gpu --format=csv
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/IY7gtxIT4cnCmLb0.png!thumbnail" alt="img" style="zoom:67%; " />
 
-#### 压力测试
+### 压力测试
 
-相关工具为stress, s-tui
+- 测试CPU的相关工具为stress, s-tui
 
 ```bash
 $ sudo apt install s-tui stress
@@ -392,11 +426,19 @@ $ sudo apt install s-tui stress
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907110949467.png" alt="image-20210907110949467"  />
 
-#### 实战
-
-* 温度过高。可通过 `dmesg` 或 `journalctl` 查看日志信息（日志等级不一定为err）
+* 温度过高：可通过 `dmesg` 或 `journalctl` 查看日志信息（日志等级不一定为err）
 
 > mce: CPUx: Package temperature above threshold, cpu clock throttled
+
+- 测试GPU的相关工具
+
+```bash
+$ git clone https://github.com/wilicc/gpu-burn
+$ cd gpu-burn
+$ make
+# gpu_burn [TIME/s]
+$ gpu_burn 3600
+```
 
 ### USB
 
