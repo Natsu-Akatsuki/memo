@@ -20,6 +20,16 @@
 | [zed2](https://www.stereolabs.com/) | （双目，stereoLab，立体视觉）使用其sdk需要配合含nvidia的设备（显存需大于2G），带IMU，卷帘快门，0.2-20 m，室内外 |   4000+   | [detail](https://www.stereolabs.com/assets/datasheets/zed2-camera-datasheet.pdf) |
 |               AR023Z                | （单目：Leopard Imaging）相遇于阿波罗相机套件，支持外部触发，卷帘快门 | 4000-4500 | [detail](https://www.leopardimaging.com/uploads/LI-USB30-AR023ZWDR_datasheet.pdf) |
 
+## [Mindvision](http://www.mindvision.com.cn/wdxz/list_11.aspx?lcid=116)
+
+### 配置相机IP地址
+
+步骤一：安装mindvision SDK for windows 10, [here](http://www.mindvision.com.cn/rjxz/list_12.aspx?lcid=138)
+
+步骤二：打开网口相机IP配置工具.exe`（修改IP地址e.g. 192.168.1.233，然后SetIP生效）
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220614112442178.png" alt="img" style="zoom:50%;" />
+
 ## Realsense
 
 ### Driver
@@ -177,9 +187,40 @@ body_T_cam1: !!opencv-matrix
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220405160236745.png" alt="image-20220405160236745" style="zoom:50%;" />
 
-#### 拓展资料
+### 后处理
 
-- [3种深度相机 realsense 官方](https://www.intelrealsense.com/beginners-guide-to-depth/)
+#### 有关噪声
+
+d435i深度相机存在较多的噪声（[Depth Values Fluctuation](https://github.com/IntelRealSense/librealsense/issues/1280), [Wavy Cloud](https://github.com/IntelRealSense/librealsense/issues/1375), [ghost noise](https://github.com/IntelRealSense/librealsense/issues/4553)），需要通过后处理进行剔除异常点，避免异常数据影响后续的算法。
+
+#### 官方SDK提供的后处理方案包括哪些内容？
+
+#### 下采样操作
+
+大量的数据，会增加后处理算法的运算量，因此需要先进行一次下采样操作
+
+- 这种滤波的实现方法？在深度图上进行：non-zero median / non-zero mean：中值滤波 / 均值滤波（不考虑0值）
+- 什么时候使用中值滤波 / 均值滤波？
+
+> Considering the computation burden, we suggest using “**non-zero median” for small factor sub-sampling (ex: 2, 3)** and **“non-zero mean” for large factor sub-sampling (ex: 4, 5,..)**. So for example when setting the sub-sampling to 4 (or 4x4), the “non-zero mean” would entail taking the average of a pixels and its 15 nearest neighbors while ignoring zeroes, and doing that on an grid subsampled by 4 in the x and y.
+
+- 好处？
+
+> While this will clearly affect the depth-map xy resolution, it should be noted that all stereo algorithms do involve some convolution operations, so reducing the x-y resolution after capture with modest sub-sampling (<3) will lead to **fairly minimal impact to the depth x-y resolution**. A factor of 2 reduction in X-Y resolution should **speed** subsequent application processing up **by 4x**, and a subsampling of 4 should decrease compute by 16x. Moreover, one benefit of the intelligent sub-sampling is it will also **do some *rudimentary holefilling and smoothing of the data*** using either a “non-zero mean” or “non-zero median” function (which has a slightly higher computational burden). Finally, sub-sampling can actually **help with the visualization of the point-cloud** as well because very dense depth maps can be hard to see unless they are zoomed in
+
+#### 保留边缘的滤波
+
+Once the depth-map has been compressed to a smaller x-y resolution, more complex spatial-and temporal filters should be considered. We recommend first considering adding an **edge-preserving spatial filter**.
+
+#### 参考资料
+
+- [depth-post-processing](https://dev.intelrealsense.com/docs/depth-post-processing#6539b73f-bffe-0845-8f77-538461606ccc)
+- [post-precessing-filters](https://dev.intelrealsense.com/docs/post-processing-filters)
+
+### 拓展资料
+
+- [3种深度相机的区别 realsense 官方](https://www.intelrealsense.com/beginners-guide-to-depth/)
+- [各相机的模型文件](https://grabcad.com/library/tag/realsense)
 
 ## ZED
 
@@ -196,6 +237,21 @@ body_T_cam1: !!opencv-matrix
 实测不需要，cuda11.1也可以无损运行
 
 ---
+
+### [ros wrapper](https://www.stereolabs.com/docs/ros/)
+
+```bash
+# 安装
+$ git clone --recursive https://github.com/stereolabs/zed-ros-wrapper.git
+$ catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
+$ catkin build
+
+# 不含rviz
+$ roslaunch zed_wrapper zed2.launch
+# 含rviz（需下zed-ros-example）
+$ git clone https://github.com/stereolabs/zed-ros-examples
+# 启动建图时，需要将common.yaml的参数mapping/mapping_enabled设置为true
+```
 
 ### 测试
 
