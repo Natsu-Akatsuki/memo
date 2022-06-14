@@ -62,12 +62,13 @@ knotes
 
 * `flameshot <https://github.com/flameshot-org/flameshot>`_\ （截图，可apt install from ubuntu18.04）
 
-.. note:: apt安装的版本较旧，推荐用源码装或者deb包安装
+.. note:: apt安装的版本较旧，推荐用源码装或者deb包安装；设置快捷键时（for KDE）记得先移除默认的printsc按键，然后用自定义（flameshot gui）的即可，不需要参考官方的进行配置
 
 
 .. prompt:: bash $,# auto
 
-   $ wget https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
+
+   $ wget -c https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
    $ sudo dpkg -i flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
 
 
@@ -168,6 +169,7 @@ knotes
 * `proxy-switchomega <https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?utm_source=chrome-ntp-icon>`_
 * `ar5iv <https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon>`_\ （在arxiv上增设ar5iv接口）
 * `omni <https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon>`_\ （有点命令行管理操作的味道）
+* `彩云小译（翻译软件） <https://drugx.cn/app/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91%E6%97%A0%E9%99%90%E5%88%B6.html>`_
 
 `快捷键 <https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

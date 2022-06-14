@@ -52,7 +52,7 @@ $ sudo apt install dolphin-plugin
 
 Copy Path(kde for ubuntu 22.04已支持)
 
-Comparing using Melt
+Comparing using Meld
 
 Color Folder
 
@@ -132,6 +132,11 @@ Open in VSCode
 ### User Manager
 
 - 设置头像
+
+### Window Decoration
+
+- windows decoration: Nordic-r
+- 设置window behaviour：鼠标中键（shade）、滚轮（上下层切换）
 
 ## KDE Shortcut
 
