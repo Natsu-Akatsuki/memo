@@ -1,8 +1,12 @@
+# v2.0 2022.3.31
 # >>> 基础镜像 >>>
 FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
 
 # >>> 修改源，并安装apt包 >>>
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
+# rm /etc/apt/sources.list.d/*: 删除cuda sources，避免无法update 
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.ustc.edu.cn/@g /etc/apt/sources.list \
+    && sed -i '37,49d' /etc/apt/sources.list \
+    && rm /etc/apt/sources.list.d/* \
     && apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         apt-utils \
@@ -39,7 +43,7 @@ RUN DEBIAN_FRONTEND=noninteractive  sh -c '. /etc/lsb-release && echo "deb http:
         python3-wstool \
         python3-pip \
         && rm -rf /var/lib/apt/lists/*
- 
+
 # >>> 安装其他ros包依赖 >>>
 RUN apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
@@ -80,11 +84,11 @@ RUN apt update \
 # COPY --from=nvidia/opengl:1.2-glvnd-devel-ubuntu20.04\
 #  /usr/local/lib/x86_64-linux-gnu \
 #  /usr/local/lib/x86_64-linux-gnu
-# 
+#
 # COPY --from=nvidia/opengl:1.2-glvnd-devel-ubuntu20.0 \
 #  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json \
 #  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json
-# 
+#
 # RUN echo '/usr/local/lib/x86_64-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
 #  ldconfig && \
 #  echo '/usr/local/$LIB/libGL.so.1' >> /etc/ld.so.preload && \
@@ -95,35 +99,27 @@ ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 # >>> 安装gtsam,osqp,ceres >>>
-RUN  cd /tmp \
-    && git clone --depth=1 https://github.com/borglab/gtsam.git gtsam \
-    && cd gtsam \
-    && mkdir build && cd build && cmake .. \
-    && make -j$(nproc) && make install \
-    && DEBIAN_FRONTEND=noninteractive apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev \
-    && wget -c http://ceres-solver.org/ceres-solver-2.0.0.tar.gz -O /tmp/ceres-solver-2.0.0.tar.gz \
-    && cd /tmp \
-    && tar -xzvf ceres-solver-2.0.0.tar.gz \
-    && cd /tmp/ceres-solver-2.0.0 \
-    && mkdir build && cd build && cmake .. \
-    && make -j$(nproc) \
-    && make install \
-    && cd /tmp/ \
-    && git clone --depth=1 --recursive https://github.com/osqp/osqp osqp \
-    && cd osqp && mkdir build && cd build \
-    && cmake .. \
-    && make -j$(nproc) \
-    && make install \
-    && rm -rf /tmp/*
-
-# >>> 安装anaconda >>>
-# RUN wget -c https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O anaconda.sh \
-#     && /bin/bash anaconda.sh -b -p /opt/conda \
-#     && export "PATH=/opt/conda/bin:$PATH" \
-#     && conda init \
-#     && conda config --set auto_activate_base false \
-#     && rm anaconda.sh
+# RUN  cd /tmp \
+#     && git clone --depth=1 https://github.com/borglab/gtsam.git gtsam \
+#     && cd gtsam \
+#     && mkdir build && cd build && cmake .. \
+#     && make -j$(nproc) && make install \
+#     && DEBIAN_FRONTEND=noninteractive apt update \
+#     && apt install -y libgoogle-glog-dev libgflags-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev \
+#     && wget -c http://ceres-solver.org/ceres-solver-2.0.0.tar.gz -O /tmp/ceres-solver-2.0.0.tar.gz \
+#     && cd /tmp \
+#     && tar -xzvf ceres-solver-2.0.0.tar.gz \
+#     && cd /tmp/ceres-solver-2.0.0 \
+#     && mkdir build && cd build && cmake .. \
+#     && make -j$(nproc) \
+#     && make install \
+#     && cd /tmp/ \
+#     && git clone --depth=1 --recursive https://github.com/osqp/osqp osqp \
+#     && cd osqp && mkdir build && cd build \
+#     && cmake .. \
+#     && make -j$(nproc) \
+#     && make install \
+#     && rm -rf /tmp/*
 
 RUN pip3 install --no-cache-dir \
     catkin_pkg \
@@ -143,24 +139,52 @@ RUN pip3 install --no-cache-dir \
     && apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         python3-pyqt5.qtserialport
-        
+
 # >>> 解决中文显示乱码问题 >>>
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
+# >>> 安装和配置vnc server >>>
+RUN apt update \
+    && DEBIAN_FRONTEND=noninteractive apt install -y \
+        tigervnc-common \
+        tigervnc-standalone-server \
+        tigervnc-xorg-extension \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p $HOME/.vnc \
+    && echo "admin" | vncpasswd -f >> $HOME/.vnc/passwd && chmod 600 $HOME/.vnc/passwd
+    
+COPY tigervnc@.service /etc/systemd/system/tigervnc@.service
+RUN systemctl enable tigervnc@:1
+COPY xstartup /root/.vnc/xstartup
+
+# >>> 安装gnome display manager >>>
+RUN apt update \
+    && DEBIAN_FRONTEND=noninteractive apt install -y --fix-missing \
+        ubuntu-desktop \
+        gnome-shell-extensions \
+        gnome-tweaks \
+        gnome-tweak-tool \
+        gnome-panel \
+    && rm -rf /var/lib/apt/lists/*
+
+# >>> 安装anaconda >>>
+RUN wget -c https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh -O anaconda.sh \
+    && /bin/bash anaconda.sh -b -p /opt/conda \
+    && export "PATH=/opt/conda/bin:$PATH" \
+    && conda init \
+    && conda config --set auto_activate_base false \
+    && rm anaconda.sh
+    
 # >>> 安装pytorch >>>
-RUN pip3 install --no-cache-dir torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+# RUN pip3 install --no-cache-dir torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 
-# >>> 安装TensorRT 7.2.3 >>>
-# the link from https://developer.nvidia.com/nvidia-tensorrt-7x-download, need update
-RUN mkdir /application \
-    && wget -c "https://developer.download.nvidia.com/compute/machine-learning/tensorrt/secure/7.2.3/tars/TensorRT-7.2.3.4.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.1.tar.gz?qit_Gncv7wuNJz59xLLvpOjxwW7OcWAIXH22Q_bMKwzBPunbH1XJNRgUPe4ZZXi0HU3duyBoKJBqyISiSxBIsYGy14WQys6H38U6g53MmxbEuVM9VY2bewHUb-KGass8F18vM9uGf7EBv8Sg5CGu6jAvqFYvTJiC3fZ0ZcOZNmXhycQn59hGM8IMTmHu_5fg_y3nmP2W0mGD1uiF7MQxkkzgGttP2TD1q1ZclLF4jCgJAPA5XQ&t=eyJscyI6ImdzZW8iLCJsc2QiOiJodHRwczpcL1wvd3d3Lmdvb2dsZS5jb20uaGtcLyIsIm5jaWQiOiJhZm0tY2hzLTQ0MjcwIn0" -O /application/TensorRT-7.2.3.4.tar.gz \
-    && cd /application/ && tar -xzvf /application/TensorRT-7.2.3.4.tar.gz
-
-# >>> 从当前目录导入文件 >>>
-# COPY tmp /home/sleipnir/application    
-
-# >>> 设置入口位置 >>>
-# WORKDIR /home/sleipnir
+# >>> 安装TensorRT 8.2.2 >>>
+# wget -c "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin"
+# mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+# apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+# add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+# apt install -y libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8
+# apt install -y libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev
 
 # >>> 入口点函数 >>>
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/usr/sbin/init"]

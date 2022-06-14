@@ -76,20 +76,6 @@ RUN apt update \
         cowsay \
     && rm -rf /var/lib/apt/lists/*
 
-# >>> nvidia runtime>>>
-# COPY --from=nvidia/opengl:1.2-glvnd-devel-ubuntu20.04\
-#  /usr/local/lib/x86_64-linux-gnu \
-#  /usr/local/lib/x86_64-linux-gnu
-#
-# COPY --from=nvidia/opengl:1.2-glvnd-devel-ubuntu20.0 \
-#  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json \
-#  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json
-#
-# RUN echo '/usr/local/lib/x86_64-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
-#  ldconfig && \
-#  echo '/usr/local/$LIB/libGL.so.1' >> /etc/ld.so.preload && \
-#  echo '/usr/local/$LIB/libEGL.so.1' >> /etc/ld.so.preload
-
 # >>> nvidia-container-runtime >>>
 ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
@@ -130,14 +116,6 @@ RUN  DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:borglab/gtsam-release
     && make -j$(nproc) && make install \
     && rm -rf /tmp/* \
     && rm -rf /var/lib/apt/lists/*
-   
-# >>> 安装anaconda >>>
-# RUN wget -c https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -O anaconda.sh \
-#     && /bin/bash anaconda.sh -b -p /opt/conda \
-#     && export "PATH=/opt/conda/bin:$PATH" \
-#     && conda init \
-#     && conda config --set auto_activate_base false \
-#     && rm anaconda.sh
 
 # >>> 安装和配置vnc server >>>
 RUN apt update \
@@ -161,8 +139,6 @@ RUN apt update \
 
 # >>> 解决中文显示乱码问题 >>>
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-
-# WORKDIR /home/
 
 # >>> 入口点函数 >>>
 ENTRYPOINT ["/bin/bash"]

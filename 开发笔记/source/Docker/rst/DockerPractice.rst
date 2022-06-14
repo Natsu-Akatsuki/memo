@@ -12,12 +12,12 @@ portainer
 ^^^^^^^^^
 
 
-* web端docker管理工具
+* web端docker管理工具（127.0.0.1:9000）
 
 .. prompt:: bash $,# auto
 
    $ docker pull portainer/portainer
-   $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --restart=always --name prtainer portainer/portainer
+   $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --restart=always --name portainer portainer/portainer
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png
@@ -298,11 +298,8 @@ Trick
 
 .. prompt:: bash $,# auto
 
-   $ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-   $ sudo chmod +x /usr/local/bin/docker-compose
-
-   # apt 也能装但版本较老，一些新特性不支持如deploy
-   $ apt install docker-compose # 1.25.0
+   $ sudo apt-get install docker-compose-plugin
+   $ apt install docker-compose-plugin
 
 
 * 常用命令行
@@ -311,11 +308,14 @@ Trick
 
    # 需在docker-compose.yml文件所在目录运行
    # 列举compose管理中的容器
-   $ docker-compose ps  
+   $ docker compose ps  
    # 删除compose管理下的容器 -v(删除匿名卷) -f（跳过confirm stage）
-   $ docker-compose rm   
+   $ docker compose rm   
    # 启动当前目录下管理的容器 -d(后台模式)
-   $ docker-compose up
+   $ docker compose up
+
+   # 倾向于使用docker engine进行构建
+   $ docker compose build
 
 
 * 实例
@@ -493,6 +493,8 @@ failed to get D-Bus connection
 
 `图形化界面 <http://wiki.ros.org/docker/Tutorials/GUI>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+倾向于使用VNC，X11在实战中有较多的问题存在
 
 Xserver
 ~~~~~~~
