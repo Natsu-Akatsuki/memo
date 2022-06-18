@@ -113,7 +113,7 @@ AmBook
    :maxdepth: 1
    :hidden:
    :caption: Ubuntu
-   
+
    Ubuntu/rst/AppearanceManage.rst
    Ubuntu/rst/Application.rst
    Ubuntu/rst/FileDirManage.rst
@@ -122,9 +122,9 @@ AmBook
    Ubuntu/rst/HarewareKernel.rst
    Ubuntu/rst/LanguageManage.rst
    Ubuntu/rst/LogManage.rst
-   Ubuntu/rst/NetworkManage.rst
+   Ubuntu/rst/Network.rst
    Ubuntu/rst/PackageManage.rst
-   Ubuntu/rst/PasswordManage.rst   
+   Ubuntu/rst/PasswordManage.rst
    Ubuntu/rst/ProcessManage.rst
    Ubuntu/rst/RemoteConnect.rst
    Ubuntu/rst/ServiceSetting.rst
