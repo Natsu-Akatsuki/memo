@@ -2,6 +2,7 @@ myst-parser
 # 快捷键触发搜索
 readthedocs-sphinx-search
 sphinxemoji
+sphinx-tabs
 sphinx-notfound-page
 sphinx-prompt
 # 复制代码块按钮

@@ -48,10 +48,9 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: git
+   :caption: Git
 
-   git/rst/GitPractice.rst
-   git/rst/Convention.rst
+   Git/rst/GitPractice.rst
 
 .. toctree::
    :maxdepth: 1

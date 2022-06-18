@@ -23,7 +23,7 @@ copyright = "2021, Natsu_Akatsuki"
 author = "Natsu_Akatsuki"
 
 # The full version, including alpha/beta/rc tags
-release = "v0.0.0"
+release = "v0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx-prompt",
     "sphinx_copybutton",
+    "sphinx_tabs.tabs",
     "sphinx_toggleprompt",
     "notfound.extension",
     "sphinx_last_updated_by_git",

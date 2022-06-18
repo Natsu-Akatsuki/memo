@@ -4,43 +4,22 @@
 
 NetworkManage
 =============
-
-`ubuntu server使用的是systemd-networkd（也称networkd）来管理网络，ubuntu desktop使用的是network-manager（也称NetworkManger）来管理网络 <https://www.reddit.com/r/linuxadmin/comments/klhcpt/few_questions_about_networkmanager_vs/>`_
-
-查看已有的网卡设备
-------------------
+Hareware
+---------
+查看网卡设备
+~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
    $ sudo lshw -c network
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/say9gPr5ThtYx2lU.png!thumbnail" alt="img" style="zoom: 67%; " />`
 
-查看网卡状态
-------------
-
-.. prompt:: bash $,# auto
-
-   # 查看网卡状态
-   $ nmcli device status
-   # 查看网卡状态（服务器版）
-   $ networkctl
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/tOShZPm3wFZA2kXZ.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/tOShZPm3wFZA2kXZ.png!thumbnail
-   :alt: img
-
-
-.. note:: 如果网卡没有被manage的话，则也无法正常使用网卡，表现为此处不能进行连接，相关解决方案可参考[link](https://itectec.com/ubuntu/ubuntu-ethernet-device-not-managed/)
-
-
-启动网卡(for ip)
-----------------
+启动网卡
+~~~~~~~~~~~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
-   # 查看网卡是否启动（看是DOWN还是UP）
+   # 查看网卡是否启动（看是down还是up）
    $ ip link
 
 
@@ -51,258 +30,80 @@ NetworkManage
 
 .. prompt:: bash $,# auto
 
-   # 根据man ip，此处的link的含义为network device 
+   # link：network device
+   # interface：网卡名（ref: man）
    $ ip link set <网卡名interface> up/down
 
-----
+.. hint:: `网卡和其对应属性 <https://blog.csdn.net/dxt16888/article/details/80741175>`_\ ： ``eth/eno`` 一般对应有线网卡； ``elan/wlo`` 一般对应无线网卡；br一般与桥接有关
 
-**HINT**
+.. note:: ``DOWN``\ 的情况有两种，一种是硬件上没联网（没插网线、没连wifi），二是软件上DOWN了（这种可以命令行UP回去）
 
+Backend
+--------
 
-#. 
-   `网卡和其对应属性 <https://blog.csdn.net/dxt16888/article/details/80741175>`_\ ：
+- Ubuntu服务器版和桌面版使用不同的后端（backend）管理网络，分别是 `systemd-networkd` （也称 `networkd` ）和 `network-manager` （也称 `NetworkManger` ）
+- `netplan` 用于生成不同后端（ `networkd` 或 `NetworkManger` ）的配置文档
 
-   eth/eno：有线网卡
+.. tabs::
 
-   elan/wlo：无线网卡
+   .. code-tab:: bash nmcli (NetworkManger)
 
-   br：该网卡与桥接有关
+         # 查看网卡状态
+         $ nmcli device status
 
-#. 
-   ``DOWN``\ 的情况有两种，一种是硬件上没联网（没插网线、没连wifi），二是软件上DOWN了（这种才可以命令行UP回去）
+         # nmcli的connections即配置文档（ref: man）可在以下目录查看
+         $ ls /etc/NetworkManager/system-connections
+         # 查看配置信息
+         $ nmcli connection show
+         # 添加配置文档
+         # nmcli connection add type <ethernet/wifi> con-name <connection-name> ifname <interface-name>
 
-----
+         # >>> 设置有线连接 >>>
+         # 静态ip配置
+         $ nmcli connection modify <connection_name>
+         ipv4.method manual \
+         ipv4.addresses 192.168.1.100/16 \
+         ipv4.gateway 192.168.1.1
 
-wifi配置(for nmcli)
--------------------
+         # 动态ip配置
+         $ nmcli connection modify <connection_name> ipv4.method auto
 
-显示可连接的wifi信息
+         # 使配置文档的修改生效
+         $ sudo systemctl restart NetworkManager
 
-.. prompt:: bash $,# auto
+         # >>> 设置无线连接 >>>
+         # 显示可连接的wifi信息/信号强弱
+         $ nmcli dev wifi
 
-   nmcli dev wifi
+         # 查看当前的wifi信息（如密码）
+         $ nmcli dev wifi show
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825174133504.png" alt="image-20210825174133504" style="zoom:67%; " />`
+         # 连接wifi
+         # sudo nmcli dev wifi connect <wifi_ssid> password <password>
+         $ sudo nmcli dev wifi connect 877381 password 96899968
 
-显示当前wifi的相关信息
-^^^^^^^^^^^^^^^^^^^^^^
+         # >>> 图形化界面配置 >>>
+         $ nm-connection-editor
 
-.. prompt:: bash $,# auto
+   .. code-tab:: bash networkd (networkd)
 
-   $ nmcli dev wifi show
+      # 查看网卡状态
+      $ networkctl
 
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173513012.png" alt="image-20210825173513012" style="zoom:67%; " />`
+   .. code-tab:: bash netplan
 
-命令行连接wifi
-^^^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ sudo nmcli dev wifi connect <wifi_ssid> password <password>
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825173745117.png" alt="image-20210825173745117" style="zoom:67%; " />`
-
-有线连接配置(for nmcli)
------------------------
-
-命令行连接
-^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ connection_name=<...>
-   # 静态ip配置
-   $ nmcli connection modify ${connection_name} 
-     ipv4.method manual \
-     ipv4.addresses 192.168.1.100/16 \
-     ipv4.gateway 192.168.1.1
-   # 动态ip配置
-   $ nmcli connection modify ${connection_name} ipv4.method auto
+      # --debug项为可选（需放中间），用于查看日志
+      # 使配置文档生效
+      $ sudo netplan --debug apply
 
 ----
 
 **NOTE**
-
-nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/NetworkManager/system-connections`` ，可查看wifi的密码
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/dhPmwMUEss3Navaz.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/dhPmwMUEss3Navaz.png!thumbnail
-   :alt: img
-
-
-----
-
-图形化界面连接
-^^^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   $ nm-connection-editor
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210826230913278.png" alt="image-20210826230913278" style="zoom:67%; " />`
-
-查看backend的配置文档
-^^^^^^^^^^^^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   # 显示network-manager的配置信息
-   $ sudo NetworkManager --print-config
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xuEnCOhIGV2OjKYL.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/xuEnCOhIGV2OjKYL.png!thumbnail
-   :alt: img
-
-
-拓展资料(for nmcli)
--------------------
-
-
-#. `使用nmcli配置网络 <https://blog.csdn.net/m0_37264220/article/details/103995359>`_
-
-配置网络(for `netplan <https://netplan.io/reference/>`_\ )
-------------------------------------------------------------
-
-``netplan`` 的用于生成不同backend（networkd或NetworkManger）的配置文档
-
-----
-
-**NOTE**
-
 
 #. 写在\ ``/etc/netplan``\ 的配置文档的文件名需要以数字为前缀，如\ ``00-netplan.yaml``
-#. 经实测，静态ip时一定要添加\ ``nameserver``\ ，\ ``gateway``\ (default为0.0.0.0/0)
-
-----
-
-命令行
-^^^^^^
-
-.. prompt:: bash $,# auto
-
-   # --debug项为可选，作用依次为生成配置文档和使配置文档生效
-   $ sudo netplan --debug generate
-   $ sudo netplan --debug apply
-
-配置文档
-^^^^^^^^
-
-.. code-block:: yaml
-
-   network:
-     version: 2
-     renderer: NetworkManager
-
-配置有线连接，使用静态ip
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: yaml
-
-   network:
-     version: 2
-     renderer: NetworkManager
-     ethernets:
-       eno1:
-         addresses:
-           - 10.23.21.96/24
-         gateway4: 10.23.21.1
-         nameservers:
-           addresses:
-             - 222.200.115.251
-             - 222.200.115.252
-             - 119.29.29.29
-
-配置有线连接，使用动态ip
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: yaml
-
-   network:
-     version: 2
-     renderer: NetworkManager
-     ethernets:
-       eno1:
-         dhcp4: true
-
-`配置wifi，使用动态ip <https://netplan.io/>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: yaml
-
-   network:
-     version: 2
-     renderer: NetworkManager
-     wifis:
-       wlo1: # <dev_name>
-         dhcp4: yes
-         dhcp6: yes
-         access-points:
-           "5-108": # <ssid>
-             password: "23130123" # <password>
-         routes:
-           - to: 0.0.0.0/0
-             via: 192.168.10.1
-
-配置wifi，使用静态ip
-~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: yaml
-
-   network:
-     version: 2
-     renderer: NetworkManager
-     wifis:
-       wlo1:
-         dhcp4: no
-         dhcp6: no
-         addresses: [192.168.10.50/24]
-         nameservers:
-           addresses: [223.5.5.5, 223.6.6.6]
-         access-points:
-           "5-108":
-             password: "23130123"
-         routes:
-           - to: 0.0.0.0/0
-             via: 192.168.10.1
-
-绑定多张有线网卡以网络冗余
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: yaml
-
-   network:
-     version: 2
-     renderer: networkd
-     ethernets:
-       eno1np0:
-         dhcp4: yes
-       eno2np1:
-         dhcp4: yes
-     bonds:
-       bond0:
-         addresses:
-           - 10.23.21.110/24
-         gateway4: 10.23.21.1
-         interfaces:
-           - eno1np0
-           - eno2np1
-         nameservers:
-           addresses:
-             - 222.200.115.251
-             - 222.200.115.252
-             - 119.29.29.29
-         parameters:
-           down-delay: 0
-           gratuitious-arp: 1
-           mode: active-backup
-           primary: eno2np1
-
-拓展资料
-~~~~~~~~
-
-
+#. 实测，若在netplan中设置静态ip时一定要添加 ``nameserver`` ， ``gateway`` (default为0.0.0.0/0)
+#. `netplan template <https://gist.github.com/Natsu-Akatsuki/81f5ff6cc53e01950e30d2be9901e269#file-00-netplan-template-yaml>`_
+#. `netplan：绑定多张有线网卡以实现网络冗余 <https://gist.github.com/Natsu-Akatsuki/81f5ff6cc53e01950e30d2be9901e269#file-00-netplan-practice-yaml>`_  
 #. 服务切换：\ `Network Manager切换到systemd-networkd <https://www.xmodulo.com/switch-from-networkmanager-to-systemd-networkd.html>`_\ ，\ `译文 <https://m.linuxidc.com/Linux/2015-11/125430.htm>`_
 #. `bonding的若干种模式介绍 <https://askubuntu.com/questions/464747/channel-bonding-modes>`_
 #. `LACP配置实战 <https://www.snel.com/support/how-to-set-up-lacp-bonding-on-ubuntu-18-04-with-netplan/>`_
@@ -337,16 +138,16 @@ nmcli的 ``connection`` 指配置文档，相关的配置文档放置于 ``/etc/
    nameserver 180.76.76.76
 
    # 腾讯
-   nameserver 119.29.29.29 
+   nameserver 119.29.29.29
 
    # google
    nameserver 8.8.8.8
 
 
-#. 
+#.
    dns的配置可以使用nmcli, netplan, 在\ ``/etc/resolv.conf``\ 增加nameserver，或图形化界面上进行修改均可，不赘述
 
-#. 
+#.
    ``/etc/resolv.conf``\ 的配置只起临时修改作用，重启后会恢复回原来的状态；使其生效需要
 
 .. prompt:: bash $,# auto
@@ -526,7 +327,7 @@ Flags  Possible flags include
 .. prompt:: bash $,# auto
 
    $ curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash
-   $ sudo systemctl disable v2ray --now 
+   $ sudo systemctl disable v2ray --now
    $ wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo apt-key add -
    # add V2RayA's repository
    $ echo "deb https://apt.v2raya.mzz.pub/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
@@ -601,7 +402,7 @@ Flags  Possible flags include
    :alt: img
 
 
-一种解决方案为，可以删除有线网卡的 ``默认路由`` ，只保留无线网卡的 ``默认路由`` ，让有线网卡处理ip地址为192.168.1.\ *的传感器设备的数据收发，无线网卡访问因特网。换句话说： `192.168.1.*\ ``的ip走有线网卡（收发激光雷达和相机的数据），不用走网关``\ 192.168.2.\ *\ ``的ip走无线网卡（收发互联网的数据），走``\ 192.168.43.*\ ` 的网关  
+一种解决方案为，可以删除有线网卡的 ``默认路由`` ，只保留无线网卡的 ``默认路由`` ，让有线网卡处理ip地址为192.168.1.\ *的传感器设备的数据收发，无线网卡访问因特网。换句话说： `192.168.1.*\ ``的ip走有线网卡（收发激光雷达和相机的数据），不用走网关``\ 192.168.2.\ *\ ``的ip走无线网卡（收发互联网的数据），走``\ 192.168.43.*\ ` 的网关
 
 .. prompt:: bash $,# auto
 
@@ -639,13 +440,13 @@ Flags  Possible flags include
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-* 
+*
   PWR 电源状态灯
   绿色：系统正常上电且正常工作
   琥珀色：系统正常上电但运行不正常
   关闭：系统未上电
 
-* 
+*
   link/act gigabit 端口状态灯：
   绿灯常亮：链路正常
   闪烁：链路正传输数据
@@ -667,7 +468,7 @@ Flags  Possible flags include
 
 .. prompt:: bash $,# auto
 
-   $ sudo apt install ethstatus 
+   $ sudo apt install ethstatus
    # 监控特定网卡 ethstatus -i <inferface_name>
    $ ethstatus -i eno1
 
@@ -679,17 +480,17 @@ Flags  Possible flags include
 **ATTENTION**
 
 
-* 
+*
   注意需要sudo，否则配置不生效
 
-* 
+*
   此处是 bps ，而不是 Bps
 
 ----
 
 .. prompt:: bash $,# auto
 
-   # 设置限速 
+   # 设置限速
    # sudo wondershaper 10000 10000
    $ sudo wondershaper <device_name> <下行速度bps> <上行速度bps>
    # 取消限速 sudo wondershaper clear eno1

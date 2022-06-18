@@ -58,7 +58,7 @@ $ ip link set <网卡名interface> up/down
 显示可连接的wifi信息
 
 ```bash
-nmcli dev wifi
+$nmcli dev wifi
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210825174133504.png" alt="image-20210825174133504" style="zoom:67%; " />
