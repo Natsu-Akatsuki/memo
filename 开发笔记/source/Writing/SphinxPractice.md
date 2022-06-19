@@ -1,6 +1,6 @@
 # SphinxPractice
 
-## quick start
+## QuickUsage
 
 - `sphinx` , `MKdocs` , `Hexo` 都可以用来生成html文档
 
@@ -9,7 +9,7 @@
 步骤一：安装sphinx相关依赖
 
 ```bash
-# test in ubuntu20.04
+# test in ubuntu20.04+
 $ sudo apt install python3-sphinx
 ```
 
@@ -33,7 +33,7 @@ $ google-chrome index.html
 
 步骤四：源文件提交至github
 
-.. attention:: 没必要提交编译结果；同时如要免费使用 `ReadTheDocs` 的功能，只能使用公有仓
+.. attention:: 没必要提交编译结果；如要免费使用 ``ReadTheDocs`` 的功能，只能使用公有仓
 
 步骤五：ReadTheDocs关联github
 
@@ -41,14 +41,7 @@ $ google-chrome index.html
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210731001321545.png" style="zoom: 50%; " />
 
-### Reference
-
-1. [reStructure文件语法 for sphinx](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#)
-2. [资料2](https://sublime-and-sphinx-guide.readthedocs.io/en/latest/images.html)
-3. [资料3](https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Admonitions.html)
-4. [资料4](https://bashtage.github.io/sphinx-material/rst-cheatsheet/rst-cheatsheet.html)
-
-## [代码块](https://sublime-and-sphinx-guide.readthedocs.io/en/latest/code_blocks.html)
+## [CodeBlock](https://sublime-and-sphinx-guide.readthedocs.io/en/latest/code_blocks.html)
 
 上述链接包含如下解决方案
 
@@ -57,15 +50,15 @@ $ google-chrome index.html
 - 导入(include)文件作为代码块
 - 高亮某一行文本
 
-### [显示warnings等](https://sublime-and-sphinx-guide.readthedocs.io/en/latest/notes_warnings.html)
+### [warnings](https://sublime-and-sphinx-guide.readthedocs.io/en/latest/notes_warnings.html)
 
 .. warning:: This is warning text. Use a warning for information the user must understand to avoid negative consequences. Warnings are formatted in the same way as notes. In the same way, lines must be broken and indented under the warning tag.
 
-### [显示emoji](https://sphinxemojicodes.readthedocs.io/en/stable/)
+### [emoji](https://sphinxemojicodes.readthedocs.io/en/stable/)
 
 .. attention:: emoji需要加竖线和空格，例如 |:smile:|
 
-### 内嵌html/xml
+### inline html/xml
 
 - [simple usecase](https://stackoverflow.com/questions/50565770/how-to-embed-html-or-xml-in-restructuredtext-sphinx-so-the-browser-cna-render)
 
@@ -75,17 +68,23 @@ $ google-chrome index.html
 
 ### [download role](https://stackoverflow.com/questions/3615142/how-to-include-pdf-in-sphinx-documentation)
 
-For an in-depth explanation, please see :download: `A Detailed Example <https://appletree.or.kr/quick_reference_cards/Python/Python%20Debugger%20Cheatsheet.pdf>` .
-
-### [交叉引用](https://docs.readthedocs.io/en/stable/guides/cross-referencing-with-sphinx.html#)
+### [cross referencing](https://docs.readthedocs.io/en/stable/guides/cross-referencing-with-sphinx.html#)
 
 .. note:: doc用于引入页面；而ref role则用于引用页面的某一段，其中可以加入中文标题；
 
-## 拓展工具
+## Configuration
 
-### 构建rst文档技巧
+### 切换主题
 
-先构建Markdown文档再使用转换工具（如：[m2r](https://github.com/miyakogi/m2r)）再转其为rst文件
+主题的修改可参考[link](https://www.sphinx-doc.org/en/master/usage/theming.html)，主要是修改 `cong.py` 配置文件中的 `html_theme` 字段；常用主题为 `sphinx_rtd_theme` ，具体效果如下所示：
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/SwKXV7YrO9MAwnQG.png!thumbnail" alt="img" style="zoom:67%; " />
+
+## Tool
+
+### markdown转rst
+
+先构建Markdown文档再使用转换工具（如：[m2r](https://github.com/miyakogi/m2r)）将其转为rst文件
 
 ```bash
 $ m2r your_document.md [your_document2.md ...]
@@ -97,74 +96,49 @@ $ m2r your_document.md [your_document2.md ...]
 
 .. hint:: [图床工具的使用：PicGo](https://www.jianshu.com/p/9d91355e8418)
 
-#### vscode拓展插件：[vscode-restructuredtext](https://github.com/vscode-restructuredtext/vscode-restructuredtext)
+### vscode extension
 
-支持如下功能：
+- [vscode-restructuredtext](https://github.com/vscode-restructuredtext/vscode-restructuredtext)和reStructuredText Syntax highlighting：提供了语法高亮和部分[snippet](https://docs.restructuredtext.net/articles/snippets.html)，live preview（触发方式默认为前导符和 `ctrl+r`）
+- 实测目前（2022/6/19）的side-by-side preview和由preview跳转到rst的功能都不是很好
 
-- 自定义代码块(live template or [code snippets](https://docs.restructuredtext.net/articles/snippets.html))
+### Plugin
 
-- live previous（触发方式默认为前导符和 `ctrl+r`）
-
-- [IntelliSense](https://docs.restructuredtext.net/articles/intellisense.html)：包含代码补全（i.e. 文件路径）
-
-- reStructuredText Syntax highlighting（语法高亮）
-
-### sphinx拓展插件
-
-#### 第三方插件
-
-- [sphinx-prompt](https://sphinx-extensions.readthedocs.io/en/latest/sphinx-prompt.html) ：能够给命令行添加**不可选**的前导符(prompt)（[实例](http://sbrunner.github.io/sphinx-prompt/)）
-
-  <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907091138001.png" alt="image-20210907091138001" style="zoom:50%; " />
-
-.. hint:: 该插件会丢失code-block的语法高亮功能
-
-- [sphinx-copybutton](https://github.com/executablebooks/sphinx-copybutton) ：给代码块添加复制按钮
-- [sphinx-toggleprompt](https://sphinx-toggleprompt.readthedocs.io/en/master/) ：隐藏python代码块的prompt
-- [sphinx_last_updated_by_git](https://github.com/mgeier/sphinx-last-updated-by-git)：添加更新时间提示
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210912170245248.png" alt="image-20210912170245248" style="zoom:67%; " />
-
-- [使用Markdown和reStructuredText生成html文件](https://www.sphinx-doc.org/en/master/usage/markdown.html)
-
-.. attention:: 高版本的 `sphinx` 推荐使用 `myst-parser` ，而非 `recommonmark`
-
-- [readthedocs-sphinx-search](https://readthedocs-sphinx-search.readthedocs.io/en/latest/index.html)：使用快捷键"/"触发搜索框（常规需要部署到readthedocs才能生效）
-
-![image-20211215115030153](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211215115030153.png)
-
-- [sphinx-nofound-page](https://github.com/readthedocs/sphinx-notfound-page)
-
-#### 内置插件
-
-- [sphinx.ext.todo](https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#confval-todo_include_todos)：效果如下，使用方法见[此](https://stackoverflow.com/questions/22290548/sphinx-todo-box-not-showing/22290786)
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210907084217088.png" alt="image-20210907084217088" style="zoom:67%; " />
-
-- [sphinx.ext.autosectionlabel](https://www.sphinx-doc.org/en/master/usage/extensions/autosectionlabel.html#module-sphinx.ext.autosectionlabel)：实现当前页的标签跳转
-
-#### 参考资料
-
-- <https://sphinx-extensions.readthedocs.io/en/latest/>
-
-## 配置文件
-
-### 切换主题
-
-主题的修改可参考[link](https://www.sphinx-doc.org/en/master/usage/theming.html)，主要是修改 `cong.py` 配置文件中的 `html_theme` 字段；常用主题为 `sphinx_rtd_theme` ，具体效果如下所示：
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/SwKXV7YrO9MAwnQG.png!thumbnail" alt="img" style="zoom:67%; " />
+|                            插件名                            |                             作用                             |                             测评                             |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| [sphinx-prompt](https://sphinx-extensions.readthedocs.io/en/latest/sphinx-prompt.html) | 能够给代码块添加**不可选**的前导符(prompt)（[实例](http://sbrunner.github.io/sphinx-prompt/)） |             该插件会丢失code-block的语法高亮功能             |
+| [sphinx-copybutton](https://github.com/executablebooks/sphinx-copybutton) |                     给代码块添加复制按钮                     |                                                              |
+| [sphinx-toggleprompt](https://sphinx-toggleprompt.readthedocs.io/en/master/) |                   隐藏python代码块的prompt                   |                                                              |
+| [sphinx_last_updated_by_git](https://github.com/mgeier/sphinx-last-updated-by-git) |                   网页末尾添加更新时间提示                   |                                                              |
+|                                                              | [使用Markdown和reStructuredText生成html文件](https://www.sphinx-doc.org/en/master/usage/markdown.html) | 高版本的 `sphinx` 推荐使用 `myst-parser` ，而非 `recommonmark` |
+| [readthedocs-sphinx-search](https://readthedocs-sphinx-search.readthedocs.io/en/latest/index.html) |                   使用快捷键"/"触发搜索框                    |                需要部署到readthedocs才能生效                 |
+| [sphinx-nofound-page](https://github.com/readthedocs/sphinx-notfound-page) |                                                              |                                                              |
+| [sphinx.ext.todo](https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#confval-todo_include_todos) |                添加todo界面（类似hint, note）                |                                                              |
+| [sphinx.ext.autosectionlabel](https://www.sphinx-doc.org/en/master/usage/extensions/autosectionlabel.html#module-sphinx.ext.autosectionlabel) |                     实现当前页的标签跳转                     |                                                              |
 
 ## SEO
 
-### [网页审查 website-checker](https://tranngocthuy.com/websitechecker/)
+### [website-checker](https://tranngocthuy.com/websitechecker/)
 
-### [谷歌审查 google search control](https://search.google.com/search-console)
+网页审查
 
-### [sitemap生成](https://www.xml-sitemaps.com/)
+### [google search control](https://search.google.com/search-console)
 
-### sitemap
+谷歌审查
+
+### [sitemap](https://www.xml-sitemaps.com/)
 
 readthedocs生成的网站自带sitemap
 
 ![image-20220109165744879](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220109165744879.png)
+
+## Reference
+
+- [reStructure 语法 for sphinx](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#)
+
+- [sphinx-guide](https://sublime-and-sphinx-guide.readthedocs.io/en/latest/images.html)
+
+- [sphinx-guide typo3](https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Admonitions.html)
+
+- [cheatsheet](https://bashtage.github.io/sphinx-material/rst-cheatsheet/rst-cheatsheet.html)
+
+- [sphinx-extension](https://sphinx-extensions.readthedocs.io/en/latest/)
