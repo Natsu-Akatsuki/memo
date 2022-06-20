@@ -8,17 +8,20 @@
 $ rosrun <package_name> <executable>
 ```
 
-.. attention:: 有可执行权限的文件，其文件名才能被命令行补全；python脚本记得在首行添加解释器路径
+.. attention:: 有可执行权限的文件，其文件名才能被命令行补全；使用该命令行启动python脚本时需要在首行添加解释器路径
 
 ## rosbag
 
-### 常用命令行
+### CLI
 
 ```bash
 # ---回放---
-$ rosbag play <包名>  
+$ rosbag play <包名>
+# 只发布自己想要的主题
+$ rosbag play school.bag --topic /rslidar_points
+# 主题重映射
+$ rosbag play school.bag /rslidar_points:=/velodyne_points
 # --clock     # publish the clock time
-# --topic     # 只发布自己想要的topic；另外可在后面加:=进行重映射
 # -r <n>      # 以n倍速播放
   
 # ---录制---
@@ -58,7 +61,7 @@ _, _ = rosnode.kill_nodes(node_list)
 
 ## rostopic
 
-### 常用命令行
+### CLI
 
 ```bash
 $ rostopic list       # 查看当前发布和订阅的主题
@@ -111,7 +114,7 @@ topic_list = rospy.get_published_topics()
 
 * [官方文档 for python](http://docs.ros.org/en/independent/api/rospkg/html/python_api.html)
 
-### 常用命令行
+### CLI
 
 ```bash
 # 返回某个包的绝对路径
