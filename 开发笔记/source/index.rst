@@ -125,7 +125,7 @@ AmBook
    Ubuntu/rst/Network.rst
    Ubuntu/rst/PackageManage.rst
    Ubuntu/rst/PasswordManage.rst
-   Ubuntu/rst/ProcessManage.rst
+   Ubuntu/rst/Process.rst
    Ubuntu/rst/RemoteConnect.rst
    Ubuntu/rst/ServiceSetting.rst
    Ubuntu/rst/TerminalShell.rst
