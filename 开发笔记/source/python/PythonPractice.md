@@ -223,9 +223,22 @@ super(子类，self).__init__(参数1, 参数2, ...)
 
 迭代完成后执行else后的语句
 
-## 实战
+### zip
 
-### 判断一个数（浮点数）是否是整数
+创建组合**可迭代对象元素**的迭代器
+
+```python
+a = [1, 2, 3]
+b = [3, 4, 5]
+c = zip(a, b)
+list_c = list(c)
+print(list_c)  # [(1, 3), (2, 4), (3, 5)]
+c_a, c_b = zip(*list_c) # zip的逆操作 zip(*...)
+print(c_a) # (1, 2, 3)
+print(c_b) # (3, 4, 5)
+```
+
+## 判断一个数（浮点数）是否是整数
 
 ```python
 # 方法一：
@@ -235,7 +248,7 @@ super(子类，self).__init__(参数1, 参数2, ...)
 num % 1 == 0
 ```
 
-### 编码转换
+## 编码转换
 
 #### str和byte的转换
 
@@ -255,7 +268,7 @@ with open("img_path", 'rb') as f:
     b64str = base64.b64encode(f.read()).decode()  
 ```
 
-### 指定脚本运行的解释器
+## 指定脚本运行的解释器
 
 ```bash
 # 相对路径（取决于当前的虚拟环境）
@@ -264,3 +277,18 @@ with open("img_path", 'rb') as f:
 #!/usr/bin/python2.7
 # 该解释器配置可以被命令行指定的python覆盖
 ```
+
+## 异常处理
+
+```python
+import traceback
+
+try:
+    print(4/0)
+except ZeroDivisionError:
+    print(traceback.format_exc())
+```
+
+## Reference
+
+- [blog](https://medium.com/swlh/3-alternatives-to-if-statements-to-make-your-python-code-more-readable-91a9991fb353)：用字典来替代i

@@ -82,7 +82,7 @@ $ pyroscope connect -pid {my-app-pid}
 
 ## jupyter notebook
 
-#### [安装](https://jupyter.org/install)
+### [安装](https://jupyter.org/install)
 
 现代版为JupyterLab，经典版为Jupyter Notebook
 
@@ -94,14 +94,29 @@ $ conda install -c conda-forge notebook
 $ jupyter-notebook
 ```
 
-#### 常用快捷键
+### 常用快捷键
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/UJDCF6nWuPO2254k.png" alt="img" style="zoom:67%;" />
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/RdT3F013Ud82KdwE.png!thumbnail" alt="img" style="zoom:67%;" />
 
-#### 拓展插件
+### 拓展插件
 
 ```bash
 $ conda install -c conda-forge jupyter_contrib_nbextensions jupyter_nbextensions_configurator
 ```
+### [magic function](https://ipython.readthedocs.io/en/stable/interactive/magics.html)
+
+- 执行`全部执行`时，跳过某一个cell不运行
+
+```python
+%%script echo skipping
+```
+
+- 测单元格时间
+
+```python
+%%timeit -r 5
+# -r: 指定执行次数
+```
+

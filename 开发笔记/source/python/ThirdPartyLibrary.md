@@ -60,6 +60,19 @@ print("\033[1;36m 字体颜色：青色\033[0m")
 print("...",end='\r')  # \r为跳转到首行
 ```
 
+- 彩色输出
+
+```python
+def color_print(message, color='green'):
+    if color == 'green':
+        print(f"\033[1;32m{message}\033[0m")
+    if color == 'red':
+        print(f"\033[1;31m{message}\033[0m")
+
+# ros
+rospy.loginfo(f"\033[1;31m模块 {module_name} 已关闭\033[0m")
+```
+
 ### glob
 
 内置库
@@ -152,10 +165,10 @@ with open(<文件名(str)>,'r') as f:
 ```python
 import pickle
 with open(<文件名(str)>, 'wb') as f:
-  pickle.dump(object:f)
+  pickle.dump(f)
 
 with open(<文件名(str)>, 'rb') as f:
-  infos = pickle.load(object:f)
+  infos = pickle.load(f)
 ```
 
 ---
@@ -163,10 +176,10 @@ with open(<文件名(str)>, 'rb') as f:
 ```python
 import numpy as np
 with open(<文件名(str)>, 'wb') as f:
-  np.tofile(object:f)
+  np.tofile(f)
 
 with open(<文件名(str)>, 'rb') as f:
-  infos = np.fromfile(object:f)
+  infos = np.fromfile(f)
 ```
 
 ---
@@ -197,9 +210,60 @@ fig, axs = plt.subplots(2, 2)  # a figure with a 2x2 grid of Axes
 
 ### 实例
 
+#### 同时显示多张图片
+
+```python
+import cv2
+from matplotlib import pyplot as plt
+
+
+def read_img(img_path):
+    img = cv2.imread(img_path)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    return img
+
+
+# step1：创建画板
+fig = plt.figure()
+# step2：读取图片
+image1 = read_img('neko.png')
+image2 = read_img('neko.png')
+image3 = read_img('neko.png')
+image4 = read_img('neko.png')
+
+rows = 2
+columns = 2
+# step3：将画板分成4个区域，将在第一个区域进行如下操作：
+fig.add_subplot(rows, columns, 1)
+plt.imshow(image1)
+plt.axis('off')
+plt.title("First")
+
+# step4：对第二个区域进行如下操作
+fig.add_subplot(rows, columns, 2)
+plt.imshow(image2)
+plt.axis('off')
+plt.title("Second")
+
+# step5：对第三个区域进行如下操作
+fig.add_subplot(rows, columns, 3)
+plt.imshow(image3)
+plt.axis('off')
+plt.title("Third")
+
+# step6：对第四个区域进行如下操作
+fig.add_subplot(rows, columns, 4)
+plt.imshow(image4)
+plt.axis('off')
+plt.title("Fourth")
+plt.show()
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220518195806099.png" alt="image-20220518195806099" style="zoom: 67%;" />
+
 #### [给bar添加label](https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_label_demo.html)
 
-#### 构建条形图
+#### [构建条形图](https://blog.csdn.net/u010916338/article/details/105545049)
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220309144728846.png" alt="image-20220309144728846" style="zoom:50%;" />
 
@@ -235,6 +299,12 @@ ax.legend(loc='upper right')
 plt.show()
 ```
 
+
+
+
+
+
+
 #### 可视化散点图
 
 ```python
@@ -252,6 +322,24 @@ plt.show()
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220313231308602.png" alt="image-20220313231308602" style="zoom: 67%;" />
+
+#### 添加网格
+
+```python
+plt.grid()
+```
+
+#### 清空图片
+
+```python
+plt.clf()
+```
+
+### 显示colorbar
+
+```python
+plt.colorbar(label="Intensity Ratio", orientation="vertical")
+```
 
 ## multithreading
 
@@ -389,6 +477,12 @@ np.identity(2) # [[1,0],[0,1]]
 np.eye()
 ```
 
+#### 随机数
+
+```python
+points = np.random.rand(100, 3) # 100 random points in 3-D
+```
+
 ### flatten
 
 ```python
@@ -428,9 +522,13 @@ extrinsic_matrix = np.vstack([extrinsic_matrix, [0, 0, 0, 1]])
 
 - 一维数组的堆叠
 
-np.column_stack(<np_arrayA>,<np_arrayB>) 等价于np.hstack(<np_arrayA>,<np_arrayB>)等价于np.stack((np_arrayA,np_arrayB),axis=1)
-
-np.row_stack((<np_arrayA>,<np_arrayB>) ) 等价于np.vstack(<np_arrayA>,<np_arrayB>)等价于np.stack((np_arrayA,np_arrayB),axis=0)
+```python
+# 如果array是一维数组（行向量：(N)）则如下等价
+np.column_stack( <arrayA>, <arrayB>) -> (N, 2)
+np.hstack( <arrayA>.reshape(-1, 1), <arrayB>.reshape(-1, 1) ) -> (N, 2)
+np.stack(( <arrayA>.reshape(-1, 1), <arrayB>.reshape(-1, 1) ), axis=1 ) -> （N, 2
+# np.row_stack和np.vstack同理
+```
 
 ### 索引
 
@@ -518,11 +616,34 @@ arr_np.flags.f_contiguous
 arr_np.flags.owndata  
 ```
 
-### 拓维
+### 随机数
 
 ```python
-# (3,3) -> (1000,3,3)
-np.exapnd_(a,axis=0).repeat(1000,axis=0)
+import numpy as np
+np.random.seed(233)
+```
+
+### 数据拷贝
+
+#### repeat
+
+沿着某个轴进行拷贝操作（只需要指定一个轴）
+
+```python
+# (3, 3) -> (1000, 3, 3)
+np.exapnd_(a, axis=0).repeat(1000, axis=0)
+```
+
+- [repeat的使用策略](https://www.sharpsightlabs.com/blog/numpy-repeat/)
+
+#### tile
+
+沿着某个轴进行拷贝操作（需要指定所有轴）
+
+```python
+points = np.random.rand(100, 3)
+arr = points.reshape(1, 100, 3)  # [1, 100, 3]
+arr = np.tile(arr, (100, 1, 1))  # [100, 100, 3]
 ```
 
 ### 实战
@@ -566,6 +687,45 @@ np.argwhere(img == 255)
 import numpy as np
 matA = np.arange(0, 12).reshape(3, 4)
 mat = np.block([[matA, matA], [matA, matA]])
+```
+
+#### flip
+
+```python
+A = np.arange(12).reshape((3,4))
+B = np.flip(A, 0)
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/HAaWYiJh3BkeEXhC.png!thumbnail" alt="img" style="zoom:67%;" />
+
+#### 暴力搜索
+
+```python
+import numpy as np
+
+# 暴力搜索最近邻点：将目标点与其他点跟进行欧式距离上的比较
+queries = np.random.rand(100, 3)
+NN_distance = []
+for i in range(len(queries)):
+    dis = np.linalg.norm((queries[i] - queries), axis=1)
+    idx = np.sort(dis)[1]  # descending order
+    NN_distance.append(idx)
+
+queries_mat = queries.reshape((-1, 1, 3))
+targets_mat = queries.reshape((1, -1, 3))
+
+distances = np.linalg.norm(queries_mat - targets_mat, axis=2)
+min_distances = np.sort(distances, axis=1)[:, 1]
+
+print(np.all(min_distances == NN_distance))
+
+e.g. (100) -> （）
+points_grid_min_dist_x = \
+np.min(np.abs(np.tile(next_pc[:, 0], (len(x_grid_arr), 1)).T - x_grid_arr), axis=1)
+points_grid_min_dist_y = \
+np.min(np.abs(np.tile(next_pc[:, 1], (len(y_grid_arr), 1)).T - y_grid_arr), axis=1)
+
+cost_vec = points_grid_min_dist_x + points_grid_min_dist_y
 ```
 
 ## open3D
@@ -677,6 +837,11 @@ add_img =  cv2.addWeighted(img_1, 0.7, img_2, 0.3, 0)
 ```
 
 - 掩膜操作
+- [图片水平拼接](https://note.nkmk.me/en/python-opencv-hconcat-vconcat-np-tile/)
+
+```python
+ image_grey = cv2.hconcat([image_l_ir, image_r_ir])
+```
 
 ### 判断点是否在某个多边形中
 
@@ -766,6 +931,12 @@ for (x, y), c in zip(pts_2d, color):
     cv2.circle(img, (x, y), 1, [c[2], c[1], c[0]], -1)
 ```
 
+#### 加文字
+
+```python
+cv2.putText(img, <文本>, <位置>, cv2.FONT_HERSHEY_SIMPLEX, fontHeight=0.5, color(255, 0, 255), thickness=1)
+```
+
 ### 交互操作
 
 ```python
@@ -782,6 +953,14 @@ import cv2
 im = cv2.imread('test.jpg', cv2.IMREAD_GRAYSCALE)
 imC = cv2.applyColorMap(im, cv2.COLORMAP_JET)
 ```
+
+### Q&A
+
+- xkbcommon: ERROR: failed to add default include path .../anaconda3/envs/.../share/X11/xkb
+
+> 添加环境变量 XKB_CONFIG_ROOT=/usr/share/X11/xkb
+
+- [qt.qpa.plugin:Could not load the Qt platform plugin “xcb“](https://blog.csdn.net/LOVEmy134611/article/details/107212845)
 
 ## 图形化
 
@@ -917,6 +1096,17 @@ image_path = (Path('/home/helios/image/').glob('*.jpg'))
 
 - [csdn资料](https://blog.csdn.net/itanders/article/details/88754606)
 
+## pandas
+
+```python
+import pandas as pd
+
+# 添加数据(plain)
+obj = pd.Series([1, 2, 3, 4, 5])
+# 添加索引
+obj2 = pd.Series([1, 2, 3, 4, 5], index=['a', 'b', 'c', 'd', 'e'])
+```
+
 ## 命令行解析
 
 ### [argparse](https://docs.python.org/3/library/argparse.html)
@@ -981,7 +1171,7 @@ pyttsx3.speak('测试')
 
 ### [计算凸包](https://www.tutorialspoint.com/scipy/scipy_spatial.htm)
 
-```bash
+```python
 import numpy as np
 from scipy.spatial import ConvexHull
 points = np.random.rand(10, 2) # 30 random points in 2-D
@@ -992,6 +1182,113 @@ for simplex in hull.simplices:
     plt.plot(points[simplex,0], points[simplex,1], 'k-')
 plt.show()
 ```
+
+### 直方图
+
+- bin的范围如何？
+
+除了最后一个是左闭右闭，其他都是左闭右开
+
+```python
+height_hist, edge, _ = 
+stats.binned_statistic(
+pc[:, 2], 
+LA.norm(pc[:, :2] - np.mean(pc[:, :2], axis=0), axis=1, ord=1),
+statistic='std', bins=HEIGHT_SEGMENTATION_BINS)
+```
+
+### 旋转矩阵的计算
+
+- lidar<->camera系的TF计算
+
+```python
+from scipy.spatial.transform import Rotation
+import numpy as np
+
+lidar_frame = np.asarray([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+camera_frame = np.asarray([[0, 0, 1], [-1, 0, 0], [0, -1, 0]])
+rotation_mat = camera_frame @ lidar_frame.T
+rotation = Rotation.from_matrix(rotation_mat)
+print(rotation.as_euler('ZYX', degrees=True)) # (-90,0,-90) 对应于 (zyx轴)
+```
+
+- ACSC的解读
+
+其在实际的使用中使用的为transforms3d这个模块，现改为scipy的模块
+
+```python
+from scipy.spatial.transform import Rotation
+import numpy as np
+import transforms3d
+
+# 方案一：
+# 绕着z轴旋转一定的角度（输入不是严格的旋转轴，可以看成欧拉角）
+print(transforms3d.axangles.axangle2mat([0, 0, 1], np.pi / 4))
+
+# 方案二：
+# rotation = Rotation.from_euler('XYZ', [0, 0, np.pi / 4])
+
+# 方案三：
+rotation = Rotation.from_rotvec([0, 0, np.pi / 4])
+print(rotation.as_matrix())  # (-90,0,-90) 对应于 (zyx轴)
+
+# [[ 0.70710678 -0.70710678  0.        ]
+#  [ 0.70710678  0.70710678  0.        ]
+#  [ 0.          0.          1.        ]]
+```
+
+### [标准化](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+
+```python
+from sklearn.preprocessing import StandardScaler
+data = points[:, 0:2]
+data = StandardScaler().fit_transform(data)
+```
+
+### 求最值
+
+
+
+```
+from scipy.optimize import minimize
+
+# function to minimize
+def fun(x):
+    y = x ** 2 - 12 * x + 20
+    return y
+
+
+x_start = 2.0
+
+result = minimize(fun, x_start)
+
+if result.success:
+    print("Success!")
+    # 返回值：
+    # x: solution array,
+    # success: a Boolean flag indicating if the optimizer exited successfully
+    # fun：values of objective function
+    print(f" x = {result.x} y = {result.fun}")
+else:
+    print("Could not find the solution")
+
+```
+
+
+
+## socket
+
+- [获取本机IP](https://www.cnblogs.com/z-x-y/p/9529930.html)
+
+### tensorflow
+
+- tensorflow可以使用pip下载，若下载GPU时需要指定`--gpu`
+
+```bash
+$ pip3 install tensorflow-gpu
+```
+
+<img src="https://uploader.shimo.im/f/MW6WtQr8Q95LSjJX.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhY2Nlc3NfcmVzb3VyY2UiLCJleHAiOjE2NTM3MDkwNTcsImZpbGVHVUlEIjoidHRwWFY5cXlqZ2RHOThxZCIsImlhdCI6MTY1MzcwODc1NywidXNlcklkIjoxNzg0NjUwNX0.En9S9IlHp1pMs8d8P1yiTtttxzepALl0yd9z23rrisk" alt="img" style="zoom:50%;" />
 
 ## 进度条
 

@@ -6,7 +6,7 @@
 
 * [defaultdict和dict的区别？](https://www.jianshu.com/p/bbd258f99fd3)（没键时会返回工厂函数默认值）
 
-### [logging](https://docs.python.org/3/library/logging.html)
+## [logging](https://docs.python.org/3/library/logging.html)
 
 * [基本使用](https://www.cnblogs.com/yyds/p/6901864.html)
 
@@ -158,7 +158,8 @@ b'\x00\x01\x00\x02\x00\x00\x00\x03'
 
 ```python
 # 判断某个对象是否某个类的实例
-isinstance(value, int) 
+isinstance(value, int)
+isinstance(value, np.ndarray)
 ```
 
 ## 属性操作
