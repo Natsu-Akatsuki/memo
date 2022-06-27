@@ -162,6 +162,16 @@ htop
    :alt: img
 
 
+Signal
+------
+
+`SIGHUP <https://baike.baidu.com/item/SIGHUP/10181604?fr=aladdin>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* session leader关闭时，会下发一个\ ``SIGHUP``\ 信号给\ ``进程session``\ 的每个进程
+* 系统对\ ``SIGHUP``\ 信号的默认处理是终止收到该信号的进程
+
 Kill
 ----
 
@@ -232,7 +242,7 @@ Terminology
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-* 孤儿进程指失去原来父进程（父进程已经完成或终止），但仍在运行的子进程。这些进程最后都会被\ ``init``\ 进程管理
+* 孤儿进程指失去原来父进程（父进程已经完成或终止），但仍在运行的子进程。当前的父进程为\ ``init``\ 的进程
 
 前后台、守护进程
 ^^^^^^^^^^^^^^^^
@@ -244,7 +254,9 @@ Terminology
 `SID <https://unix.stackexchange.com/questions/18166/what-are-session-leaders-in-ps>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-SID（session id）和GID（group id）都是进程的一个组织单位(unit)，适用于管理进程。比如session leader关掉后，其余的sid一样的进程都会关闭。具体是下发一个\ ``SIGHUP``\ 的信号进行管理。
+
+* SID（session id）和GID（group id）都是进程的一个组织单位(unit)，适用于管理进程。比如session leader关掉后，其余的sid一样的进程都会关闭。具体是下发一个\ ``SIGHUP``\ 的信号进行管理。
+* session的范围会大于group的范围
 
 Q&A
 ---
@@ -291,3 +303,112 @@ Q&A
 * 需要进程间通信；可以通过队列和共享内存进行通信
 * 创建和关闭相对较慢  / 相对更快
 * 更容易debug和写代码 / debug和写代码较难
+
+`shell如何执行命令行 <https://nanxiao.me/bash-shell-process-analysis/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 命令行的执行默认使用bash脚本
+
+.. prompt:: bash $,# auto
+
+   $ <command>
+   # 等价于
+   $ /bin/bash -c <command>
+
+
+* 每个shell（e.g. bash）会先fork出一个子进程，然后命令行再在这个子进程上运行
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220624105059370.png" alt="image-20220624105059370" style="zoom:50%;" />`
+
+
+* 在一个终端中启动改了后台进程和前台进程，这两个进程的父进程都是bash进程
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220624110439506.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220624110439506.png
+   :alt: image-20220624110439506
+
+
+Python
+------
+
+
+* 
+  ``daemon``\ 退出的进程/线程，资源回收并不彻底
+
+* 
+  multiprocess的start只是发起系统调度（类似于\ ``fork``\ ，但不\ ``exec``\ ），还要一系列操作才能开始执行target（\ `detail <https://blog.csdn.net/weixin_44621343/article/details/113866207>`_\ ）
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/X3phRl6mbKewG0LG.png!thumbnail" alt="img" style="zoom:50%;" />`
+
+
+* 某些条件下，multiprocess创建的进程在进程执行完前都不能接收\ ``SIGINT``\ 信号 （\ `detail <https://blog.csdn.net/ybdesire/article/details/78472365>`_\ ）
+
+`信号的执行过程 <https://stackoverflow.com/questions/39930722/how-do-i-catch-an-interrupt-signal-in-python-when-inside-a-blocking-boost-c-me>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+当收到信号时，底层(c-level)的 ``信号处理函数`` 将设置一个标志位，告知VM\ **下一次执行python字节码**\ 时应该执行上层(python-level)的 ``信号处理/回调函数`` 。从某种角度说，python的信号处理函数可能长时间不会被执行。比如\ `VM <https://docs.python.org/3/glossary.html#term-virtual-machine>`_\ 在长时间执行C++的二值代码，而不执行python字节码时。
+
+Qt
+--
+
+`为什么ctrl+c无法中断Qt应用程序？ <https://python.tutorialink.com/what-is-the-correct-way-to-make-my-pyqt-application-quit-when-killed-from-the-console-ctrl-c/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python的中断回调函数只会在执行python字节码期间时才能执行。如果VM一直在执行c++的二值代码，则中断回调函数则无法执行。
+
+.. code-block:: python
+
+   import signal
+   import sys
+
+   from PyQt5.QtCore import QTimer
+
+   # Your code here
+   from PyQt5.QtWidgets import QApplication, QMessageBox
+
+
+   def sigint_handler(*args):
+       """Handler for the SIGINT signal."""
+       sys.stderr.write('r')
+       if QMessageBox.question(None, '', "Are you sure you want to quit?",
+                               QMessageBox.Yes | QMessageBox.No,
+                               QMessageBox.No) == QMessageBox.Yes:
+           QApplication.quit()
+
+
+   if __name__ == "__main__":
+       signal.signal(signal.SIGINT, sigint_handler)
+       app = QApplication(sys.argv)
+       timer = QTimer()
+       timer.start(500)  # You may change this if you wish.
+       timer.timeout.connect(lambda: None)  # Let the interpreter run each 500 ms.
+       # Your code here.
+       sys.exit(app.exec_())
+
+ROS
+---
+
+
+* roslaunch为父进程，其启动的节点为子进程
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220624114324096.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220624114324096.png
+   :alt: image-20220624114324096
+
+
+
+* rospy的节点失能键盘中断函数
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220627101048101.png" alt="image-20220627101048101" style="zoom:50%;" />`
+
+
+* 在bash启动的roslaunch可以使用kill -s 2（键盘中断）来中断掉
+
+拓展阅读
+^^^^^^^^
+
+
+* `threads in ros and python <https://nu-msr.github.io/me495_site/lecture08_threads.html>`_
