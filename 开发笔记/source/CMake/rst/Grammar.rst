@@ -1,17 +1,9 @@
 
-Semantic
-========
+Grammar
+=======
 
-参考资料
---------
-
-
-* `github例程 <https://github.com/ttroy50/cmake-examples>`_
-* `定义和术语 <https://cmake.org/cmake/help/latest/manual/cmake-language.7.html>`_
-* `官网 <https://cmake.org/cmake/help/latest/index.html>`_
-
-语法
-----
+Grammar
+-------
 
 
 * 
@@ -62,8 +54,8 @@ Alias target
    :alt: img
 
 
-常用函数/宏
------------
+Macro
+-----
 
 变量设置和引用
 ^^^^^^^^^^^^^^
@@ -371,8 +363,8 @@ catkin_package (ros)
 
 * 拓展：\ `option和set的区别？ <https://stackoverflow.com/questions/36358217/what-is-the-difference-between-option-and-set-cache-bool-for-a-cmake-variabl>`_\ ，option只能布尔型，默认是OFF；某些场景下可以相互替换
 
-安装
-^^^^
+Install
+^^^^^^^
 
 
 * 可以安装的内容：编译产生的target文件（即可执行文件、库文件）；其他文件
@@ -706,3 +698,11 @@ path
    * - EXECUTABLE_OUTPUT_PATH
      - 可执行文件的输出路径
 
+
+Reference
+---------
+
+
+* `github例程 <https://github.com/ttroy50/cmake-examples>`_
+* `定义和术语 <https://cmake.org/cmake/help/latest/manual/cmake-language.7.html>`_
+* `官网 <https://cmake.org/cmake/help/latest/index.html>`_

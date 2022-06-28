@@ -2,7 +2,7 @@
    :format: html
 
 
-CmakePractice
+CMakePractice
 =============
 
 

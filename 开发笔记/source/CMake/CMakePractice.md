@@ -1,4 +1,4 @@
-# CmakePractice
+# CMakePractice
 
 <p align="right">Author: kuzen, Natsu-Akatsuki</p>
 

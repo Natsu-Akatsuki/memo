@@ -1,12 +1,6 @@
-# Semantic
+# Grammar
 
-## 参考资料
-
-* [github例程](https://github.com/ttroy50/cmake-examples)
-* [定义和术语](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html)
-* [官网](https://cmake.org/cmake/help/latest/index.html)
-
-## 语法
+## Grammar
 
 * 指令大小写无关（如 `add_library` 等价于 `ADD_LIBRARY`）
 
@@ -32,7 +26,7 @@
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/uK5A6MiUUP6Ylf96.png!thumbnail)
 
-## 常用函数/宏
+## Macro
 
 ### 变量设置和引用
 
@@ -55,7 +49,7 @@ message($ENV{HOME})   # 使用环境变量
 ```cmake
 add_library(target_name STATIC 文件名)     # 静态库
 add_library(target_name SHARED 文件名)     # 动态库
-add_library(target_name OBJECT 文件名)		# object file
+add_library(target_name OBJECT 文件名)      # object file
 ```
 
 ### 生成可执行文件
@@ -296,7 +290,7 @@ option(<variable> "<help_text>" [value])
 
 * 拓展：[option和set的区别？](https://stackoverflow.com/questions/36358217/what-is-the-difference-between-option-and-set-cache-bool-for-a-cmake-variabl)，option只能布尔型，默认是OFF；某些场景下可以相互替换
 
-### 安装
+### Install
 
 * 可以安装的内容：编译产生的target文件（即可执行文件、库文件）；其他文件
 * 若要指定安装路径：
@@ -376,7 +370,7 @@ include(vtkCompilerChecks)  # /VTK-8.2.0/CMake/vtkCompilerChecks.cmake
 add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL])
 ```
 
-- `include`和`add_subdirectory`的区别？([details](https://stackoverflow.com/questions/48509911/cmake-add-subdirectory-vs-include))
+* `include`和`add_subdirectory`的区别？([details](https://stackoverflow.com/questions/48509911/cmake-add-subdirectory-vs-include))
 
 add_subdirectory会有不同的变量作用域；
 
@@ -585,3 +579,9 @@ set(CMAKE_CXX_FLAGS "-std=c++14")
 | [LIBRARY_OUTPUT_PATH](https://cmake.org/cmake/help/v3.18/variable/LIBRARY_OUTPUT_PATH.html?highlight=library_output_path) (deprecated)LIBRARY_OUTPUT_DIRECTORY |           库的输出路径（要设置在add_library之前）            |
 |                      CMAKE_PREFIX_PATH                       |    find_packaeg 搜索.cmake .config的搜索路径（初始为空）     |
 |                    EXECUTABLE_OUTPUT_PATH                    |                     可执行文件的输出路径                     |
+
+## Reference
+
+* [github例程](https://github.com/ttroy50/cmake-examples)
+* [定义和术语](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html)
+* [官网](https://cmake.org/cmake/help/latest/index.html)

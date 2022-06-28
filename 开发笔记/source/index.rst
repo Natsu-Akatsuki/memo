@@ -26,10 +26,10 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: cmake
+   :caption: CMake
 
-   cmake/rst/CmakePractice.rst
-   cmake/rst/Semantic.rst
+   CMake/rst/CMakePractice.rst
+   CMake/rst/Grammar.rst
 
 .. toctree::
    :maxdepth: 1
@@ -130,7 +130,7 @@ AmBook
    Ubuntu/rst/ServiceSetting.rst
    Ubuntu/rst/TerminalShell.rst
    Ubuntu/rst/UserGroup.rst
-
+   
 .. toctree::
    :maxdepth: 1
    :hidden:
