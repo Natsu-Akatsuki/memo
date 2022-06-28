@@ -30,7 +30,7 @@ $ sudo apt install knotes
 
 ### [Google Driver](https://drive.google.com/drive/my-drive)
 
-#### [gdown](https://github.com/wkentaro/gdown)下载文件
+- [gdown](https://github.com/wkentaro/gdown)下载文件
 
 ```bash
 $ pip install -U gdown
@@ -158,37 +158,6 @@ $ asciinema auth
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eQYfh8NvsiaYjbWO.png!thumbnail)
 
-## 通讯
-
-### [微信](https://github.com/zq1997/deepin-wine)
-
-```bash
-$ wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
-$ sudo apt-get install com.qq.weixin.deepin
-```
-
----
-
-**NOTE**
-
-出现的任何问题可参考[github issue](https://github.com/zq1997/deepin-wine/issues)（如闪退、中文显示为方框）
-
-- [wechat崩溃与闪退->暂时版本降级](https://github.com/zq1997/deepin-wine/issues/250)
-
-```bash
-# 卸载之前的版本
-$ sudo apt purge com.qq.weixin.deepin
-# 下载deb包并重新安装
-$ wget https://com-store-packages.uniontech.com/appstore/pool/appstore/c/com.qq.weixin.deepin/com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
-$ sudo dpkg -i com.qq.weixin.deepin_3.2.1.154deepin14_i386.deb
-# 禁用升级
-$ sudo apt-mark hold com.qq.weixin.deepin
-```
-
-- （BUG）22.04下的微信发送截图时会转换为png文件
-
----
-
 ### 电脑通信
 
 #### [ToDesk](https://www.todesk.com/linux.html)
@@ -294,3 +263,104 @@ $ sudo systemctl isolate graphical.target
 ### 配置Kate
 
 - [配置其显示行数](https://superuser.com/questions/918189/how-to-make-kate-remember-to-always-show-line-numbers)
+
+## Wine
+
+### Install
+
+#### [apt](https://wiki.winehq.org/Ubuntu_zhcn)
+
+其他参考[here](https://wiki.winehq.org/Ubuntu_zhcn)
+
+```bash
+# 开启32位架构支持
+$ sudo dpkg --add-architecture i386
+# 添加仓库密钥
+$ wget -nc https://dl.winehq.org/wine-builds/winehq.key
+$ sudo mv winehq.key /usr/share/keyrings/winehq-archive.key
+# 添加仓库源
+$ wget -nc https://dl.winehq.org/wine-builds/ubuntu/dists/$(lsb_release -sc)/winehq-$(lsb_release -sc).sources
+$ sudo mv winehq-jammy.sources /etc/apt/sources.list.d/
+
+# 安装
+$ sudo apt update
+$ sudo apt install --install-recommends winehq-stable
+```
+
+#### snap
+
+- 不推荐使用
+
+```bash
+$ sudo snap install wine-platform-6-stable
+$ /snap/wine-platform-6-stable/current/opt/wine-stable/bin/wine <.exe>
+```
+
+#### 源码安装
+
+- 未测试，相关编译依赖安装较麻烦
+
+### Winetricks
+
+安装winetricks，用于后续依赖的安装
+
+```bash
+$ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+$ chmod +x winetricks
+$ sudo cp winetricks /usr/local/bin
+
+$ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks.bash-completion
+$ sudo cp winetricks.bash-completion /usr/share/bash-completion/completions/winetricks 
+```
+
+### [WineGUI](https://gitlab.melroy.org/melroy/winegui)
+
+- 管理wine应用程序的GUI界面
+- 只能管理其新建的环境
+
+```bash
+$ wget -c https://winegui.melroy.org/downloads/WineGUI-v1.8.2.deb
+$ sudo gdebi WineGUI-v1.8.2.deb
+```
+
+### Application
+
+#### 微信
+
+```bash
+# 配置wine环境的路径
+$ export WINEPREFIX=/home/helios/Application/Wechat/
+# 用于兼容32位应用程序
+$ export WINARCH=win32
+# 下载wechat安装包
+# 安装
+$ wine WeChatSetup.exe
+
+# 安装riched依赖（解决聊天框无字体的问题）
+$ sudo apt-get -y install cabextract
+$ winetricks riched20
+# 或执行 winetricks，然后在GUI中进行如下配置：Select the default wineprefix -> Install a Windows DLL or component -> riched20
+
+# 解决英文系统中文显示为方框的问题
+# 在相关的执行文件前添加环境变量：LANG=zh_CN.UTF-8
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220622195742651.png" alt="image-20220622195742651" style="zoom:50%;" />
+
+- 其他字体异常问题（表情包没有字体提示）可参考 [here](http://linux-wiki.cn/wiki/Wine%E7%9A%84%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E4%B8%8E%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE)，倾向于使用缺失的字体
+
+#### 其他
+
+```bash
+$ wine taskmgr
+$ wine taskmgr （任务管理器）
+$ wine uninstaller （卸载软件）
+$ wine zegedit （注册表）
+$ wine notepad （记事本）
+```
+
+### Q&A
+
+- 哪些应用程序可以使用wine执行？
+
+> **Thousands of applications work well. As a general rule, simpler or older applications tend to work well, and the latest versions of complex applications or games tend to not work well yet.** See the Wine Application Database for details on individual applications. If your application is rated Silver, Gold or Platinum, you're probably okay; if it's rated Bronze or Garbage, Wine isn't really ready to run it for most users. If there aren't any reports using a recent version of Wine, however, your best bet is to simply try and see. If it doesn't work, it probably isn't your fault, Wine is not yet complete. Ask for help on the forum if you get stuck.
