@@ -11,7 +11,9 @@ $ docker pull portainer/portainer
 $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --restart=always --name portainer portainer/portainer
 ```
 
-### ![image-20220328135012736](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png)[nps](https://ehang-io.github.io/nps/#/?id=nps)
+![image-20220328135012736](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png)
+
+### [nps](https://ehang-io.github.io/nps/#/?id=nps)
 
 ## Command
 
@@ -294,6 +296,8 @@ services:
 ```
 
 ## Practice
+
+- docker容器内部无法访问host的软链接，只能访问容器内部的软链接
 
 ### 查看docker占用大小
 
