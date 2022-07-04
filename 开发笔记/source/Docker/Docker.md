@@ -1,6 +1,6 @@
-# DockerPractice
+# Docker
 
-## AwesomeProject
+## Awesome Project
 
 ### portainer
 
@@ -14,6 +14,16 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --rest
 ![image-20220328135012736](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220328135012736.png)
 
 ### [nps](https://ehang-io.github.io/nps/#/?id=nps)
+
+### [lazydocker](https://github.com/jesseduffield/lazydocker)
+
+暂时倾向于使用lazydocker进行管理
+
+#### Install
+
+```bash
+$ curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+```
 
 ## Command
 
@@ -239,7 +249,7 @@ $ rm -rf /var/lib/apt/lists/*
 
 >Official Debian and Ubuntu images [automatically run](http://www.smartredirect.de/redir/clickGate.php?u=IgKHHLBT&m=1&p=8vZ5ugFkSx&t=vHbSdnLT&st=&s=&url=https%3A%2F%2Fgithub.com%2Fmoby%2Fmoby%2Fblob%2F03e2923e42446dbb830c654d0eec323a0b4ef02a%2Fcontrib%2Fmkimage%2Fdebootstrap%23L82-L105&r=https%3A%2F%2Fdocs.docker.com%2Fdevelop%2Fdevelop-images%2Fdockerfile_best-practices%2F%23dont-install-unnecessary-packages)`apt-get clean`, so explicit invocation is not required.
 
-## [DockerCompose](https://docs.docker.com/compose/install/)
+## [Docker Compose](https://docs.docker.com/compose/install/)
 
 可用于同时启动多个容器；相比于自己写脚本，能**更方便地管理容器**
 
@@ -247,7 +257,6 @@ $ rm -rf /var/lib/apt/lists/*
 
 ```bash
 $ sudo apt-get install docker-compose-plugin
-$ apt install docker-compose-plugin
 ```
 
 - 常用命令行
@@ -293,6 +302,40 @@ services:
       - 8.8.8.8
       - 119.29.29.29
     restart: always # 设置自启动
+```
+
+## Docker Desktop
+
+- 实测暂时不支持nvidia-container（2022.7.4）
+
+### [Install](https://docs.docker.com/desktop/linux/install/ubuntu/)
+
+```bash
+$ wget -c https://desktop.docker.com/linux/main/amd64/docker-desktop-4.10.0-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64
+$ sudo gdebi docker-desktop-4.10.0-amd64.deb\?utm_source\=docker\&utm_medium\=webreferral\&utm_campaign\=docs-driven-download-linux-amd64 
+# Add your user to the kvm group in order to access the kvm device:
+$ sudo usermod -aG kvm $USER
+# 需要安装gnome termial以使用相关的终端拓展
+$ sudo apt install gnome-terminal
+```
+
+## Uninstall
+
+```bash
+$ rm -r $HOME/.docker/desktop
+$ sudo rm /usr/local/bin/com.docker.cli
+$ sudo apt purge docker-desktop
+$ docker context rm desktop-linux
+```
+
+### [Switch Context](https://docs.docker.com/desktop/linux/install/#context)
+
+切换docker上下文
+
+```bash
+$ docker context ls
+$ docker context use docker-desktop
+$ docker context use default
 ```
 
 ## Practice
@@ -422,6 +465,8 @@ $ sudo apt purge docker-ce docker-ce-cli containerd.io
 - VNC
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220326225033665.png" alt="image-20220326225033665" style="zoom: 50%;" />
+
+实测，使用时不能与X11兼容
 
 ## Reference
 
