@@ -62,13 +62,6 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: Hareware
-
-   Hareware/rst/Camera.rst
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
    :caption: IDE
 
    IDE/rst/Jetbrain.rst
@@ -128,7 +121,7 @@ AmBook
    Ubuntu/rst/Process.rst
    Ubuntu/rst/RemoteConnect.rst
    Ubuntu/rst/ServiceSetting.rst
-   Ubuntu/rst/TerminalShell.rst
+   Ubuntu/rst/Terminal.rst
    Ubuntu/rst/UserGroup.rst
    
 .. toctree::

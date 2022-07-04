@@ -1,4 +1,4 @@
-# Terminal&&Shell
+# Terminal
 
 ## Application
 
@@ -82,13 +82,13 @@ $ tmux select-pane <-t pane_id>
 
 #### 实战
 
-- [自定义配置](https://github.com/Natsu-Akatsuki/MyTmux)
+* [自定义配置](https://github.com/Natsu-Akatsuki/MyTmux)
 
-- [复制pane的文字](https://blog.csdn.net/RobertFlame/article/details/92794332)
+* [复制pane的文字](https://blog.csdn.net/RobertFlame/article/details/92794332)
 
 需要在使用前使用 `shift`
 
-- 安装tpm
+* 安装tpm
 
 安装后，后续可用前导符+I（大写）进行插件安装
 
@@ -96,7 +96,7 @@ $ tmux select-pane <-t pane_id>
 $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-- 面板缩放(zoom)： `前导符+z`
+* 面板缩放(zoom)： `前导符+z`
 
 ### Terminator
 
@@ -165,7 +165,7 @@ $ cowsay <...文本>
 
 ### echo
 
-- echo颜色
+* echo颜色
 
 ```bash
 $ echo -e "\e[32mComplete \e[0m"
@@ -175,7 +175,7 @@ $ echo -e "\033[32mComplete \033[0m"
 
 ### figlet
 
-- 字体符号化
+* 字体符号化
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/QutNVaj257Fg5yrN.png!thumbnail" alt="img" style="zoom:67%;" />
 
@@ -292,7 +292,7 @@ echo $ans
 
 ## Shortcut
 
-- 快捷键：
+* 快捷键：
 
 |     快捷键      |            作用             |
 | :-------------: | :-------------------------: |
@@ -348,7 +348,7 @@ $ systemctl set-default graphical.target
 
 ### 注销
 
-- [for KDE](https://fostips.com/log-out-command-linux-desktops/)
+* [for KDE](https://fostips.com/log-out-command-linux-desktops/)
 
 ```bash
 $ qdbus org.kde.ksmserver /KSMServer logout 1 0 3
@@ -364,8 +364,8 @@ python模块，暂时没感觉到适用的地方（2022.6.5）
 
 ### Dialog
 
-- [Cody的探索日记](https://codychen.me/2020/29/linux-shell-%E7%9A%84%E5%9C%96%E5%BD%A2%E4%BA%92%E5%8B%95%E5%BC%8F%E4%BB%8B%E9%9D%A2-dialog/)
-- [Sleipnir.Setup的工程](https://github.com/GDUT-IIDCC/Sleipnir.setup/blob/ubuntu20/Setup.sh)
+* [Cody的探索日记](https://codychen.me/2020/29/linux-shell-%E7%9A%84%E5%9C%96%E5%BD%A2%E4%BA%92%E5%8B%95%E5%BC%8F%E4%BB%8B%E9%9D%A2-dialog/)
+* [Sleipnir.Setup的工程](https://github.com/GDUT-IIDCC/Sleipnir.setup/blob/ubuntu20/Setup.sh)
 
 ## Extension
 
@@ -388,7 +388,7 @@ $ script <output_file_name>
 $ exit
 ```
 
-#### [History](https://zhuanlan.zhihu.com/p/248520994)
+### [history](https://zhuanlan.zhihu.com/p/248520994)
 
 * 默认存放数据的文件为 `~/.bash_history`
 
@@ -408,3 +408,10 @@ a：（写）将历史列表中相对于文件增加的命令行 追加到文件
 n：（读）将文件中相对于历史列表增加的命令行 追加到终端的历史列表中
 ```
 
+## Q&A
+
+### [隐藏Qt警告](https://www.reddit.com/r/kde/comments/asseoc/how_to_hide_qfilesystemwatcherremovepaths_list_is/)
+
+```bash
+$ export QT_LOGGING_RULES='*=false'
+```

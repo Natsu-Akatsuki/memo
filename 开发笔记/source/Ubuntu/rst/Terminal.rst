@@ -2,8 +2,8 @@
    :format: html
 
 
-Terminal&&Shell
-===============
+Terminal
+========
 
 Application
 -----------
@@ -508,8 +508,8 @@ script
    # 结束操作
    $ exit
 
-`History <https://zhuanlan.zhihu.com/p/248520994>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`history <https://zhuanlan.zhihu.com/p/248520994>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * 默认存放数据的文件为 ``~/.bash_history``
@@ -537,3 +537,13 @@ script
    # option:
    a：（写）将历史列表中相对于文件增加的命令行 追加到文件中
    n：（读）将文件中相对于历史列表增加的命令行 追加到终端的历史列表中
+
+Q&A
+---
+
+`隐藏Qt警告 <https://www.reddit.com/r/kde/comments/asseoc/how_to_hide_qfilesystemwatcherremovepaths_list_is/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ export QT_LOGGING_RULES='*=false'
