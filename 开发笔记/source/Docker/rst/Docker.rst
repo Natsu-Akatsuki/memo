@@ -66,8 +66,18 @@ Image
    # --network host: 使用主机的网络模式
    # .               Dockerfile文件的所在路径
 
+   # 提交镜像
+   $ docker login --username=877381
+   # docker tag <ImageId> 用户名/仓库名:镜像名
+   $ docker tag noetic-trt 877381/helios:noetic-trt
+   # docker tag <ImageId> 用户名/仓库名:镜像名:镜像版本号
+   $ docker push 877381/helios:noetic-trt1.0
+
 Container
 ^^^^^^^^^
+
+
+* docker cannot mount a volume as non-root，docker挂载卷的时候，若该卷的目录不存在，则会以root权限构建（\ `detail <https://discourse.drone.io/t/mounting-volumes-as-non-root-user/6831/2>`_\ ）
 
 .. prompt:: bash $,# auto
 
@@ -210,48 +220,49 @@ Docker
 * ``Error response from daemon: could not select device driver "" with capabilities: [[gpu]]``\ ：重装nvidia-docker即可（ ``apt install`` + ``重启服务`` ）
 * ``gpg: no valid OpenPGP data found``\ ，\ `使用代理 <https://github.com/NVIDIA/nvidia-docker/issues/1367>`_
 
-Dockerfile
-----------
+`Dockerfile <https://docs.docker.com/engine/reference/builder/>`_
+---------------------------------------------------------------------
 
 指令
 ^^^^
 
 
-#. 
-   只有RUN、COPY、ADD才会生成镜像层，\ `使用基础镜像：FROM <https://docs.docker.com/engine/reference/builder/#from>`_
+* 
+  只有RUN、COPY、ADD才会生成镜像层，\ `使用基础镜像：FROM <https://docs.docker.com/engine/reference/builder/#from>`_
 
-#. 
-   ``ARG`` 是唯一可放在 ``FROM`` 前的参数
+* 
+  ``ARG`` 是唯一可放在 ``FROM`` 前的参数
 
-#. 
-   重命名： ``AS name`` to the ``FROM`` instruction.  
+* 
+  重命名： ``AS name`` to the ``FROM`` instruction.  
 
-.. prompt:: bash $,# auto
+.. code-block:: dockerfile
 
    FROM ubuntu:${DISTRIBUTION} AS lanelet2_deps
 
 
-#. 设置环境变量：ENV
+* 设置环境变量：ENV
 
-.. prompt:: bash $,# auto
+.. code-block:: dockerfile
 
    ENV LANG C.UTF-8
    ENV LC_ALL C.UTF-8
    # also: ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 
-#. 设置入口位置：WORKDIR
+* 设置入口位置：WORKDIR
 
-.. prompt:: bash $,# auto
+.. code-block:: dockerfile
 
    # 即设置执行docker exec或run后进入的目录
    WORKDIR <dir>
 
 
-#. ADD / COPY 本地文件拷贝
+* 
+  ADD / COPY 本地文件拷贝
 
-
-* ADD虽有解压功能，但不是所有都能解压
+* 
+  ADD虽有解压功能，但不是所有文件类型都能解压
 
 ..
 
@@ -259,43 +270,55 @@ Dockerfile
 
 
 
-* 使用场景：可以离线下载完安装包再copy进入镜像中（Due to the network access problem）
+* 
+  使用场景：可以离线下载完安装包再copy进入镜像中（Due to the network access problem）
 
+* 
+  `修改容器中的默认用户 <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user>`_
 
-#. `修改容器中的默认用户 <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user>`_
+避免host端访问卷时需要root权限
 
-.. prompt:: bash $,# auto
+.. code-block:: dockerfile
 
    # useradd -m <user_name> && yes <password> | passwd <user_name>
-   RUN useradd -m helios && yes helios | passwd helios
-   USER helios
+   ARG USER_NAME=helios
+   RUN useradd ${USER_NAME} -m -G sudo -u 1000 -s /bin/bash && yes ${USER_NAME} | passwd ${USER_NAME}
+   USER ${USER_NAME}
 
 
-#. 设置入口函数
+* 设置入口函数
 
-.. prompt:: bash $,# auto
+.. code-block:: dockerfile
 
    ENTRYPOINT ["/bin/bash"]
+   ENTRYPOINT vncserver --localhost no :0 && /bin/bash
 
 `例程 <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`pcdet <https://github.com/open-mmlab/OpenPCDet/blob/v0.1/docker/Dockerfile>`_\ ：custom linux环境/cuda环境/cudnn环境/自建pytorch环境
+.. list-table::
+   :header-rows: 1
 
-`rangenet <https://github.com/Natsu-Akatsuki/RangeNetTrt8/blob/master/docker/Dockerfile-tensorrt8.2.2>`_\ ：ubuntu20.04/trt8/ros1/cuda11.1/cudnn8/pytorch
+   * - 案例
+     - 环境描述
+   * - `pcdet <https://github.com/open-mmlab/OpenPCDet/blob/v0.1/docker/Dockerfile>`_
+     - custom linux环境/cuda环境/cudnn环境/自建pytorch环境
+   * - `rangenet <https://github.com/Natsu-Akatsuki/RangeNetTrt8/blob/master/docker/Dockerfile-tensorrt8.2.2>`_
+     - ubuntu20.04/trt8/ros1/cuda11.1/cudnn8/pytorch
+
 
 Trick
 ^^^^^
 
 
-#. 为减小镜像大小，需要及时删除缓存，例如删除 ``apt packages lists``
+* 为减小镜像大小，需要及时删除缓存，例如删除 ``apt packages lists``
 
 .. prompt:: bash $,# auto
 
    $ rm -rf /var/lib/apt/lists/*
 
 
-#. 不需要显式触发apt clean
+* 不需要显式触发apt clean
 
 ..
 
@@ -380,7 +403,7 @@ Docker Desktop
    $ sudo apt install gnome-terminal
 
 Uninstall
----------
+^^^^^^^^^
 
 .. prompt:: bash $,# auto
 

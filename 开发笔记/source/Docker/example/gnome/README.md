@@ -1,29 +1,8 @@
-# README
+# VNC
 
-## Usage
+- for gnome
 
-现已测试的公开仓库包括：
-
-[kaho_slam](https://github.com/kahowang/sensor-fusion-for-localization-and-mapping)(cuda:11.1.1-cudnn8-devel-ubuntu18.04)
-
-[shenlan](https://github.com/Natsu-Akatsuki/shenlan)(perception)(cuda:11.1-cudnn8-devel-ubuntu20.04 + gnome)
-
-# BUG
-
-- 基于X11的ros rviz(noetic)无法修改此处的值
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220329145821156.png" alt="image-20220329145821156" style="zoom: 50%;" />
-
-- 暂时无法顺利的调通KDE的display manager
-
-  e.g. kdeinit启动失败，dbus问题
-  
-
-## Feature
-
-- 支持 gnome-vnc
-
-```bash
+```dockerfile
 # 如下为比较重要的代码块
 # >>> 安装和配置vnc server >>>
 RUN apt update \
@@ -53,6 +32,10 @@ RUN apt update \
 ENTRYPOINT ["/usr/sbin/init"]
 ```
 
-## 参考案例
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220331171241039.png" alt="image-20220331171241039" style="zoom:67%;" />
 
-- [gnome vnc 实例](https://github.com/RavenKyu/docker-ubuntu-desktop-vnc/blob/main/Dockerfile)
+- 实测需要较高的管理员权限，容易影响主机系统
+
+## Reference
+
+[gnome vnc 实例](https://github.com/RavenKyu/docker-ubuntu-desktop-vnc/blob/main/Dockerfile)

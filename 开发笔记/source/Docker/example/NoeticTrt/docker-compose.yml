@@ -1,18 +1,18 @@
 version: "3.8"
 services:
-  shenlan:
-    image: 877381/shenlan_perception:1.0
+  sleinpir:
+    image: sleipnir
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: shenlan
+    container_name: sleipnir
     deploy:
       resources:
         reservations:
           devices:
             - capabilities: [gpu]
     ports:
-      - "15901:5901" # vncserverPORT
+      - "15900:5900" # vncserverPORT
       - "18888:8888" # jupyterPORT
       - "31111:22"   # pycharmPORT
       - "16006:6006"  # tensorboardPORT
@@ -21,11 +21,6 @@ services:
       - 223.6.6.6
       - 8.8.8.8
       - 119.29.29.29
-    restart: always # 设置自启动
     shm_size: 8G
     volumes: 
-      - ${HOME}/shenlan_perception:/shenlan_perception:rw
-    privileged: true    
-    cap_add:
-      - SYS_BOOT 
-      - SYS_ADMIN
+      - ${HOME}/Sleipnir:/Sleipnir:rw

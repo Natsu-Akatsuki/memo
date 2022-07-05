@@ -1,9 +1,11 @@
 # >>> 基础镜像 >>>
-FROM nvidia/cuda:11.1.1-cudnn8-devel-ubuntu18.04
+FROM osrf/ros:melodic-desktop-full
 
 # >>> 修改源，并安装apt包 >>>
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+# rm /etc/apt/sources.list.d/*: 删除cuda sources，避免无法update
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.gdut.edu.cn/@g /etc/apt/sources.list \
     && sed -i '37,49d' /etc/apt/sources.list \
+    && rm /etc/apt/sources.list.d/* \
     && apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         apt-utils \
@@ -12,14 +14,17 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
         ca-certificates \
         cmake \
         curl \
+        gdb \
         git \
+        htop \
         keyboard-configuration \
         libx11-dev \
+        lldb \
         locales \
         lsb-core \
         mlocate \
         nano \
-        net-tools \        
+        net-tools \
         openssh-server \
         software-properties-common \
         vim \
@@ -52,7 +57,7 @@ RUN apt update \
         libglm-dev \
         libgtest-dev \
         libpugixml-dev \
-        libpcap-dev \                
+        libpcap-dev \
         ros-melodic-angles \
         ros-melodic-camera-info-manager \
         ros-melodic-ddynamic-reconfigure \
@@ -71,14 +76,7 @@ RUN apt update \
 RUN apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         htop \
-        wondershaper \
-        ethstatus \
-        cowsay \
     && rm -rf /var/lib/apt/lists/*
-
-# >>> nvidia-container-runtime >>>
-ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
-ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 # >>> 安装gtsam,ceres,ospq,Sophus,g2o,protobuf >>>
 RUN  DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:borglab/gtsam-release-4.0 -y \
@@ -86,10 +84,10 @@ RUN  DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:borglab/gtsam-release
     && apt install libgtsam-dev libgtsam-unstable-dev -y \
     && cd /tmp \
     && apt install -y libgoogle-glog-dev libgflags-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev \
-    && wget -c http://ceres-solver.org/ceres-solver-2.0.0.tar.gz -O /tmp/ceres-solver-2.0.0.tar.gz \
+    && wget -c http://ceres-solver.org/ceres-solver-2.1.0.tar.gz -O /tmp/ceres-solver-2.1.0.tar.gz \
     && cd /tmp \
-    && tar -xzvf ceres-solver-2.0.0.tar.gz \
-    && cd /tmp/ceres-solver-2.0.0 \
+    && tar -xzvf ceres-solver-2.1.0.tar.gz \
+    && cd /tmp/ceres-solver-2.1.0 \
     && mkdir build && cd build && cmake .. \
     && make -j$(nproc) \
     && make install \
@@ -117,24 +115,23 @@ RUN  DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:borglab/gtsam-release
     && rm -rf /tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
-# >>> 安装和配置vnc server >>>
+# >>> 解决中文显示乱码问题 >>>
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
+# >>> 安装vnc server >>>
 RUN apt update \
     && DEBIAN_FRONTEND=noninteractive apt install -y \
         tigervnc-common \
         tigervnc-standalone-server \
         tigervnc-xorg-extension \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p $HOME/.vnc \
-    && echo "#!/bin/bash" >> $HOME/.vnc/xstartup \
-    && echo "startlxde &" >> $HOME/.vnc/xstartup \
-    && echo "admin" | vncpasswd -f >> $HOME/.vnc/passwd && chmod 600 $HOME/.vnc/passwd \
-    && echo "geometry=1920x1080" >> $HOME/.vnc/config \
-    && echo "localhost no" >> $HOME/.vnc/config
+    && rm -rf /var/lib/apt/lists/*
 
 # >>> 安装lxde display manager >>>
 RUN apt update \
-    && DEBIAN_FRONTEND=noninteractive apt install -y --fix-missing \         
-        lxde \        
+    && DEBIAN_FRONTEND=noninteractive apt install -y --fix-missing \
+        dolphin \
+        konsole \
+        lxde \
     && rm -rf /var/lib/apt/lists/*
 
 # >>> 解决中文显示乱码问题 >>>
@@ -142,3 +139,19 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # >>> 入口点函数 >>>
 ENTRYPOINT ["/bin/bash"]
+
+# >>> 修改用户权限 >>>
+ARG USER_NAME=helios
+RUN useradd ${USER_NAME} -m -G sudo -u 1000 -s /bin/bash && yes ${USER_NAME} | passwd ${USER_NAME}
+USER ${USER_NAME}
+
+# >>> 配置vnc server和ros >>>
+RUN mkdir -p $HOME/.vnc \
+    && echo "#!/bin/bash" >> $HOME/.vnc/xstartup \
+    && echo "startlxde &" >> $HOME/.vnc/xstartup \
+    && echo "admin" | vncpasswd -f >> $HOME/.vnc/passwd && chmod 600 $HOME/.vnc/passwd \
+    && echo "geometry=1920x1080" >> $HOME/.vnc/config \
+    && echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc \
+    && echo "alias vncserver='vncserver --localhost no :0'" >> ~/.bashrc
+
+WORKDIR /home/${USER_NAME}
