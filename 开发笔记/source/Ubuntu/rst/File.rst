@@ -2,8 +2,8 @@
    :format: html
 
 
-FileDirManage
-=============
+File
+====
 
 
 .. raw:: html
@@ -11,8 +11,15 @@ FileDirManage
    <p align="right">Author: kuzen, Natsu-Akatsuki</p>
 
 
-`文件夹跳转 <https://github.com/gsamokovarov/jump>`_
---------------------------------------------------------
+Open Directory
+--------------
+
+.. prompt:: bash $,# auto
+
+   $ xdg-open
+
+`Switch Dircetory <https://github.com/gsamokovarov/jump>`_
+--------------------------------------------------------------
 
 jump
 ^^^^
@@ -27,57 +34,8 @@ jump
    $ wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.0_amd64.deb && sudo dpkg -i jump_0.40.0_amd64.deb
    $ echo 'eval "$(jump shell)"' >> ~/.bashrc
 
-打开文件夹
-----------
-
-.. prompt:: bash $,# auto
-
-   $ xdg-open
-
-查看文件
---------
-
-more
-^^^^
-
-.. prompt:: bash $,# auto
-
-   # 运行时可用按键
-   # space：向下翻页
-   # enter：向下翻行
-   # /    ：向下查找
-   # :f   ：显示文件名和目前显示的行数
-
-batcat
-^^^^^^
-
-相当于带语法高亮的cat
-
-
-* 安装
-
-.. prompt:: bash $,# auto
-
-   $ sudo apt install catbat
-
-
-* 配置
-
-.. prompt:: bash $,# auto
-
-   $ echo 'alias bat="batcat --paging=auto"' >> ~/.bashrc
-   $ echo "export MANPAGER=\"/bin/bash -c 'col -bx | batcat -l man -p'\"" >> ~/.bashrc
-
-----
-
-**REMARK**
-
-给man手册上色的功能很赞，但不建议使用（其不像man一样独享一个窗口，会跟前面的终端输出混在一起），可以使用\ `most <https://www.cyberciti.biz/faq/unix-linux-color-man-pages-configuration/>`_
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210905011156100.png" alt="image-20210905011156100" style="zoom:67%; " />`
-
-查找文件
---------
+Find File
+---------
 
 locate
 ^^^^^^
@@ -118,7 +76,7 @@ du
 ncdu
 ^^^^
 
-效果同du，但有更人性化的可视化效果和计算速度
+效果同du，但可视化效果更友好和计算速度更快
 
 .. prompt:: bash $,# auto
 
@@ -127,8 +85,50 @@ ncdu
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fHcvhrY9Y6y3set8.png!thumbnail" alt="img" style="zoom:67%; " />`
 
-查看说明文档
-------------
+View File
+---------
+
+more
+^^^^
+
+.. prompt:: bash $,# auto
+
+   # 运行时可用按键
+   # space：向下翻页
+   # enter：向下翻行
+   # /    ：向下查找
+   # :f   ：显示文件名和目前显示的行数
+
+batcat
+^^^^^^
+
+相当于带语法高亮的cat
+
+
+* 安装
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install catbat
+
+
+* 配置
+
+.. prompt:: bash $,# auto
+
+   $ echo 'alias bat="batcat --paging=auto"' >> ~/.bashrc
+   $ echo "export MANPAGER=\"/bin/bash -c 'col -bx | batcat -l man -p'\"" >> ~/.bashrc
+
+----
+
+**REMARK**
+
+给man手册上色的功能很赞，但不建议使用（其不像man一样独享一个窗口，会跟前面的终端输出混在一起），可以使用\ `most <https://www.cyberciti.biz/faq/unix-linux-color-man-pages-configuration/>`_
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210905011156100.png" alt="image-20210905011156100" style="zoom:67%; " />`
+
+Help Docs
+---------
 
 help
 ^^^^
@@ -159,8 +159,8 @@ man
    # /string (enter)：向下查找    n/N：向下查找/向上查找
    # ?string (enter)：向上查找    n/N：向上查找/向下查找
 
-解压缩
-------
+Archive
+-------
 
 tar
 ^^^
@@ -223,8 +223,8 @@ pv
    # 解压缩
    $ pv <file.tar.gz> | tar -xzf -
 
-软链接
-------
+Link
+----
 
 
 * 文件软链接
@@ -263,8 +263,8 @@ pv
 .. note:: 指定slave和master的作用在于，master进行变动时，slave也会进行变动。比如gcc(master)从9.0切换到10.0时，g++(slave)也会从9.0切换到10.0
 
 
-文件编辑
---------
+Edit File
+---------
 
 vim
 ^^^
@@ -422,8 +422,8 @@ patch
    $ patch [options] [originalfile [patchfile]]
    e.g. patch -pnum patchfile
 
-文本替换
---------
+Replace
+-------
 
 sed
 ^^^
@@ -438,7 +438,7 @@ sed
    {script-only-if-no-other-script}
    s/<正则表达式（待替换的内容）>/<替换的内容>/：使用正则表达式进行替换
 
-.. note:: {script-only-if-no-other-script}这部分需要加引号 ``''``
+.. attention:: 替换部分有单引号；如果有特殊符号时则需要使用转义符号
 
 
 
@@ -507,8 +507,8 @@ tee
 .. note:: 传统和原始的Docker build不支持这种写法。它是逐行解析的。所以要不使用echo，要不使用新的解析方式  `here_document <https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md#here-documents>`_
 
 
-内容提取
---------
+Extract
+-------
 
 awk
 ^^^
@@ -557,6 +557,7 @@ grep
    # -n：显示行数
    # -r：递归查找
    # -v：反选
+   # --include：文件名需要满足的条件 --include "*.cpp"
 
 xargs
 ^^^^^
@@ -587,8 +588,8 @@ xargs
    # 统计new line个数≈行数
    $ wc -
 
-文件比对
---------
+Diff
+----
 
 .. prompt:: bash $,# auto
 

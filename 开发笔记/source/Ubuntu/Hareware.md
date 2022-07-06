@@ -1,4 +1,4 @@
-# Hareware&&Kernel
+# Hareware
 
 ## DualSystem
 
@@ -29,7 +29,7 @@
 
 #### 电脑开关机状态
 
-- 休眠、睡眠的状态的区别：[askubuntu](https://askubuntu.com/questions/3369/what-is-the-difference-between-hibernate-and-suspend), [blog](https://simpleit.rocks/linux/ubuntu/difference-suspend-hibernate-call-command/)
+* 休眠、睡眠的状态的区别：[askubuntu](https://askubuntu.com/questions/3369/what-is-the-difference-between-hibernate-and-suspend), [blog](https://simpleit.rocks/linux/ubuntu/difference-suspend-hibernate-call-command/)
 
 ```bash
 # 睡眠 suspend to ram / sleep
@@ -49,7 +49,7 @@ $ cat /sys/power/state
 
 #### Q&A
 
-- [suspend and resume immediately for nvidia](https://forums.developer.nvidia.com/t/fixed-suspend-resume-issues-with-the-driver-version-470/187150/3)
+* [suspend and resume immediately for nvidia](https://forums.developer.nvidia.com/t/fixed-suspend-resume-issues-with-the-driver-version-470/187150/3)
 
 ### Bluetooth
 
@@ -418,7 +418,7 @@ $ nvidia-smi --query-gpu=temperature.gpu --format=csv
 
 ### 压力测试
 
-- 测试CPU的相关工具为stress, s-tui
+* 测试CPU的相关工具为stress, s-tui
 
 ```bash
 $ sudo apt install s-tui stress
@@ -430,7 +430,7 @@ $ sudo apt install s-tui stress
 
 > mce: CPUx: Package temperature above threshold, cpu clock throttled
 
-- 测试GPU的相关工具
+* 测试GPU的相关工具
 
 ```bash
 $ git clone https://github.com/wilicc/gpu-burn

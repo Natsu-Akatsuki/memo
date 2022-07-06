@@ -2,8 +2,8 @@
    :format: html
 
 
-PackageManage
-=============
+Package
+=======
 
 Apt
 ---

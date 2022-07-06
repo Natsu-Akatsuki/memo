@@ -1,4 +1,4 @@
-# ApperanceManage
+# Apperance
 
 ## Deskop Environment
 
@@ -8,7 +8,6 @@
 # 安装（至上而下越来越全）
 $ sudo apt install kde-plasma-desktop
 $ sudo apt install kubuntu-desktop
-$ sudo apt install kubuntu-full
 ```
 
 ### GNOME
@@ -95,7 +94,7 @@ Open in VSCode
 
 ### Screen Login
 
-- 配置login界面
+* 配置login界面
 
 ### Splash
 
@@ -131,12 +130,12 @@ Open in VSCode
 
 ### User Manager
 
-- 设置头像
+* 设置头像
 
 ### Window Decoration
 
-- windows decoration: Nordic-r
-- 设置window behaviour：鼠标中键（shade）、滚轮（上下层切换）
+* windows decoration: Nordic-r
+* 设置window behaviour：鼠标中键（shade）、滚轮（上下层切换）
 
 ## KDE Shortcut
 

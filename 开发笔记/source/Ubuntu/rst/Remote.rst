@@ -2,8 +2,10 @@
    :format: html
 
 
-RemoteConnect
-=============
+Remote
+======
+
+远程连接
 
 ssh
 ---
@@ -14,6 +16,14 @@ ssh
 
 .. attention::  对 `ssh文件权限有严格的要求 <https://docs.digitalocean.com/products/droplets/resources/troubleshooting-ssh/authentication/>`_ bash
 
+
+安装
+^^^^
+
+.. prompt:: bash $,# auto
+
+   # 安装这个别人才能ssh到本机
+   $ sudo apt install openssh-server
 
 `服务器免密登录 <https://wiki.archlinux.org/title/SSH_keys#Copying_the_public_key_to_the_remote_server>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

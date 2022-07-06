@@ -2,8 +2,8 @@
    :format: html
 
 
-Hareware&&Kernel
-================
+Hareware
+========
 
 DualSystem
 ----------

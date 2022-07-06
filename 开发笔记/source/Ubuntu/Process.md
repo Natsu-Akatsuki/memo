@@ -287,6 +287,8 @@ if __name__ == "__main__":
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220627101048101.png" alt="image-20220627101048101" style="zoom:50%;" />
 
 - 在bash启动的roslaunch可以使用kill -s 2（键盘中断）来中断掉
+- 由于kill -s 9 或者程序资源没有回收完全的原因，即使对应的进程已经关闭，但是还是可以通过 `rosnode` 看到该节点（该节点没有完全从 `rosmaster` 中注销成功），若要通过命令行注销则需要使用 `rosnode cleanup` 
+- 使用 `kill -s 9` 作用于launch进程时，其管理的节点可能不会成功退出，因此在rosnode中仍然能看到，使用 `kill -s 2` 这种则可以顺利退出所有的节点
 
 ### 拓展阅读
 

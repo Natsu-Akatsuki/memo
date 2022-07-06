@@ -88,7 +88,12 @@ $ asciinema auth
 
 ## 谷歌浏览器
 
-### [安装和apt更新浏览器](https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/#updating-google-chrome)
+### [安装](https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/#updating-google-chrome)
+
+```bash
+$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+$ sudo dpkg -i google-chrome-stable_current_amd64.deb 
+```
 
 ### [插件](https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher)
 

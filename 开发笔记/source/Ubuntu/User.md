@@ -1,4 +1,4 @@
-# User&&Group
+# User
 
 ## User
 
@@ -13,11 +13,11 @@
 
 ```bash
 # 增设用户 
-# useradd helios -m -G do sudo -G docker -s /bin/bash
+# useradd helios -m -G sudo -G docker -s /bin/bash
 $ useradd <user_name> -m -s /bin/bash -G <group_name>
 # -m：建立家目录
 # -G：将用户添加到某用户组
-# -u：指定用户ID
+# -u：指定用户ID （-u 1000）
 # -U：创建跟用户名同名的用户组
 # -d：指定家目录的路径
 # -s：指定使用的bash

@@ -1,4 +1,4 @@
-# LogManage
+# Log
 
 ## 查看内核日志
 

@@ -2,8 +2,8 @@
    :format: html
 
 
-ApperanceManage
-===============
+Apperance
+=========
 
 Deskop Environment
 ------------------
@@ -16,7 +16,6 @@ Deskop Environment
    # 安装（至上而下越来越全）
    $ sudo apt install kde-plasma-desktop
    $ sudo apt install kubuntu-desktop
-   $ sudo apt install kubuntu-full
 
 GNOME
 ^^^^^

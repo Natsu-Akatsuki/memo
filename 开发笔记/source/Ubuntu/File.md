@@ -1,8 +1,14 @@
-# FileDirManage
+# File
 
 <p align="right">Author: kuzen, Natsu-Akatsuki</p>
 
-## [文件夹跳转](https://github.com/gsamokovarov/jump)
+## Open Directory
+
+```bash
+$ xdg-open
+```
+
+## [Switch Dircetory](https://github.com/gsamokovarov/jump)
 
 ### jump
 
@@ -15,13 +21,48 @@ $ wget https://github.com/gsamokovarov/jump/releases/download/v0.40.0/jump_0.40.
 $ echo 'eval "$(jump shell)"' >> ~/.bashrc
 ```
 
-## 打开文件夹
+## Find File
+
+### locate
 
 ```bash
-$ xdg-open
+$ sudo apt install mlocate
+# 更新数据库
+$ sudo updatedb
+$ locate <文件名>
 ```
 
-## 查看文件
+### find
+
+```bash
+# find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
+# -name: file name
+```
+
+* 文件类型：
+
+![image-20220323140153693](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220323140153693.png)
+
+### du
+
+统计当前目录的文件夹大小
+
+```bash
+$ du -h --max-depth=1
+```
+
+### ncdu
+
+效果同du，但可视化效果更友好和计算速度更快
+
+```bash
+$ sudo apt install ncdu
+$ ncdu
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fHcvhrY9Y6y3set8.png!thumbnail" alt="img" style="zoom:67%; " />
+
+## View File
 
 ### more
 
@@ -58,48 +99,7 @@ $ echo "export MANPAGER=\"/bin/bash -c 'col -bx | batcat -l man -p'\"" >> ~/.bas
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210905011156100.png" alt="image-20210905011156100" style="zoom:67%; " />
 
-## 查找文件
-
-### locate
-
-```bash
-$ sudo apt install mlocate
-# 更新数据库
-$ sudo updatedb
-$ locate <文件名>
-```
-
-### find
-
-```bash
-# find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]
-# -name: file name
-```
-
-* 文件类型：
-
-![image-20220323140153693](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220323140153693.png)
-
-### du
-
-统计当前目录的文件夹大小
-
-```bash
-$ du -h --max-depth=1
-```
-
-### ncdu
-
-效果同du，但有更人性化的可视化效果和计算速度
-
-```bash
-$ sudo apt install ncdu
-$ ncdu
-```
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/fHcvhrY9Y6y3set8.png!thumbnail" alt="img" style="zoom:67%; " />
-
-## 查看说明文档
+## Help Docs
 
 ### help
 
@@ -128,7 +128,7 @@ $ man <命令行>
 # ?string (enter)：向上查找    n/N：向上查找/向下查找
 ```
 
-## 解压缩
+## Archive
 
 ### tar
 
@@ -177,7 +177,7 @@ $ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz>
 $ pv <file.tar.gz> | tar -xzf -
 ```
 
-## 软链接
+## Link
 
 * 文件软链接
 
@@ -208,7 +208,7 @@ $ sudo update-alternatives --config gcc
 
 .. note:: 指定slave和master的作用在于，master进行变动时，slave也会进行变动。比如gcc(master)从9.0切换到10.0时，g++(slave)也会从9.0切换到10.0
 
-## 文件编辑
+## Edit File
 
 ### vim
 
@@ -318,7 +318,7 @@ $ patch [options] [originalfile [patchfile]]
 e.g. patch -pnum patchfile
 ```
 
-## 文本替换
+## Replace
 
 ### sed
 
@@ -331,7 +331,7 @@ $ sed [OPTION] {script-only-if-no-other-script} [input-file]...
 s/<正则表达式（待替换的内容）>/<替换的内容>/：使用正则表达式进行替换
 ```
 
-.. note:: {script-only-if-no-other-script}这部分需要加引号 ``''``
+.. attention:: 替换部分有单引号；如果有特殊符号时则需要使用转义符号
 
 * 实例
 
@@ -387,7 +387,7 @@ EOF \
 
 .. note:: 传统和原始的Docker build不支持这种写法。它是逐行解析的。所以要不使用echo，要不使用新的解析方式  `here_document <https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md#here-documents>`_
 
-## 内容提取
+## Extract
 
 ### awk
 
@@ -431,6 +431,7 @@ $ cat <file_name> | grep -v ^# | grep -v ^$
 # -n：显示行数
 # -r：递归查找
 # -v：反选
+# --include：文件名需要满足的条件 --include "*.cpp"
 ```
 
 ### xargs
@@ -460,7 +461,7 @@ $ basename <absolute_file_name>
 $ wc -
 ```
 
-## 文件比对
+## Diff
 
 ```bash
 $ sudo apt install meld
