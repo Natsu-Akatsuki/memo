@@ -286,15 +286,15 @@ Shell
 
    $ echo "hello" 2> /dev/null
 
-`read 函数 <https://linuxcommand.org/lc3_man_pages/readh.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`read函数 <https://linuxcommand.org/lc3_man_pages/readh.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
    $ read -r -p "Are You Sure? [Y/n] " input 
    $ read -p "Remove all RealSense cameras attached. Hit any key when ready"
    # -p：输入时显示提示信息
-   # -r: 不支持字符串转义 do not allow backslashes to escape any characters
+   # -r: 不支持字符串转义 do not allow backslashes to escape any characters（支持直接接收回车键）
    `
 
 `自定义函数 <https://blog.csdn.net/bornfree5511/article/details/109091233>`_
