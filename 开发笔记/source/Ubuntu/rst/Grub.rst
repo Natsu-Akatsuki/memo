@@ -127,17 +127,3 @@ grub界面显示异常
 
 * ubuntu
 * `kubuntu <https://kubuntu.org/getkubuntu/>`_
-
-修复引导
---------
-
-
-* 适用于grub丢失的场景
-* 需在引导盘的try-ubuntu下安装boot-repair
-
-.. prompt:: bash $,# auto
-
-   $ sudo add-apt-repository ppa:yannubuntu/boot-repair
-   $ sudo apt-get update
-   $ sudo apt install boot-repair mdadm
-   $ boot-repair

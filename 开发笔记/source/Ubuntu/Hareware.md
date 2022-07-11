@@ -1,6 +1,6 @@
 # Hareware
 
-## DualSystem
+## Dual System
 
 ### 在win的基础下安装ubuntu
 
@@ -170,6 +170,28 @@ $ udevadm info -a <设备挂载点> | grep id
 KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="0666", SYMLINK+="camera0"
 ```
 
+### Screen
+
+* 显示屏的尺寸为对角线的长度，其以英寸为单位，其中1英寸为2.54m
+
+* 1920*1080这样的分辨率指的是，横、竖的方向上有多少个像素
+* 1920*1080的显示屏，其对角线上的像素为2203个像素，则17.3英寸的显示屏，其PPI（对角线上一个英寸单位的像素个数）为127PPI
+
+| 英寸 |  分辨率/像素   | PPI  |
+| :--: | :------------: | :--: |
+|      |                |      |
+| 17.3 | 1920*1080/2203 | 127  |
+| 12.5 | 1920*1080/2203 | 176  |
+
+* 高分辨率/视网膜级别成像配置（[details](https://wiki.archlinux.org/title/HiDPI)）
+
+* 设置缩放比例
+
+```bash
+# 使配置生效
+$ systemctl restart sddm
+```
+
 ### Graphics card
 
 #### [安装显卡驱动](https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html)
@@ -201,6 +223,36 @@ $ arandr
 ```bash
 # 令eDP-1屏幕位于HDMI-1屏幕的右边
 $ xrandr --output eDP-1 --right-of HDMI-1
+```
+
+#### 集显
+
+* 禁用集显
+
+```bash
+# 方法一：从内核加载层面（grub命令行部分）
+nouveau.modeset=0
+# 方法二：将其加入blacklists
+blacklist nouveau
+options nouveau modeset=0
+
+$ sudo update-initramfs -u
+```
+
+* 查看inter gpu使用情况
+
+```bash
+$ sudo intel_gpu_top
+```
+
+![image-20211129013232309](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211129013232309.png)
+
+* [查看amd gpu使用情况](https://linuxhint.com/apps-monitor-amd-gpu-linux/)
+
+```bash
+$ sudo apt install radeontop
+# c means color
+$ radeontop -c
 ```
 
 ### Hard disk
@@ -477,21 +529,6 @@ $ dpkg --get-selections | grep linux-image
 
 * [通过官方源升级内核（bash脚本）](https://github.com/pimlie/ubuntu-mainline-kernel.sh)
 
-非ubuntu21版本，从官方源下载最新内核或有问题（官方源的内核编译时依赖21的库）
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/BL2DG8orSBiQroYp.png!thumbnail)
-
-* 在ubuntu20.04上升级内核到5.10+(ppa)
-
-[可使用20.04的库编译的内核（能用，但内核会有err日志）](https://launchpad.net/~tuxinvader/+archive/ubuntu/lts-mainline)
-
-```bash
-$ sudo add-apt-repository ppa:tuxinvader/lts-mainline
-$ sudo apt update
-# e.g. install v5.12
-$ sudo apt install linux-generic-5.12
-```
-
 * (recommend)在ubuntu20.04升级到5.10+(oem)或[HWE](https://ubuntu.com/kernel/lifecycle)
 
 ```bash
@@ -586,7 +623,14 @@ $ modprobe -r <module_name>  # unload内核模块（自动解决依赖问题）
 
 * [load/unload内核](https://opensource.com/article/18/5/how-load-or-unload-linux-kernel-module)
 
-## LimitUserResource
+#### 内核支持的硬件
+
+| ubuntu版本 |                          支持的硬件                          |
+| :--------: | :----------------------------------------------------------: |
+| - 5.15支持 |         Alder Lake-P Integrated Graphics Controller          |
+|            | [各种网卡](https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi) e.g. AX211（5.14+） |
+
+## Limit User Resource
 
 ### 显示当前的限制状态
 
@@ -679,7 +723,7 @@ $ zenith
 
 .. note:: 该可执行文件/命令行能快速提供有价值的信息
 
-## RepairSystem
+## Repair System
 
 ### [Chroot](https://help.ubuntu.com/community/LiveCdRecovery)
 
@@ -688,22 +732,39 @@ $ zenith
 ```bash
 # 挂载系统盘
 # mount <device_name> <mount_point>
-$ sudo mount /dev/sda1 /mnt
-$ sudo mount --bind /dev /mnt/dev
-$ sudo mount --bind /proc /mnt/proc
-$ sudo mount --bind /sys /mnt/sys
-$ sudo mount <boot位置> /mnt/boot
+$ device_name=/dev/sda1 && sudo mkdir -p /mnt/tmp && mount_point=/mnt/tmp
+$ sudo mount ${device_name} ${mount_point} \
+&& sudo mount --bind /dev ${mount_point}/dev \
+&& sudo mount --bind /proc ${mount_point}/proc \
+&& sudo mount --bind /sys ${mount_point}/sys
+
+$ sudo mount <boot位置> ${mount_point}/boot
 # 切换根目录
 $ sudo chroot /mnt
 
 # todo ...
 
 # 取消挂载
-$ umount /mnt/boot
-$ umount /mnt/sys
-$ umount /mnt/proc
-$ umount /mnt/dev
-$ umount /mnt/
+$ umount ${mount_point}/boot
+
+$ umount ${mount_point}/sys \
+&& umount ${mount_point}/proc \
+&& umount ${mount_point}/dev \
+&& umount ${mount_point}/
 ```
 
 * [其他应用](https://help.ubuntu.com/community/LiveCdRecovery)（已尝试过可修改分区）
+
+### 实战
+
+- apt安装时无法解析域名
+
+```bash
+# 修改/etc/resolv.conf，添加DNS
+nameserver 223.5.5.5
+nameserver 223.6.6.6
+```
+
+- 只有grub命令行界面
+
+检查是否丢失了ubuntu分区
