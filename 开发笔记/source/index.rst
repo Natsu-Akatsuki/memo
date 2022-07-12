@@ -77,6 +77,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Perception
+
+   Perception/rst/HDmap.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Pointcloud
 
    Pointcloud/rst/PCLPractice.rst
