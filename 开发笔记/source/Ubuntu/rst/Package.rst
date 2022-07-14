@@ -151,6 +151,25 @@ Pkg-config
    $ pkg-config --modversion opencv4
    $ more /usr/lib/x86_64-linux-gnu/pkgconfig/opencv4.pc
 
+`Rosdep <https://docs.ros.org/en/foxy/Tutorials/Intermediate/Rosdep.html>`_
+-------------------------------------------------------------------------------
+
+rosdep相关于ros的apt，用于下载依赖包
+
+.. prompt:: bash $,# auto
+
+   # 初始化安装源
+   $ sudo rosdep init
+
+   # 更新源
+   $ rosdep update
+
+   $ rosdep install --from-paths src --ignore-src -r -y
+   # -i, --ignore-packages-from-source, --ignore-src：若ROS_PACKAGE_PATH有这个包/当前工作空间有该依赖包 ，则不rosdep安装
+   # --from-paths：搜索路径
+   # -r：Continue installing despite errors.
+   # -y：Tell the package manager to default to y
+
 Wget
 ----
 
@@ -604,12 +623,11 @@ Q&A
 ~~~
 
 
-* Failed to add key. helios@helios:\ **~**\ $ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir. More info: https://launchpad.net/~natsu-akatsuki/+archive/ubuntu/sleipnir. Press [ENTER] to continue or Ctrl-c to cancel adding it. Error: signing key fingerprint does not exist. Failed to add key.
+* （已设置GPG的情况下）package上传成功后，不会很快生效，需要等一段时间。
 
-..
+.. code-block::
 
-   等一段时间。（已设置GPG的情况下）package上传成功后，不会很快生效，需要等一段时间。
-
+    Failed to add key. helios@helios:**~**$ sudo add-apt-repository ppa:natsu-akatsuki/sleipnir. More info: <https://launchpad.net/~natsu-akatsuki/+archive/ubuntu/sleipnir>. Press [ENTER] to continue or Ctrl-c to cancel adding it. Error: signing key fingerprint does not exist. Failed to add key.
 
 
 * `上传失败 <https://help.launchpad.net/Packaging/UploadErrors>`_
@@ -622,9 +640,35 @@ Q&A
 * `利用debuild整合版工具来构建deb包 <https://blog.packagecloud.io/buildling-debian-packages-with-debuild/>`_
 * `debian目录的相关描述 <https://packaging.ubuntu.com/html/debian-dir-overview.html>`_
 
+Auto Ungrade
+------------
+
 关闭gnome的软件更新自启动
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. prompt:: bash $,# auto
 
    $ sudo rm /etc/xdg/autostart/update-notifier.desktop
+
+unattended-upgrade
+^^^^^^^^^^^^^^^^^^
+
+
+* 配置文档：/etc/apt/apt.conf.d/20auto-upgrades
+
+.. prompt:: bash $,# auto
+
+   // Enable the update/upgrade script (0=disable)
+   APT::Periodic::Enable "1";
+
+   // Do "apt-get update" automatically every n-days (0=disable)
+   APT::Periodic::Update-Package-Lists "1";
+
+   // Do "apt-get upgrade --download-only" every n-days (0=disable)
+   APT::Periodic::Download-Upgradeable-Packages "1";
+
+   // Run the "unattended-upgrade" security upgrade script
+   // every n-days (0=disabled)
+   // Requires the package "unattended-upgrades" and will write
+   // a log in /var/log/unattended-upgrades
+   APT::Periodic::Unattended-Upgrade "1";

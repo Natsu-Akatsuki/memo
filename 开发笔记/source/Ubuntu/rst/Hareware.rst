@@ -215,8 +215,8 @@ CPU
 
    KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="0666", SYMLINK+="camera0"
 
-Screen
-^^^^^^
+Monitor
+^^^^^^^
 
 
 * 
@@ -233,9 +233,6 @@ Screen
    * - 英寸
      - 分辨率/像素
      - PPI
-   * - 
-     - 
-     - 
    * - 17.3
      - 1920*1080/2203
      - 127
@@ -255,25 +252,6 @@ Screen
 
    # 使配置生效
    $ systemctl restart sddm
-
-Graphics card
-^^^^^^^^^^^^^
-
-`安装显卡驱动 <https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`限制显卡功率 <https://blog.csdn.net/zjc910997316/article/details/113867906>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   # --persistence-mode= Set persistence mode: 0/DISABLED, 1/ENABLED
-   $ sudo nvidia-smi -pm 1
-   # --power-limit= Specifies maximum power management limit in watts.
-   $ sudo nvidia-smi -pl 150
-
-显示器
-~~~~~~
 
 
 * 基于图形化界面配置
@@ -295,6 +273,35 @@ Graphics card
 
    # 令eDP-1屏幕位于HDMI-1屏幕的右边
    $ xrandr --output eDP-1 --right-of HDMI-1
+
+Graphics card
+^^^^^^^^^^^^^
+
+
+* `Headless System <https://www.techtarget.com/iotagenda/definition/headless-system#:~:text=A%20headless%20system%20is%20a,multi%2Dserver%20data%20center%20environments.>`_\ ：没有外设+显示屏（monitor）
+
+识别显卡驱动
+~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ sudo update-pciids
+   $ lspci | grep -i 'vga'
+   # 00:02.0 VGA compatible controller: Intel Corporation Alder Lake-P Integrated Graphics Controller (rev 0c)
+   # 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1)
+
+`安装显卡驱动 <https://ambook.readthedocs.io/zh/latest/DeepLearning/rst/EnvSetup.html>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`限制显卡功率 <https://blog.csdn.net/zjc910997316/article/details/113867906>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # --persistence-mode= Set persistence mode: 0/DISABLED, 1/ENABLED
+   $ sudo nvidia-smi -pm 1
+   # --power-limit= Specifies maximum power management limit in watts.
+   $ sudo nvidia-smi -pl 150
 
 集显
 ~~~~
@@ -333,6 +340,21 @@ Graphics card
    $ sudo apt install radeontop
    # c means color
    $ radeontop -c
+
+切换工作模式
+~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 如果使用的是安装包下载的，则需要安装nvidia-prime
+   $ sudo apt install nvidia-prime
+   # nvidia / on-demand
+   $ sudo prime-select intel
+   # 查看当前的工作模式
+   $ prime-select query
+
+
+* 有关无法在nvidia-setting下进行切换（\ `detail_nvidia_forum <https://forums.developer.nvidia.com/t/intel-option-can-not-be-selected-in-nvidia-setting/220665>`_\ ，\ `detail_reddit <https://www.reddit.com/r/Ubuntu/comments/ti8njk/nvidia_settings_prime_profiles_intel_grayed_out/>`_\ ）
 
 Hard disk
 ^^^^^^^^^
@@ -460,12 +482,24 @@ Hard disk
    $ sudo blkid
 
 
-* `从windows访问linux的ext4文件系统 <https://www.diskinternals.com/linux-reader/access-ext4-from-windows/>`_
+* 有关相关的挂载选项可参考\ `detail <https://man7.org/linux/man-pages/man8/mount.8.html>`_
+
+.. prompt:: bash $,# auto
+
+   # 设置硬盘可以执行里面的二值文件
+   exec: Permit execution of binaries.
+   defaults：use default options: rw, suid, dev, exec, auto, nouser, and async.
+
+`从windows访问linux的ext4文件系统 <https://www.diskinternals.com/linux-reader/access-ext4-from-windows/>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 windows默认不支持ext4文件系统的读写，需要下载软件实现额外的支持
 
+U盘格式化
+~~~~~~~~~
 
-* U盘格式化（for KDE）：Disks
+
+* （for KDE）：Disks
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220104145417626.png

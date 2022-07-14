@@ -31,23 +31,23 @@ GRUB_CMDLINE_LINUX=""
 
 ---
 
-[选项说明](https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean)
+[option details](https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean)
 
-quiet：不输出日志信息
-
-ro：boot时/boot为只读
-
-nomodest：禁用KMS(kernel mode setting)，不在内核导入时配置分辨率和颜色深度
-
-nouveau.modeset=0：启动时禁用 nouveau drivers
-
-此处的splash不等同于kde的splash
+|       选项        |                             说明                             |              补充               |
+| :---------------: | :----------------------------------------------------------: | :-----------------------------: |
+|       quiet       |                        不输出日志信息                        |                                 |
+|        ro         |                     boot时，/boot为只读                      |                                 |
+|     nomodest      | 禁用KMS（kernel mode setting），不在内核导入时配置分辨率和颜色深度 |                                 |
+| nouveau.modeset=0 |                  启动时禁用nouveau drivers                   |                                 |
+|      splash       |                                                              | 此处的splash不等同于KDE的splash |
 
 ---
 
-.. attention:: 修改配置文件后，需执行命令行 `update-grub` 以生成 `/boot/grub/grub.cfg` / 生效
+.. attention:: 修改配置文件后，需执行命令行 ``update-grub`` 以生成 ``/boot/grub/grub.cfg`` / 生效
 
-## 显示开机启动(boot)时加载的参数
+## Practice
+
+### 显示开机启动(boot)时加载的参数
 
 ```bash
 $ cat /proc/cmdline
@@ -55,11 +55,11 @@ $ cat /proc/cmdline
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/OAszWAD2imR7ZbMI.png!thumbnail)
 
-## [开关机时显示boot日志](https://itectec.com/ubuntu/ubuntu-how-to-enable-boot-messages-to-be-printed-on-screen-during-boot-up/)
+### [开关机时显示boot日志](https://itectec.com/ubuntu/ubuntu-how-to-enable-boot-messages-to-be-printed-on-screen-during-boot-up/)
 
 .. attention:: 有时候黑屏时只保留光标，可以按``F11``等键来查看相关的grub日志
 
-## [修改grub/tty界面的分辨率](https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Setting_the_framebuffer_resolution)
+### [修改grub/tty界面的分辨率](https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Setting_the_framebuffer_resolution)
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/QqOPCOHKD7D4af68.png!thumbnail)
 
@@ -73,23 +73,23 @@ GRUB_GFXPAYLOAD_LINUX=keep
 
 .. note:: 查看支持的分辨率和深度（实测hwinfo的不准，应该参考grub命令行的videoinfo）
 
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CTWAJIEnWOpfT104.jpg!thumbnail)
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/CTWAJIEnWOpfT104.jpg!thumbnail" alt="img" style="zoom: 50%;" />
 
-## 启动时默认进入window没有grub
+### 启动时默认进入window而没有grub
 
 在bios设置启动引导优先级，优先为ubuntu
 
-## grub界面显示异常
+### grub界面显示异常
 
 ```bash
 $ sudo update-grub
 ```
 
-## [制作多重引导](https://www.linuxbabe.com/apps/create-multiboot-usb-linux-windows-iso)
+### [制作多重引导](https://www.linuxbabe.com/apps/create-multiboot-usb-linux-windows-iso)
 
 步骤一：安装[Ventory](https://github.com/ventoy/Ventoy/releases)并用其格式化U盘
 
-步骤二：安装镜像并导入到U盘后即可使用
+步骤二：安装镜像并导入到U盘后**即**可使用
 
 镜像网站参考：
 
