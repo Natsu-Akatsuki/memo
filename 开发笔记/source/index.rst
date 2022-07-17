@@ -28,8 +28,8 @@ AmBook
    :hidden:
    :caption: CMake
 
-   CMake/rst/CMakePractice.rst
-   CMake/rst/Grammar.rst
+   CMake/rst/Beginner.rst
+   CMake/rst/Intermediate.rst
 
 .. toctree::
    :maxdepth: 1
