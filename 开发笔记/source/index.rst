@@ -64,8 +64,8 @@ AmBook
    :hidden:
    :caption: IDE
 
-   IDE/rst/Jetbrain.rst
-   IDE/rst/Vscode.rst
+   IDE/rst/JetBrains.rst
+   IDE/rst/VSCode.rst
 
 .. toctree::
    :maxdepth: 1
