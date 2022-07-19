@@ -21,6 +21,23 @@
 
 ## Hareware
 
+### [Backlight](https://wiki.archlinux.org/title/backlight#Kernel_command-line_options)
+
+#### 设置内核参数解决无法调整亮度的问题
+
+```bash
+# /etc/default/grub
+# 可尝试如下参数
+acpi_backlight=video	# use the ACPI video.ko driver
+acpi_backlight=vendor	# prefer vendor-specific driver ( e.g.thinkpad_acpi, sony_acpi, etc.) instead of the ACPI video.ko driver.
+acpi_backlight=native	# use the device's native backlight mode.
+
+# 若无法通过echo的方式调整亮度，则尝试
+acpi_backlight=none		# disable the ACPI backlight interface.
+```
+
+- 拓展资料：[acpi_osi的作用](https://unix.stackexchange.com/questions/110624/what-do-the-kernel-parameters-acpi-osi-linux-and-acpi-backlight-vendor-do)
+
 ### Battery
 
 #### Energy Saving
@@ -149,7 +166,7 @@ ACTION=="add",KERNELS=="{ID}",SUBSYSTEMS=="usb",MODE:="0777",SYMLINK+="{name}"
 
 #### [udev配置语法](https://blog.csdn.net/xiaoliu5396/article/details/46531893?locationNum=2)
 
-#### 实战：相机端口绑定(/dev/video*)
+#### 相机端口绑定(/dev/video*)
 
 步骤一：看属性
 
@@ -169,6 +186,10 @@ $ udevadm info -a <设备挂载点> | grep id
 ```bash
 KERNELS=="video*",  ATTRS{idVendor}=="2a0b", ATTRS{idProduct}=="00db", MODE:="0666", SYMLINK+="camera0"
 ```
+
+#### [pl2303无法识别](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1960579)
+
+- for 20.04 noetic 5.13 / 5.15，暂时智能回退到5.11的内核
 
 ### Monitor
 
@@ -212,6 +233,73 @@ $ xrandr --output eDP-1 --right-of HDMI-1
 ### Graphics card
 
 - [Headless System](https://www.techtarget.com/iotagenda/definition/headless-system#:~:text=A%20headless%20system%20is%20a,multi%2Dserver%20data%20center%20environments.)：没有外设+显示屏（monitor）
+
+#### Install for nvidia
+
+- （recommend）方案一：基于GUI（"Software & Updates" application）或者apt安装，会有更好的兼容性
+
+> An alternate method of installing the NVIDIA driver was detected. (This is usually a package provided by your distributor.) A driver installed via that method may integrate better with your system than a driver installed by nvidia-installer. Please review the message provided by the maintainer of this alternate installation method and decide how to proceed: The NVIDIA driver provided by Ubuntu can be installed by launching the "Software & Updates" application, and by selecting the NVIDIA driver from the "Additional Drivers" tab.
+
+```bash
+$ sudo apt update
+# 查看能用的驱动版本
+$ sudo ubuntu-drivers devices  
+# 如果返回空值，则这种方法无效，则需要到官网上进行下载
+
+# apt安装显卡驱动
+$ sudo apt-get install nvidia-driver-515
+
+# 验证（有时需要重启后才能生效）
+$ nvidia-smi
+```
+
+- 方案二：[官网](https://www.nvidia.cn/Download/index.aspx?lang=cn)安装包下载
+
+```bash
+# 安装一些相关依赖，否则会有warning
+$ sudo apt install pkg-config libglvnd-dev
+
+# 切换至非图形化界面
+$ sudo systemctl isolate multi-user.target
+
+# 如显示nvidia-drm正在使用，则关闭该内核模块
+$ sudo modprobe -r nvidia-drm
+# ...其他问题，具体问题具体分析（如要关闭屏蔽nouveau）
+
+$ nvidia-smi
+```
+
+#### Uninstall for nvidia
+
+```bash
+# --- 方法一（适用于用安装包安装的）
+$ nvidia-uninstall
+# --- 方法二（适用于用apt安装）
+$ sudo apt purge nvidia-driver-*
+$ sudo apt autoremove
+```
+
+#### nouveau
+
+- `nouveau` （开源，但功能非常少）和 `nvidia driver` 都是nvidia的显卡驱动。部分计算机默认使用 `nouveau` 作为驱动，那么在这些机子上装N卡官网驱动时，就有冲突的问题，需要[先关闭nouveau模块](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#runfile-nouveau-ubuntu)（记得update）；460+驱动可以在安装时，提供一个选项，替我们完成这一步（相关文件存放于`/usr/lib/modprobe.d`或者`/etc/modprobe.d`）
+- 判断当前系统有无nouveau模块
+
+```bash
+# 可用该指定判断当前系统有无nouveau模块
+$ lsmod | grep nou
+```
+
+- 重新使用nouveau
+
+```bash
+# 删除屏蔽，即移除blacklist下的相关
+# e.g.
+$ sudo rm /usr/lib/modprobe.d/nvidia-installer-disable-nouveau.conf
+$ sudo rm /etc/modprobe.d/nvidia-installer-disable-nouveau.conf
+
+# 更新内核配置
+$ sudo update-initramfs -u
+```
 
 #### 识别显卡驱动
 
@@ -263,9 +351,12 @@ $ sudo apt install radeontop
 $ radeontop -c
 ```
 
-#### 切换工作模式
+#### 切换显卡工作模式
 
 ```bash
+# 如果是通过apt下载，可以在图形化界面nvidia-setting中进行选取
+$ nvidia-setting
+
 # 如果使用的是安装包下载的，则需要安装nvidia-prime
 $ sudo apt install nvidia-prime
 # nvidia / on-demand
@@ -276,7 +367,57 @@ $ prime-select query
 
 - 有关无法在nvidia-setting下进行切换（[detail_nvidia_forum](https://forums.developer.nvidia.com/t/intel-option-can-not-be-selected-in-nvidia-setting/220665)，[detail_reddit](https://www.reddit.com/r/Ubuntu/comments/ti8njk/nvidia_settings_prime_profiles_intel_grayed_out/)）
 
+#### [显式指定集显进行渲染](https://gist.github.com/wangruohui/bc7b9f424e3d5deb0c0b8bba990b1bc5)
 
+- 主要是修改xorg即可（可以安装整个nvdia-driver）
+
+```
+Section "Device"
+    Identifier     "Device0"
+    Driver         "intel"
+    VendorName     "Intel Corporation"
+    BusID          "PCI:0:2:0
+EndSection
+```
+
+#### 显式指定程序使用独显
+
+- [构建prime-run脚本](https://askubuntu.com/questions/1364762/prime-run-command-not-found)
+
+```bash
+# 需要在混合模式下才生效
+$ __NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia <命令行>
+```
+
+#### 显卡模块和显卡驱动版本不一致
+
+```bash
+# 二者不同步时：
+$ nvidia-smi
+# Failed to initialize NVML: Driver/library version mismatch
+
+# 显示显卡模块在内核中的版本
+$ cat /proc/driver/nvidia/version
+#NVRM version: NVIDIA UNIX x86_64 Kernel Module 510.60.02 Wed Mar 16 11:24:05 UTC 2022
+
+# 显示驱动包的版本
+$ dpkg -l | grep nvidia-driver
+# nvidia-driver-510 510.73.05-0ubuntu0.20.04.1 amd64 NVIDIA driver metapackage
+
+# 一般可以选择重装，若有DKMS时可尝试重启
+```
+
+- DKMS（Would you like to register the kernel module souces with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later?）当内核更新时，显卡驱动也会进行更新，而不用自己再手动去升级了
+
+#### Q&A
+
+- [nvidia-settings could not find the registry key file](https://www.csdn.net/tags/NtzaMg0sMzgxMjMtYmxvZwO0O0OO0O0O.html)
+
+```bash
+$ cd /usr/share/nvidia
+# e.g.
+$ sudo cp nvidia-application-profiles-515.48.07-key-documentation nvidia-application-profiles-key-documentation
+```
 
 ### Hard disk
 
@@ -454,6 +595,8 @@ $ sudo update-pciids
 ```
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/sV507p45ylC7xEa6.png!thumbnail" alt="img" style="zoom:67%; " />
+
+- （for KDE GUI）Info Center
 
 ### [IO device](https://wiki.archlinux.org/title/Xorg)
 
@@ -662,6 +805,75 @@ $ modprobe -r <module_name>  # unload内核模块（自动解决依赖问题）
 | :--------: | :----------------------------------------------------------: |
 | - 5.15支持 |         Alder Lake-P Integrated Graphics Controller          |
 |            | [各种网卡](https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi) e.g. AX211（5.14+） |
+
+### [构建实时内核](https://docs.ros.org/en/humble/Tutorials/Miscellaneous/Building-Realtime-rt_preempt-kernel-for-ROS-2.html)
+
+- 下载待打补丁的[内核](https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/)
+
+```bash
+# 下载内核
+$ mkdir ~/kernel
+$ cd ~/kernel
+
+$ https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/
+$ wget https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.15.49.tar.gz
+$ tar -xzf linux-5.15.49.tar.gz
+```
+
+- 下载对应的[补丁](https://wiki.linuxfoundation.org/realtime/start)
+
+```bash
+$ wget -c https://cdn.kernel.org/pub/linux/kernel/projects/rt/5.15/patch-5.15.49-rt47.patch.gz
+$ gunzip patch-5.4.78-rt44.patch.gz
+
+# 打补丁
+$ cd linux-5.15.49/
+$ patch -p1 < ../patch-5.15.49-rt47.patch 
+
+# 获取基础的config文件
+$ cp /boot/config-5.15.0-41-generic .config
+
+# 安装相关依赖
+$ sudo apt-get build-dep linux
+$ sudo apt-get install libncurses-dev flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf fakeroot
+
+# 使能ubuntu所有配置项
+$ yes '' | make oldconfig
+# 使能rt_preempt
+$ make menuconfig
+```
+
+- 配置相关配置文档
+
+```bash
+# Enable CONFIG_PREEMPT_RT
+ -> General Setup
+  -> Preemption Model (Fully Preemptible Kernel (Real-Time))
+   (X) Fully Preemptible Kernel (Real-Time)
+
+# Enable CONFIG_HIGH_RES_TIMERS
+ -> General setup
+  -> Timers subsystem
+   [*] High Resolution Timer Support
+
+# Enable CONFIG_NO_HZ_FULL
+ -> General setup
+  -> Timers subsystem
+   -> Timer tick handling (Full dynticks system (tickless))
+    (X) Full dynticks system (tickless)
+
+# Set CONFIG_HZ_1000 (note: this is no longer in the General Setup menu, go back twice)
+ -> Processor type and features
+  -> Timer frequency (1000 HZ)
+   (X) 1000 HZ
+
+# Set CPU_FREQ_DEFAULT_GOV_PERFORMANCE [=y]
+ ->  Power management and ACPI options
+  -> CPU Frequency scaling
+   -> CPU Frequency scaling (CPU_FREQ [=y])
+    -> Default CPUFreq governor (<choice> [=y])
+     (X) performance
+```
 
 ## Limit User Resource
 

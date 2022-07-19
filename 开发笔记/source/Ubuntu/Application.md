@@ -1,28 +1,12 @@
 # Application
 
-## IDE
+## Communicaton
 
-### [vscode](https://code.visualstudio.com/Download)
+### [ToDesk](https://www.todesk.com/linux.html)
 
-- [apt 管理vscode](https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-20-04/)
+2022.5.12 4.1.0测评：ubuntu下为不稳定版本/容易连接不上/没有windows下的文件拖拽和传输功能/提供的卸载方法卸载不干净
 
-```bash
-$ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-$ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-$ sudo apt install code
-```
-
-### [J家 toolbox](https://www.jetbrains.com/zh-cn/toolbox-app/download/download-thanks.html?platform=linux)
-
-### knotes
-
-可置顶的便签
-
-```bash
-$ sudo apt install knotes
-```
-
-## 云盘
+## Cloud Disk
 
 ### [坚果云](https://www.jianguoyun.com/s/downloads/linux)
 
@@ -41,16 +25,15 @@ $ gdown <url>
 # gdown --id 1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ
 ```
 
-## 数据录制
+## Data Record
 
 - [flameshot](https://github.com/flameshot-org/flameshot)（截图，可apt install from ubuntu18.04）
 
 .. note:: apt安装的版本较旧，推荐用源码装或者deb包安装；设置快捷键时（for KDE）记得先移除默认的printsc按键，然后用自定义（flameshot gui）的即可，不需要参考官方的进行配置
 
 ```bash
-
-$ wget -c https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
-$ sudo dpkg -i flameshot-0.10.2-1.ubuntu-20.04.amd64.deb
+$ wget -c https://github.com/flameshot-org/flameshot/releases/download/v12.1.0/flameshot-12.1.0-1.debian-10.amd64.deb
+$ sudo dpkg -i flameshot-12.1.0-1.debian-10.amd64.deb 
 ```
 
 - kazam（视频录制，可apt安装，只能录制mp4等文件，在windows下打开或还需格式工厂转换）
@@ -67,7 +50,7 @@ $ sudo apt install python3-gi-cairo
 
 - [终端命令行录制](https://asciinema.org/)
 
-.. note:: 实测在ubuntu20.04尚无focal版本，建议用pip安装
+.. note:: 实测在ubuntu20.04尚无bionic版本，建议用pip安装
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/COc8yChbKUqbsx8Y.png!thumbnail)
 
@@ -86,110 +69,7 @@ $ asciinema play -s 2 <文件名>
 $ asciinema auth
 ```
 
-## 谷歌浏览器
-
-### [安装](https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/#updating-google-chrome)
-
-```bash
-$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-$ sudo dpkg -i google-chrome-stable_current_amd64.deb 
-```
-
-### [插件](https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher)
-
-- [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon)：实现网页端的代码查看
-
-  <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916222502087.png" alt="image-20210916222502087" style="zoom:67%; " />
-
-- [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon)：实现网页端的代码查看（mark: 内容检索，函数定义和声明的跳转）
-
-- [Github 加速](https://chrome.google.com/webstore/detail/github加速/mfnkflidjnladnkldfonnaicljppahpg)
-
-- [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher)
-
-- [Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)（生成navigation侧边栏，便于跳转和浏览）
-  <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/ReWZED8Jd1ySFSWT.png!thumbnail" alt="img" style="zoom:50%; " />
-  
-- [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon)（去广告）
-
-- [TabFloater](https://chrome.google.com/webstore/detail/tabfloater-picture-in-pic/iojgbjjdoanmhcmmihbapiejfbbadhjd/related)（悬浮标签页，便于同步查看标签页）
-
-- [simple allow copy](https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-ntp-icon)（复制网页内容，如360，百度文库页面的内容）
-
-- [picture in picture](https://chrome.google.com/webstore/detail/picture-in-picture-for-ch/ekoomohieogfomodjdjjfdammloodeih?utm_source=chrome-ntp-icon)（视频画中画）
-
-- [DevDocs](https://chrome.google.com/webstore/detail/devdocs/mnfehgbmkapmjnhcnbodoamcioleeooe)（API文档浏览）[DeepL web端翻译插件](https://github.com/WumaCoder/mini-tools)翻译时较慢
-
-- [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon)（[使用说明](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html)）用于标签分组
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/5mY5ahYPg6tePg10.png!thumbnail" alt="img" style="zoom: 50%; " />
-
-- [papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（[使用说明](https://papaly.com/#speeddial)）（标签页分类管理）
-- [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon)（分屏工具）
-- [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon)（下载管理器）插件管理
-- [Extensions Manager](https://chrome.google.com/webstore/detail/extensions-manager-aka-sw/lpleipinonnoibneeejgjnoeekmbopbc/related?hl=en)（插件管理器)
-- [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related)（截图工具：只适用于浏览页截图，功能类似微信截图)
-- [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related)（页面检索工具）（默认快捷键为`ctrl+shift+F`）
-- [proxy-switchomega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?utm_source=chrome-ntp-icon)
-- [ar5iv](https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon)（在arxiv上增设ar5iv接口）
-- [omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon)（有点命令行管理操作的味道）
-- [彩云小译（翻译软件）](https://drugx.cn/app/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91%E6%97%A0%E9%99%90%E5%88%B6.html)
-
-### [快捷键](https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts)
-
-- 标签页管理
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916133726380.png" alt="image-20210916133726380" style="zoom:67%; " />
-
-- word-based shortcuts
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/v46dYETnTrY2Qzvl.png!thumbnail)
-
-- 补充
-
-| 作用            | 快捷键       |
-| --------------- | ------------ |
-| 查看历史记录    | ctrl+h       |
-| 添加收藏        | ctrl+d       |
-| 打开下载页      | ctrl+j       |
-| 显示/隐藏标签栏 | ctrl+shift+b |
-| 打开标签管理器  | ctrl+shift+o |
-
-### 拓展功能
-
-- [添加稍后在看](https://www.jiangweishan.com/article/hulianwang23408230948098.html)`chrome://flags/#read-later`
-
-- 设置拓展插件的快捷键`chrome://extensions/shortcuts`
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eQYfh8NvsiaYjbWO.png!thumbnail)
-
-### 电脑通信
-
-#### [ToDesk](https://www.todesk.com/linux.html)
-
-2022.5.12 4.1.0测评：ubuntu下为不稳定版本/容易连接不上/没有windows下的文件拖拽和传输功能/提供的卸载方法卸载不干净
-
-## 键鼠跨机
-
-### [barrier](https://github.com/debauchee/barrier)
-
-```bash
-$ apt install barrier
-```
-
-- 设置自启动
-
-![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/6aaAjfB1jTrpl329.png!thumbnail)
-
----
-
-**解决方案**
-
-- [Logitech 滚轮没有生效的问题](https://bleepcoder.com/cn/barrier/566118227/issues-with-logitech-options-mouse-driver-under-windows-10)
-
----
-
-## 中文输入法
+## Chinese Input Method
 
 - `ibus`和`fctix`是linux输入法的框架，搜狗输入法(for linux)是基于fctix进行开发的
 - `fcitx-diagnose`命令行可以显示`fcitx`的诊断日志，比如可以看到缺哪些环境变量
@@ -230,7 +110,7 @@ $ sudo apt install ibus ibus-pinyin
 $ im-config
 ```
 
-### 解决方案
+### Q&A
 
 #### 搜狗输入法无法生效
 
@@ -261,13 +141,99 @@ $ sudo systemctl isolate multi-user.target
 $ sudo systemctl isolate graphical.target
 ```
 
----
+## Editor
 
-## 文本编辑器
-
-### 配置Kate
+### Kate
 
 - [配置其显示行数](https://superuser.com/questions/918189/how-to-make-kate-remember-to-always-show-line-numbers)
+
+## Google Chrome
+
+### [Install](https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/#updating-google-chrome)
+
+```bash
+$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+$ sudo dpkg -i google-chrome-stable_current_amd64.deb 
+```
+
+### [Plugin](https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher)
+
+| 插件名                                                       | 简述                               | 补充说明                                                     |
+| ------------------------------------------------------------ | :--------------------------------- | :----------------------------------------------------------- |
+| [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon) | 去广告                             |                                                              |
+| [Ar5iv](https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon) | 在arxiv上增设ar5iv接口             |                                                              |
+| [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon) | 下载管理器                         |                                                              |
+| [Omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon) | 网页版终端，可用于快速检索         |                                                              |
+| [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher) | github功能拓展                     | github看文件大小、复制源文件、下载链接                       |
+| [Simple allow copy](https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-ntp-icon) | 复制网页内容，如百度文库页面的内容 |                                                              |
+| [Simple Outliner / 智能网页大纲](https://chrome.google.com/webstore/detail/simple-outliner-%E6%99%BA%E8%83%BD%E7%BD%91%E9%A1%B5%E5%A4%A7%E7%BA%B2/ppdjhggfcaenclmimmdigbcglfoklgaf?utm_source=chrome-ntp-icon) | 生成网页TOC                        | 同类有[Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)，其违反Chrome相关规则 |
+| [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon) / [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon) | 网页端的代码查看                   | 内容检索，函数定义和声明的跳转                               |
+| [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon) | 标签分组                           | 使用说明，详看[detail](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html) |
+| [彩云小译（翻译软件）](https://drugx.cn/app/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91%E6%97%A0%E9%99%90%E5%88%B6.html) | 逐行翻译软件                       |                                                              |
+| [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related) | 页面检索工具                       | 默认快捷键为`ctrl+shift+F`                                   |
+| [DevDocs](https://chrome.google.com/webstore/detail/devdocs/kfollpcdnbaimpmjhkoghaegiendpidj?utm_source=chrome-ntp-icon)（deprecated） | API文档浏览                        | 实际应用较少；改用zeal本地软件                               |
+| [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related) （deprecated） |                                    | 截图工具，只适用于浏览页截图，功能类似微信截图；实际应用较少 |
+| DeepL Inside（deprecated）                                   | 在线翻译软件                       | 后续需付费                                                   |
+| [Papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（deprecated） | 标签页分类管理                     | 详细使用可参考[detail](https://papaly.com/#speeddial)；界面打开较慢 |
+| [Picture in picture](https://chrome.google.com/webstore/detail/picture-in-picture-for-ch/ekoomohieogfomodjdjjfdammloodeih?utm_source=chrome-ntp-icon) | 视频画中画                         | 实际应用较少                                                 |
+| [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon) （deprecated） | 分屏工具                           | 实际应用较少                                                 |
+| [TabFloater](https://chrome.google.com/webstore/detail/tabfloater-picture-in-pic/iojgbjjdoanmhcmmihbapiejfbbadhjd/related)（deprecated） | 悬浮标签页，便于同步查看标签页     | 实际应用较少                                                 |
+
+### [Shortcut](https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts)
+
+- 标签页管理
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210916133726380.png" alt="image-20210916133726380" style="zoom:67%; " />
+
+- word-based shortcuts
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/v46dYETnTrY2Qzvl.png!thumbnail)
+
+- 补充
+
+| 作用            | 快捷键       |
+| --------------- | ------------ |
+| 查看历史记录    | ctrl+h       |
+| 添加收藏        | ctrl+d       |
+| 打开下载页      | ctrl+j       |
+| 显示/隐藏标签栏 | ctrl+shift+b |
+| 打开标签管理器  | ctrl+shift+o |
+
+### Extension
+
+- [添加稍后在看](https://www.jiangweishan.com/article/hulianwang23408230948098.html)`chrome://flags/#read-later`
+
+- 设置拓展插件的快捷键`chrome://extensions/shortcuts`
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eQYfh8NvsiaYjbWO.png!thumbnail)
+
+## KVM
+
+### [Barrier](https://github.com/debauchee/barrier)
+
+```bash
+$ apt install barrier
+```
+
+- 设置自启动
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/6aaAjfB1jTrpl329.png!thumbnail)
+
+---
+
+**解决方案**
+
+- [Logitech 滚轮没有生效的问题](https://bleepcoder.com/cn/barrier/566118227/issues-with-logitech-options-mouse-driver-under-windows-10)
+
+---
+
+## Notes
+
+可置顶的便签
+
+```bash
+$ sudo apt install knotes
+```
 
 ## Wine
 
@@ -330,7 +296,7 @@ $ sudo gdebi WineGUI-v1.8.2.deb
 
 ### Application
 
-#### 微信
+#### WeChat
 
 ```bash
 # 配置wine环境的路径

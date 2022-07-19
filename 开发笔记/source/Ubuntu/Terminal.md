@@ -10,7 +10,7 @@
 $ sudo apt install konsole
 ```
 
-### [Tmux](https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html)
+### [Tmux](https://manpages.ubuntu.com/manpages/bionic/en/man1/tmux.1.html)
 
 #### 安装
 

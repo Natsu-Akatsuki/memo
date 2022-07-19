@@ -63,6 +63,10 @@ Open in VSCode
 
 .. attention:: 有些主题或会出现icon异常的问题，则需补装相关的icon数据
 
+### ICON
+
+* Papirus
+
 ### Login Screen
 
 * Ant-Dark
@@ -178,6 +182,66 @@ X server启动时会自行检测系统的显卡，屏幕类型，然后 `自行�
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/IvdxWDjSRpRkJSE3.png!thumbnail)
 
+#### 配置文档
+
+* `BusID`需满足`"PCI:<BusID>:0:0"`的格式
+
+```
+Section "ServerLayout"
+    Identifier     "Layout0"
+    Screen      0  "Screen0"
+    InputDevice    "Keyboard0" "CoreKeyboard"
+    InputDevice    "Mouse0" "CorePointer"
+EndSection
+
+Section "Files"
+EndSection
+
+Section "InputDevice"
+    # generated from default
+    Identifier     "Mouse0"
+    Driver         "mouse"
+    Option         "Protocol" "auto"
+    Option         "Device" "/dev/psaux"
+    Option         "Emulate3Buttons" "no"
+    Option         "ZAxisMapping" "4 5"
+EndSection
+
+Section "InputDevice"
+    # generated from default
+    Identifier     "Keyboard0"
+    Driver         "kbd"
+EndSection
+
+# 显示器
+Section "Monitor"
+    Identifier     "Monitor0"
+    VendorName     "Unknown"
+    ModelName      "Unknown"
+    Option         "DPMS"
+EndSection
+
+# BusID可通过如下获取：lspci | grep -i vga（注意此处为16进制，写进去时需要十进制）
+# 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1)
+Section "Device"
+    Identifier     "Device0"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BusID          "PCI:1:0:0"
+EndSection
+
+# 显示屏
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "Device0"
+    Monitor        "Monitor0"
+    DefaultDepth    24
+    SubSection     "Display"
+        Depth       24
+    EndSubSection
+EndSection
+```
+
 ### Wayland
 
 #### 安装
@@ -195,7 +259,7 @@ Ubuntu下运行安卓
 
 ```bash
 # 导入ppa
-$ export DISTRO="focal" && sudo curl https://repo.waydro.id/waydroid.gpg --output /usr/share/keyrings/waydroid.gpg && echo "deb [signed-by=/usr/share/keyrings/waydroid.gpg] https://repo.waydro.id/ $DISTRO main" > ~/waydroid.list && sudo mv ~/waydroid.list /etc/apt/sources.list.d/waydroid.list && sudo apt update
+$ export DISTRO="bionic" && sudo curl https://repo.waydro.id/waydroid.gpg --output /usr/share/keyrings/waydroid.gpg && echo "deb [signed-by=/usr/share/keyrings/waydroid.gpg] https://repo.waydro.id/ $DISTRO main" > ~/waydroid.list && sudo mv ~/waydroid.list /etc/apt/sources.list.d/waydroid.list && sudo apt update
 
 # 安装
 $ sudo apt install waydroid
@@ -241,6 +305,25 @@ XFCE为轻量级的display manager
 ---
 
 ## Fonts
+
+### [Font Type](http://www.jinbuguo.com/gui/linux_fontconfig.html)
+
+* serif：衬线字体
+* san-serif：无衬线字体
+* monospace：等宽字体
+
+### Install
+
+```bash
+$ sudo apt install -y fonts-wqy-microhei
+$ sudo apt install -y tf-wqy-zenhei
+```
+
+* 显示已有的字库
+
+```bash
+$ fc-list
+```
 
 ### [解决jupyter乱码问题](https://blog.csdn.net/BigData_Mining/article/details/111656101)
 

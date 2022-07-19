@@ -9,7 +9,7 @@
 
 .. attention::  对 `ssh文件权限有严格的要求 <https://docs.digitalocean.com/products/droplets/resources/troubleshooting-ssh/authentication/>`_ bash
 
-### 安装
+### Install
 
 ```bash
 # 安装这个别人才能ssh到本机
@@ -51,7 +51,7 @@ $ curl 'https://dl.cloudsmith.io/public/asbru-cm/release/cfg/setup/bash.deb.sh' 
 $ sudo apt install asbru-cm
 ```
 
-### [ConnectBot](https://connectbot.org/)(安卓端ssh)
+### [ConnectBot](https://connectbot.org/)（Android）
 
 提供相关IP地址即可，最终效果如下：
 
@@ -78,7 +78,7 @@ $ vncserver -kill :1
 ```bash
 # 安装
 $ wget -c "https://downloads.sourceforge.net/project/turbovnc/3.0/turbovnc_3.0_amd64.deb?ts=gAAAAABikQPtLcfRHL3VSbB2izA4d1rmaDANhrm7xE00zhL8-q403sxZhfLgXYz13VHS8v0BHCeeEG49ObEjAfFv44hCZnH5hA%3D%3D&use_mirror=udomain&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fturbovnc%2Ffiles%2F3.0%2F" -O turbovnc_3.0_amd64.deb
-$ sdpkg -i turbovnc_3.0_amd64.deb
+$ sudodpkg -i turbovnc_3.0_amd64.deb
 # 设置服务
 $ sudo /lib/systemd/systemd-sysv-install enable tvncserver
 # vim ~/.bashrc，然后即可等价地使用vncserver和vncviewer...
@@ -159,16 +159,6 @@ $ vncserver -geometry 1920x1080
 $ vncpasswd
 ```
 
-### 配置文档
-
-* `~/.vnc/config`
-
-```bash
-geometry=1920x1080
-localhost # 仅localhost能访问
-alwaysshared # 其他用户可以同时访问
-```
-
 ### 启动vnc client
 
 客户端启动vnc client
@@ -178,6 +168,7 @@ alwaysshared # 其他用户可以同时访问
 $ sudo apt install tigervnc-viewer
 
 # 构建ssh隧道，连接服务端5901和客户端5901端口
+# ssh -L [bind_address:]port:host:hostport
 # ssh helios@192.168.1.112 -L 5901:127.0.0.1:5901
 $ ssh <server username>@<server ip> -L 5901:127.0.0.1:5901
 # 新开一个终端，账号为localhost:5901，密码为服务端的密码
@@ -186,18 +177,9 @@ $ vncviewer localhost:5901
 
 ---
 
-**NOTE**
-
-```bash
-# ssh -L [bind_address:]port:host:hostport
-端口绑定，将bind_address:port映射到host:hostport
-```
-
----
-
 ### VNC自启动
 
-* vncserver自1.11开始新增了system服务，binary([heres](https://github.com/TigerVNC/tigervnc/releases))，但实测效果不ok（黑屏）
+* vncserver自1.11开始新增了system服务，binary（[heres](https://github.com/TigerVNC/tigervnc/releases)），但实测效果不ok（黑屏）
 
 * TurboVNC/tigerVNC
 
@@ -249,4 +231,4 @@ $ ./utils/novnc_proxy --vnc localhost:5901
 
 * [TigerVNC（含常见的Q&A）](https://wiki.archlinux.org/title/TigerVNC_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%B2%A1%E6%9C%89%E7%AA%97%E5%8F%A3%E8%A3%85%E9%A5%B0/%E8%BE%B9%E6%A1%86/%E6%A0%87%E9%A2%98%E6%A0%8F/%E6%97%A0%E6%B3%95%E7%A7%BB%E5%8A%A8%E7%AA%97%E5%8F%A3)
 
-* [各种display manager的配置](https://bytexd.com/how-to-install-configure-vnc-server-on-ubuntu-20-04/)i
+* [各种display manager的配置](https://bytexd.com/how-to-install-configure-vnc-server-on-ubuntu-20-04/)

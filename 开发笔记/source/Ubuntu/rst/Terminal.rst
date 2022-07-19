@@ -17,8 +17,8 @@ Application
 
    $ sudo apt install konsole
 
-`Tmux <https://manpages.ubuntu.com/manpages/focal/en/man1/tmux.1.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Tmux <https://manpages.ubuntu.com/manpages/bionic/en/man1/tmux.1.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 安装
 ~~~~
@@ -256,10 +256,11 @@ Shell
 
 .. prompt:: bash $,# auto
 
-   $$：查看当前终端的pid 
-   $1：取命令行的第1个参数（序号从0开始） 
-   ${@:2} ：取所有的参数，取从第2个开始的所有参数 
-   $? ：获取上一个命令行返回的exit code
+   # $$：查看当前终端的pid 
+   # $1：取命令行的第1个参数（序号从0开始） 
+   # ${@}：取所有的参数
+   # ${@:2}：取所有的参数，取从第2个开始的所有参数 
+   # $?：获取上一个命令行返回的exit code
    `
 
 `配置特殊的终端效果 <https://www.cnblogs.com/robinunix/p/11635560.html>`_
