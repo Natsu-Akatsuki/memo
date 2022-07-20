@@ -70,6 +70,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Library
+
+   Library/rst/OpenCV.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Javascript
 
    Javascript/rst/JsPractice.rst
