@@ -102,11 +102,11 @@ find_program(CCACHE_FOUND ccache)
 endif(CCACHE_FOUND)
 ```
 
-## 实战
+## Q&A
 
 ### [c++中的翻译单元是什么？](https://stackoverflow.com/questions/1106149/what-is-a-translation-unit-in-c)
 
-According to [standard C++](http://www.efnetcpp.org/wiki/ISO/IEC_14882) ([wayback machine link](http://web.archive.org/web/20070403232333/http://www.efnetcpp.org/wiki/ISO/IEC_14882)) : A translation unit is the basic unit of compilation in C++. It consists of the contents of **a single source file**, plus the contents of any header files directly or indirectly included by it, minus those lines that were ignored using conditional preprocessing statements.
+According to [standard C++](http://www.efnetcpp.org/wiki/ISO/IEC_14882) （[wayback machine link](http://web.archive.org/web/20070403232333/http://www.efnetcpp.org/wiki/ISO/IEC_14882)）: A translation unit is the basic unit of compilation in C++. It consists of the contents of **a single source file**, plus the contents of any header files directly or indirectly included by it, minus those lines that were ignored using conditional preprocessing statements.
 
 ### [precompile source file的#号是什么？](https://stackoverflow.com/questions/25137743/where-do-we-use-i-files-and-how-do-we-generate-them)
 
@@ -181,23 +181,6 @@ target_link_libraries(A B)
 * 在add_executable的文件不是合在一起进行编译的，而是依然基于文件单元进行编译的
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220416163848215.png" alt="image-20220416163848215" style="zoom:50%;" />
-
-### CMake查看编译和链接时间
-
-```cmake
-# >>> evaluate compile and link time
-set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
-set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
-# <<< evaluate compile and link time
-```
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403134039873.png" alt="image-20220403134039873" style="zoom: 67%;" />
-
-### 保留中间产物
-
-```cmake
-target_compile_options(<target_name> PUBLIC "-save-temps")
-```
 
 ### 查看符号表
 

@@ -21,7 +21,8 @@ AmBook
    :hidden:
    :caption: C++
 
-   c++/rst/ProgrammingModel.rst
+   C++/rst/ProgrammingModel.rst
+   C++/rst/STL.rst
 
 .. toctree::
    :maxdepth: 1
@@ -136,7 +137,7 @@ AmBook
    Ubuntu/rst/Service.rst
    Ubuntu/rst/Terminal.rst
    Ubuntu/rst/User.rst
-   
+
 .. toctree::
    :maxdepth: 1
    :hidden:
