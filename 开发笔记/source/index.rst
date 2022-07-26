@@ -73,6 +73,7 @@ AmBook
    :hidden:
    :caption: Library
 
+   Library/rst/Eigen.rst
    Library/rst/OpenCV.rst
 
 .. toctree::
