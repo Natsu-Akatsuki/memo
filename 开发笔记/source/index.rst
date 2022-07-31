@@ -74,7 +74,12 @@ AmBook
    :caption: Library
 
    Library/rst/Eigen.rst
+   Library/rst/Numpy.rst
    Library/rst/OpenCV.rst
+   Library/rst/Other.rst
+   Library/rst/Packaging.rst
+   Library/rst/PCL.rst
+   Library/rst/Process.rst
 
 .. toctree::
    :maxdepth: 1
@@ -89,13 +94,6 @@ AmBook
    :caption: Perception
 
    Perception/rst/HDmap.rst
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: Pointcloud
-
-   Pointcloud/rst/PCLPractice.rst
 
 .. toctree::
    :maxdepth: 1
