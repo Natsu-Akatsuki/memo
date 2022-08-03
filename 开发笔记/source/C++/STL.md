@@ -136,11 +136,116 @@ vector.push_back(MyClass(1, 2));
 // sleep
 std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 
+// 计时，方法一：
+auto start = std::chrono::system_clock::now();
+// TODO
+auto end = std::chrono::system_clock::now();
+auto duration = std::chrono::duration_cast<std::chrono::milliseconds> (end - start);
+
+// 方法二：高精度
 auto startTime = std::chrono::high_resolution_clock::now();
 // TODO
 auto endTime = std::chrono::high_resolution_clock::now();
 float totalTime = std::chrono::duration<float, std::milli> (endTime - startTime).count();
+
+
+// 方法三：
+#include <chrono>
+#include <cstdio>
+
+const auto& start = std::chrono::steady_clock::now();
+const auto& end = std::chrono::steady_clock::now();
+double duration = (end - start).count() / 1000000.0;
+printf("  processing:  %9.3lf [msec]\n", duration);
 ```
+
+## IOstream
+
+- 需要创建一个流（stream）对象来管理文件的读写
+
+- 流即c++用于管理文件和内存的模板类；文件流对象有打开和关闭的状态，处于打开状态后无法再次打开，可以用`is_open`来判断该对象是否有绑定/关联一个文件
+
+* C++处理文件，有三个类模板，`basic_ifstream`，`basic_ofstream`，`basic_fstream`
+
+* 其析构函数会调用close来取消关联，所以不一定要显式close
+
+### Format
+
+- 全局格式化
+
+```c++
+// 显示"+"符号
+std::cout.setf(std::iso_base::showpos)
+// 输出长度（被触发后会重置）
+std::cout.width(10)
+// 占位所填充值
+std::cout.fill('.')
+```
+
+- 局部格式化（操纵符）
+
+manupilator ≠ operator
+
+```c++
+#include <iomanip>
+std::cout << std::setw(10) << x << std::endl;
+```
+
+### Stream Status
+
+```c++
+#include <fstream>
+#include <iostream>
+std::ifstream file(filename, std::ios::in | std::ios::binary);
+std::cout << std::cin.good() << std::cin.fail() << std::cout.bad() << file.eof();
+```
+
+### Write
+
+```c++
+#include <fstream>
+using namespace std;
+int main() {
+  // 覆写文件（以二进制形式）
+  // ofstream outFile("myfile.txt", std::ios::out | std::ios::ate |std::ios::binary);
+  // 追加数据
+  // ofstream outFile("myfile.txt", std::ios::out | std::ios::app);
+  ofstream outFile("myfile.txt");
+  outFile << "ABC";
+  return 0;
+}
+```
+
+### Q&A
+
+- 判断一个文件是否存在
+
+```c++
+#include <fstream>
+#include <iostream>
+using namespace std;
+
+void isFileExist() {
+  std::string engine_path = "绝对路径";
+  std::ifstream fs(engine_path);
+  if (fs.is_open()) {
+    cout << "file exists" << endl;
+  } else {
+    cout << "file doesn't exist" << endl;
+  }
+}
+```
+
+- [创建目录](https://en.cppreference.com/w/cpp/filesystem/create_directory)
+- 不调用`close()`有什么影响？
+
+使用close是为了释放/解绑其关联的文件，不调用的话就不能重新关联/绑定一个新的文件。另外，如果流对象销毁了，其析构函数是会自动地调用close方法
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/myl8KDpygMRlqx2X.png!thumbnail)
+
+- [多个斜杠影响文件的读取吗？](https://en.cppreference.com/w/cpp/filesystem/path)
+
+  <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220115110602802.png" alt="image-20220115110602802" style="zoom:67%;" />
 
 ## Mutex
 
@@ -161,8 +266,10 @@ void lock()
 }
 ```
 
-**NOTE**
+### Q&A
 
 - B线程没有获取到锁的时候，B线程会做什么操作？最简单的是在spin（wait）
+
+### Reference
 
 - [Mutex tutorial and example](https://nrecursions.blogspot.com/2014/08/mutex-tutorial-and-example.html)

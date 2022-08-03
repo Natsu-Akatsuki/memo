@@ -23,6 +23,7 @@ AmBook
 
    C++/rst/ProgrammingModel.rst
    C++/rst/STL.rst
+   C++/rst/Tools.rst
 
 .. toctree::
    :maxdepth: 1

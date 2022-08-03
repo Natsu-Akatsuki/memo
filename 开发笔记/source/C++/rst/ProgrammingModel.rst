@@ -5,8 +5,8 @@
 ProgrammingModel
 ================
 
-c++程序构建过程
----------------
+Programming Model
+-----------------
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/d152ab606e08516d8369211b19da87fc29998.png@912w_155h_80q
@@ -52,8 +52,27 @@ c++程序构建过程
    -fPIC: Position-Independent Code
    -rpath: 将动态库路径写到可执行文件中(hard code)，会hide LD_LIBRARY_PATH的效果
 
-动态库查询
-----------
+Compile Feature
+---------------
+
+c++的编译特点：不同于一些高级语言，它们的编译单元是整个模块，\ **c++的编译单元是以文件为单位**\ 。每个.c/.cc/.cxx/.cpp源文件是一个独立的编译单元，所以优化时只能基于当前文件进行优化，而不能从模块（多个文件）的角度进行优化。
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403135300524.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403135300524.png
+   :alt: image-20220403135300524
+
+
+
+* 在add_executable的文件不是合在一起进行编译的，而是依然基于文件单元进行编译的
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220416163848215.png" alt="image-20220416163848215" style="zoom:50%;" />`
+
+Dynamic Library
+---------------
+
+CLI
+^^^
 
 .. prompt:: bash $,# auto
 
@@ -68,8 +87,6 @@ c++程序构建过程
    :alt: image-20210916224735535
 
 
-`动态库实战 <http://cn.linux.vbird.org/linux_basic/0520source_code_and_tarball_5.php>`_
-
 
 * 动态库的配置文档为 ``etc/ld.so.conf`` ，具体又引用了\ ``/etc/ld.so.conf.d`` 下的文件
 
@@ -81,62 +98,107 @@ c++程序构建过程
    $ sudo ldconfig -v
 
 
-* `改错(1) <https://askubuntu.com/questions/272369/ldconfig-path-lib-x86-64-linux-gnu-given-more-than-once?rq=1>`_
+* `/sbin/ldconfig.real: Path /lib/x86_64-linux-gnu given more than once </sbin/ldconfig.real: Path /lib/x86_64-linux-gnu given more than once>`_
 
-..
-
-   /sbin/ldconfig.real: Path `/lib/x86_64-linux-gnu' given more than once
-
-
-
-* strings(\ `printable character <http://facweb.cs.depaul.edu/sjost/it212/documents/ascii-pr.htm>`_\ ：应该就是指ASCII码)：输出一个文件（可二进制）的printable characters
-
-ccache
-------
-
-常用命令行
-^^^^^^^^^^
-
-.. prompt:: bash $,# auto
-
-   # 安装(ubuntu 20.04 version 3.7.7)
-   $ sudo apt install ccache
-   # 指定最大缓存量
-   $ ccache -M 1G
-   # 清除缓存
-   $ ccache -C
-
-
-* `源码安装 <https://github.com/ccache/ccache/blob/master/doc/INSTALL.md>`_
-
-.. prompt:: bash $,# auto
-
-   $ sapt install libhiredis-dev asciidoctor
-
-   $ wget -c https://github.com/ccache/ccache/releases/download/v4.6/ccache-4.6.tar.gz 
-   # 解压缩和路径跳转
-   $ mkdir build
-   $ cd build
-   $ cmake -DCMAKE_BUILD_TYPE=Release ..
-
-
-* cmake
-
-.. code-block:: cmake
-
-   find_program(CCACHE_FOUND ccache)
-    if(CCACHE_FOUND)
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
-   endif(CCACHE_FOUND)
-
-实战
+File
 ----
 
-`c++中的翻译单元是什么？ <https://stackoverflow.com/questions/1106149/what-is-a-translation-unit-in-c>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File Type
+^^^^^^^^^
 
-According to `standard C++ <http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_ (\ `wayback machine link <http://web.archive.org/web/20070403232333/http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_\ ) : A translation unit is the basic unit of compilation in C++. It consists of the contents of **a single source file**\ , plus the contents of any header files directly or indirectly included by it, minus those lines that were ignored using conditional preprocessing statements.
+``stripped``\ ：说明该文件的符号表信息已被去除
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/9601UO7szhc9gPdn.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/9601UO7szhc9gPdn.png!thumbnail
+   :alt: img
+
+
+``not stripped``\ ：保留符号表信息和调试信息
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/mWrzleHIKytaPxz3.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/mWrzleHIKytaPxz3.png!thumbnail
+   :alt: img
+
+
+.. hint:: 要符号表和调试信息（可以知道某个函数在哪个源文件的第几行）可以加入编译选项  ``-g`` （左边为无g，右边加上g）
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/m8mg8wUb5JHbzDTO.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/m8mg8wUb5JHbzDTO.png!thumbnail
+   :alt: img
+
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/DYx5yZWGBCDjChLX.png!thumbnail
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/DYx5yZWGBCDjChLX.png!thumbnail
+   :alt: img
+
+
+Output `Printable Character <http://facweb.cs.depaul.edu/sjost/it212/documents/ascii-pr.htm>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 可打印的字符应该是ASCII码
+   $ strings <file_name>
+
+Symbol
+------
+
+
+* ELF文件有两种符号表：\ ``.symtab`` and ``.dynsym``\ ，动态链接库为ELF
+* ``.dynsym`` 保留了 ``.symtab`` 中的全局符号(global symbols)。命令strip可以去掉动态库文件中的 ``symtab`` ，但不会去掉 ``.dynsym`` 。
+* 使用nm时提示no symbol是因为默认找的 ``symtab`` 表被strip了，因此只能查看动态符号表 ``.dynsym``\ ，加上-D
+* ``.symtab`` 用于动态库自身链接过程，一旦链接完成了，就不再需要了； ``.dynsym``\ 表包含动态链接器(dynamic linker)运行期时寻找的symbol.
+* ``nm`` 默认\ ``.symtab`` section.
+
+CLI
+^^^
+
+.. prompt:: bash $,# auto
+
+   # 可查看object/target的
+   $ nm [option] <file>
+   # -A: 输出文件名
+   # -c: demangle
+   # -D：查看动态符号表
+   # -l：显示对应的行号
+   # -u: 显示未定义的符号
+
+   $ objdump [option] <file>
+
+   # 查看符号的可见性
+   $ readelf -s B
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220416175011251.png" alt="image-20220416175011251" style="zoom: 80%;" />`
+
+.. note:: 每个.o文件都有一个符号表，符号有两种分类，一个是全局符号，一个是本地符号，本模块的非静态函数和全局变量都是其他模块可见和可用的；静态函数和静态变量都是只有本模块可见的，其他模块不可使用
+
+
+Demangle
+^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   $ echo <...> | c++filt
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/9QW4LIXHJmMH6QW5.png!thumbnail" alt="img" style="zoom: 67%;" />`
+
+Q&A
+---
+
+`extern "C" <https://zhuanlan.zhihu.com/p/114669161>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+告知\ ``g++``\ 编译器这部分代码是c库的代码（不需对该部分内容进行symbol mangling），使得C库的符号能够被顺利找到而链接成功
+
+`Translation Unit <https://stackoverflow.com/questions/1106149/what-is-a-translation-unit-in-c>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+According to `standard C++ <http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_ （\ `wayback machine link <http://web.archive.org/web/20070403232333/http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_\ ）: A translation unit is the basic unit of compilation in C++. It consists of the contents of **a single source file**\ , plus the contents of any header files directly or indirectly included by it, minus those lines that were ignored using conditional preprocessing statements.
 
 `precompile source file的#号是什么？ <https://stackoverflow.com/questions/25137743/where-do-we-use-i-files-and-how-do-we-generate-them>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -145,28 +207,32 @@ According to `standard C++ <http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_ (\ `wa
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20211002140045353.png" alt="image-20211002140045353" style="zoom:67%; " />`
 
-`编译耗时优化原理和实践 <https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`C++ "multiple definition of .. first defined here" <https://programmerall.com/article/99071342705/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-为什么这样写不会发生符号重定义？
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..
 
-相关文件
-~~~~~~~~
+   Include guards only help against including the same header in one Translation unit (cpp file) multiple times, not against including and compiling the same function in multiple TUs.
 
 
-* A.cpp
+头文件宏能够保证一个翻译单元没有重复的符号（symbol）；而不能保证多个翻译单元合起来后（A+B）没有重复的符号
+
+Why not duplicate symbol？
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+File
+~~~~
+
+
+* c++
 
 .. code-block:: c++
 
+   // A.cpp
    int num_A1 = 0;
    int num_A2 = 2;
 
-
-* B.cpp
-
-.. code-block:: c++
-
+   // B.cpp
    int num_A1 = 5;
    extern int num_A2;
    int main() {
@@ -187,8 +253,8 @@ According to `standard C++ <http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_ (\ `wa
    add_executable(A A.cpp)
    target_link_libraries(A B)
 
-实验
-~~~~
+Experiment
+~~~~~~~~~~
 
 
 * 通过实验证明，最终生成的可执行文件并不包含\ ``A.cpp/num_A1``\ 这个变量。即通过对比使用和不使用 target_link_libraries(A B) 的可执行文件A的符号信息（nm命令行）来判别是否一致。
@@ -200,7 +266,7 @@ According to `standard C++ <http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_ (\ `wa
 
 
 
-* 另外：\ **A.cpp**\ 一旦显式触发用上 ``B.cpp`` 那边的符号之后就会成功触发报错
+* 另外：\ ``A.cpp``\ 一旦显式触发用上 ``B.cpp`` 那边的符号之后就会成功触发报错
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/cdvZSiNGWfQYhUWl.png!thumbnail
@@ -214,71 +280,19 @@ According to `standard C++ <http://www.efnetcpp.org/wiki/ISO/IEC_14882>`_ (\ `wa
 .. note:: 测试平台windows/ubuntu20.04 g++9.4.0
 
 
-结论
-~~~~
+Conclusion
+~~~~~~~~~~
 
 暂无权威信息佐证，以下均为基于实验的猜测：
 
-（1）静态库把所有symbol都加到target
-（2）动态库是把只需要的symbol加到target
-（3）对静态库链接时，如果target不需要静态库的任何symbol那\ ``链接器ld``\ 就干脆不导入静态库的任何symbol；但凡有参考的话，就会触发添加所有的symbol
+（1）静态库把所有\ ``symbol``\ 都加到\ ``target``
 
-c++的编译特点
-^^^^^^^^^^^^^
+（2）动态库是把只需要的\ ``symbol``\ 加到\ ``target``
 
-不同于一些高级语言，它们的编译单元是整个模块，\ **c++的编译单元是以文件为单位**\ 。每个.c/.cc/.cxx/.cpp源文件是一个独立的编译单元，所以优化时只能基于当前文件进行优化，而不能从模块（多个文件）的角度进行优化。
+（3）对静态库链接时，如果\ ``target``\ 不需要静态库的任何\ ``symbol``\ 那\ ``链接器ld``\ 就干脆不导入静态库的任何\ ``symbol``\ ；但凡有参考的话，就会触发添加所有的\ ``symbol``
 
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403135300524.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403135300524.png
-   :alt: image-20220403135300524
+Reference
+---------
 
 
-
-* 在add_executable的文件不是合在一起进行编译的，而是依然基于文件单元进行编译的
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220416163848215.png" alt="image-20220416163848215" style="zoom:50%;" />`
-
-CMake查看编译和链接时间
-^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: cmake
-
-   # >>> evaluate compile and link time
-   set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
-   set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
-   # <<< evaluate compile and link time
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403134039873.png" alt="image-20220403134039873" style="zoom: 67%;" />`
-
-保留中间产物
-^^^^^^^^^^^^
-
-.. code-block:: cmake
-
-   target_compile_options(<target_name> PUBLIC "-save-temps")
-
-查看符号表
-^^^^^^^^^^
-
-
-* nm
-
-.. prompt:: bash $,# auto
-
-   # 可查看object/target的
-   $ nm
-   # -c: demangle
-   # -l：显示对应的行号
-
-
-* readelf
-
-.. prompt:: bash $,# auto
-
-   # 查看符号的可见性
-   $ readelf -s B
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220416175011251.png" alt="image-20220416175011251" style="zoom: 80%;" />`
-
-.. note:: 每个.o文件都有一个符号表，符号有两种分类，一个是全局符号，一个是本地符号，本模块的非静态函数和全局变量都是其他模块可见和可用的；静态函数和静态变量都是只有本模块可见的，其他模块不可使用
+* `美团：编译耗时优化原理和实践 <https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html>`_
