@@ -142,6 +142,34 @@ CLI
    $ wget -c https://github.com/extrawurst/gitui/releases/download/v0.20.1/gitui-linux-musl.tar.gz
    $ gitui
 
+Gist
+----
+
+以下两种Gist客户端的核心功能差不多，后者的登录时间较长，然后感觉后者的UI比前者更好看。\ **都不支持离线管理**\ 。（暂无找到支持离线管理的）
+
+Install
+^^^^^^^
+
+`Gisto <https://github.com/Gisto/Gisto>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ sudo snap install gisto
+
+`Lepton <https://github.com/hackjutsu/Lepton>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ sudo snap install lepton
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220806090749473.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220806090749473.png
+   :alt: image-20220806090749473
+
+
 Gh
 --
 
