@@ -211,6 +211,20 @@ tar
 .. attention:: 注意命令行中有一个 ``>``
 
 
+zip
+^^^
+
+.. prompt:: bash $,# auto
+
+   Split  archives cannot be updated, but see the -O (--out) option for how a split archive can be updated as
+                 it is copied to a new archive.  A split archive can also be converted into a single-file archive  using  a
+                 split size of 0 or negating the -s option:
+   # 将split archive合成为一个压缩包
+   # e.g
+   # data_object_image_2.zip data_object_image_2.z01 data_object_image_2.z02 -> single.zip
+   $ zip -s 0 data_object_image_2.zip --out single.zip
+   $ unzip single.zip
+
 pv
 ^^
 
@@ -326,11 +340,23 @@ vim
      - :n,ms/待替换的词/被替换的内容/gc
 
 
+
+* 常用命令行
+
+.. list-table::
+   :header-rows: 1
+
+   * - 作用
+     - 命令行
+   * - 删除全文
+     - gg 然后再 dG（删除光标行及其以下行的全部内容）
+
+
 `配置文档 <https://blog.csdn.net/silence1772/article/details/81057702>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-* `共享剪切板 <https://www.zhihu.com/question/19863631>`_
+* `共享剪切板 <https://www.zhihu.com/question/19863631/answer/442180294>`_
 
 共享系统的剪切板与vim的剪切板（鼠标中键、p、 ``c+s+v`` ）
 
@@ -341,6 +367,22 @@ vim
 
 
 * vim的全局参数配置文件放在 ``/etc/vim/vimrc`` 但不建议修改，而是建议修改 ``~/.vimrc``
+
+.. list-table::
+   :header-rows: 1
+
+   * - 
+     - 
+     - 
+   * - `vim_plug <https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation>`_
+     - 
+     - 
+   * - 
+     - 
+     - 
+   * - 
+     - 
+
 
 高级封装
 ~~~~~~~~

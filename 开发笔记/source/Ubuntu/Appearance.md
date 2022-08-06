@@ -31,6 +31,17 @@ $ sudo apt purge unity-session unity
 $ sudo apt autoremove
 ```
 
+### Other
+
+```bash
+# lxqt
+$ sudo apt install lxqt
+# lxd
+$ sudo apt install startlxde
+```
+
+
+
 ## KDE Apperance
 
 ### Cursor
@@ -339,9 +350,19 @@ $ sudo cp SimHei.ttf /usr/share/fonts/
 
 #### [Metacity](https://en.wikipedia.org/wiki/Metacity)
 
-### Tilting Window Managers
+```bash
+$ sudo apt install metacity
+```
 
 #### Kwin
+
+```bash
+$ sudo apt install kwin-x11
+```
+
+### Tilting Window Managers
+
+#### Kwin Plugin
 
 * K系统自带
 

@@ -64,14 +64,27 @@ Energy Saving
 ~~~~~~~~~~~~~~
 
 
-* 休眠、睡眠的状态的区别：\ `askubuntu <https://askubuntu.com/questions/3369/what-is-the-difference-between-hibernate-and-suspend>`_\ , `blog <https://simpleit.rocks/linux/ubuntu/difference-suspend-hibernate-call-command/>`_
+* 
+  休眠、睡眠的状态的区别：\ `askubuntu <https://askubuntu.com/questions/3369/what-is-the-difference-between-hibernate-and-suspend>`_\ , `blog <https://simpleit.rocks/linux/ubuntu/difference-suspend-hibernate-call-command/>`_
+
+* 
+  CLI
 
 .. prompt:: bash $,# auto
 
+   # pm-utils console tool
    # 睡眠 suspend to ram / sleep
    $ pm-suspend
    # 休眠 suspend to disk
    $ pm-hibernate
+
+   # systemd console tool
+   # sleep
+   $ systemctl suspend
+
+   # kernel parameter
+   # sleep
+   $ sudo bash -c "echo "mem" > /sys/power/state"
 
 `定义唤醒方式 <https://wiki.archlinux.org/title/Wakeup_triggers>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -42,6 +42,16 @@ Unity
    $ sudo apt purge unity-session unity
    $ sudo apt autoremove
 
+Other
+^^^^^
+
+.. prompt:: bash $,# auto
+
+   # lxqt
+   $ sudo apt install lxqt
+   # lxd
+   $ sudo apt install startlxde
+
 KDE Apperance
 -------------
 
@@ -453,11 +463,22 @@ Stacking Window Managers
 `Metacity <https://en.wikipedia.org/wiki/Metacity>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tilting Window Managers
-^^^^^^^^^^^^^^^^^^^^^^^
+.. prompt:: bash $,# auto
+
+   $ sudo apt install metacity
 
 Kwin
 ~~~~
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install kwin-x11
+
+Tilting Window Managers
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Kwin Plugin
+~~~~~~~~~~~
 
 
 * 

@@ -181,14 +181,16 @@ $ echo -e "\033[32mComplete \033[0m"
 
 ## Shell
 
-### 首行配置
+### Bash
+
+#### 首行配置
 
 ```bash
 # e.g. 用于指明执行当前脚本的执行器
 #!/bin/bash
 ```
 
-### 特殊参数
+#### 特殊参数
 
 ```bash
 # $$：查看当前终端的pid 
@@ -198,7 +200,7 @@ $ echo -e "\033[32mComplete \033[0m"
 # $?：获取上一个命令行返回的exit code
 ````
 
-### [配置特殊的终端效果](https://www.cnblogs.com/robinunix/p/11635560.html)
+#### [配置特殊的终端效果](https://www.cnblogs.com/robinunix/p/11635560.html)
 
 一般用在bash脚本中，该选项对应于 `bash [option]`
 
@@ -209,7 +211,7 @@ $ set -x
 $ set -e
 ```
 
-### 输入输出流重定向
+#### 输入输出流重定向
 
 ```bash
 # 1>     标准输出重定向 (dafault)
@@ -220,7 +222,7 @@ $ set -e
 $ echo "hello" 2> /dev/null
 ```
 
-### [read函数](https://linuxcommand.org/lc3_man_pages/readh.html)
+#### [read函数](https://linuxcommand.org/lc3_man_pages/readh.html)
 
 ```bash
 $ read -r -p "Are You Sure? [Y/n] " input 
@@ -229,9 +231,9 @@ $ read -p "Remove all RealSense cameras attached. Hit any key when ready"
 # -r: 不支持字符串转义 do not allow backslashes to escape any characters（支持直接接收回车键）
 ````
 
-### [自定义函数](https://blog.csdn.net/bornfree5511/article/details/109091233)
+#### [自定义函数](https://blog.csdn.net/bornfree5511/article/details/109091233)
 
-### bash option
+- bash option
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/O3qeGIlZbro6Cifs.png!thumbnail)
 
@@ -244,7 +246,7 @@ $ read -p "Remove all RealSense cameras attached. Hit any key when ready"
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vc2ZAhmLzlmLH17y.png!thumbnail" alt="img" style="zoom:67%; " />
 
-### [判断语法](https://www.cnblogs.com/mlfz/p/11427760.html)
+#### [判断语法](https://www.cnblogs.com/mlfz/p/11427760.html)
 
 * 使用方括号作为shell的判断式
 
@@ -280,7 +282,7 @@ fi
 
 2. [test command](https://linuxhint.com/bash-test-command/) (or man test)
 
-### [for语法](https://blog.csdn.net/guodongxiaren/article/details/41911437)
+#### [for语法](https://blog.csdn.net/guodongxiaren/article/details/41911437)
 
 ```bash
 #!/bin/bash
@@ -289,6 +291,32 @@ for i in {1..100}; do
     let ans+=$i
 done
 echo $ans
+```
+
+### Zsh
+
+```bash
+# install zsh
+$ sudo apt install zsh
+# install onmyzsh
+$ bash -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" 
+```
+
+#### [Theme](https://github.com/ohmyzsh/ohmyzsh#themes)
+
+```bash
+$ vim ~/.zshrc
+# 修改主题：ZSH_THEME="bira"
+```
+
+#### Plugin
+
+```bash
+# 需在zsh中运行
+# 添加zsh
+$ hstr --show-configuration >> ~/.zshrc
+
+$ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 ```
 
 ## Shortcut

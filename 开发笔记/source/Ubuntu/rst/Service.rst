@@ -9,11 +9,8 @@ Service
 * 
   system service启动的服务（进程）都是systemd的子进程
 
-服务相关常用指令
-----------------
-
-利用sysemctl管理服务
-^^^^^^^^^^^^^^^^^^^^
+CLI
+^^^
 
 .. prompt:: bash $,# auto
 
@@ -35,6 +32,9 @@ Service
 
    # mask：屏蔽某个unit
    # unmask：取消屏蔽某个unit
+
+   # 查看系统已启动/关闭的服务
+   $ service --status-all
 
 查看服务信息
 ------------

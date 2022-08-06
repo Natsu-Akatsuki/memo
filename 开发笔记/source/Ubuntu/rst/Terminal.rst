@@ -243,8 +243,11 @@ figlet
 Shell
 -----
 
+Bash
+^^^^
+
 首行配置
-^^^^^^^^
+~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -252,7 +255,7 @@ Shell
    #!/bin/bash
 
 特殊参数
-^^^^^^^^
+~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -264,7 +267,7 @@ Shell
    `
 
 `配置特殊的终端效果 <https://www.cnblogs.com/robinunix/p/11635560.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 一般用在bash脚本中，该选项对应于 ``bash [option]``
 
@@ -276,7 +279,7 @@ Shell
    $ set -e
 
 输入输出流重定向
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -288,7 +291,7 @@ Shell
    $ echo "hello" 2> /dev/null
 
 `read函数 <https://linuxcommand.org/lc3_man_pages/readh.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -299,10 +302,10 @@ Shell
    `
 
 `自定义函数 <https://blog.csdn.net/bornfree5511/article/details/109091233>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-bash option
-^^^^^^^^^^^
+
+* bash option
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/O3qeGIlZbro6Cifs.png!thumbnail
@@ -320,7 +323,7 @@ bash option
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/vc2ZAhmLzlmLH17y.png!thumbnail" alt="img" style="zoom:67%; " />`
 
 `判断语法 <https://www.cnblogs.com/mlfz/p/11427760.html>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 * 使用方括号作为shell的判断式
@@ -363,7 +366,7 @@ bash option
    `test command <https://linuxhint.com/bash-test-command/>`_ (or man test)
 
 `for语法 <https://blog.csdn.net/guodongxiaren/article/details/41911437>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. prompt:: bash $,# auto
 
@@ -373,6 +376,35 @@ bash option
        let ans+=$i
    done
    echo $ans
+
+Zsh
+^^^
+
+.. prompt:: bash $,# auto
+
+   # install zsh
+   $ sudo apt install zsh
+   # install onmyzsh
+   $ bash -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+`Theme <https://github.com/ohmyzsh/ohmyzsh#themes>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   $ vim ~/.zshrc
+   # 修改主题：ZSH_THEME="bira"
+
+Plugin
+~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 需在zsh中运行
+   # 添加zsh
+   $ hstr --show-configuration >> ~/.zshrc
+
+   $ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 Shortcut
 --------
