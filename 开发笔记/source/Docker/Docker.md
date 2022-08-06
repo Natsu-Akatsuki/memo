@@ -485,3 +485,8 @@ $ sudo apt purge docker-ce docker-ce-cli containerd.io
 ## Reference
 
 - [docker practice for Chinese](https://github.com/yeasy/docker_practice)
+
+## TODO
+
+- 添加一个DockerFile构建的脚本，避免同时修改Melodic和Noetic版本的文件
+- 添加安装window manager（medacity），并进行相关的[配置](https://wiki.archlinux.org/title/LXDE)
