@@ -125,8 +125,7 @@ cuda
    set(CMAKE_CXX_FLAGS "-Wno-error=deprecated-declarations -Wno-deprecated-declarations")
    add_compile_options("")
 
-   # -Wno-deprecated 
-   # -O3：优化等级为3
+   # -Wno-deprecated
    # -march=native：使用本机的编译指令（代码运行速度或会提高）
 
 .. note:: 该选项会覆盖CMAKE_BUILD_TYPE
@@ -141,6 +140,35 @@ cuda
 .. code-block:: cmake
 
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+
+`optimization <https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # -O0：(default) 不进行任何优化
+   # -O3：优化等级为3
+
+   # CMAKE_BUILD_TYPE:
+   # -O3：Release
+   # -O0：for Debug
+   # -Os：for MinRelSize
+
+configure_file
+^^^^^^^^^^^^^^
+
+
+* 拷贝一个文件，并用cmake文件的变量替换输入文件中形如\ ``@VAR@``\ 或\ ``${VAR}``\ 的变量
+* 让普通文件使用CMake的变量
+
+.. code-block:: cmake
+
+   configure_file(
+     ${PROJECT_SOURCE_DIR}/header.hpp.in
+     ${PROJECT_SOURCE_DIR}/include/global_definition/header.hpp)
+
+
+* 用例可参考任老的仓库（\ `detail <https://github.com/Little-Potato-1990/localization_in_auto_driving/blob/master/lidar_localization/cmake/global_defination.cmake>`_\ ）
 
 `execute_process <https://blog.csdn.net/qq_28584889/article/details/97758450>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -191,7 +219,7 @@ file
    find_package(<PackageName> [version] [EXACT] [QUIET] [MODULE]
                 [REQUIRED] [[COMPONENTS] [components...]]
                 [OPTIONAL_COMPONENTS components...]
-                [NAMES name1 [name2 ...]]  
+                [NAMES name1 [name2 ...]]
                 # If the NAMES option is given the names following it are used instead of <PackageName>
                 [NO_POLICY_SCOPE])
 
@@ -200,7 +228,7 @@ file
 
 .. code-block:: cmake
 
-   find_package(PCL REQUIRED 
+   find_package(PCL REQUIRED
    PATHS  库路径
    NO_DEFAULT_PATH)  # 只在PATHS路径下寻找，不使用默认的搜索路径
 
@@ -311,6 +339,21 @@ include_directories
 
    link_directories(dir_path)
 
+list
+^^^^
+
+
+* 正则移除\ ``catkin_LIBRARIES``\ 中的系统pcl库
+
+.. code-block:: cmake
+
+   # remove pcl installed from apt
+   list(FILTER catkin_LIBRARIES EXCLUDE REGEX /usr/lib/x86_64-linux-gnu/libpcl*)
+   list(FILTER catkin_LIBRARIES EXCLUDE REGEX optimized)
+   list(FILTER catkin_LIBRARIES EXCLUDE REGEX debug)
+
+   list(FILTER catkin_INCLUDE_DIRS EXCLUDE hREGEX /usr/include/pcl-1.8)
+
 `message <https://cmake.org/cmake/help/latest/command/message.html>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -318,6 +361,11 @@ include_directories
 
    message(STATUS|WARNING|FATAL|SEND_ERROR ${})# 这种形式一定要加STATUS这些option
    message("...")
+
+   # 显示列表数据时带分隔符;
+   message("${...}")
+   # 替换分隔符
+   string(REPLACE ";"  ", " new_str "${old_str}")
 
 
 * `彩色输出 <https://stackoverflow.com/questions/18968979/how-to-get-colorized-output-with-cmake>`_
@@ -554,7 +602,7 @@ ament的高级封装
    ament_auto_find_build_dependencies()
 
    # 生成目标文件
-   ament_auto_add_library(listener_node SHARED src/listener_node.cpp) 
+   ament_auto_add_library(listener_node SHARED src/listener_node.cpp)
    ament_auto_add_executable(listener_node_exe src/listener_main.cpp)
 
    # replace the export, install and ament_package command
@@ -649,14 +697,14 @@ path
    * - CMAKE_CURRENT_SOURCE_DIR
      - The current source directory **if using sub-projects and directories**.
    * - PROJECT_SOURCE_DIR
-     - The source directory of the current cmake project.
+     - 当前CMake工程的源文件路径（.cmake文件所在路径）
+   * - PROJECT_BINARY_DIR
+     - 当前工程的build目录
    * - CMAKE_BINARY_DIR
-     - The root binary / build directory. This is the directory where you ran the cmake command.
+     - 执行cmake命令的所在目录
    * - CMAKE_CURRENT_BINARY_DIR
      - The build directory you are currently in.
-   * - PROJECT_BINARY_DIR
-     - The build directory for the current project.
-   * - `LIBRARY_OUTPUT_PATH <https://cmake.org/cmake/help/v3.18/variable/LIBRARY_OUTPUT_PATH.html?highlight=library_output_path>`_ (deprecated)LIBRARY_OUTPUT_DIRECTORY
+   * - `LIBRARY_OUTPUT_PATH <https://cmake.org/cmake/help/v3.18/variable/LIBRARY_OUTPUT_PATH.html?highlight=library_output_path>`_ （deprecated）LIBRARY_OUTPUT_DIRECTORY
      - 库的输出路径（要设置在add_library之前）
    * - CMAKE_PREFIX_PATH
      - find_packaeg 搜索.cmake .config的搜索路径（初始为空）

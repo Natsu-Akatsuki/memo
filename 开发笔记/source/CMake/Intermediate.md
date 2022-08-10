@@ -109,6 +109,25 @@ get_filename_component(PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
 .. note:: 在include_directory填路径时使用".."也能生效
 
+#### 查看编译和链接时间
+
+```cmake
+# >>> evaluate compile and link time
+set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
+set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
+# <<< evaluate compile and link time
+```
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403134039873.png" alt="image-20220403134039873" style="zoom: 67%;" />
+
+.. note:: catkin build的可查看日志build.make.log
+
+#### 保留中间产物
+
+```cmake
+target_compile_options(<target_name> PUBLIC "-save-temps")
+```
+
 ## ROS Build Tool
 
 ROS编译工具根据迭代顺序依次有： `catkin_make`，`catkin_make_isolated`， `catkin_tools` ， `ament_tools`，`colon`
@@ -195,7 +214,19 @@ $ catkin clean --orphans
 
 .. note:: catkin clean 默认删除 ``devel`` , ``log`` 等目录，但隐藏目录 ``.catkin_tools`` , ``.catkin_workspace`` 不会清除
 
-- [profile](https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_profile.html)：尚未明晰可用的场景
+- [profile](https://catkin-tools.readthedocs.io/en/latest/cheat_sheet.html#profile-cookbook)
+
+```bash
+$ catkin config --profile debug -x _debug --cmake-args -DCMAKE_BUILD_TYPE=Debug
+$ catkin config --profile release -x _release --cmake-args -DCMAKE_BUILD_TYPE=Release
+$ catkin build --profile debug
+$ catkin build --profile release
+
+$ alias catkin_debug="catkin build --profile debug"
+$ alias catkin_release="catkin build --profile release"
+
+# -x: 文件夹后缀
+```
 
 #### [Deploy a catkin package](https://answers.ros.org/question/226581/deploying-a-catkin-package/)
 
@@ -426,6 +457,14 @@ $ catkin_lint -W0 .
 cmake TUI程序，在**终端**交互式地配置选项
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210925215521631.png" alt="image-20210925215521631" style="zoom:67%; " />
+
+#### CLI
+
+```bash
+# install
+$ sudo apt install cmake-curses-gui
+$ ccmake ..
+```
 
 ### cmake-gui
 
