@@ -97,7 +97,10 @@ add_library
 
    add_library(target_name STATIC 文件名)     # 静态库
    add_library(target_name SHARED 文件名)     # 动态库
-   add_library(target_name OBJECT 文件名)     # object file
+   add_library(target_name OBJECT 文件名)     # 生成目标文件但是不进行链接
+
+
+* `复用目标文件，防止多次编译 <https://www.anycodings.com/1questions/1992095/cmake-reuse-object-files-built-for-a-lib-into-another-lib-target>`_\ ：\ `官方资料 <https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/Object-Library>`_
 
 cuda
 ^^^^
@@ -146,13 +149,21 @@ cuda
 
 .. prompt:: bash $,# auto
 
-   # -O0：(default) 不进行任何优化
+   # -O0：(default) 屏蔽所有的优化
+   # -0g：suppresses many optimization passes
    # -O3：优化等级为3
 
    # CMAKE_BUILD_TYPE:
    # -O3：Release
    # -O0：for Debug
    # -Os：for MinRelSize
+
+`warning <https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: cmake
+
+   # -Wconversion: e.g double -> float (narrowing conversion)
 
 configure_file
 ^^^^^^^^^^^^^^

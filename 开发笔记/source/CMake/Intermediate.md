@@ -9,13 +9,27 @@
 
 ### Make
 
-#### [make uninstall](https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#can-i-do-make-uninstall-with-cmake)
+#### [Uninstall](https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#can-i-do-make-uninstall-with-cmake)
 
 默认不提供make uninstall，需要自己定义。相关内容等价于：
 
 ```bash
 # 但并不能删除相关的文件夹
 $ xargs rm < install_manifest.txt
+```
+
+### Ninja
+
+#### Install
+
+```bash
+$ sudo apt install ninja-build
+```
+
+#### Build
+
+```bash
+$ cmake -GNinja ..
 ```
 
 ### CMake
@@ -38,11 +52,14 @@ $ wget https://github.com/Kitware/CMake/releases/download/v3.18.3/cmake-3.18.3.t
 $ ./bootstrap --qt-gui
 ```
 
-#### CMake参数
+#### CLI
 
 ```bash
 # Wno-dev非gcc的编译参数，常应用于屏蔽PCL的警告
 $ cmake -Wno-dev
+
+# 显示生成Makefile的时间
+$ cmake -E time cmake ..
 ```
 
 #### 使用conda下的cmake文件
@@ -117,8 +134,6 @@ set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
 # <<< evaluate compile and link time
 ```
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220403134039873.png" alt="image-20220403134039873" style="zoom: 67%;" />
 
 .. note:: catkin build的可查看日志build.make.log
 
@@ -248,9 +263,13 @@ $ echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/
 # 配置clean拓展插件
 $ git clone https://github.com/ruffsl/colcon-clean
 $ python3 setup.py install --user
+# colcon clean
+$ colcon clean packages --base-select build install
 ```
 
 #### CLI
+
+暂未发现其支持像 ``catkin build`` 中的 ``context-aware`` 功能
 
 - [build](https://colcon.readthedocs.io/en/released/user/how-to.html)
 
@@ -271,10 +290,17 @@ $ colon build --symlink-install
 # --packages-above <name-of-pkg>  重新编译某个包（和依赖这个包的相关包）
 
 # source devel/setup.bash的等价命令
-$ source install/local_setup  
-```
+$ source install/local_setup
 
-.. note:: 暂未发现其支持像 ``catkin build`` 中的 ``context-aware`` 功能
+# 使用软链接进行安装
+# 使用Ninja；
+# 设置并行个数
+# 日志及时输出到终端
+$ colcon build --symlink-install \
+--cmake-args -G Ninja \
+--parallel-workers 8 \
+--event-handlers console_direct+
+```
 
 - list
 
@@ -285,7 +311,7 @@ $ colcon list
 $ colcon graph           
 ```
 
-## Debug
+## Q&A
 
 ### could not find a package configuration file（catkin build）
 
@@ -375,6 +401,10 @@ link_directories($ENV{HOME}/application/TensorRT-7.2.3.4/lib)
 ### [Failed to compute shorthash for libnvrtc.so](https://blog.csdn.net/xzq1207105685/article/details/117400187)
 
 在CMakeList.txt开头添加`find_package(PythonInterp REQUIRED)`
+
+### Catkin build 使用Ninja
+
+参考该[issue](https://github.com/catkin/catkin_tools/issues/215)，尝试使用ninja进行编译，但实测编译时间跟make差不多
 
 ### [ROS中编译通过但是遇到可执行文件找不到的问题](https://blog.csdn.net/u014157968/article/details/86516797)：指令顺序的重要性
 
