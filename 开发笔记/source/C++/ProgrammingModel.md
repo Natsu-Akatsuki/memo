@@ -213,6 +213,23 @@ target_link_libraries(A B)
 
 （3）对静态库链接时，如果`target`不需要静态库的任何`symbol`那`链接器ld`就干脆不导入静态库的任何`symbol`；但凡有参考的话，就会触发添加所有的`symbol`
 
+## 查看当前翻译单元所使用的标准
+
+- 运行期查看
+
+```bash
+#include <iostream>
+int main() {
+  std::cout << __cplusplus << std::endl; // 201703
+}
+```
+
+- 编译期查看
+
+```cmake
+set(CMAKE_VERBOSE_MAKEFILE ON) # 查看具体的编译项
+```
+
 ## Reference
 
 * [美团：编译耗时优化原理和实践](https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html)

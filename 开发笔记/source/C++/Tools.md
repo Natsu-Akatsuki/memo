@@ -48,20 +48,49 @@ LLDB的文档不太全，通用性较低，暂时还是倾向于使用GDB
 $ echo "set history save on" >> ~/.gdbinit
 ```
 
+- [不显示线程启/闭信息](https://stackoverflow.com/questions/10937289/how-can-i-disable-new-thread-thread-exited-messages-in-gdb)
+
+```bash
+$ echo "set print thread-events off" >> ~/.gdbinit
+```
+
+- [修改prompt](https://sourceware.org/gdb/onlinedocs/gdb/Prompt.html)
+
+```bash
+$ echo "set extended-prompt \w (gdb) " >> ~/.gdbinit
+```
+
+- 隐藏启动时的提示信息和版权信息，[details](https://stackoverflow.com/questions/63918429/permanently-disable-gdb-startup-text)
+
+```bash
+# 方案一（CLI）：设置别名
+$ alias gdb="gdb -q"
+
+# 方案二（配置文档）：注意不是gdbinit (from gdb 11)
+$ echo "set startup-quietly on" >> ~/.gdbearlyinit
+```
+
 ### CLI
 
 - [GDB reference card](https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf)；[GDB cheatsheet](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf)
 
-| 命令行                       | abbreviation / example | 作用               |
-| ---------------------------- | ---------------------- | ------------------ |
-| python-interactive [command] | pi                     | 进入Python交互模式 |
-| python [command]             | py [command]           | 执行Python命令行   |
-| break [line]                 | break 23               | 打断点             |
-| info vtlb                    | —                      | 查看虚函数表       |
-| print <variable_name>        | —                      | 查看变量           |
-| info threads                 | —                      | 查看线程信息       |
+| 命令行                       | abbreviation / example | 作用                 |
+| ---------------------------- | ---------------------- | -------------------- |
+| python-interactive [command] | pi                     | 进入Python交互模式   |
+| python [command]             | py [command]           | 执行Python命令行     |
+| break [line]                 | break 23               | 打断点               |
+| info vtlb                    | —                      | 查看虚函数表         |
+| print <variable_name>        | —                      | 查看变量             |
+| info threads                 | —                      | 查看线程信息         |
+| info locals [variable_name]  | —                      | 查看函数栈的局部变量 |
 
-### [Custom GDB Command](https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html)
+### [Altering](https://sourceware.org/gdb/onlinedocs/gdb/Altering.html#Altering)
+
+修改一个变量的值（`CLion`中对应的快捷键为`F2`）
+
+```cpp
+(gdb) set var width=47
+```
 
 ### Disassemble
 
@@ -69,22 +98,38 @@ $ echo "set history save on" >> ~/.gdbinit
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/JQptKjWwdwGZWkXZ.png!thumbnail" alt="img" style="zoom:67%; " />
 
-### Hide Copyright
+### Frame
 
-隐藏启动时的提示信息
-
-- CLI：设置别名
+#### Backtrace
 
 ```bash
-$ alias gdb="gdb -q"
+# 查看调用栈
+(gdb) backtrace
+(gdb) where
+(gdb) info stack
 ```
 
-- [配置文档](https://stackoverflow.com/questions/63918429/permanently-disable-gdb-startup-text)
+#### Frame
 
 ```bash
-# 注意不是gdbinit
-$ echo "set startup-quietly on" >> ~/.gdbearlyinit
+# 切换到某一帧
+(gdb) f <num>
+
+# 查看该帧的局部变量
+(gdb) info locals
+
+# 查看形参
+(gdb) info args
 ```
+
+### Library
+
+```bash
+# 查看链接的动态库
+$ info share
+```
+
+![image-20220810232749699](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220810232749699.png)
 
 ### [Pretty Printer](https://sourceware.org/gdb/onlinedocs/gdb/Pretty-Printing.html#Pretty-Printing)
 
@@ -112,7 +157,46 @@ $ gdb python
 (gdb) run (gdb)
 ```
 
-### [Segmentation Fault](https://segmentfault.com/a/1190000015238799)
+#### [Custom GDB Command](https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html)
+
+- 一般会使用regex来判断输入变量的类型是否符合需求
+
+```python
+def vec_lookup_function(val):
+    lookup_tag = val.type.tag
+    if lookup_tag == None:
+        return None
+
+    regex = re.compile("^.*vector_base<.*,.*>$")
+    if regex.match(lookup_tag):
+        return VectorPrinter(val)
+
+    return None
+```
+
+#### Practice
+
+- [pretty printer for std vector](https://hgad.net/posts/object-inspection-in-gdb/)：正则，迭代读数据（dereference）部分很OK
+
+
+
+### [ROS](http://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20Nodes%20in%20Valgrind%20or%20GDB)
+
+```bash
+# 追加tag
+launch-prefix="gdb -ex run --args"
+
+# option:
+# -ex <command> 执行给定的GDB command
+```
+
+### [Signal](https://github.com/hellogcc/100-gdb-tips/blob/master/src/index.md#%E4%BF%A1%E5%8F%B7)
+
+- [查看gdb如何处理信号](https://github.com/hellogcc/100-gdb-tips/blob/master/src/info-signals.md)（`Pass to program`即让程序执行完信号回调函数后，程序才暂停）
+
+### Practice
+
+#### 诊断[rviz段错误](https://segmentfault.com/a/1190000015238799)
 
 - ROS rviz增加 `camera` 或 `image` display时，会出现段错误（segmentation fault）
 
@@ -137,13 +221,70 @@ $ gdb python
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/GncFdU91N5TBJGVo.png!thumbnail" alt="img" style="zoom:67%; " />
 
-### [Signal](https://github.com/hellogcc/100-gdb-tips/blob/master/src/index.md#%E4%BF%A1%E5%8F%B7)
+#### [GDB无响应](https://stackoverflow.com/questions/8978777/why-would-gdb-hang)
 
-- [查看gdb如何处理信号](https://github.com/hellogcc/100-gdb-tips/blob/master/src/info-signals.md)（`Pass to program`即让程序执行完信号回调函数后，程序才暂停）
+原因未知，可通过下发相关信号解决
+
+```bash
+$ kill -CONT <pid of the process>
+```
+
+### Extension
+
+#### [GDBGUI](https://www.gdbgui.com/gettingstarted/)
+
+暂时没感觉新颖的地方
+
+- Install
+
+```bash
+$ pip install gdbgui
+```
+
+- Usage（[Youtube](https://www.youtube.com/channel/UCUCOSclB97r9nd54NpXMV5A)）
+
+```bash
+$ gdbgui
+```
 
 ### Reference
 
 - [GDB小技巧](https://github.com/hellogcc/100-gdb-tips)
+
+### TODO
+
+- 了解[Frame Filter](https://chromium.googlesource.com/native_client/nacl-gdb/+/refs/heads/upstream/gdb/python/lib/gdb/command/frame_filters.py)，并看未来如何用得上
+
+## ClangBuildAnalyzer
+
+### Install
+
+```bash
+# 安装ClangBuildAnalyzer
+$ git clone https://github.com/aras-p/ClangBuildAnalyzer.git
+$ cd ClangBuildAnalyzer
+$ make -f projects/make/Makefile
+$ cd build
+$ sudo cp ClangBuildAnalyzer /usr/local/bin/
+
+# 安装 clang
+$ sudo apt install clang-12
+```
+
+### Usage
+
+- cmake导入相关参数
+
+```cmake
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftime-trace")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftime-trace")
+```
+
+- [分析结果](https://github.com/aras-p/ClangBuildAnalyzer#usage)
+
+```bash
+$ ClangBuildAnalyzer --all <artifacts_folder> <capture_file> 
+```
 
 ## LLDB
 
@@ -224,7 +365,7 @@ def __lldb_init_module(debugger, internal_dict):
 
 ### Reference
 
-- [官方文档](https://sourceware.org/gdb/current/onlinedocs/gdb.pdf)
+- [advanced-apple-debugging-reverse-engineering](https://www.raywenderlich.com/books/advanced-apple-debugging-reverse-engineering/v3.0/chapters/22-debugging-script-bridging#toc-chapter-025-anchor-001)：含LLDB的Python拓展实例
 
 ## [FlameGraph](https://github.com/brendangregg/FlameGraph)
 
