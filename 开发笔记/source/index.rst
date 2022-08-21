@@ -21,6 +21,9 @@ AmBook
    :hidden:
    :caption: C++
 
+   C++/rst/Advance.rst
+   C++/rst/C++.rst
+   C++/rst/Intermediate.rst
    C++/rst/ProgrammingModel.rst
    C++/rst/STL.rst
    C++/rst/Tools.rst

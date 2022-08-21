@@ -215,7 +215,7 @@ target_link_libraries(A B)
 
 ## 查看当前翻译单元所使用的标准
 
-- 运行期查看
+* 运行期查看
 
 ```bash
 #include <iostream>
@@ -224,7 +224,7 @@ int main() {
 }
 ```
 
-- 编译期查看
+* 编译期查看
 
 ```cmake
 set(CMAKE_VERBOSE_MAKEFILE ON) # 查看具体的编译项

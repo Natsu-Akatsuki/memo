@@ -8,324 +8,6 @@ Someone who is sophomoric about concepts and reasoning may try things randomly, 
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210811202856933.png" alt="img" style="zoom: 67%;" />
 
-### Container Adapter
-
-修改一个 **底层序列容器**，使其表现出新的功能和接口，比如[stack](https://en.cppreference.com/w/cpp/container/stack) 使`deque`表现出了`先进后出`的栈功能
-
-- 容器适配器有 `stack`， `queue`，[priority_queue](https://en.cppreference.com/w/cpp/container/priority_queue)
-
-```c++
-#include <deque> 
-#include <iostream> 
-#include <list> 
-#include <stack> 
-#include <vector> 
-using namespace std;
-
-int main() {
-    // stack的构造 
-    stack<int> stackA; 
-    stack<int, deque<int>> stackB; // deque is the default container 
-    stack<int, vector<int>> stackC; 
-    stack<int, list<int>> stackD; 
-    return 0;
-}
-```
-
-## [Object](https://en.cppreference.com/w/cpp/language/object)
-
-- （定义）An object, in C, is **region** of [data storage](https://en.cppreference.com/w/c/language/memory_model) in the execution environment, the contents of which can represent *values* (a value is the meaning of the contents of an object, when interpreted as having a specific [type](https://en.cppreference.com/w/c/language/type)). @[ref](https://en.cppreference.com/w/c/language/object)
-
-- Object的分类（complete / subobject / polymorphic）可参考 @[ref](https://en.cppreference.com/w/cpp/language/object)
-- 一个Object具有各种属性：size；alignment requirement；[storage duration](https://en.cppreference.com/w/cpp/language/storage_duration) (automatic, static, dynamic, thread-local)；[type](https://en.cppreference.com/w/cpp/language/type)；value；optionally, a [name](https://en.cppreference.com/w/cpp/language/name).
-
-### Expression
-
-- 操作数（operand）和操作符（operator）的组合
-- [expression evaluation](https://en.cppreference.com/w/cpp/language/eval_order)
-- [full expression](http://eel.is/c++draft/intro.execution#def:full-expression)
-- [ID expression](https://en.cppreference.com/w/cpp/language/identifiers)：该表达式只包含标识符，其结果为其具名的实体（`entity`）
-
-#### [Value category](https://en.cppreference.com/w/cpp/language/value_category)
-
-- 泛左值、纯右值和将亡值实际上就是表达式
-- 根据表达式的取值（evaluation）结果进行分类，就能得到泛左值、纯右值和将亡值若干类别
-
-|  类别  |                             概念                             | —                                                            |
-| :----: | :----------------------------------------------------------: | ------------------------------------------------------------ |
-| 泛左值 |                 其取值标识了一个对象或者函数                 | 可取址；可修改的左值可以放在内置赋值操作符左边；<br />可用于初始化左值引用 |
-| 纯右值 | **其取值能对一个对象进行初始化**<br />能够得到一个内置操作符的值 | 不可取址；                                                   |
-| 将亡值 |                     资源能够复用的泛左值                     | —                                                            |
-
-![C++ expression value categories.](https://docs.microsoft.com/en-us/cpp/cpp/media/value_categories.png?view=msvc-170)
-
-- （作用：明确了编译器evaluation的规则）The value categories are the basis for rules that compilers must follow when creating, copying, and moving temporary objects during expression evaluation. @[ref](https://docs.microsoft.com/en-us/cpp/cpp/lvalues-and-rvalues-visual-cpp?view=msvc-170)
-- 在过去，左右值的区别比较容易，处于赋值语句左边的操作数为左值，处于赋值语句右边的操作数为右值。但放在现在是不恰当的，比如说
-
-```c++
-const int a = 1; // a是左值，但是不能放赋值语句左边，因为不可修改
-```
-
-## Data Structure
-
-> a data structure is a collection of data values, the relationships among  them, and the functions or operations that can be applied to the data
-
-数据结构是数据值、数据关系、作用于数据的函数和操作的集合
-
-## [Declaration](https://en.cppreference.com/w/cpp/language/declarations) and [Definition](https://en.cppreference.com/w/cpp/language/definition)
-
-- 定义：定义是一种特殊的声明，能够让一个实体足以被编译器使用
-- 非定义性声明：告知编译器存在一个实体，等下可以使用它
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/venn_declaration.png" alt="img" style="zoom: 50%;" />
-
-### [ODR](https://en.cppreference.com/w/cpp/language/definition#ODR-use)
-
-- 一处定义原则：定义只允许在`翻译单元`/`程序单元`出现一次
-- 可以不用满足`程序单元级别`，只需要满足`翻译单元级别`的一处定义原则的包括：`class type`，`enumeration type`， `inline function`，`inline variable` 
-
-- 
-
-## [Entity](https://en.cppreference.com/w/cpp/language/basic_concepts)
-
-- c++程序中的实体包括值（`value`)，对象（`object`），引用（`reference`），函数（`function`），类型（`type`），模板（`template`）
-
-- 预处理宏（`prepocessor macro`）不是c++实体（有人从它不是c++语法的内容去理解）
-
-## [Identifier](https://en.cppreference.com/w/cpp/language/identifiers)
-
-- 标识符是一段任意长序列，该序列由大小写拉丁字母，数字，下划线，和大部分Unicode字符组成
-
-- 标识符能够给如下实体具名：`objects`, `references`, `functions`, `enumerators`, `types`, `class members`, `namespaces`, `templates`, `template specialization`等
-
-### [Literals](https://www.tutorialspoint.com/cplusplus/cpp_constants_literals.htm)
-
-字面值示例：
-
-```c++
-// integer literal
-211...
-// string literal
-"hello world"...
-// boolean literal    
-true
-false
-// character literal
-'a'...
-// the pointer literal
-nullptr
-// the user-defined literal    
-...
-// floating point literal    
-```
-
-.. attention:: 注意 ``literals`` 和 ``literal type`` 是不一样的
-
-## [Type](https://en.cppreference.com/w/cpp/language/type)
-
-类型（type）是函数（function）、表达式（expression）、对象（object）的属性；类型决定了**二进制值的转译方式**（这些二进制值可能存储在对象中，也可能是表达式求值（evaluation）后的结果）
-
-```c++
-#include <iostream>
-
-int main() {
-  // 二进制1100001的int型表示为  ->  97
-  // 二进制1100001的char型表示为 ->  'a'
-  using namespace std; 
-  int int_num = 97; 
-  char char_num = int_num; 
-  cout << "int_num: " << int_num << endl; 
-  cout << "char_num: " << char_num << endl; 
-}
-```
-
-### alignment requirement
-
-- [结构体的对齐操作](https://zhuanlan.zhihu.com/p/412092275)
-
-### alias
-
-用简短的类型别名替换完整的、较长的类型名
-
-``` c++
-// 语法一
-typedef src_type alias_type
-// 语法二（from c++11）
-using alias_type = src_type
-```
-
-.. note:: 一般来说，推荐使用 `using` 这种语法，因为在标识数组类型时， `using` 会更直观（如下例所示）；另外[typedef不支持模板类别名](https://www.cnblogs.com/yutongqing/p/6794652.html)
-
-``` c++
-int arr[4]; 
-typedef int IntArr[4]; // [4]需要写在后面
-using IntArr = int[4]; 
-```
-
-### size_t
-
-* `size_t`类型是一个特殊的类型别名，是`sizeof()`函数的返回值类型
-* 其是一个无符号的整型，大小由操作系统所决定的；在进行动态内存分配时很有用。
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200535276.png" alt="img" style="zoom:67%;" />
-
-.. attention:: 标准库中的`operator[]`涉及`size_t`，所以遍历时用`unsigned`或者`int`类型的数据去访问可能会出错
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200948093.png" alt="img" style="zoom: 50%;" />
-
-### [sizeof](https://en.cppreference.com/w/c/language/sizeof)
-
-- `sizeof(type/object)`：用来获取`对象`或`类型所对应的对象`的大小（单位：字节）
-- `sizeof`无法测动态数组的内存大小，因为得到的只是指向首元素的指针而不是数组名（数组名也是个地址，但其类型指向整个数组）"Used when actual size of the object must be known"
-
-```cpp
-auto ptr = new bool[40];
-cout << sizeof(ptr) << endl; // 8
-cout << sizeof(*ptr) << endl; // 1（获得指向首元素的对象，并得其大小）
-bool ptr2[40];
-cout << sizeof(ptr2) << endl; // 40
-```
-
-### incomplete type
-
-> .... has initializer but incomplete type
-
-[incomplete type](https://en.cppreference.com/w/c/language/type)：这种类型的对象，编译器是不知道它的大小的，如int[]
-
-## [Reference](https://en.cppreference.com/w/cpp/language/reference)
-
-- 引用不是对象，不占用`data storgae`
-
-- const左值引用和右值引用能够延展临时变量（或称不具名变量/匿名变量）的生存期；但是const左值引用
-
-``` c++
-#include <iostream>
-using namespace std;
-
-int main() {
-   double tc = 21.5;
-   /*
-   * 以下近似于：创建一个临时变量，然后对其进行绑定
-   * double temp = 7.07;
-   * const double &rd1 = temp;
-   * 在语法上只有const左值引用才能绑定临时变量，否则有如下报错：
-   * “non-const lvalue reference to double can not bind a temporary of type double”
-   */
-   const double &rd1 = 7.07;
-
-   // 通过const左值引用或右值引用对临时变量起别名，临时变量的lifetime会被extend
-   double &&rd2 = 7.07;
-   rd2 = 33;
-}
-```
-
-### [Forward Reference](https://en.cppreference.com/w/cpp/language/reference)
-
-### [Reference Collapse](https://en.cppreference.com/w/cpp/language/reference)
-
-- 引用折叠只会发生在类型别名和模板
-
-```c++
-typedef int &lref;
-typedef int &&rref;
-int n;
-
-lref &r1 = n; // type of r1 is int&   左值引用 + 左值引用 -> 左值引用
-lref &&r2 = n; // type of r2 is int&  左值引用 + 右值引用 -> 右值引用
-rref &r3 = n; // type of r3 is int&   右值引用 + 左值引用 -> 右值引用
-rref &&r4 = 1; // type of r4 is int&& 右值引用 + 右值引用 -> 右值引用
-```
-
-### [Dangling Reference](https://en.cppreference.com/w/cpp/language/reference)
-
-当引用的对象的`lifetime`已经结束了，那此时的引用则为 `dangling reference`，相关的报错信息为段错误
-
-``` c++
-std::string &f() {
-    std::string s = "Example";
-    return s; // exits the scope of s:
-    // its destructor is called and its storage deallocated
-}
-
-int main() {
-    std::string &r = f(); // dangling reference
-    std::cout << r;       // undefined behavior: reads from a dangling reference
-    std::string s = f();  // undefined behavior: copy-initializes from a dangling reference
-}
-```
-
-### Q&A
-
-> a是T的左值引用，T是int&&类型的，那a实际上是什么（类型）？
-
-- A1：int&（根据引用折叠的说法，右值引用的左值引用是左值引用）
-
-
-### 类型转换
-
-- 操作符对操作数会有要求，或操作数满足某种特定的类型，或操作数都需要同样的类型；如果不满足相应的需要，就会出现类型转换
-- [隐式类型转换](https://en.cppreference.com/w/cpp/language/implicit_conversion)
-
-#### [C风格类型转换](https://en.cppreference.com/w/cpp/language/explicit_cast)
-
-c风格的显式类型转换包含了一系列的转换操作（也就是它会尝试一组转换操作，例如首先进行const_cast，然后进行static_cast, reinterpret_cast等...）；c++中一般都使用细颗粒度的，更具体的c++风格的类型转换操作（即static_cast, const_cast, reinterpret_cast...等）
-
-![image-20210930163600592](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210930163600592.png)
-
-.. note:: ``reinterpret_cast``一般针对的是指针
-
-.. note:: 建议通过程序的改良，来减小对类型转换的使用。（李伟老师：设计static_cast这些要打这么长而麻烦的函数，就是为了降低开发者使用类型转换的频率）
-
-### array
-
-- c++没有引用的数组。因为数组的元素应该是对象而引用不是对象。
-
-### 类型退化
-
-- 数组到指针（array to pointer）的隐式转换
-
-```c++
-int a[3]; 
-// 该指针指向数组的首元素
-auto b = a; // b->int* 而不是 int*[3]
-```
-
-![image-20210815211847957](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815211847957.png)
-
-- [why-the-address-of-dynamic-array-is-different-from-the-first-element-address](https://stackoverflow.com/questions/63114268/why-the-address-of-dynamic-array-is-different-from-the-first-element-address)
-
-### Pointer
-
-#### operator
-
-```c++
-int arr[4] = {1, 2, 3, 4};
-int *ptr = arr;
-// 等价于输出ptr[0]
-cout << *ptr << endl;
-// 等价于prt[3]
-cout << *(ptr + 3) << endl;
-```
-
-### 往字节流中存储任意类型的数据
-
-步骤一：reinterpreter_cast字节流到待存储数据的类型，然后存值
-
-步骤二：将指针指向下一个位置
-
-```c++
-template <typename T> void write(char *&buffer, const T &val) {
-  // T buffer[] = val;
-  *reinterpret_cast<T *>(buffer) = val;
-  buffer += sizeof(T);
-}
-
-void serialize(void *buffer) {
-  char *d = static_cast<char *>(buffer);  
-  int mClassCount = 3;  
-  write(d, mClassCount);  
-}
-```
-
 ## Class
 
 - 在对类进行实例化时，先会对数据成员进行初始化，初始化的优先级为：`初始化列表`，`类内初始化`。换句话说`初始化列表`会替换`类内初始化`的行为。（@[ref](https://en.cppreference.com/w/cpp/language/data_members)）
@@ -348,6 +30,9 @@ int main() {
 
 - 成员函数（`member function`）和数据成员（`data member`）是分开存储的；只有实例属性是存放在对象上的
 - 空类的大小为1，是为了保证每个（空）对象都有独一无二的内存地址，以使编译器区分他们
+- 函数体：
+
+<img src="https://uploader.shimo.im/f/NamQA5QsFYLH61Z3.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjEwNzMzMjYsImZpbGVHVUlEIjoia3JIcVhYeHZSOHI2Z2czRyIsImlhdCI6MTY2MTA3MzAyNiwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjoxNzg0NjUwNX0.qYcCHPzY0O9_Ub-twWjE2GIiLaLvO2AOSAH6wFFovHI" alt="img" style="zoom:50%;" />
 
 ### Access Right
 
@@ -517,7 +202,7 @@ struct Str {
 ```c++
 class class_name : public base_class1, private base_class2
 {
-	// todo
+ // todo
 };
 ```
 
@@ -550,7 +235,27 @@ int main() {
 }
 ```
 
-### [Member Initializers List](https://en.cppreference.com/w/cpp/language/constructor)
+### Member
+
+#### [Static member](https://en.cppreference.com/w/cpp/language/static)
+
+- 通常情况下，类内声明静态数据成员（有`static`修饰），类外定义数据成员（无`static`）
+
+```c++
+class X { static int n; }; // declaration (uses 'static')
+int X::n = 1;              // definition (does not use 'static')
+```
+
+- C++17后加入内联可以进行类内定义
+
+```c++
+struct X
+{
+    inline static int n = 1;
+};
+```
+
+#### [Member Initializers List](https://en.cppreference.com/w/cpp/language/constructor)
 
 ```c++
 // constructor definition
@@ -586,14 +291,12 @@ int main()
 
 ### Virtual Function
 
+- 虚函数的引入是为了更好的开发和维护，满足对拓展关闭, 对修改开放的原则
+
 #### Abstract Class
 
-- 声明了一个**纯虚函数**或继承了一个**纯虚函数**但是未提供实现的类（有纯虚函数但没有实现的类）；**抽象类无法实例化**。（只是含虚函数的类是可以实例化的）
+- 声明了一个**纯虚函数**或继承了一个**纯虚函数**（在实际开发中，不会实例化父类，父类的虚函数没有实现的必要，所以引入纯虚函数）但是未提供实现的类（有纯虚函数但没有实现的类）；**抽象类无法实例化**。（只是含虚函数的类是可以实例化的）
 - `Abstract Class`可作为`Concrete Class`的基类
-
-
-
-
 
 - 接口类（`interface class`）：成员中**仅有虚函数**的类
 - [纯虚函数](https://en.cppreference.com/w/cpp/language/abstract_class)：**声明**虚函数的基础上加上一个等于0
@@ -619,7 +322,7 @@ public:
 };
 
 int main() {
-  /*  
+  /*
    * ERROR: undefined reference to `vtable for Base'
   */
   Base base;
@@ -681,9 +384,16 @@ int main() {
 }
 ```
 
+- 只有非静态成员函数和非构造函数才能声明为虚函数
+- 虚析构函数是为了用父类的指针释放子类对象
+
 #### Compiler
 
-对于一个有 `虚函数` **实现**的类，编译器会在其对象的首位置添加 `虚函数指针`  ，虚函数指针指向虚函数，表虚函数表中存放了各个虚函数的地址
+- 对于一个有 `虚函数` **实现**的类，编译器会添加一个隐式数据成员即 `虚函数指针`  ，`虚函数指针`指向`虚函数表`，虚函数表中存放了当前对象重写的和没重写的各个虚函数的地址。
+
+- 动态多态就是调用函数的地址在运行期进行确定。当编译器看到通过基类指针或基类引用调用虚函数时，不会直接确定函数的地址（`静态联编`），而是进行动态联编，程序在运行期的时候，确定基类指针或引用对象的真实类型（比如说是派生类对象），并依次找到虚指针、虚函数表，待调用的虚函数的入口地址；最后根据函数入口地址执行虚函数代码。
+
+![image-20220818020928689](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220818020928689.png)
 
 #### 静态绑定和动态绑定函数
 
@@ -694,7 +404,7 @@ using namespace std;
 
 class Animal {
 public:
-  virtual void speak() { cout << "动物在叫" << endl; } // 表明这个函数需要运行期确定
+  void speak() { cout << "动物在叫" << endl; } // 表明这个函数需要运行期确定
 };
 
 class Cat : public Animal {
@@ -702,12 +412,11 @@ public:
   void speak() { cout << "猫在叫" << endl; }
 };
 
-// 用父类的指针接收子类地址
-void doSpeak(Animal &animal) { animal.speak(); }  
-
 void test01() {
   Cat cat;
-  doSpeak(cat);
+  // 父类指针指向子类对象 / 给子类对象起父类引用别名
+  Animal &animal = cat;
+  animal.speak();
 }
 
 int main() {
@@ -716,50 +425,7 @@ int main() {
 }
 ```
 
-- 只有非静态成员函数和非构造函数才能声明为虚函数
-- 对于一个提供了 `虚函数` **实现**的类，编译器会在其对象的首位置添加 `虚函数指针`  ；虚函数指针指向虚函数表；虚函数表(virtual table function) 中存放了各个**重写**（overload）后的虚函数的地址
-
-```c++
-#include <iostream>
-using namespace std;
-
-class Base {
-public:
-  virtual void test() = 0;
-};
-
-void Base::test() { cout << "base" << endl; };
-
-class ChildrenA : public Base {
-public:
-  void test() { cout << "childrenA" << endl; }
-};
-
-class ChildrenB : public Base {
-public:
-  void test() { cout << "childrenB" << endl; }
-};
-
-int main() {
-  ChildrenA childrenA;
-  ChildrenB childrenB;
-  Base *base_ptr = nullptr;
-  base_ptr = &childrenA;
-  base_ptr->test();
-}
-
-(gdb) gdb
-(gdb) p /R childrenA
-(ChildrenA) {<Base> = {_vptr.Base = 0x55c1d978ed40 <vtable for ChildrenA+16>}, <No data fields>}
-
-(gdb) info vtbl childrenA
-vtable for 'ChildrenA' @ 0x55c1d978ed40 (subobject @ 0x7fffe0d4cb30):
-[0]: 0x55c1d978c2e2 <ChildrenA::test()>
-
-(gdb) info vtbl childrenB
-vtable for 'ChildrenB' @ 0x55c1d978ed28 (subobject @ 0x7fffe0d4cb38)
-[0]: 0x55c1d978c31e <ChildrenB::test()>
-```
+![image-20220817232632646](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220817232632646.png)
 
 ### [This Pointer](https://en.cppreference.com/w/cpp/language/this)
 
@@ -767,7 +433,454 @@ vtable for 'ChildrenB' @ 0x55c1d978ed28 (subobject @ 0x7fffe0d4cb38)
 - this指针不是一个常规的变量，而是一个右值，不能取地址即 `&this`
 - 一般用来解决名称冲突：区分同名的形参；二来通过返回对象本身（ `return *this` ），实现链式编程
 
+## Container Adapter
+
+修改一个 **底层序列容器**，使其表现出新的功能和接口，比如[stack](https://en.cppreference.com/w/cpp/container/stack) 使`deque`表现出了`先进后出`的栈功能
+
+- 容器适配器有 `stack`， `queue`，[priority_queue](https://en.cppreference.com/w/cpp/container/priority_queue)
+
+```c++
+#include <deque>
+#include <iostream>
+#include <list>
+#include <stack>
+#include <vector>
+using namespace std;
+
+int main() {
+    // stack的构造
+    stack<int> stackA;
+    stack<int, deque<int>> stackB; // deque is the default container
+    stack<int, vector<int>> stackC;
+    stack<int, list<int>> stackD;
+    return 0;
+}
+```
+
+## Exception
+
+- 使用`throw`抛出异常，`try-catch block`捕获异常
+- 构造函数中如果抛出了异常，则其异常会被隐式的传递回一层栈帧（会自动添加`throw`）
+- 为了避免异常抛出而导致分配的内存没有被释放，则一般倾向于构建的对象使用智能指针进行管理
+
+## [Entity](https://en.cppreference.com/w/cpp/language/basic_concepts)
+
+- c++程序中的实体包括值（`value`)，对象（`object`），引用（`reference`），函数（`function`），类型（`type`），模板（`template`）
+
+- 预处理宏（`prepocessor macro`）不是c++实体（有人从它不是c++语法的内容去理解）
+
+## [Expression](https://en.cppreference.com/w/cpp/language/expressions)
+
+- 操作数（operand）和操作符（operator）的组合
+- [expression evaluation](https://en.cppreference.com/w/cpp/language/eval_order)
+- [full expression](http://eel.is/c++draft/intro.execution#def:full-expression)
+- [ID expression](https://en.cppreference.com/w/cpp/language/identifiers)：该表达式只包含标识符，其结果为其具名的实体（`entity`）
+
+### [Value category](https://en.cppreference.com/w/cpp/language/value_category)
+
+- 泛左值、纯右值和将亡值实际上就是表达式
+- 根据表达式的取值（evaluation）结果进行分类，就能得到泛左值、纯右值和将亡值若干类别
+
+|  类别  |                             概念                             | —                                                            |
+| :----: | :----------------------------------------------------------: | ------------------------------------------------------------ |
+| 泛左值 |                 其取值标识了一个对象或者函数                 | 可取址；可修改的左值可以放在内置赋值操作符左边；<br />可用于初始化左值引用 |
+| 纯右值 | **其取值能对一个对象进行初始化**<br />或能够得到一个内置操作符的值 | 不可取址；                                                   |
+| 将亡值 |                    资源能够被复用的泛左值                    | —                                                            |
+
+![C++ expression value categories.](https://docs.microsoft.com/en-us/cpp/cpp/media/value_categories.png?view=msvc-170)
+
+- （作用：明确了编译器管理对象的规则）The value categories are the basis for rules that compilers must follow when creating, copying, and moving temporary objects during expression evaluation. @[ref](https://docs.microsoft.com/en-us/cpp/cpp/lvalues-and-rvalues-visual-cpp?view=msvc-170)
+- 在过去，左右值的区别比较容易，处于赋值语句左边的操作数为左值，处于赋值语句右边的操作数为右值。但放在现在是不恰当的，比如说
+
+```c++
+const int a = 1; // a是左值，但是不能放赋值语句左边，因为不可修改
+```
+
+## Function
+
+### [Abbreviated function template](https://en.cppreference.com/w/cpp/language/auto)
+
+- 20标准引入了更简洁的模板声明，即使用在函数签名中使用`auto`，但在定义的地方使用类型时比较麻烦
+
+![image-20210929184924216](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210929184924216.png)
+
+```c++
+template <typename T>
+void print_container(T set) {
+  for (auto &element : set) {
+    cout << element << " ";
+  }
+  cout << endl;
+}
+
+// 等价
+void print_container(auto set) {
+  for (auto &element : set) {
+    cout << element << " ";
+  }
+  cout << endl;
+}
+```
+
+### Call
+
+- 函数的调用分为若干个步骤，先是名称查找（`name lookup`），编译器看是否有这个`symbol`；然后是模板实参推导（`template argument deduction`），之后是重载决议/解析（`overload resolution`），再是判断是否有充足的访问权限（`access labels`），再是函数模板特化（`function template specialization`），再是`visual dispatch`，再是`deleting functions`
+
+- 其中重载决议，就是在候选的函数中找到最合适可调用的函数
+
+### Default Argument
+
+- from c++98
+
+- 默认实参不能在函数声明和实现中同时出现
+
+- 某个位置参数有默认值后，则从这个位置往后从左到右到必须有默认值
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220227093101436.png" alt="image-20220227093101436" style="zoom:67%;" />
+
+### [Friend](https://en.cppreference.com/w/cpp/language/friend)
+
+友元函数能够让一个函数或一个类能够访问某个类的`protected`或`private`的成员，只需要在这个类定义中声明友元函数。
+
+### Inline
+
+- 在开发中使用内联一方面是为了性能提升，减少函数调用的开销（栈帧的构造和销毁），另一方面是这边有个头文件，头文件里面包含了函数的定义，在链接阶段可能就有符号重定义的相关报错，所以就会加上`inline`关键词。
+
+- 编译器对内联的操作实际上就是将函数调用的那行代码用函数体进行替换，当然这个替换不是纯粹的复制粘贴，还会解决符号重定义的问题。
+- 相当于宏，但比宏多了类型检查，真正具有函数特性
+- 编译器一般不对包含循环、递归、switch等复杂操作的函数进行内联
+- 在类声明中定义的函数，除了虚函数，其他函数都会自动隐式地当成内联函数
+- 内联的非静态成员函数需要类内声明，类外定义
+- 通过查看[汇编代码](https://godbolt.org/)可判断函数是否被内联
+
+``` c++
+// 声明1（可加可不加inline，推荐加inline）
+inline int functionName(int first, int second,...);
+// 声明2
+int functionName(int first, int second,...);
+
+// 定义
+inline int functionName(int first, int second,...) {
+   ; // todo
+}
+
+// 类内定义，隐式内联
+class A {
+   int doA() { return 0; }
+}
+
+// 类外定义，需要显式内联
+class A {
+   int doA();
+}
+inline int A::doA() { return 0; }   // 需要显式内联
+```
+
+### Overload
+
+- 让相同的函数根据不同的场景表现出不同的功能，提高复用性
+- 触发函数重载的条件，函数名称相同，形参列表不一样，作用域一样（函数的返回值不作为函数重载的条件）
+
+### Parameter Pack
+
+- 函数参数包（`parameter pack`）需要配合模板使用
+
+```cpp
+// typename|class ... pack-name(optional)
+// Function parameter pack (a form of declarator, appears in a function parameter list of a variadic function template)
+// pack-name ... pack-param-name(optional)
+template<typename ... Tpack>
+void fun(Tpack ...) {
+
+}
+
+int main() {
+  fun(1, 3, 5);
+}
+```
+
+## Data Structure
+
+> a data structure is a collection of data values, the relationships among  them, and the functions or operations that can be applied to the data
+
+数据结构是数据值、数据关系、作用于数据的函数和操作的集合
+
+## [Declaration](https://en.cppreference.com/w/cpp/language/declarations) and [Definition](https://en.cppreference.com/w/cpp/language/definition)
+
+- 定义：定义是一种特殊的声明，能够让一个实体足以被编译器使用
+- 非定义性声明：告知编译器存在一个实体，等下可以使用它
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/venn_declaration.png" alt="img" style="zoom: 50%;" />
+
+### [ODR](https://en.cppreference.com/w/cpp/language/definition#ODR-use)
+
+- 一处定义原则：定义只允许在`翻译单元`/`程序单元`出现一次
+- 需要满足`翻译单元级别`的一处定义原则的包括：`variable`，`function`， `class type`，`enumeration type`，`concept`，`template`
+
+- 需要满足`程序单元级别`的一处定义原则的包括：`non-inline function`，`variable`（违背这种规则的话，是未定义行为，看编译器自身的处理）
+- 一个程序中可以有多处定义的实体：`class type`， `enumeration type`，`inline function`，`inline variable`，`templated entity`（仍需要满足某些前提）
+
+## [Identifier](https://en.cppreference.com/w/cpp/language/identifiers)
+
+- 标识符是一段任意长序列，该序列由大小写拉丁字母，数字，下划线，和大部分Unicode字符组成
+
+- 标识符能够给如下实体具名：`objects`, `references`, `functions`, `enumerators`, `types`, `class members`, `namespaces`, `templates`, `template specialization`等
+
+## [Literals](https://www.tutorialspoint.com/cplusplus/cpp_constants_literals.htm)
+
+字面值示例：
+
+```c++
+// integer literal
+211...
+// string literal
+"hello world"...
+// boolean literal
+true
+false
+// character literal
+'a'...
+// the pointer literal
+nullptr
+// the user-defined literal
+...
+// floating point literal
+```
+
+.. attention:: 注意 ``literals`` 和 ``literal type`` 是不一样的
+
+## Macro
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210803143453257.png" alt="img" style="zoom:67%;" />
+
 ## Memory
+
+### [Memory model](https://www.bilibili.com/video/BV1et411b73Z?p=84)
+
+c++程序所占的内存可以划分为4个区域（谐音梗：四驱兄弟）
+
+- 代码区：存放**函数体**的二进制代码；由操作系统进行管理的；其中的内容是只读（防止修改程序的执行指令）和共享的（只有一份数据，避免拷贝浪费）
+- 全局区 ：存放全局变量、静态变量、字符串字面值常量；该部分数据由操作系统释放
+- 栈区：存放函数的参数值，局部变量；由编译器自动分配释放，数据的生存周期由编译器管理
+- 堆区：存放由程序员自己管理的数据（数据的生存周期由程序员管理）；若不释放，程序结束时由操作系统释放
+
+### Name
+
+- `unqualified name`：不在域解析符右边的名称
+
+### Namespace
+
+![image-20220728084329476](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220728084329476.png)
+
+## [Reference](https://en.cppreference.com/w/cpp/language/reference)
+
+- 引用不是对象，不占用`data storgae`
+
+- const左值引用和右值引用能够延展临时变量（或称不具名变量/匿名变量）的生存期；但是const左值引用
+
+``` c++
+#include <iostream>
+using namespace std;
+
+int main() {
+   double tc = 21.5;
+   /*
+   * 以下近似于：创建一个临时变量，然后对其进行绑定
+   * double temp = 7.07;
+   * const double &rd1 = temp;
+   * 在语法上只有const左值引用才能绑定临时变量，否则有如下报错：
+   * “non-const lvalue reference to double can not bind a temporary of type double”
+   */
+   const double &rd1 = 7.07;
+
+   // 通过const左值引用或右值引用对临时变量起别名，临时变量的lifetime会被extend
+   double &&rd2 = 7.07;
+   rd2 = 33;
+}
+```
+
+### [Forward Reference](https://en.cppreference.com/w/cpp/language/reference)
+
+### [Reference Collapse](https://en.cppreference.com/w/cpp/language/reference)
+
+- 引用折叠只会发生在类型别名和模板
+
+```c++
+typedef int &lref;
+typedef int &&rref;
+int n;
+
+lref &r1 = n; // type of r1 is int&   左值引用 + 左值引用 -> 左值引用
+lref &&r2 = n; // type of r2 is int&  左值引用 + 右值引用 -> 右值引用
+rref &r3 = n; // type of r3 is int&   右值引用 + 左值引用 -> 右值引用
+rref &&r4 = 1; // type of r4 is int&& 右值引用 + 右值引用 -> 右值引用
+```
+
+### [Dangling Reference](https://en.cppreference.com/w/cpp/language/reference)
+
+当引用的对象的`lifetime`已经结束了，那此时的引用则为 `dangling reference`，相关的报错信息为段错误
+
+``` c++
+std::string &f() {
+    std::string s = "Example";
+    return s; // exits the scope of s:
+    // its destructor is called and its storage deallocated
+}
+
+int main() {
+    std::string &r = f(); // dangling reference
+    std::cout << r;       // undefined behavior: reads from a dangling reference
+    std::string s = f();  // undefined behavior: copy-initializes from a dangling reference
+}
+```
+
+### Q&A
+
+> a是T的左值引用，T是int&&类型的，那a实际上是什么（类型）？
+
+- A1：int&（根据引用折叠的说法，右值引用的左值引用是左值引用）
+
+## [Type](https://en.cppreference.com/w/cpp/language/type)
+
+类型（type）是函数（function）、表达式（expression）、对象（object）的属性；类型决定了**二进制值的转译方式**（这些二进制值可能存储在对象中，也可能是表达式求值（evaluation）后的结果）
+
+```c++
+#include <iostream>
+
+int main() {
+  // 二进制1100001的int型表示为  ->  97
+  // 二进制1100001的char型表示为 ->  'a'
+  using namespace std;
+  int int_num = 97;
+  char char_num = int_num;
+  cout << "int_num: " << int_num << endl;
+  cout << "char_num: " << char_num << endl;
+}
+```
+
+### alignment requirement
+
+- [结构体的对齐操作](https://zhuanlan.zhihu.com/p/412092275)
+
+### alias
+
+用简短的类型别名替换完整的、较长的类型名
+
+``` c++
+// 语法一
+typedef src_type alias_type
+// 语法二（from c++11）
+using alias_type = src_type
+```
+
+.. note:: 一般来说，推荐使用 `using` 这种语法，因为在标识数组类型时， `using` 会更直观（如下例所示）；另外[typedef不支持模板类别名](https://www.cnblogs.com/yutongqing/p/6794652.html)
+
+``` c++
+int arr[4];
+typedef int IntArr[4]; // [4]需要写在后面
+using IntArr = int[4];
+```
+
+### size_t
+
+- `size_t`类型是一个特殊的类型别名，是`sizeof()`函数的返回值类型
+- 其是一个无符号的整型，大小由操作系统所决定的；在进行动态内存分配时很有用。
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200535276.png" alt="img" style="zoom:67%;" />
+
+.. attention:: 标准库中的`operator[]`涉及`size_t`，所以遍历时用`unsigned`或者`int`类型的数据去访问可能会出错
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200948093.png" alt="img" style="zoom: 50%;" />
+
+### [sizeof](https://en.cppreference.com/w/c/language/sizeof)
+
+- `sizeof(type/object)`：用来获取`对象`或`类型所对应的对象`的大小（单位：字节）
+- `sizeof`无法测动态数组的内存大小，因为得到的只是指向首元素的指针而不是数组名（数组名也是个地址，但其类型指向整个数组）"Used when actual size of the object must be known"
+
+```cpp
+auto ptr = new bool[40];
+cout << sizeof(ptr) << endl; // 8
+cout << sizeof(*ptr) << endl; // 1（获得指向首元素的对象，并得其大小）
+bool ptr2[40];
+cout << sizeof(ptr2) << endl; // 40
+```
+
+### incomplete type
+
+> .... has initializer but incomplete type
+
+[incomplete type](https://en.cppreference.com/w/c/language/type)：这种类型的对象，编译器是不知道它的大小的，如int[]
+
+### aggregate
+
+### array
+
+- 没有引用的数组。因为数组的元素应该是对象而引用不是对象。
+
+### 类型退化
+
+- 数组到指针（array to pointer）的隐式转换
+
+```c++
+int a[3];
+// 该指针指向数组的首元素
+auto b = a; // b->int* 而不是 int*[3]
+```
+
+![image-20210815211847957](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815211847957.png)
+
+- [why-the-address-of-dynamic-array-is-different-from-the-first-element-address](https://stackoverflow.com/questions/63114268/why-the-address-of-dynamic-array-is-different-from-the-first-element-address)
+
+### [Implict Conversion](https://en.cppreference.com/w/cpp/language/implicit_conversion)
+
+编译器的隐式类型转换包含了一系列的尝试，依次为：标准类型转换集（`standard conversion sequence`），用户级别的类型转换集（`user-defined conversion`），标准类型转换集（`standard conversion sequence`）
+
+#### Standard Conversion Sequence
+
+- 步骤一：左值到右值的转换；数组到指针的转换（`array to pointer`）；函数到指针的转换（`function to pointer`）
+- 步骤二：数值提升（`numeric promotion`）或数值转换
+- 步骤三：function pointer转换
+- 步骤四：`CV` 修饰符转换（`qualification conversion`）
+
+#### [Explicit Cast](https://en.cppreference.com/w/cpp/language/explicit_cast)
+
+c风格的显式类型转换包含了一系列的转换操作（也就是它会尝试一组转换操作，例如首先进行`const_cast`，然后进行`static_cast`, `reinterpret_cast`...）；c++中一般都使用细颗粒度的，更具体的c++风格的类型转换操作（即`static_cast`，`const_cast`，`reinterpret_cast`等）
+
+![image-20210930163600592](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210930163600592.png)
+
+.. note:: 建议通过程序的改良，来减小对类型转换的使用。（李伟老师：设计`static_cast`这些要打这么长而麻烦的函数，就是为了降低开发者使用类型转换的频率）
+
+### Pointer
+
+#### operator
+
+```c++
+int arr[4] = {1, 2, 3, 4};
+int *ptr = arr;
+// 等价于输出ptr[0]
+cout << *ptr << endl;
+// 等价于prt[3]
+cout << *(ptr + 3) << endl;
+```
+
+往字节流中存储任意类型的数据
+
+步骤一：reinterpreter_cast字节流到待存储数据的类型，然后存值
+
+步骤二：将指针指向下一个位置
+
+```c++
+template <typename T> void write(char *&buffer, const T &val) {
+  // T buffer[] = val;
+  *reinterpret_cast<T *>(buffer) = val;
+  buffer += sizeof(T);
+}
+
+void serialize(void *buffer) {
+  char *d = static_cast<char *>(buffer);
+  int mClassCount = 3;
+  write(d, mClassCount);
+}
+```
 
 ### Smart Pointer
 
@@ -775,7 +888,7 @@ vtable for 'ChildrenB' @ 0x55c1d978ed28 (subobject @ 0x7fffe0d4cb38)
 /*
 * 用法：
 * 1.导入<memory>头文件
-* 2.构造（两种方法：单纯用share_ptr；调用make_shared）   
+* 2.构造（两种方法：单纯用share_ptr；调用make_shared）
 */
 #include <memory>
 int main() {
@@ -827,12 +940,12 @@ auto pointer = std::make_shared<int>(10, 0);
 
 - 拓展资料：[csdn](https://blog.csdn.net/icandoit_2014/article/details/56666277)
 
-### 动态内存分配：new/delete
+### New and Delete
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210805103706659.png)
 
 ``` c++
-auto ptr = new int (6); 
+auto ptr = new int (6);
 auto ptr = new (int) {6};
 
 // 构造数组
@@ -841,92 +954,70 @@ int *arr = new int[10];
 int *arr = new int[10]();
 ```
 
-### [内存泄露](https://en.cppreference.com/w/cpp/language/new)
+### [Memory Leak](https://en.cppreference.com/w/cpp/language/new)
 
 - new返回的指针被释放，导致原来被指向的对象不能通过该指针来访问和不能使用delete来释放
 
-## Namespace
-
-![image-20220728084329476](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220728084329476.png)
-
-## Function
-
-### Default Argument
-
-- from c++98
-
-- 默认实参不能在函数声明和实现中同时出现
-
-- 某个位置参数有默认值后，则从这个位置往后从左到右到必须有默认值
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220227093101436.png" alt="image-20220227093101436" style="zoom:67%;" />
-
-### Inline
-
-- 内联更倾向于是一种编译器的优化策略，编译器会将调用处的代码，替换为函数体的内容
-
-
-
-- 内联函数是为了减少函数调用的开销（编译器处理内联函数时相当于将函数的调用，替换为内联函数的函数体）
-- 相当于宏，但比宏多了类型检查，真正具有函数特性
-- 编译器一般不对包含循环、递归、switch等复杂操作的函数进行内联
-- **在类声明中定义的函数**，除了虚函数的其他函数都会自动隐式地当成内联函数
-
-``` c++
-// 声明1（可加可不加inline，推荐加inline）
-inline int functionName(int first, int second,...);
-// 声明2
-int functionName(int first, int second,...);
-
-// 定义
-inline int functionName(int first, int second,...) {
-   ; // todo      
-}
-
-// 类内定义，隐式内联
-class A {
-   int doA() { return 0; }
-}
-
-// 类外定义，需要显式内联
-class A {
-   int doA();
-}
-inline int A::doA() { return 0; }   // 需要显式内联
-```
-
-.. attention:: 实例的内联函数语法需要类内声明，类外定义
-
-### [auto形参(c++20)](https://en.cppreference.com/w/cpp/language/auto)
-
-![image-20210929184924216](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210929184924216.png)
-
-```c++
-template <typename T>
-void print_container(T set) {
-  for (auto &element : set) {
-    cout << element << " ";
-  }
-  cout << endl;
-}
-
-// 等价
-void print_container(auto set) {
-  for (auto &element : set) {
-    cout << element << " ";
-  }
-  cout << endl;
-}
-```
-
 ## [Template](https://en.cppreference.com/w/cpp/language/templates)
 
+> 学习模板不是为了写模板，而是为了调用`STL`的模板
+
 - template有三种参数：类型模板参数（`type template parameters`），非类型模板参数（`non-type template parameters`），模板的模板参数（`template template parameters`）
+
+### [Argument Deduction](https://en.cppreference.com/w/cpp/language/template_argument_deduction)
+
+要实例化一个模板，模板的每个形参都能有对应的模板实参。编译器要知道模板的实参，一是显式地指定，二是隐式地推导（相应的时机比如触发可函数调用），三是使用默认值。
+
+### Class Template
+
+- 只有被调用的成员函数，才会被实例化（可以减少程序的大小，减少编译的时间）
+
+- 类模板的显式和隐式实例化
+
+```c++
+template<class T>
+struct Z // template definition
+{
+    void f() {}
+    void g(); // never defined
+};
+
+// template class-key template-name <argument-list>;
+template struct Z<double>; // 显式实例化： Z<double> 放在全局域
+
+int main() { // template-name <argument-list> object_name;
+    Z<int> a;   // 隐式实例化： Z<int>
+    Z<char> *p; // 该类型的实体没有被调用，只是创建了指针实体，不会触发模板的隐式实例化
+    p->f();     // implicit instantiation of Z<char> and Z<char>::f() occurs here.
+                // Z<char>::g() is never needed and never instantiated: it does not have to be defined
+}
+```
+
+### [Function Member Template](https://en.cppreference.com/w/cpp/language/member_template)
+
+- 成员函数模板的类外定义：（类内声明和类外定义的`一致性`）
+
+```c++
+struct X {
+    template<class T> T good(T n);
+    template<class T> T bad(T n);
+};
+
+template<class T> struct identity { using type = T; };
+
+// OK: equivalent declaration
+template<class V>
+V X::good(V n) { return n; }
+
+// Error: not equivalent to any of the declarations inside X
+template<class T>
+T X::bad(typename identity<T>::type n) { return n; }
+```
 
 ### [Constraint](https://en.cppreference.com/w/cpp/language/constraints)
 
 - 20标准引入`constaint`对模板进行约束
-- Named sets of such [requirements](https://en.cppreference.com/w/cpp/language/requires) are called concepts. 
+- Named sets of such [requirements](https://en.cppreference.com/w/cpp/language/requires) are called concepts.
 - Each concept is a predicate, evaluated at compile time, and becomes a part of the interface of a template where it is used as a constraint
 - 对模板实参的约束称为`requirement`，`requirement`的名字称为concept，
 
@@ -963,23 +1054,17 @@ concept Addable = requires(T a, T b)
 
 - `Nested requiements`：含各种复合语句
 
-### Declaration
-
-### Definition
-
 ### Instantiated
 
 - 触发显式地实例化（一个程序只能有一次触发），生成相应的代码（@[ref](https://en.cppreference.com/w/cpp/language/class_template)）
-- 类模板显式实例化
+- 类模板显式实例化定义
 
-```c++
-template class-key template-name <argument-list>; (1)
-```
+![image-20220818150928332](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220818150928332.png)
 
 - 函数模板显式实例化
 
 ```c++
-template return-type name <argument-list> (parameter-list);	(1)	// 不需要模板实参类型推导
+template return-type name <argument-list> (parameter-list); (1) // 不需要模板实参类型推导
 template return-type name (parameter-list); (2) // 需要模板实参类型推导（根据函数形参）
 
 template<typename T>
@@ -987,10 +1072,17 @@ void f(T s)
 {
     std::cout << s << '\n';
 }
- 
+
 template void f<double>(double); // instantiates f<double>(double)
 template void f<>(char);         // instantiates f<char>(char), template argument deduced
 template void f(int);            // instantiates f<int>(int), template argument deduced
+```
+
+- [使用显式实例化声明减少实例化的次数](https://blog.csdn.net/yx5666/article/details/125397429)（@[ref](https://en.cppreference.com/w/cpp/language/class_template#Class_template_instantiation)）
+
+```cpp
+// 当前翻译单元不进行实例化，使用其他翻译单元提供的实例化
+extern template class-key template-name <argument-list>;
 ```
 
 ### [Specialization](https://en.cppreference.com/w/cpp/language/template_specialization)
@@ -998,6 +1090,8 @@ template void f(int);            // instantiates f<int>(int), template argument 
 编译器根据模板生成函数/类定义（`definition`）的行为称为模板实例化（`template instantiation`）。其中生成的definition称为特化（`specialization`）；一个被特化的模板称为`primary template`
 
 #### Explicit template specialization
+
+- 显式的模板特化，也称为全特化
 
 自定义模板代码
 
@@ -1011,20 +1105,27 @@ template <> declaration
 
 ```c++
 #include <iostream>
- 
+
 template<typename T> // primary template
 struct is_void : std::false_type {};
 template<>           // explicit specialization for T = void
 struct is_void<void> : std::true_type {};
- 
+
 int main()
 {
     // 模板实参为void之外的类型，则继承false_type
-    std::cout << is_void<char>::value << '\n'; 
+    std::cout << is_void<char>::value << '\n';
     // 模板实参为void时，则继承true_type
     std::cout << is_void<void>::value << '\n';
 }
 ```
+
+#### [Partial Template Specialization](https://en.cppreference.com/w/cpp/language/partial_specialization)
+
+- 仅适用于类模板和变量模板
+- 特化的实参限制
+
+-
 
 ### Perfect forward
 
@@ -1033,10 +1134,6 @@ int main()
 ### Compiler
 
 - 链接阶段，不同翻译单元相同的实例模板（`instantiations`）将被合并
-
-
-
-
 
 ### Q&A
 
@@ -1049,25 +1146,41 @@ void fun(T &&param) {
 }
 ```
 
+## [Object](https://en.cppreference.com/w/cpp/language/object)
+
+- （定义）An object, in C, is **region** of [data storage](https://en.cppreference.com/w/c/language/memory_model) in the execution environment, the contents of which can represent *values* (a value is the meaning of the contents of an object, when interpreted as having a specific [type](https://en.cppreference.com/w/c/language/type)). @[ref](https://en.cppreference.com/w/c/language/object)
+- Object的分类（complete / subobject / polymorphic）可参考 @[ref](https://en.cppreference.com/w/cpp/language/object)
+- 一个Object具有各种属性：size；alignment requirement；[storage duration](https://en.cppreference.com/w/cpp/language/storage_duration) （对应内存的生存周期）；[lifetime](https://en.cppreference.com/w/cpp/language/lifetime#Access_outside_of_lifetime)；[type](https://en.cppreference.com/w/cpp/language/type)；value；optionally, a [name](https://en.cppreference.com/w/cpp/language/name).
+
+### [Polymorphic Objects](https://en.cppreference.com/w/cpp/language/object#Polymorphic_objects)
+
+类类型的对象如果声明或继承了一个虚函数，那就是多态对象。每个多态对象都会被隐式添加一个虚函数指针，然后被用于虚函数调用；非多态对象所在的表达式，其取值`evaluation`是在编译期决定的
+
+### Q&A
+
+- `lifetime`和`storage duration`的概念是否相同？
+
+两者是不同的概念，局部变量的`storage duration`为，块域的开始和结束；其`lifetime`的开始为初始化完成，结束为相关的内存被释放。总的，有如下观点，分配了内存，对象的生存期不一定开始。
+
 ## [Operator](https://en.cppreference.com/w/cpp/language/operator_precedence)
 
-### 优先级
+### Precedence
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210924234049109.png" alt="image-20210924234049109" style="zoom: 80%; " />
 
-### 加法操作符
+### Add
 
-- 一元加法操作符能触发整型提升(integral promotion)
+- 一元加法操作符能触发整型提升（`integral promotion`）
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/aVEipBB1RGJa00DO.png!thumbnail)
 
-### 逻辑和关系操作符
+### Logical
 
 其操作数和结果均为右值（结果的类型为bool）
 
-### 自增自减表达式
+### Increment
 
-- 后缀表达式（i++）的优先级高于前缀表达式(++i)
+- 后缀表达式（i++）的优先级高于前缀表达式（++i）
 - 后缀表达式的取值(evaluation)为 `右值` （返回是操作数的拷贝/临时变量）；前缀表达式的取值为`左值`（在原来的值的基础上+1）
 
 - 一般推荐使用**前缀表达式**，避免拷贝的开销；但现在一些编译器已经能够对后缀表达式进行优化，使其不用构建临时变量
@@ -1076,8 +1189,8 @@ void fun(T &&param) {
 
 ``` c++
 int main() {
-   int arr[] = {1, 2, 3}; 
-   auto ptr = arr; 
+   int arr[] = {1, 2, 3};
+   auto ptr = arr;
    cout << *ptr << endl; // 1
    cout << *ptr++ << endl; // 1 后缀表达式的evaluation为原值的copy；此处等价于*(ptr++)->*ptr
    cout << *++ptr << endl; // 3 后缀表达式处理完后，地址已+1，此处地址再+1；此处等价于*(++ptr)
@@ -1085,17 +1198,17 @@ int main() {
 
 ```
 
-### 逗号操作符表达式
+### Comma
 
-虽然左操作数也要进行取值(evaluate)，但逗号操作符表达式的取值(evaluation)只跟第二个操作数的取值有关（它们的type, value, value category将保持一致）
+虽然左操作数也要进行取值（evaluate），但逗号操作符表达式的取值（evaluation）只跟第二个操作数的取值有关（它们的type, value, value category将保持一致）
 
 ![image-20210925000412285](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210925000412285.png)
 
-### 域解析运算符
+### Scope resolution
 
-- 全局作用域符(::name)：用于类、类成员、成员函数、变量前，表示作用域为**全局命名空间**
-- 类作用域符(class::name)：用于表示指定类型的作用域范围是具体某个类的
-- 命名空间作用域符(namespace::name)：用于表示指定类型的作用域范围是具体某个命名空间的
+- 全局作用域符（`::name`）用于类、类成员、成员函数、变量前，表示作用域为全局命名空间
+- 类作用域符（`class::name`）：用于表示指定类型的作用域范围是具体某个类的
+- 命名空间作用域符（`namespace::name`）：用于表示指定类型的作用域范围是具体某个命名空间的
 
 ### [Operator Overload](https://en.cppreference.com/w/cpp/language/operators)
 
@@ -1137,33 +1250,19 @@ int main() {
 
 ## [Initialization](https://en.cppreference.com/w/cpp/language/initialization)
 
-- 初始化即在变量构造时提供初值；函数调用和函数返回时也存在初始化；
+- 初始化即给对象提供初值；函数调用和函数返回时也存在初始化；
 
 - 初始化器(initializer)有三种： {exp list} 花括号，圆括号 (initializer list) ，等号  = exp
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210927194119218.png" alt="image-20210927194119218" style="zoom:67%;" />
 
----
-
-**NOTE**
-
-- expression-list: comma-separated list
-
-- 数组不支持expression-list的形式(array initializer must be an initializer-list)
-
----
-
-
+- 开辟内存空间时会构造符号表，将标识符和相关内存空间关联起来（至此，如果要用到一个变量名为a的变量时，就知道在内存的哪个地方找到这个变量）
 
 ### [Copy Initialization](https://en.cppreference.com/w/cpp/language/copy_initialization)
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220814211034567.png" alt="image-20220814211034567" style="zoom: 80%;" />
 
-## Macro
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210803143453257.png" alt="img" style="zoom:67%;" />
-
-### [pragma once](https://en.wikipedia.org/wiki/Pragma_once)
+### [Pragma once](https://en.wikipedia.org/wiki/Pragma_once)
 
 `#pragma`和`#ifdef`/`#ifndef`/`#endif`一样都是preposess directive（预处理指令），前者是编译器特性（部分版本较老的编译器不支持），后者是c++标准（所有编译器都支持该语法）；都能保证一个头文件不会被重复包含(include)。前者的作用单位是一个文件，后者的作用单位是代码块。前者对于某些编译器能够提高编译速度；后者需要避免有重复的宏名。
 
@@ -1173,7 +1272,7 @@ int main() {
 
 又称为range-for，是for循环的语法糖，用于遍历序列容器、字符串和内置数组
 
-### [Lambda expressions](https://en.cppreference.com/w/cpp/language/lambda)
+## [Lambda expressions](https://en.cppreference.com/w/cpp/language/lambda)
 
 一般构建可调用对象(callable object)可以通过对类的`()`操作符(operator)进行重载来构建，但自己写起来比较长，所以有了lambda表达式这种简化和灵活的写法。匿名表达式可以认为是一种语法特性，该表达式会被**编译器翻译为类进行处理**；能够用来生成一个**可调用对象**（该对象的类型是一个**类**）/[又或者说构建一个不具名的函数对象，同时该对象能够使用（捕获capture）该函数对象所在域的变量（这样的对象又称为：closure）](https://en.cppreference.com/w/cpp/language/lambda)
 
@@ -1185,20 +1284,9 @@ int main() {
 
 ![image-20210821223919209](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223919209.png)
 
-### [structured binding](https://en.cppreference.com/w/cpp/language/structured_binding)
+## [structured binding](https://en.cppreference.com/w/cpp/language/structured_binding)
 
-为**c++17**的特性，所用类似python的解包；structured binding是一个已存在对象的别名(alias)，类似引用，但又有区别
-
-### static
-
-根据不同的对象，表现出不同的作用
-
-1. 修饰普通变量，修改变量的存储区域和生命周期（lifetime），使变量存储在静态区，在main函数运行前就分配了空间
-2. 修饰普通函数（描述该函数具有内部链接性）。在多人开发项目中，为了**防止与他人命名空间里的函数重名**，可以将函数定位为static
-3. [修饰类成员](https://en.cppreference.com/w/cpp/language/static)
-   - 修饰成员变量（相当于声明类属性）：所有对象能共享同一份数据；在**编译阶段分配内存**；其是类内声明，类外定义（**语法**）；访问时可通过对象或类名进行访问；也可以有访问权限的(private,
-     protected, public)
-   - 修饰成员函数（相当于声明**类方法**）：所有对象共享同一个函数；该方法不能访问实例属性；类内声明，类外定义；访问时可通过对象或类名进行访问；也可以有访问权限(private, protected, public)
+为c++17的特性，类似python的解包；structured binding是一个已存在对象的别名（`alias`），类似引用，但又有区别
 
 ## Qualifier
 
@@ -1235,7 +1323,7 @@ public:
     int getValue();             // 普通成员函数
     int getValue() const;       // 常成员函数，该函数不得修改类中的任何数据成员的值
 
-}; 
+};
 
 void function()
 {
@@ -1280,14 +1368,13 @@ int* const function7(); // 返回一个常指针
 
 ### [noexcept](https://en.cppreference.com/w/cpp/language/noexcept_spec)
 
-- 指示编译器该函数不会抛出异常，可进一步进行优化
+- 指示编译器该函数不会抛出异常，可进一步进行优化（减少引入栈展开的逻辑）
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/eaIZEX1pn1JFAHBM.png!thumbnail)
 
-- exception specification of overriding function is more lax than base version：原本是`noexcept`，继承后也需要是`noexcept`
+- 被重写函数的异常处理逻辑可以更加简单，但不能反过来，比如说基类引入了栈展开的逻辑（即会处理异常），派生类就可以移除栈展开的逻辑（即用`noexception`修饰函数）
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/4XmFkx42qA6XRCHa.png!thumbnail)
-
 
 ### [override](https://en.cppreference.com/w/cpp/language/override)
 
@@ -1298,6 +1385,29 @@ int* const function7(); // 返回一个常指针
 - 修饰类成员函数：指示这个成员函数是虚函数且不能再被重写，让编译器进行检查
 - 修饰类：指示这个类不能被继承，让编译器进行检查
 
+### static
+
+根据不同的对象，表现出不同的作用
+
+- 修饰普通变量，修改变量的存储区域和生命周期（lifetime），使变量存储在静态区，在main函数运行前就分配了空间
+
+- 修饰普通函数（描述该函数具有内部链接性）。在多人开发项目中，为了**防止与他人命名空间里的函数重名**，可以将函数定位为`static`
+
+- [修饰类成员](https://en.cppreference.com/w/cpp/language/static)
+
+- 修饰成员变量（相当于声明类属性）：所有对象能共享同一份数据；在**编译阶段分配内存**；其是类内声明，类外定义（**语法**）；访问时可通过对象或类名进行访问；也可以有访问权限
+- 修饰成员函数（相当于声明**类方法**）：所有对象共享同一个函数；该方法不能访问实例属性；类内声明，类外定义；访问时可通过对象或类名进行访问；也可以有访问权限
+
+### [virtual](https://en.cppreference.com/w/cpp/language/virtual)
+
+声明一个函数能被派生类重写
+
 ## [Variable](https://en.cppreference.com/w/cpp/language/basic_concepts)
 
 被声明的对象和引用如果不是**非静态数据成员**则他们为变量
+
+## Feature
+
+### [Polymorphism](https://www.mygreatlearning.com/blog/polymorphism-in-cpp/#:~:text=in%20C%2B%2B-,What%20is%20Polymorphism%20in%20C%2B%2B%3F,in%20numbers%2C%20it%20performs%20addition.)
+
+多态是C++的一种特性。多态即让一个对象或一个函数在不同场景下表现出不同的行为和逻辑。比如说对于加法运算，它的操作数是数字的话，那他表现出来的逻辑就是数学运算，如果操作数是字符串的话，那他表现出来的逻辑就是字符串拼接。C++通过重载（`overload`）和重写（`override`）实现多态。其中基于重载的多态称为`静态多态`，基于重写的多态称为`动态多态`。

@@ -123,8 +123,15 @@ bind给人感觉是一种\ ``函数适配器``\ （function adapter），能修�
 
 * 容器（container）是存储对象的对象，同时这种对象需要满足一定的\ `要求 <https://en.cppreference.com/w/cpp/named_req/Container>`_
 * `容器底层数据结构一览表 <https://interview.huihut.com/#/?id=stl-%e5%ae%b9%e5%99%a8>`_ 红黑树 or 哈希表
-* 序列容器的元素在内存中是连续的
 * 为什么有这么多不同的序列容器？不同的序列容器的实现是不同的，在不同的任务中会表现出不同的时间复杂度
+
+`Type <https://en.cppreference.com/w/cpp/container>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* c++的容器包含了序列容器（\ ``sequence container``\ ），有序关联（\ ``associatice containter``\ ）容器，无序关联容器（\ ``unordered associative containers``\ ），容器适配器（\ ``container adaptors``\ ）
+* 序列容器的元素在内存中是连续的
+* 关联容器、序列容器中的（\ ``array``\ ，\ ``vector``\ ，\ ``deque``\ ）都支持\ ``[] operator``\ （通过下标索引运算符支持随机访问）
 
 Feature
 ^^^^^^^

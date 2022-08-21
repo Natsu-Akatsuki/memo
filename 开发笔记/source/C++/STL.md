@@ -65,8 +65,13 @@ int main() {
 
 - 容器（container）是存储对象的对象，同时这种对象需要满足一定的[要求](https://en.cppreference.com/w/cpp/named_req/Container)
 - [容器底层数据结构一览表](https://interview.huihut.com/#/?id=stl-%e5%ae%b9%e5%99%a8) 红黑树 or 哈希表
-- 序列容器的元素在内存中是连续的
 - 为什么有这么多不同的序列容器？不同的序列容器的实现是不同的，在不同的任务中会表现出不同的时间复杂度
+
+### [Type](https://en.cppreference.com/w/cpp/container)
+
+- c++的容器包含了序列容器（`sequence container`），有序关联（`associatice containter`）容器，无序关联容器（`unordered associative containers`），容器适配器（`container adaptors`）
+- 序列容器的元素在内存中是连续的
+- 关联容器、序列容器中的（`array`，`vector`，`deque`）都支持`[] operator`（通过下标索引运算符支持随机访问）
 
 ### Feature
 
@@ -165,9 +170,9 @@ printf("  processing:  %9.3lf [msec]\n", duration);
 
 - 流即c++用于管理文件和内存的模板类；文件流对象有打开和关闭的状态，处于打开状态后无法再次打开，可以用`is_open`来判断该对象是否有绑定/关联一个文件
 
-* C++处理文件，有三个类模板，`basic_ifstream`，`basic_ofstream`，`basic_fstream`
+- C++处理文件，有三个类模板，`basic_ifstream`，`basic_ofstream`，`basic_fstream`
 
-* 其析构函数会调用close来取消关联，所以不一定要显式close
+- 其析构函数会调用close来取消关联，所以不一定要显式close
 
 ### Format
 
@@ -254,13 +259,13 @@ void isFileExist() {
 ```cpp
 #include <mutex>
 
-// you can use std::lock_guard if you want to be exception safe 
+// you can use std::lock_guard if you want to be exception safe
 // lock_guard类似智能指针
 std::mutex m;
-int i = 0; 
-void lock() 
+int i = 0;
+void lock()
 {
-    m.lock();    
+    m.lock();
     i++; //no other thread can access variable i until m.unlock() is called
     m.unlock();
 }
