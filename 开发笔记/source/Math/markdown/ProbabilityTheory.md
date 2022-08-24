@@ -6,12 +6,7 @@
 
 - 组合：n choose r, number of possible combinations of n objects taken r
 
-$$
-\begin{pmatrix}
-n \\ 
-r
-\end{pmatrix}
-$$
+$$ \begin{pmatrix} n \\ r \end{pmatrix} $$
 
 - 根据枚举可以论证，A实验如果有m种结果，B实验如果有n种结果，那么A和B实验一共有mn种结果
 

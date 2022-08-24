@@ -75,6 +75,13 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Javascript
+
+   Javascript/rst/JsPractice.rst
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Library
 
    Library/rst/Eigen.rst
@@ -88,9 +95,9 @@ AmBook
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: Javascript
+   :caption: Math
 
-   Javascript/rst/JsPractice.rst
+   Math/rst/ProbabilityTheory.rst
 
 .. toctree::
    :maxdepth: 1
