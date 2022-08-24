@@ -121,11 +121,7 @@ AmBook
    :hidden:
    :caption: ROS
 
-   ros/rst/API.rst
-   ros/rst/CodeBlock.rst
-   ros/rst/Nodelet.rst
-   ros/rst/RosPractice.rst
-   ros/rst/RosPracticePlus.rst
+   ROS/rst/ROS1.rst
 
 .. toctree::
    :maxdepth: 1

@@ -1,3 +1,0 @@
-<launch>
-	<node pkg="tf2_ros" type="static_transform_publisher" name="lidar_2_camera" args="0, 0, 1, -1.570795, 0, -1.570795 lidar camera " />
-</launch>

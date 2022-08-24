@@ -38,9 +38,36 @@ try{
   }
 ```
 
+# 监听TF
 
+- 监听特定时间戳的TF，ros::Time::now()表示当前时刻的TF；ros::Time(0)表示的是最新可用的TF
 
+```c++
+try{
+	transformStamped = tfBuffer.lookupTransform("turtle2", "turtle1", ros::Time::now());
+} catch (tf2::TransformException &ex) {
+	ROS_WARN("Could NOT transform turtle2 to turtle1: %s", ex.what());
+}
+```
 
+- 加入阻塞机制的监听
+
+```c++
+ros::Time now = ros::Time::now();
+listener.waitForTransform("/turtle2", "/turtle1", now, ros::Duration(3.0));
+```
+
+# Q&A
+
+- 一般会监听怎样的TF？
+
+- 高程图部分，为什么会有
+
+> Lookup would require extrapolation -0.431568108s into the future. Requested time 1651144704.186861038 but the latest data is at time 1651144703.755292892, when looking up transform from frame [base_link] to frame [world]
+
+见明知义：理论上需要1651144704.186861038的TF，但最新的TF只有1651144703.755292892；而**理论上需要的TF对应的时间戳参考的是输入点云的时间戳**。如果定位的TF更新较慢，传感器的数据较快，便会出现这样的问题。（在代码上其设置的等待时间为1s）
+
+![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/8yfh7NuNJtwAamJp.png!thumbnail)
 
 ```
 /**
