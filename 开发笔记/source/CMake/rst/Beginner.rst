@@ -114,35 +114,42 @@ cuda
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-* 普通编译项
+* 编译项
 
 .. code-block:: cmake
 
-   # e.g.
-   add_compile_options(-std=c++14 -O3)
-   target_compile_options(<target_name> PUBLIC "-g")
+   # 设置相关标准
+   set(CMAKE_CXX_STANDARD 17) # 具有最强的覆盖作用
+   add_compile_options(-std=c++14)
+
+   # 设置DEBUG时的编译选项
+   SET(CMAKE_BUILD_TYPE "RELEASE")
+   SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O0 -g")
+   # 设置DEBUG时的编译选项
+   SET(CMAKE_BUILD_TYPE "DEBUG")
+   SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O3 -Wall")
+
+   # 设置GDB编译项
+   add_compile_options("-O0" "-g") # for gdb（注意一项对应一个编译项）
+   target_compile_options(<target_name> PUBLIC "-O0" "-g")
+
    # 保留中间产物
    target_compile_options(<target_name> PUBLIC "-save-temps")
 
    # 屏蔽deprecated消息
    set(CMAKE_CXX_FLAGS "-Wno-error=deprecated-declarations -Wno-deprecated-declarations")
-   add_compile_options("")
 
    # -Wno-deprecated
    # -march=native：使用本机的编译指令（代码运行速度或会提高）
 
+   # 设置优化项
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+
 .. note:: 该选项会覆盖CMAKE_BUILD_TYPE
 
 
-.. note:: add_compile_options()作用于所有编译器，CMAKE_CXX_FLAGS或CMAKE_C_FLAGS分别只针对c++，c编译器
+.. note::  ``add_compile_options()`` 作用于所有编译器， ``CMAKE_CXX_FLAGS`` 或 ``CMAKE_C_FLAGS`` 分别只针对c++，c编译器
 
-
-
-* `优化编译项目 <https://www.zhihu.com/question/443340911>`_
-
-.. code-block:: cmake
-
-   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
 
 `optimization <https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
