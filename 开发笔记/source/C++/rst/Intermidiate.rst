@@ -38,20 +38,46 @@ Endian
    dt = np.dtype('<f') # little-endian single-precision float
    dt = np.dtype('d')  # double-precision floating-point numbe
 
-判断两个变量是否是相同类型/某个变量是否某个类型
------------------------------------------------
+Type
+----
 
-.. code-block:: c++
+`char变成str <https://www.techiedelight.com/convert-char-to-string-cpp/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   #include <type_traits>
-   using namespace std; 
+
+* 
+  ``to_string()``\ 不支持\ ``char``\ 类型
+
+* 
+  使用构造函数
+
+.. code-block:: cpp
+
+   std::string s(1, c);
+
+Callable Object
+---------------
+
+comp
+^^^^
+
+当第一个实参A顺序先于第二个实参B时（英文描述为\ ``less than``\ ）这种可调用对象会返回\ ``true``
+
+.. code-block:: cpp
+
+   using namespace std;
+
+   class Comp {
+   public:
+     bool operator()(const int &l, const int &r) { // 数据为从左到右进行
+       return l < r; // 第一实参比第二实参小时，第一实参放左边；否则放右边
+     }
+   };
 
    int main() {
-
-       vector<int> arr(5);
-       // 注意使用尖括号
-       cout << is_same_v<decltype(arr.size()), unsigned long> << endl;
-
+     vector<int> vec = {8, 7, 9, 0};
+     sort(vec.begin(), vec.end(), Comp()); // 0, 7, 8, 9
+     return 0;
    }
 
 `全局对象的构造函数先于主函数执行 <https://blog.csdn.net/Y673582465/article/details/72878053>`_
@@ -102,23 +128,6 @@ c++中别人的程序为什么不用c风格的类型转换操作？
 ----------------------------------------------
 
 c风格的类型转换需要按顺序尝试一系列c++风格的类型转，而用c++风格的类型转换则对症下药，不用尝试，一步到位
-
-获取类型信息
-------------
-
-.. code-block:: c++
-
-   #include <iostream>
-   #include <typeinfo>
-   #include <type_traits>
-
-   int main() {
-       // c11判断类型
-       int a[3] = {1, 2, 3};
-       cout << typeid(a).name() << endl;
-       // c17判断类型是否相同（type_traits）
-       cout << is_same_v<decltype(a), int *> << endl; 
-   }
 
 在写函数时，形参使用指针好还是引用好？
 --------------------------------------

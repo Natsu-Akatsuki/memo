@@ -92,6 +92,17 @@ $ echo "set startup-quietly on" >> ~/.gdbearlyinit
 (gdb) set var width=47
 ```
 
+### Breakpoint
+
+```bash
+# 给某行打断点
+(gdb) break linenum
+(gdb) break filename:linenum
+
+
+(gdb) break filename:function
+```
+
 ### Disassemble
 
 使用 `disassemble` 进一步看出现 `dump core` 出现的汇编位置
@@ -177,8 +188,6 @@ def vec_lookup_function(val):
 #### Practice
 
 - [pretty printer for std vector](https://hgad.net/posts/object-inspection-in-gdb/)：正则，迭代读数据（dereference）部分很OK
-
-
 
 ### [ROS](http://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20Nodes%20in%20Valgrind%20or%20GDB)
 

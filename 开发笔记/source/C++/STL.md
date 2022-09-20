@@ -4,7 +4,7 @@
 
 |                             函数                             |                             作用                             |               例子                |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :-------------------------------: |
-| [accumulate](https://en.cppreference.com/w/cpp/algorithm/accumulate) |          输入一个序列(range)和给定初值，计算累积值           |                 —                 |
+| [**accumulate**](https://en.cppreference.com/w/cpp/algorithm/accumulate) |          输入一个序列(range)和给定初值，计算累积值           |                 —                 |
 |   [copy](https://en.cppreference.com/w/cpp/algorithm/copy)   |                         拷贝一个序列                         |                 —                 |
 |   [fill](https://en.cppreference.com/w/cpp/algorithm/fill)   |     输入一个序列(range)和值，将序列的所有元素设置为该值      |                 —                 |
 | [fill_in](https://en.cppreference.com/w/cpp/algorithm/fill_n) |                              —                               |                 —                 |
@@ -12,8 +12,8 @@
 |   [sort](https://en.cppreference.com/w/cpp/algorithm/sort)   | 输入一个序列(range)，对这个range的元素进行排序（默认为升序排列） |  std::sort(s.begin(), s.end());   |
 | [transform](https://en.cppreference.com/w/cpp/algorithm/transform) | 输入一个序列(range)，将函数作用于这个range上的每个元素/修改每个元素，得到一个新的序列 |                 —                 |
 | [unique](https://en.cppreference.com/w/cpp/algorithm/unique) |               输入一个序列，删除接连重复的元素               |                 —                 |
-|                             max                              |                         返回最大元素                         |                 —                 |
-|                         max_element                          |            输入一个序列，返回最大值所对应的迭代器            |                 —                 |
+|                           **max**                            |                         返回最大元素                         |                 —                 |
+|                       **max_element**                        |            输入一个序列，返回最大值所对应的迭代器            |                 —                 |
 |                           reverse                            |                          字符串反转                          | std::reverse(a.begin(), a.end()); |
 |                             swap                             |                         交换两个元素                         |                 —                 |
 |                             swap                             |                           数据交换                           |            swap(a, b);            |
@@ -52,16 +52,12 @@ int main() {
 
 - 模板库官方文档索引
 
-|                              —                               |                              —                               |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-|  [array](https://en.cppreference.com/w/cpp/container/array)  | [vector](https://en.cppreference.com/w/cpp/container/vector) |
-|    [map](https://en.cppreference.com/w/cpp/container/map)    | [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map) |
-|    [set](https://en.cppreference.com/w/cpp/container/set)    | [unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) |
-| [priority_queue](https://en.cppreference.com/w/cpp/container/priority_queue) | [span](https://en.cppreference.com/w/cpp/container/span) （C++20） |
-| [sequence](https://en.cppreference.com/w/cpp/container#Sequence_containers) | [associative](https://en.cppreference.com/w/cpp/container#Associative_containers) |
-| [unordered associative](https://en.cppreference.com/w/cpp/container#Unordered_associative_containers) | [adaptors](https://en.cppreference.com/w/cpp/container#Container_adaptors) |
-|  [deque](https://en.cppreference.com/w/cpp/container/deque)  |                           multiset                           |
-|                           multimap                           |                              —                               |
+|                           序列容器                           |                           关联容器                           |                          容器适配器                          |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|  [array](https://en.cppreference.com/w/cpp/container/array)  | [set](https://en.cppreference.com/w/cpp/container/set)，[unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) |                            stack                             |
+| [vector](https://en.cppreference.com/w/cpp/container/vector) |    [map](https://en.cppreference.com/w/cpp/container/map)    |                            queue                             |
+|  [deque](https://en.cppreference.com/w/cpp/container/deque)  | [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map) | [priority_queue](https://en.cppreference.com/w/cpp/container/priority_queue) |
+| [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)，[list](https://en.cppreference.com/w/cpp/container/list) |                              —                               |                              —                               |
 
 - 容器（container）是存储对象的对象，同时这种对象需要满足一定的[要求](https://en.cppreference.com/w/cpp/named_req/Container)
 - [容器底层数据结构一览表](https://interview.huihut.com/#/?id=stl-%e5%ae%b9%e5%99%a8) 红黑树 or 哈希表
@@ -70,8 +66,8 @@ int main() {
 ### [Type](https://en.cppreference.com/w/cpp/container)
 
 - c++的容器包含了序列容器（`sequence container`），有序关联（`associatice containter`）容器，无序关联容器（`unordered associative containers`），容器适配器（`container adaptors`）
-- 序列容器的元素在内存中是连续的
-- 关联容器、序列容器中的（`array`，`vector`，`deque`）都支持`[] operator`（通过下标索引运算符支持随机访问）
+- 序列容器的元素可以进行序列访问
+- 关联容器（unordered_map）、序列容器中的（`array`，`vector`，`deque`）都支持`[] operator`（通过下标索引运算符支持随机访问）
 
 ### Feature
 
@@ -84,27 +80,23 @@ int main() {
 |                      map                      |       map会按`key`进行自动排序；       |                  map的每一个元素是一个pair                   |
 |                 unordered_map                 |                   —                    | 支持[ ]索引；<br />（键值的自动插入）如果索引了不存在的键，c++的字典会自动添加该键（类似python）；<br />unordered_map在插入情况下少的时候用到 |
 
-### Q&A
+### Modifier
+
+| 容器                 | Modifier（头）                                          | Modifier（尾）                                        | 访问                    |
+| -------------------- | ------------------------------------------------------- | ----------------------------------------------------- | ----------------------- |
+| `vector`（动态数组） | —                                                       | `push_back()`<br />`emplace_back()`<br />`pop_back()` | `front()`<br />`back()` |
+| `deque`              | `push_front()`<br />`pop_front()`                       | `push_back()`<br />`emplace_back()`<br />`pop_back()` | `front()`<br />`back()` |
+| `queue` （队列）     | `pop()`<br />                                           | `push()`                                              | `front()`               |
+| `list`（双向链表）   | `push/emplace_front/back`<br />`pop_front/back()`<br /> | `push_back()`<br />`emplace_back()`<br />             | `front`<br />`back`     |
+| `string`（字符串）   |                                                         | `push_back`（单个元素）<br />                         |                         |
+
+### Vector
 
 - vector的模板形参可否是内置数组？
 
-不能，根据[cppreference-vector](https://en.cppreference.com/w/cpp/container/vector)，该类型需要满足 `CopyAssignable` 和 `CopyConstructible` 两种属性。而 `int []` 这种类型不满足 `CopyAssignable` 的属性，因为内置数组不能用于构造vector。
+不能，根据[cppreference](https://en.cppreference.com/w/cpp/container/vector)，该形参类型需要满足 `CopyAssignable` 和 `CopyConstructible` 两种属性。而内置数组类型不满足 `CopyAssignable` 的属性。
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/qvdJoCaDaGAGjHu9.png!thumbnail" alt="img" style="zoom:67%;" />
-
-- 判断是否满足`CopyAssignable` 属性
-
-```c++
-#include <iostream>
-#include <type_traits>
-using namespace std;
-
-int main() {
-    std::cout << std::boolalpha
-    << "int[2] is copy-assignable? "
-    << std::is_copy_assignable<int[2]>::value << '\n';
-}
-```
 
 - [如何对vector<vector\<int\>>进行emplace_black](https://stackoverflow.com/questions/20391632/how-to-use-stdvectoremplace-back-for-vectorvectorint)
 
@@ -113,7 +105,7 @@ int main() {
 vec.emplace_back(std::initializer_list<int>{1,2});
 ```
 
-- [clang-tidy推荐用emplace_back，它和push_back的区别在于?](https://yasenh.github.io/post/cpp-diary-1-emplace_back/)
+- [clang-tidy推荐用emplace_back，它和push_back的区别在于?](https://www.zhihu.com/question/438004429)
 
 两者构造元素的方式不一样，前者的效率会更高：前者追加生成vector的元素，是把emplace_back的实参传递给元素的构造函数的形参，然后**直接构造对象**。没有临时对象的构造和析构。后者追加生成vector的元素，是通过**拷贝或移动构造函数**来生成，因此需要先创建一波临时对象。多了临时变量的构造和释放。
 
@@ -122,14 +114,6 @@ vec.emplace_back(std::initializer_list<int>{1,2});
 vector.emplace_back(1, 2);
 vector.push_back(MyClass(1, 2));
 ```
-
-- 什么时候使用emplace_back吗？
-
-> Very often the performance difference just won’t matter. As always, the rule of thumb is that you should avoid “optimizations” that make the code less safe or less clear, unless the performance benefit is big enough to show up in your application benchmarks.
-
-- [sizeof(vector)恒为24？](https://www.quora.com/STL-C++-Why-does-sizeof-return-the-same-value-for-all-vectors-regardless-of-the-type-and-number-of-elements-in-that-vector)
-
-其首先存的是三个指针（3×8字节）：`_M_start`, `_M_finish`, `_M_end_of_storage`
 
 ## Chrono
 
@@ -162,6 +146,22 @@ const auto& start = std::chrono::steady_clock::now();
 const auto& end = std::chrono::steady_clock::now();
 double duration = (end - start).count() / 1000000.0;
 printf("  processing:  %9.3lf [msec]\n", duration);
+```
+
+## CString
+
+|               |                                                         |
+| ------------- | ------------------------------------------------------- |
+| `std::strcpy` | 拷贝一个const string（包括`null terminator`）到某个空间 |
+|               |                                                         |
+|               |                                                         |
+
+```cpp
+// char -> string
+string str;
+str = to_string(8); // 8 -> "8"
+str = char(8);  // 8 -> '\008'
+str.push_back(char(8 + '0')) // push_back后面只接字符
 ```
 
 ## IOstream

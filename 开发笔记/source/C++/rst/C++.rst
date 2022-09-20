@@ -42,7 +42,7 @@ Class
 * 空类的大小为1，是为了保证每个（空）对象都有独一无二的内存地址，以使编译器区分他们
 * 函数体：
 
-:raw-html-m2r:`<img src="https://uploader.shimo.im/f/NamQA5QsFYLH61Z3.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjEwNzMzMjYsImZpbGVHVUlEIjoia3JIcVhYeHZSOHI2Z2czRyIsImlhdCI6MTY2MTA3MzAyNiwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjoxNzg0NjUwNX0.qYcCHPzY0O9_Ub-twWjE2GIiLaLvO2AOSAH6wFFovHI" alt="img" style="zoom:50%;" />`
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220903162832774.png" alt="image-20220903162832774" style="zoom:67%;" />`
 
 Access Right
 ^^^^^^^^^^^^
@@ -76,12 +76,12 @@ Inherit
 * 保护继承：继承的\ ``public``\ , ``protected``\ 成员变为\ ``protect``\ 成员；子类无法访问基类的\ ``prviate``\ 成员
 * 私有继承：继承的\ ``public``\ , ``protected``\ 成员变为继承类的\ ``private``\ 成员；子类无法访问基类的\ ``prviate``\ 成员
 
-Construct Function
-^^^^^^^^^^^^^^^^^^
+`Constructor <https://en.cppreference.com/w/cpp/language/constructor>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * 
-  创建一个类时编译器至少给一个类添加如下特殊的函数， ``默认构造函数``\ （函数体为空，无参）； ``默认拷贝函数`` ，对属性进行值拷贝（浅拷贝）；赋值运算符（assignment operator），对属性进行值拷贝
+  创建一个类时编译器至少给一个类添加如下特殊的函数， ``默认构造函数``\ （函数体为空，无参）； ``默认拷贝函数`` ，对属性进行值拷贝（浅拷贝）；赋值运算符（\ ``assignment operator``\ ），对属性进行\ ``值拷贝``
 
 * 
   构造函数分类：
@@ -94,15 +94,16 @@ Construct Function
      - 案例
    * - （类型）转移构造函数（\ ``convert constructor``\ ）
      - A constructor that is **not declared with the specifier explicit** and which **can be called with a single parameter** (until C++11) is called a converting constructor.
-     - 
+     - —
    * - ``LiteralType``
      - 有\ ``constexpr specifier``
-     - 
+     - —
    * - 拷贝构造函数（\ ``copy constructor``\ ） / 移动构造函数（\ ``move constructor``\ ）
      - 调用构造函数时有实参（实参为同类型的对象）
      - `CSDN <https://blog.csdn.net/weixin_42492218/article/details/124386107>`_
    * - 目标构造函数 / 委托构造函数
-     - 
+     - —
+     - —
 
 
 
@@ -110,6 +111,36 @@ Construct Function
    :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/TUuFl421J2PPxDeO.png!thumbnail
    :alt: img
 
+
+.. code-block:: cpp
+
+   #include <iostream>
+   using namespace std;
+   class Foo {
+   public:
+     // 构造函数和析构函数无返回值
+     Foo() { std::cout << "调用默认构造函数" << endl; }
+     Foo(const Foo &) { std::cout << "调用拷贝构造函数" << endl; }
+     Foo(Foo &&) { std::cout << "调用移动构造函数" << endl; }
+     void operator=(const Foo &foo) { std::cout << "调用拷贝赋值函数" << endl; }
+     void operator=(Foo &&foo) { std::cout << "调用移动赋值函数" << endl; }
+
+     Foo(int x) { std::cout << "调用有单一参数的构造函数" << endl; }
+     // error : conversion from ‘int’ to non - scalar type ‘Foo’ requested private:
+   };
+
+   int main() {
+     auto A = Foo();              // 默认构造(default constructor)
+     auto B = A;                  // 拷贝构造(copy constructor)
+     auto C = Foo(std::move(B));  // 移动构造(move constructor)
+     Foo D;                       // 默认构造(default constructor)
+     D = B;                       // 拷贝赋值(copy assignment)
+     D = std::move(B);            // 移动赋值(move assignment)
+
+     Foo E(3);  // 调用有单一参数的构造函数
+     Foo F = 3.0;  // 调用有单一参数的构造函数（此处可视为一种类型转换），加上explict的话则禁止隐式地转换
+     return 0;
+   }
 
 `Converting <https://en.cppreference.com/w/cpp/language/converting_constructor>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,6 +173,11 @@ Copy
    // b为T类型
    T a = b; // 拷贝初始化
    T a(b); // 直接初始化
+
+
+* 为什么拷贝构造函数不能使用传值的参数？
+
+因为会无限递归地触发拷贝构造函数
 
 Default
 ~~~~~~~
@@ -273,17 +309,8 @@ Class Inherit
 
    class class_name : public base_class1, private base_class2
    {
-       // todo
+    // todo
    };
-
-父类指针调用子类方法
-~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: c++
-
-   // 非调用虚函数时需要使用dynamic_cast将父类指针转换为子类指针
-   dynamic_cast<cl::NetTensorRT *>(net_.get())
-         ->paintPointCloud(*pointcloud_ros, color_pointcloud, labels.get());
 
 类函数声明和构造函数
 ~~~~~~~~~~~~~~~~~~~~
@@ -414,7 +441,7 @@ Abstract Class
    };
 
    int main() {
-     /*  
+     /*
       * ERROR: undefined reference to `vtable for Base'
      */
      Base base;
@@ -519,7 +546,7 @@ Compiler
    void test01() {
      Cat cat;
      // 父类指针指向子类对象 / 给子类对象起父类引用别名
-     Animal &animal = cat;  
+     Animal &animal = cat;
      animal.speak();
    }
 
@@ -552,19 +579,19 @@ Container Adapter
 
 .. code-block:: c++
 
-   #include <deque> 
-   #include <iostream> 
-   #include <list> 
-   #include <stack> 
-   #include <vector> 
+   #include <deque>
+   #include <iostream>
+   #include <list>
+   #include <stack>
+   #include <vector>
    using namespace std;
 
    int main() {
-       // stack的构造 
-       stack<int> stackA; 
-       stack<int, deque<int>> stackB; // deque is the default container 
-       stack<int, vector<int>> stackC; 
-       stack<int, list<int>> stackD; 
+       // stack的构造
+       stack<int> stackA;
+       stack<int, deque<int>> stackB; // deque is the default container
+       stack<int, vector<int>> stackC;
+       stack<int, list<int>> stackD;
        return 0;
    }
 
@@ -590,10 +617,42 @@ Exception
 --------------------------------------------------------------------------
 
 
-* 操作数（operand）和操作符（operator）的组合
-* `expression evaluation <https://en.cppreference.com/w/cpp/language/eval_order>`_
+* 操作数（\ ``operand``\ ）和操作符（\ ``operator``\ ）的组合，可以求值（evaluation），通常会返回求值结果
+
+.. code-block:: cpp
+
+   x = 3 // 表达式
+   x = 3; 语句
+
+   // void fun() {}
+   fun() // 该表达式没返回求值结果
+
+
+* `expression evaluation <https://en.cppreference.com/w/cpp/language/eval_order>`_\ （求值是个宽泛的概念，不一定是算术运算）
 * `full expression <http://eel.is/c++draft/intro.execution#def:full-expression>`_
 * `ID expression <https://en.cppreference.com/w/cpp/language/identifiers>`_\ ：该表达式只包含标识符，其结果为其具名的实体（\ ``entity``\ ）
+
+`Lambda <https://en.cppreference.com/w/cpp/language/lambda>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+一般构建可调用对象（\ ``callable object``\ ）可以通过对类的函数调用\ ``()``\ 操作符（\ ``operator``\ ）进行重载来构建，但自己写起来比较长，所以有了\ ``lambda表达式``\ 这种简化和灵活的写法（为了更加灵活的实现可调用对象）。匿名表达式可以认为是一种语法特性，该表达式会被\ **编译器翻译为类进行处理**\ ；能够用来生成一个\ **可调用对象**\ （该对象的类型是一个\ **类**\ ）/\ `又或者说构建一个不具名的函数对象，同时该对象能够使用（捕获capture）该函数对象所在域的变量（这样的对象又称为：closure） <https://en.cppreference.com/w/cpp/language/lambda>`_
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821210326787.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821210326787.png
+   :alt: image-20210821210326787
+
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223323813.png" alt="image-20210821223323813"  />`
+
+
+* 有关捕获，个人理解是描述了可以在\ ``function body``\ 使用的外部变量，具体来说即构建的函数对象所在域的变量
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223919209.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223919209.png
+   :alt: image-20210821223919209
+
 
 `Value category <https://en.cppreference.com/w/cpp/language/value_category>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -632,6 +691,32 @@ Exception
 .. code-block:: c++
 
    const int a = 1; // a是左值，但是不能放赋值语句左边，因为不可修改
+
+
+* 泛左值：变量名（不管其是什么类型）和函数都是泛左值
+* ``const``\ 的左值引用，虽然能接收左值也能够接收右值，缺点是不能够对对象进行修改；右值引用作为形参更灵活，可以使用\ ``std::move()``\ 作为中介接收左值和右值
+
+.. code-block:: cpp
+
+   void fun(const int&) {}
+
+   int main() {
+    fun(4);
+    int temp = 4;
+    fun(temp);
+   }
+
+
+* 字面值常量为左值，可取地址
+
+.. code-block:: cpp
+
+   &"hello_wolrd"
+
+`Side Effect <https://stackoverflow.com/questions/9563600/what-exactly-is-a-side-effect-in-c>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+c++11 draft - 1.9.12: Accessing an object designated by a volatile glvalue, **modifying an object**\ , calling a library I/O function, or calling a function that does any of those operations are all side effects, **which are changes in the state of the execution environment.** Evaluation of an expression (or a sub-expression) in general includes both value computations (including determining the identity of an object for glvalue evaluation and fetching a value previously assigned to an object for prvalue evaluation) and initiation of side effects. When a call to a library I/O function returns or an access to a volatile object is evaluated the side effect is considered complete, even though some external actions implied by the call (such as the I/O itself) or by the volatile access may not have completed yet.
 
 Function
 --------
@@ -721,7 +806,7 @@ Inline
 
    // 定义
    inline int functionName(int first, int second,...) {
-      ; // todo      
+      ; // todo
    }
 
    // 类内定义，隐式内联
@@ -776,7 +861,7 @@ Data Structure
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-* 定义：定义是一种特殊的声明，能够让一个实体足以被编译器使用
+* 定义：定义是一种特殊的声明，使能实体被编译器使用
 * 非定义性声明：告知编译器存在一个实体，等下可以使用它
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/venn_declaration.png" alt="img" style="zoom: 50%;" />`
@@ -786,13 +871,23 @@ Data Structure
 
 
 * 一处定义原则：定义只允许在\ ``翻译单元``\ /\ ``程序单元``\ 出现一次
-* 
-  需要满足\ ``翻译单元级别``\ 的一处定义原则的包括：\ ``variable``\ ，\ ``function``\ ， ``class type``\ ，\ ``enumeration type``\ ，\ ``concept``\ ，\ ``template``
-
-* 
-  需要满足\ ``程序单元级别``\ 的一处定义原则的包括：\ ``non-inline function``\ ，\ ``variable``\ （违背这种规则的话，是未定义行为，看编译器自身的处理）
-
+* 需要满足\ ``翻译单元级别``\ 的一处定义原则的包括：\ ``variable``\ ，\ ``function``\ ， ``class type``\ ，\ ``enumeration type``\ ，\ ``concept``\ ，\ ``template``
+* 需要满足\ ``程序单元级别``\ 的一处定义原则的包括：\ ``non-inline function``\ ，\ ``variable``\ （违背这种规则的话，是未定义行为，看编译器自身的处理）
 * 一个程序中可以有多处定义的实体：\ ``class type``\ ， ``enumeration type``\ ，\ ``inline function``\ ，\ ``inline variable``\ ，\ ``templated entity``\ （仍需要满足某些前提）
+
+`ODR-use <https://en.cppreference.com/w/cpp/language/definition#ODR-use>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* 一个对象说它，\ ``ORD-used``\ ，当且其值被读写（除非其是编译期常量），被取址，被引用所绑定；一个引用说它，\ ``ORD-used``\ ，当且其引用对象是在运行期确定的；一个函数说它，\ ``ORD-used``\ ，当且其被调用或者被取址
+* 一个对象、引用、函数是\ ``ORD-used``\ 时，程序中一定需要有定义，否则会有链接错误。
+
+Header
+------
+
+
+* 尖括号：头文件在系统路径下找
+* 引号：头文件先在用户目录下找，再在系统路径下找
 
 `Identifier <https://en.cppreference.com/w/cpp/language/identifiers>`_
 --------------------------------------------------------------------------
@@ -815,14 +910,14 @@ Data Structure
    211...
    // string literal
    "hello world"...
-   // boolean literal    
+   // boolean literal
    true
    false
    // character literal
    'a'...
    // the pointer literal
    nullptr
-   // the user-defined literal    
+   // the user-defined literal
    ...
    // floating point literal
 
@@ -837,25 +932,165 @@ Macro
 Memory
 ------
 
-`Memory model <https://www.bilibili.com/video/BV1et411b73Z?p=84>`_
+`Memory Layout <https://courses.engr.illinois.edu/cs225/fa2022/resources/stack-heap/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+c++程序所占的内存可以划分为四个区域
+
+
+* ``代码区（text）``\ ：存放\ **函数体**\ 的二进制代码；由操作系统进行管理的；其中的内容是只读（防止修改程序的执行指令）和共享的（只有一份数据，避免拷贝浪费）
+* ``全局区（data）`` ：存放\ ``全局变量``\ 、\ ``静态变量``\ 、\ ``字符串字面值常量``\ ；数据的生存周期由操作系统管理
+* ``栈区``\ ：存放函数的\ ``参数值``\ ，\ ``局部变量``\ ；数据的生存周期由操作系统管理
+* ``堆区``\ ：存放的数据的生存周期由程序员管理；若不释放，程序结束时由操作系统释放
+
+`Memory Leak <https://en.cppreference.com/w/cpp/language/new>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* new返回的指针被释放，导致原来被指向的对象不能通过该指针来访问和不能使用delete来释放
+
+`New <https://en.cppreference.com/w/cpp/language/new>`_ and Delete
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-c++程序所占的内存可以划分为4个区域（谐音梗：四驱兄弟）
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210805103706659.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210805103706659.png
+   :alt: img
 
 
-* 代码区：存放\ **函数体**\ 的二进制代码；由操作系统进行管理的；其中的内容是只读（防止修改程序的执行指令）和共享的（只有一份数据，避免拷贝浪费）
-* 全局区 ：存放全局变量、静态变量、字符串字面值常量；该部分数据由操作系统释放
-* 栈区：存放函数的参数值，局部变量；由编译器自动分配释放，数据的生存周期由编译器管理
-* 堆区：存放由程序员自己管理的数据（数据的生存周期由程序员管理）；若不释放，程序结束时由操作系统释放
+.. code-block:: c++
+
+   auto ptr = new int (6);
+   auto ptr = new (int) {6};
+
+   // 构造数组
+   int *arr = new int[10];
+   // 构造数组，数据默认初始化为0
+   int *arr = new int[10]();
+
+   // 当分配失败时，不抛出异常，而只是
+   auto ptr = new(std::nothrow) int(4);
+
+
+* 有没有数组的快速构建，不打这么长\ ``vector``
+
+.. code-block:: cpp
+
+   vector<vector<int>> dp(row, vector<int>(col)); // ok
+   new dp int[row][col]; // error
+   new dp int[row][2]; // ok，只有第一个的长度可以不用确定
+
+   int[row][col]; // error  如果row和col为局部变量则可以如此使用
+   int[row][2]; // ok
+
+
+* ``new``\ 对象数组时，只有第一位才能够是变量，其他都要是常量
+
+.. code-block:: cpp
+
+   auto p1 = new  double[n][5];  // OK
+   auto p2 = new  double[5][n];  // error: only the first dimension may be non-constant
+
+
+* 跟\ ``malloc``\ 一样\ ``new``\ 出来的内存空间不一定是内存对齐的（可以使用\ ``alignas`` specifier）
+
+.. code-block:: c++
+
+   struct alignas(256) Str{};
+   Str *ptr = new Str();
+
+Malloc and Free
+~~~~~~~~~~~~~~~
+
+
+* ``malloc``\ 和\ ``new``\ 的区别
+
+.. list-table::
+   :header-rows: 1
+
+   * - Malloc/Free
+     - New/Delete
+   * - 堆区
+     - 栈区
+   * - 函数
+     - 操作符
+
+
+
+* ``malloc``\ 只分配内存空间，不进行初始化（往内存空间中放数据）
+* ``malloc``\ 不能保证分配的内存是对齐的，因此有\ ``aligned_alloc``
+* 可以基于\ ``allocator``\ 模板类分配内存空间和释放内存空间（一般用于维护内存池）
+* ``malloc``\ 返回的是\ ``void*``\ 类型的指针，使用时需要自己进行类型转换
+
+.. code-block:: c++
+
+   int *ptr = (int *) malloc(4 * sizeof(int));
+
+Smart Pointer
+^^^^^^^^^^^^^
+
+
+* 引入智能指针是为了更好地\ **管理指针**\ 和\ **管理动态内存空间**\ 。以前管理动态内存是通过\ ``new`` 来分配内存空间，通过 ``delete`` 来释放内存空间。但容易发生一种情况，用\ ``new``\ 分配了内存空间，但是忘了使用\ ``delete``\ 释放内存空间，或者由于异常的抛出，程序无法调用\ ``delete``\ ，这就会造成内存的泄露（该释放的内存空间没有被释放）。于是就有人提出能不能有一种指针，在它销毁的时候，它所指向的对象也会被销毁，于是就引入了智能指针类，它包含了一个满足这种一并销毁需求的析构函数
+* 存在一种情况，一个对象由多个指针管理，那就可能会导致多次的释放，于是就引入了包含引用计数技术的共享指针 ``shared_ptr``\ （每有一个共享指针，引用计数+1），只有引用计数为0时，指向的对象才会释放
+* 
+  为了避免循环引用的情况，因此引入了弱指针。弱指针对其所指向的内存空间没有\ ``所有权``
+
+* 
+  ``make_unique``\ 在c++14后才有提供，C++ 标准委员会主席\ ``Herb Sutter``\ 说有一部分原因是因为疏忽了（\ `oversight <https://stackoverflow.com/questions/12580432/why-does-c11-have-make-shared-but-not-make-unique>`_\ ）
+
+.. code-block:: c++
+
+   #include <memory>
+   int main() {
+     std::shared_ptr<int> foo = std::make_shared<int>(10);
+     std::shared_ptr<int> foo2(new int(10)); // 实参为裸指针所指向的地址
+     std::unique_ptr<int> foo3 = std::make_unique<int>(10);
+     std::unique_ptr<int> foo4(new int(10));
+     return 0;
+   }
+
+
+* unique智能指针对象支持下标索引底层数据
+
+.. code-block:: c++
+
+   #include <memory>
+
+   int main() {
+       auto arrA = std::make_unique<int[]> (10);
+       auto arrB = std::make_shared<int[]> (10);
+       arrA[0] = 1;
+       arrB[0] = 1;
+       return 0;
+   }
+
+.. note:: 注意类型带[]
+
+
+.. hint:: 有的时候希望只能有一个智能指针管理对象，那就可以使用 `unique_ptr`
+
+
+
+* 语法：
+
+.. code-block:: c++
+
+   // 创建一个智能指针，该指针指向含10个整型数据的空间
+   auto pointer = std::make_shared<int>(10);
+   // ...，初值为0
+   auto pointer = std::make_shared<int>(10, 0);
+
+
+* 拓展资料：\ `csdn <https://blog.csdn.net/icandoit_2014/article/details/56666277>`_
 
 Name
-^^^^
+----
 
 
 * ``unqualified name``\ ：不在域解析符右边的名称
 
 Namespace
-^^^^^^^^^
+---------
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220728084329476.png
@@ -956,11 +1191,11 @@ Q&A
    int main() {
      // 二进制1100001的int型表示为  ->  97
      // 二进制1100001的char型表示为 ->  'a'
-     using namespace std; 
-     int int_num = 97; 
-     char char_num = int_num; 
-     cout << "int_num: " << int_num << endl; 
-     cout << "char_num: " << char_num << endl; 
+     using namespace std;
+     int int_num = 97;
+     char char_num = int_num;
+     cout << "int_num: " << int_num << endl;
+     cout << "char_num: " << char_num << endl;
    }
 
 alignment requirement
@@ -986,7 +1221,7 @@ alias
 
 .. code-block:: c++
 
-   int arr[4]; 
+   int arr[4];
    typedef int IntArr[4]; // [4]需要写在后面
    using IntArr = int[4];
 
@@ -1002,21 +1237,6 @@ size_t
 .. attention:: 标准库中的`operator[]`涉及`size_t`，所以遍历时用`unsigned`或者`int`类型的数据去访问可能会出错
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210728200948093.png" alt="img" style="zoom: 50%;" />`
-
-`sizeof <https://en.cppreference.com/w/c/language/sizeof>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-* ``sizeof(type/object)``\ ：用来获取\ ``对象``\ 或\ ``类型所对应的对象``\ 的大小（单位：字节）
-* ``sizeof``\ 无法测动态数组的内存大小，因为得到的只是指向首元素的指针而不是数组名（数组名也是个地址，但其类型指向整个数组）"Used when actual size of the object must be known"
-
-.. code-block:: cpp
-
-   auto ptr = new bool[40];
-   cout << sizeof(ptr) << endl; // 8
-   cout << sizeof(*ptr) << endl; // 1（获得指向首元素的对象，并得其大小）
-   bool ptr2[40];
-   cout << sizeof(ptr2) << endl; // 40
 
 incomplete type
 ^^^^^^^^^^^^^^^
@@ -1037,27 +1257,6 @@ array
 
 * 没有引用的数组。因为数组的元素应该是对象而引用不是对象。
 
-类型退化
-^^^^^^^^
-
-
-* 数组到指针（array to pointer）的隐式转换
-
-.. code-block:: c++
-
-   int a[3]; 
-   // 该指针指向数组的首元素
-   auto b = a; // b->int* 而不是 int*[3]
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815211847957.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815211847957.png
-   :alt: image-20210815211847957
-
-
-
-* `why-the-address-of-dynamic-array-is-different-from-the-first-element-address <https://stackoverflow.com/questions/63114268/why-the-address-of-dynamic-array-is-different-from-the-first-element-address>`_
-
 `Implict Conversion <https://en.cppreference.com/w/cpp/language/implicit_conversion>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1072,10 +1271,33 @@ Standard Conversion Sequence
 * 步骤三：function pointer转换
 * 步骤四：\ ``CV`` 修饰符转换（\ ``qualification conversion``\ ）
 
+Array to pointer
+~~~~~~~~~~~~~~~~
+
+
+* 数组类型的对象是一个左值（能被取地址），但不能被修改（即放在赋值操作符的坐标）
+* 数组类型到指针类型的隐式转换（当上下文需要指针时，数组类型就会转为指针类型）（@\ `ref <https://en.cppreference.com/w/cpp/language/array>`_\ ）
+
+.. code-block:: c++
+
+   int a[3];
+   // 该指针指向数组的首元素
+   auto b = a; // b->int* 而不是 int*[3]
+
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815211847957.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210815211847957.png
+   :alt: image-20210815211847957
+
+
+
+* `why-the-address-of-dynamic-array-is-different-from-the-first-element-address <https://stackoverflow.com/questions/63114268/why-the-address-of-dynamic-array-is-different-from-the-first-element-address>`_
+
 `Explicit Cast <https://en.cppreference.com/w/cpp/language/explicit_cast>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-c风格的显式类型转换包含了一系列的转换操作（也就是它会尝试一组转换操作，例如首先进行\ ``const_cast``\ ，然后进行\ ``static_cast``\ , ``reinterpret_cast``...）；c++中一般都使用细颗粒度的，更具体的c++风格的类型转换操作（即\ ``static_cast``\ ，\ ``const_cast``\ ，\ ``reinterpret_cast``\ 等）
+
+* ``C-style``\ ：\ **c风格**\ 的显式类型转换包含了一系列的转换操作（也就是它会尝试一组转换操作，例如首先进行\ ``const_cast``\ ，然后进行\ ``static_cast``\ , ``reinterpret_cast``...）；c++中一般都使用细颗粒度的，更具体的c++风格的类型转换操作（即\ ``static_cast``\ ，\ ``const_cast``\ ，\ ``reinterpret_cast``\ 等）
 
 
 .. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210930163600592.png
@@ -1085,6 +1307,25 @@ c风格的显式类型转换包含了一系列的转换操作（也就是它会�
 
 .. note:: 建议通过程序的改良，来减小对类型转换的使用。（李伟老师：设计`static_cast`这些要打这么长而麻烦的函数，就是为了降低开发者使用类型转换的频率）
 
+
+
+* ``C++-style``\ ：
+
+.. code-block:: cpp
+
+   // 使用const-cast消除只读性和易变性
+
+
+* ``dynamic_cast``\ ：用于实现多态类型的转换（只适用于指针或引用），如将父类指针转换为子类指针。父类指针调用子类方法
+
+.. code-block:: c++
+
+   // 非调用虚函数时需要使用dynamic_cast将父类指针转换为子类指针
+   dynamic_cast<cl::NetTensorRT *>(net_.get())
+         ->paintPointCloud(*pointcloud_ros, color_pointcloud, labels.get());
+
+
+* ``reinterpret_cast``\ ：用另一种类型解读数据，比如二进制数据1100001用char类型解读为\ ``'a'``\ ，用int型来解读则为\ ``97``
 
 Pointer
 ^^^^^^^
@@ -1116,100 +1357,10 @@ operator
    }
 
    void serialize(void *buffer) {
-     char *d = static_cast<char *>(buffer);  
-     int mClassCount = 3;  
-     write(d, mClassCount);  
+     char *d = static_cast<char *>(buffer);
+     int mClassCount = 3;
+     write(d, mClassCount);
    }
-
-Smart Pointer
-^^^^^^^^^^^^^
-
-.. code-block:: c++
-
-   /*
-   * 用法：
-   * 1.导入<memory>头文件
-   * 2.构造（两种方法：单纯用share_ptr；调用make_shared）   
-   */
-   #include <memory>
-   int main() {
-      // 管理动态内存，创建的智能指针的形参为相应的地址
-      std::shared_ptr<int> foo = std::make_shared<int> (10);
-      // same as:
-      std::shared_ptr<int> foo2 (new int(10));
-
-      auto bar = std::make_shared<int> (20);
-      auto baz = std::make_shared<std::pair<int,int>> (30,40);
-
-      std::cout << "*foo: " << *foo << '\n';
-      std::cout << "*bar: " << *bar << '\n';
-      std::cout << "*baz: " << baz->first << ' ' << baz->second << '\n';
-      return 0;
-   }
-
-
-* unique智能指针对象支持下标索引底层数据
-
-.. code-block:: c++
-
-   #include <memory>
-
-   int main() {
-       auto arrA = std::make_unique<int[]> (10);
-       auto arrB = std::make_shared<int[]> (10);
-       arrA[0] = 1;
-       arrB[0] = 1;
-       return 0;
-   }
-
-.. note:: 注意类型带[]
-
-
-引入智能指针是为了更好地\ **管理指针**\ 和\ **管理动态内存空间**\ 。以前管理动态内存是通过\ ``new`` 来分配内存空间，通过 ``delete`` 来释放内存空间。但容易发生一种情况，用 new 在分配了内存空间，但是忘了使用 delete释放内存空间，或者由于异常的抛出，程序无法调delete，这就会造成内存的泄露（该释放的内存空间没有被释放）。于是就有人提出能不能有一种指针，在它销毁的时候，它所指向的对象也会被销毁，于是就引入了智能指针类，它包含了一个满足这种一并销毁需求的析构函数。
-
-.. hint:: 存在一种情况，一个对象由多个指针管理，那就可能会导致多次的释放，于是就引入了包含引用计数技术的共享指针 `shared_ptr`（每有一个共享指针，引用计数+1），只有引用计数为0时，指向的对象才会释放
-
-
-.. hint:: 有的时候希望只能有一个智能指针管理对象，那就可以使用 `unique_ptr`
-
-
-
-* 语法：
-
-.. code-block:: c++
-
-   // 创建一个智能指针，该指针指向含10个整型数据的空间
-   auto pointer = std::make_shared<int>(10);
-   // ...，初值为0
-   auto pointer = std::make_shared<int>(10, 0);
-
-
-* 拓展资料：\ `csdn <https://blog.csdn.net/icandoit_2014/article/details/56666277>`_
-
-New and Delete
-^^^^^^^^^^^^^^
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210805103706659.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210805103706659.png
-   :alt: img
-
-
-.. code-block:: c++
-
-   auto ptr = new int (6); 
-   auto ptr = new (int) {6};
-
-   // 构造数组
-   int *arr = new int[10];
-   // 构造数组，数据默认初始化为0
-   int *arr = new int[10]();
-
-`Memory Leak <https://en.cppreference.com/w/cpp/language/new>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-* new返回的指针被释放，导致原来被指向的对象不能通过该指针来访问和不能使用delete来释放
 
 `Template <https://en.cppreference.com/w/cpp/language/templates>`_
 ----------------------------------------------------------------------
@@ -1249,7 +1400,7 @@ Class Template
    // template class-key template-name <argument-list>;
    template struct Z<double>; // 显式实例化： Z<double> 放在全局域
 
-   int main() {    // template-name <argument-list> object_name;
+   int main() { // template-name <argument-list> object_name;
        Z<int> a;   // 隐式实例化： Z<int>
        Z<char> *p; // 该类型的实体没有被调用，只是创建了指针实体，不会触发模板的隐式实例化
        p->f();     // implicit instantiation of Z<char> and Z<char>::f() occurs here.
@@ -1284,7 +1435,7 @@ Class Template
 
 
 * 20标准引入\ ``constaint``\ 对模板进行约束
-* Named sets of such `requirements <https://en.cppreference.com/w/cpp/language/requires>`_ are called concepts. 
+* Named sets of such `requirements <https://en.cppreference.com/w/cpp/language/requires>`_ are called concepts.
 * Each concept is a predicate, evaluated at compile time, and becomes a part of the interface of a template where it is used as a constraint
 * 对模板实参的约束称为\ ``requirement``\ ，\ ``requirement``\ 的名字称为concept，
 
@@ -1402,7 +1553,7 @@ Explicit template specialization
    int main()
    {
        // 模板实参为void之外的类型，则继承false_type
-       std::cout << is_void<char>::value << '\n'; 
+       std::cout << is_void<char>::value << '\n';
        // 模板实参为void时，则继承true_type
        std::cout << is_void<void>::value << '\n';
    }
@@ -1413,7 +1564,6 @@ Explicit template specialization
 
 * 仅适用于类模板和变量模板
 * 特化的实参限制
-* 
 
 Perfect forward
 ^^^^^^^^^^^^^^^
@@ -1463,10 +1613,29 @@ Q&A
 `Operator <https://en.cppreference.com/w/cpp/language/operator_precedence>`_
 --------------------------------------------------------------------------------
 
+
+* 操作数需要满足操作符的类型需求，左值/右值类型需求
+
+.. code-block:: cpp
+
+   3 = 5; // error 赋值语句左边需要是左值
+
+
+* ``new``\ 和\ ``delete``\ 这些也是操作符，因此可以重载
+
 Precedence
 ^^^^^^^^^^
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210924234049109.png" alt="image-20210924234049109" style="zoom: 80%; " />`
+
+.. code-block:: cpp
+
+   void fun(int p1, int p2) {}
+
+   int main() {
+    int x = 0;
+    fun(x = x + 1, x = x + 1); // undefined behaviour（是为了支持乱序执行），可能先执行左边，也有可能执行右边（看编译器实现）
+   }
 
 Add
 ^^^
@@ -1504,8 +1673,8 @@ Increment
 .. code-block:: c++
 
    int main() {
-      int arr[] = {1, 2, 3}; 
-      auto ptr = arr; 
+      int arr[] = {1, 2, 3};
+      auto ptr = arr;
       cout << *ptr << endl; // 1
       cout << *ptr++ << endl; // 1 后缀表达式的evaluation为原值的copy；此处等价于*(ptr++)->*ptr
       cout << *++ptr << endl; // 3 后缀表达式处理完后，地址已+1，此处地址再+1；此处等价于*(++ptr)
@@ -1583,7 +1752,7 @@ Scope resolution
   初始化即给对象提供初值；函数调用和函数返回时也存在初始化；
 
 * 
-  初始化器(initializer)有三种： {exp list} 花括号，圆括号 (initializer list) ，等号  = exp
+  初始化器（\ ``initializer``\ ）有三种：含花括号，含圆括号（\ ``initializer list``\ ） ，含等号
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210927194119218.png" alt="image-20210927194119218" style="zoom:67%;" />`
 
@@ -1600,37 +1769,21 @@ Scope resolution
 
 ``#pragma``\ 和\ ``#ifdef``\ /\ ``#ifndef``\ /\ ``#endif``\ 一样都是preposess directive（预处理指令），前者是编译器特性（部分版本较老的编译器不支持），后者是c++标准（所有编译器都支持该语法）；都能保证一个头文件不会被重复包含(include)。前者的作用单位是一个文件，后者的作用单位是代码块。前者对于某些编译器能够提高编译速度；后者需要避免有重复的宏名。
 
+`Signature <https://www.csee.umbc.edu/~chang/cs202.f15/Lectures/modules/m04-overload/slides.php?print>`_
+------------------------------------------------------------------------------------------------------------
+
 Syntactic sugar
 ---------------
 
-range-based loop
-^^^^^^^^^^^^^^^^
+`Range-based for Loop <https://en.cppreference.com/w/cpp/language/range-for>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-又称为range-for，是for循环的语法糖，用于遍历序列容器、字符串和内置数组
-
-`Lambda expressions <https://en.cppreference.com/w/cpp/language/lambda>`_
------------------------------------------------------------------------------
-
-一般构建可调用对象(callable object)可以通过对类的\ ``()``\ 操作符(operator)进行重载来构建，但自己写起来比较长，所以有了lambda表达式这种简化和灵活的写法。匿名表达式可以认为是一种语法特性，该表达式会被\ **编译器翻译为类进行处理**\ ；能够用来生成一个\ **可调用对象**\ （该对象的类型是一个\ **类**\ ）/\ `又或者说构建一个不具名的函数对象，同时该对象能够使用（捕获capture）该函数对象所在域的变量（这样的对象又称为：closure） <https://en.cppreference.com/w/cpp/language/lambda>`_
+又称为range-for，是for循环的语法糖（编译器会转换为\ ``for``\ 循环的调用方式），用于遍历序列容器、字符串和内置数组
 
 
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821210326787.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821210326787.png
-   :alt: image-20210821210326787
+* （规范）使用常量左值引用读元素，使用万能引用修改元素。因为迭代的元素可能是临时变量（比如\ ``vector<bool>``\ 的返回值是临时变量）
 
-
-:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223323813.png" alt="image-20210821223323813"  />`
-
-
-* 有关捕获，个人理解是描述了可以在\ ``function body``\ 使用的外部变量，具体来说即构建的函数对象所在域的变量
-
-
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223919209.png
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20210821223919209.png
-   :alt: image-20210821223919209
-
-
-`structured binding <https://en.cppreference.com/w/cpp/language/structured_binding>`_
+`Structured Binding <https://en.cppreference.com/w/cpp/language/structured_binding>`_
 -----------------------------------------------------------------------------------------
 
 为c++17的特性，类似python的解包；structured binding是一个已存在对象的别名（\ ``alias``\ ），类似引用，但又有区别
@@ -1638,12 +1791,12 @@ range-based loop
 Qualifier
 ---------
 
-`const qualifier <https://en.cppreference.com/w/cpp/language/cv>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`const <https://en.cppreference.com/w/cpp/language/cv>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * 
-  ``const``\ 用于描述对象的可读性
+  ``const``\ 用于描述\ **对象**\ 的可读性（注意只用于修饰对象）
 
 * 
   常被修饰的实体
@@ -1685,7 +1838,7 @@ Qualifier
        int getValue();             // 普通成员函数
        int getValue() const;       // 常成员函数，该函数不得修改类中的任何数据成员的值
 
-   }; 
+   };
 
    void function()
    {
@@ -1716,6 +1869,34 @@ Qualifier
    const int* function6(); // 返回一个指针，指针指向常量
    int* const function7(); // 返回一个常指针
 
+
+* `\ ``const``\ 在*后修饰的是指针；\ ``const`` 在*前修饰的是指向的对象 <https://en.cppreference.com/w/cpp/language/pointer>`_
+
+.. code-block:: c++
+
+   // 指向数组的指针(int (*)[n]) vs 指针数组(int *[n])
+   data type (*var name)[size of array];
+   int (*ptr)[5] = NULL;
+
+   int* var_name[array_size];
+
+   // 指针p只读
+   int* const p;
+
+   // 不能修改指针p所指向的对象
+   const int* p; 
+   int const* p;
+
+
+* 顶层\ ``top-level const``\ 和底层\ ``low-level const``\ （@\ `ref <https://www.oreilly.com/library/view/c-primer-fifth/9780133053043/ch02lev2sec15.html>`_\ ）
+
+一般说到顶层\ ``const``\ 和底层\ ``const``\ ，对应的场景是说\ ``const``\ 修饰的是指针还是指针指向的对象，如果是顶层\ ``const``\ 的话，则修饰的是指针（对应的是指针常量），如果是底层的话，则\ ``const``\ 修饰的是指针指向的对象（对应的是常量指针）
+
+`volatile <https://en.cppreference.com/w/cpp/language/cv>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+让一个对象避免对编译器优化，使得每次读写该对象时，都需要从内存中访问
+
 Specifier
 ---------
 
@@ -1723,8 +1904,11 @@ Specifier
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-* ``constexpr``\ 可修饰函数和变量，表明这些函数和变量的值\ **可能**\ 能在编译期确定（evaluation），可以放在\ ``constant expression``\ 中
-* 能在编译期进行evaluation的表达式称为\ `constant expression <https://en.cppreference.com/w/cpp/language/constexpr>`_
+* 
+  ``constexpr``\ 修饰对象时，可以等价于\ ``const``\ ，表示其为只读的；相比于\ ``const``\ ，\ ``constexpr``\ 还能用于修饰函数，表明这些函数和变量的值\ **可能**\ 能在编译期确定（evaluation），可以放在\ ``constant expression``\ 中
+
+* 
+  能在编译期进行evaluation的表达式称为\ `constant expression <https://en.cppreference.com/w/cpp/language/constexpr>`_
 
 explicit
 ^^^^^^^^
@@ -1771,24 +1955,28 @@ static
 根据不同的对象，表现出不同的作用
 
 
-* 
-  修饰普通变量，修改变量的存储区域和生命周期（lifetime），使变量存储在静态区，在main函数运行前就分配了空间
-
-* 
-  修饰普通函数（描述该函数具有内部链接性）。在多人开发项目中，为了\ **防止与他人命名空间里的函数重名**\ ，可以将函数定位为\ ``static``
-
-* 
-  `修饰类成员 <https://en.cppreference.com/w/cpp/language/static>`_
-
-* 
-  修饰成员变量（相当于声明类属性）：所有对象能共享同一份数据；在\ **编译阶段分配内存**\ ；其是类内声明，类外定义（\ **语法**\ ）；访问时可通过对象或类名进行访问；也可以有访问权限
-
+* 修饰普通变量，修改变量的存储区域和生命周期（lifetime），使变量存储在静态区，在main函数运行前就分配了空间
+* 修饰普通函数（描述该函数具有内部链接性）。在多人开发项目中，为了\ **防止与他人命名空间里的函数重名**\ ，可以将函数定位为\ ``static``
+* `修饰类成员 <https://en.cppreference.com/w/cpp/language/static>`_
+* 修饰成员变量（相当于\ **声明类属性**\ ）：所有对象能共享同一份数据；在\ **编译阶段分配内存**\ ；其是类内声明，类外定义（\ **语法**\ ）；访问时可通过对象或类名进行访问；也可以有访问权限
 * 修饰成员函数（相当于声明\ **类方法**\ ）：所有对象共享同一个函数；该方法不能访问实例属性；类内声明，类外定义；访问时可通过对象或类名进行访问；也可以有访问权限
+
+`静态成员 <https://en.cppreference.com/w/cpp/language/static>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+* 在类定义中，\ ``static``\ 用于声明一个静态成员（类属性或者类方法）
+* 通常是放在其他\ ``specifier``\ 前面，但具体位置实际上没硬性要求
+* 一般的静态数据成员需要是类外定义；而内联的静态数据成员能够在类内初始化（C++17）
+* 常数据成员可以类内定义（初始化器需要是常量表达式）
 
 `virtual <https://en.cppreference.com/w/cpp/language/virtual>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 声明一个函数能被派生类重写
+
+
+* ``virtual``\ 不能修饰静态成员函数（虚函数需要\ ``this``\ 指针，而静态成员函数没有\ ``this``\ 指针）
 
 `Variable <https://en.cppreference.com/w/cpp/language/basic_concepts>`_
 ---------------------------------------------------------------------------
@@ -1801,4 +1989,4 @@ Feature
 `Polymorphism <https://www.mygreatlearning.com/blog/polymorphism-in-cpp/#:~:text=in%20C%2B%2B-,What%20is%20Polymorphism%20in%20C%2B%2B%3F,in%20numbers%2C%20it%20performs%20addition.>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-多态是C++的一种特性。多态即让一个对象或一个函数在不同场景下表现出不同的行为和逻辑。比如说对于加法运算，它的操作数是数字的话，那他表现出来的逻辑就是数学运算，如果操作数是字符串的话，那他表现出来的逻辑就是字符串拼接。C++通过重载（\ ``overload``\ ）和重写（\ ``override``\ ）实现多态。其中基于重载的多态称为\ ``静态多态``\ ，基于重写的多态称为\ ``动态多态``\ 。
+多态是C++的一种特性。多态即让一个对象或一个函数在不同场景下表现出不同的行为和逻辑。比如说对于加法运算，它的操作数是数字的话，那他表现出来的逻辑就是数学运算，如果操作数是字符串的话，那他表现出来的逻辑就是字符串拼接。C++通过重载（\ ``overload``\ ）和重写（\ ``override``\ ）实现多态。其中基于重载的多态称为\ ``静态多态``\ ，基于重写的多态称为\ ``动态多态``\ 。clio

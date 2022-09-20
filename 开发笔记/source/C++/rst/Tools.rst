@@ -129,6 +129,18 @@ CLI
 
    (gdb) set var width=47
 
+Breakpoint
+^^^^^^^^^^
+
+.. prompt:: bash $,# auto
+
+   # 给某行打断点
+   (gdb) break linenum
+   (gdb) break filename:linenum
+
+
+   (gdb) break filename:function
+
 Disassemble
 ^^^^^^^^^^^
 

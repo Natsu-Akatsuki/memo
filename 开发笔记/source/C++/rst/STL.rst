@@ -14,7 +14,7 @@ Algorithm
    * - 函数
      - 作用
      - 例子
-   * - `accumulate <https://en.cppreference.com/w/cpp/algorithm/accumulate>`_
+   * - `\ **accumulate** <https://en.cppreference.com/w/cpp/algorithm/accumulate>`_
      - 输入一个序列(range)和给定初值，计算累积值
      - —
    * - `copy <https://en.cppreference.com/w/cpp/algorithm/copy>`_
@@ -38,10 +38,10 @@ Algorithm
    * - `unique <https://en.cppreference.com/w/cpp/algorithm/unique>`_
      - 输入一个序列，删除接连重复的元素
      - —
-   * - max
+   * - **max**
      - 返回最大元素
      - —
-   * - max_element
+   * - **max_element**
      - 输入一个序列，返回最大值所对应的迭代器
      - —
    * - reverse
@@ -100,23 +100,20 @@ bind给人感觉是一种\ ``函数适配器``\ （function adapter），能修�
 .. list-table::
    :header-rows: 1
 
-   * - —
-     - —
+   * - 序列容器
+     - 关联容器
+     - 容器适配器
    * - `array <https://en.cppreference.com/w/cpp/container/array>`_
-     - `vector <https://en.cppreference.com/w/cpp/container/vector>`_
-   * - `map <https://en.cppreference.com/w/cpp/container/map>`_
-     - `unordered_map <https://en.cppreference.com/w/cpp/container/unordered_map>`_
-   * - `set <https://en.cppreference.com/w/cpp/container/set>`_
-     - `unordered_set <https://en.cppreference.com/w/cpp/container/unordered_set>`_
-   * - `priority_queue <https://en.cppreference.com/w/cpp/container/priority_queue>`_
-     - `span <https://en.cppreference.com/w/cpp/container/span>`_ （C++20）
-   * - `sequence <https://en.cppreference.com/w/cpp/container#Sequence_containers>`_
-     - `associative <https://en.cppreference.com/w/cpp/container#Associative_containers>`_
-   * - `unordered associative <https://en.cppreference.com/w/cpp/container#Unordered_associative_containers>`_
-     - `adaptors <https://en.cppreference.com/w/cpp/container#Container_adaptors>`_
+     - `set <https://en.cppreference.com/w/cpp/container/set>`_\ ，\ `unordered_set <https://en.cppreference.com/w/cpp/container/unordered_set>`_
+     - stack
+   * - `vector <https://en.cppreference.com/w/cpp/container/vector>`_
+     - `map <https://en.cppreference.com/w/cpp/container/map>`_
+     - queue
    * - `deque <https://en.cppreference.com/w/cpp/container/deque>`_
-     - multiset
-   * - multimap
+     - `unordered_map <https://en.cppreference.com/w/cpp/container/unordered_map>`_
+     - `priority_queue <https://en.cppreference.com/w/cpp/container/priority_queue>`_
+   * - `forward_list <https://en.cppreference.com/w/cpp/container/forward_list>`_\ ，\ `list <https://en.cppreference.com/w/cpp/container/list>`_
+     - —
      - —
 
 
@@ -130,8 +127,8 @@ bind给人感觉是一种\ ``函数适配器``\ （function adapter），能修�
 
 
 * c++的容器包含了序列容器（\ ``sequence container``\ ），有序关联（\ ``associatice containter``\ ）容器，无序关联容器（\ ``unordered associative containers``\ ），容器适配器（\ ``container adaptors``\ ）
-* 序列容器的元素在内存中是连续的
-* 关联容器、序列容器中的（\ ``array``\ ，\ ``vector``\ ，\ ``deque``\ ）都支持\ ``[] operator``\ （通过下标索引运算符支持随机访问）
+* 序列容器的元素可以进行序列访问
+* 关联容器（unordered_map）、序列容器中的（\ ``array``\ ，\ ``vector``\ ，\ ``deque``\ ）都支持\ ``[] operator``\ （通过下标索引运算符支持随机访问）
 
 Feature
 ^^^^^^^
@@ -162,30 +159,46 @@ Feature
      - 支持[ ]索引；\ :raw-html-m2r:`<br />`\ （键值的自动插入）如果索引了不存在的键，c++的字典会自动添加该键（类似python）；\ :raw-html-m2r:`<br />`\ unordered_map在插入情况下少的时候用到
 
 
-Q&A
-^^^
+Modifier
+^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - 容器
+     - Modifier（头）
+     - Modifier（尾）
+     - 访问
+   * - ``vector``\ （动态数组）
+     - —
+     - ``push_back()``\ :raw-html-m2r:`<br />`\ ``emplace_back()``\ :raw-html-m2r:`<br />`\ ``pop_back()``
+     - ``front()``\ :raw-html-m2r:`<br />`\ ``back()``
+   * - ``deque``
+     - ``push_front()``\ :raw-html-m2r:`<br />`\ ``pop_front()``
+     - ``push_back()``\ :raw-html-m2r:`<br />`\ ``emplace_back()``\ :raw-html-m2r:`<br />`\ ``pop_back()``
+     - ``front()``\ :raw-html-m2r:`<br />`\ ``back()``
+   * - ``queue`` （队列）
+     - ``pop()``\ :raw-html-m2r:`<br />`
+     - ``push()``
+     - ``front()``
+   * - ``list``\ （双向链表）
+     - ``push/emplace_front/back``\ :raw-html-m2r:`<br />`\ ``pop_front/back()``\ :raw-html-m2r:`<br />`
+     - ``push_back()``\ :raw-html-m2r:`<br />`\ ``emplace_back()``\ :raw-html-m2r:`<br />`
+     - ``front``\ :raw-html-m2r:`<br />`\ ``back``
+   * - ``string``\ （字符串）
+     - 
+     - ``push_back``\ （单个元素）\ :raw-html-m2r:`<br />`
+
+
+Vector
+^^^^^^
 
 
 * vector的模板形参可否是内置数组？
 
-不能，根据\ `cppreference-vector <https://en.cppreference.com/w/cpp/container/vector>`_\ ，该类型需要满足 ``CopyAssignable`` 和 ``CopyConstructible`` 两种属性。而 ``int []`` 这种类型不满足 ``CopyAssignable`` 的属性，因为内置数组不能用于构造vector。
+不能，根据\ `cppreference <https://en.cppreference.com/w/cpp/container/vector>`_\ ，该形参类型需要满足 ``CopyAssignable`` 和 ``CopyConstructible`` 两种属性。而内置数组类型不满足 ``CopyAssignable`` 的属性。
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/qvdJoCaDaGAGjHu9.png!thumbnail" alt="img" style="zoom:67%;" />`
-
-
-* 判断是否满足\ ``CopyAssignable`` 属性
-
-.. code-block:: c++
-
-   #include <iostream>
-   #include <type_traits>
-   using namespace std;
-
-   int main() {
-       std::cout << std::boolalpha
-       << "int[2] is copy-assignable? "
-       << std::is_copy_assignable<int[2]>::value << '\n';
-   }
 
 
 * `如何对vector<vector\<int&gt;>进行emplace_black <https://stackoverflow.com/questions/20391632/how-to-use-stdvectoremplace-back-for-vectorvectorint>`_
@@ -196,7 +209,7 @@ Q&A
    vec.emplace_back(std::initializer_list<int>{1,2});
 
 
-* `clang-tidy推荐用emplace_back，它和push_back的区别在于? <https://yasenh.github.io/post/cpp-diary-1-emplace_back/>`_
+* `clang-tidy推荐用emplace_back，它和push_back的区别在于? <https://www.zhihu.com/question/438004429>`_
 
 两者构造元素的方式不一样，前者的效率会更高：前者追加生成vector的元素，是把emplace_back的实参传递给元素的构造函数的形参，然后\ **直接构造对象**\ 。没有临时对象的构造和析构。后者追加生成vector的元素，是通过\ **拷贝或移动构造函数**\ 来生成，因此需要先创建一波临时对象。多了临时变量的构造和释放。
 
@@ -205,19 +218,6 @@ Q&A
    // example
    vector.emplace_back(1, 2);
    vector.push_back(MyClass(1, 2));
-
-
-* 什么时候使用emplace_back吗？
-
-..
-
-   Very often the performance difference just won’t matter. As always, the rule of thumb is that you should avoid “optimizations” that make the code less safe or less clear, unless the performance benefit is big enough to show up in your application benchmarks.
-
-
-
-* `sizeof(vector)恒为24？ <https://www.quora.com/STL-C++-Why-does-sizeof-return-the-same-value-for-all-vectors-regardless-of-the-type-and-number-of-elements-in-that-vector>`_
-
-其首先存的是三个指针（3×8字节）：\ ``_M_start``\ , ``_M_finish``\ , ``_M_end_of_storage``
 
 Chrono
 ------
@@ -252,6 +252,29 @@ Chrono
    const auto& end = std::chrono::steady_clock::now();
    double duration = (end - start).count() / 1000000.0;
    printf("  processing:  %9.3lf [msec]\n", duration);
+
+CString
+-------
+
+.. list-table::
+   :header-rows: 1
+
+   * - 
+     - 
+   * - ``std::strcpy``
+     - 拷贝一个const string（包括\ ``null terminator``\ ）到某个空间
+   * - 
+     - 
+   * - 
+
+
+.. code-block:: cpp
+
+   // char -> string
+   string str;
+   str = to_string(8); // 8 -> "8"
+   str = char(8);  // 8 -> '\008'
+   str.push_back(char(8 + '0')) // push_back后面只接字符
 
 IOstream
 --------
@@ -371,13 +394,13 @@ Mutex
 
    #include <mutex>
 
-   // you can use std::lock_guard if you want to be exception safe 
+   // you can use std::lock_guard if you want to be exception safe
    // lock_guard类似智能指针
    std::mutex m;
-   int i = 0; 
-   void lock() 
+   int i = 0;
+   void lock()
    {
-       m.lock();    
+       m.lock();
        i++; //no other thread can access variable i until m.unlock() is called
        m.unlock();
    }
