@@ -121,7 +121,9 @@ AmBook
    :hidden:
    :caption: ROS
 
+   ROS/rst/Migraion.rst
    ROS/rst/ROS1.rst
+   ROS/rst/ROS2.rst
 
 .. toctree::
    :maxdepth: 1
