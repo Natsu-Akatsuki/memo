@@ -4,7 +4,7 @@
 
 - system service启动的服务（进程）都是systemd的子进程
 
-### CLI
+## CLI
 
 ```bash
 $ systemctl <command> <unit>
@@ -13,7 +13,7 @@ $ systemctl <command> <unit>
 # start：启动unit
 # stop：正常关闭unit（非正常关闭指用kill来关闭）
 # restart：重启unit（即先stop再start)
- 
+
 # ---适用于target---
 # isolate：切换unit
 
@@ -138,7 +138,7 @@ arg=1
 
 ```bash
 # 修改相关字段
-DefaultTimeoutStopSec=   
+DefaultTimeoutStopSec=
 DefaultTimeoutStartSec=
 ```
 
@@ -147,16 +147,30 @@ DefaultTimeoutStartSec=
 - 使配置文档生效
 
 ```bash
-$ systemctl daemon-reload 
+$ systemctl daemon-reload
 ```
 
 - [关闭plymouth.service](https://www.suse.com/support/kb/doc/?id=000019766)
 
-## [双系统时间差相差8小时](https://www.cnblogs.com/zongfa/p/7723369.html)
+## Time
 
-- ubuntu使用bios时间+时区差 / windows使用bios时间
+#### [双系统时间差相差8小时](https://www.cnblogs.com/zongfa/p/7723369.html)
+
+- ubuntu使用`bios`时间+时区差 / windows使用`bios`时间
 
 ```bash
 $ sudo ntpdate time.windows.com
 $ sudo hwclock --localtime --systohc
 ```
+
+#### 查看系统启动时间
+
+```bash
+# 查看系统启动时间
+$ systemd-analyze time
+# 列出具体的耗时条目
+$ systemd-analyze blame
+# 以树的形式，查看耗时
+$ systemd-analyze critical-chain
+```
+

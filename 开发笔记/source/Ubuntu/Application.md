@@ -143,6 +143,14 @@ $ sudo systemctl isolate graphical.target
 
 ## Editor
 
+### [WPS](https://www.wps.cn/product/wpslinux)
+
+启动速度较慢，CPU占用率高（不建议使用）
+
+### [永中Office](http://www.yozosoft.com/product-officelinux.html)
+
+打开速度快，稳定，虽然较久没有更新
+
 ### Kate
 
 - [配置其显示行数](https://superuser.com/questions/918189/how-to-make-kate-remember-to-always-show-line-numbers)
@@ -163,14 +171,14 @@ $ sudo dpkg -i google-chrome-stable_current_amd64.deb
 | [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon) | 去广告                             |                                                              |
 | [Ar5iv](https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon) | 在arxiv上增设ar5iv接口             |                                                              |
 | [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon) | 下载管理器                         |                                                              |
-| [Omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon) | 网页版终端，可用于快速检索         |                                                              |
+| [Omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon) | 网页版终端，可用于快速检索         | 快捷键`Ctrl+Shift+K`                                         |
 | [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher) | github功能拓展                     | github看文件大小、复制源文件、下载链接                       |
 | [Simple allow copy](https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-ntp-icon) | 复制网页内容，如百度文库页面的内容 |                                                              |
 | [Simple Outliner / 智能网页大纲](https://chrome.google.com/webstore/detail/simple-outliner-%E6%99%BA%E8%83%BD%E7%BD%91%E9%A1%B5%E5%A4%A7%E7%BA%B2/ppdjhggfcaenclmimmdigbcglfoklgaf?utm_source=chrome-ntp-icon) | 生成网页TOC                        | 同类有[Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)，其违反Chrome相关规则 |
 | [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon) / [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon) | 网页端的代码查看                   | 内容检索，函数定义和声明的跳转                               |
 | [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon) | 标签分组                           | 使用说明，详看[detail](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html) |
 | [彩云小译（翻译软件）](https://drugx.cn/app/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91%E6%97%A0%E9%99%90%E5%88%B6.html) | 逐行翻译软件                       |                                                              |
-| [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related) | 页面检索工具                       | 默认快捷键为`ctrl+shift+F`                                   |
+| [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related) | 页面检索工具                       | 默认快捷键为`Ctrl+Shift+F`                                   |
 | [DevDocs](https://chrome.google.com/webstore/detail/devdocs/kfollpcdnbaimpmjhkoghaegiendpidj?utm_source=chrome-ntp-icon)（deprecated） | API文档浏览                        | 实际应用较少；改用zeal本地软件                               |
 | [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related) （deprecated） |                                    | 截图工具，只适用于浏览页截图，功能类似微信截图；实际应用较少 |
 | DeepL Inside（deprecated）                                   | 在线翻译软件                       | 后续需付费                                                   |
@@ -319,6 +327,8 @@ $ winetricks riched20
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220622195742651.png" alt="image-20220622195742651" style="zoom:50%;" />
 
 - 其他字体异常问题（表情包没有字体提示）可参考 [here](http://linux-wiki.cn/wiki/Wine%E7%9A%84%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E4%B8%8E%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE)，倾向于使用缺失的字体
+
+- [解决微信透明边框](https://tieba.baidu.com/p/6048731524)：暂时无解，只能放到另一个工作空间并且最大化
 
 #### 其他
 

@@ -10,7 +10,7 @@ Service
   system service启动的服务（进程）都是systemd的子进程
 
 CLI
-^^^
+---
 
 .. prompt:: bash $,# auto
 
@@ -167,7 +167,7 @@ CLI
 .. prompt:: bash $,# auto
 
    # 修改相关字段
-   DefaultTimeoutStopSec=   
+   DefaultTimeoutStopSec=
    DefaultTimeoutStartSec=
 
 .. attention:: start太小会影响某些服务的正常启动，如 ``plymouth-start.service`` ；stop: timeout多长时间后使用kill的方式来关掉service
@@ -183,13 +183,28 @@ CLI
 
 * `关闭plymouth.service <https://www.suse.com/support/kb/doc/?id=000019766>`_
 
+Time
+----
+
 `双系统时间差相差8小时 <https://www.cnblogs.com/zongfa/p/7723369.html>`_
-----------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-* ubuntu使用bios时间+时区差 / windows使用bios时间
+* ubuntu使用\ ``bios``\ 时间+时区差 / windows使用\ ``bios``\ 时间
 
 .. prompt:: bash $,# auto
 
    $ sudo ntpdate time.windows.com
    $ sudo hwclock --localtime --systohc
+
+查看系统启动时间
+~~~~~~~~~~~~~~~~
+
+.. prompt:: bash $,# auto
+
+   # 查看系统启动时间
+   $ systemd-analyze time
+   # 列出具体的耗时条目
+   $ systemd-analyze blame
+   # 以树的形式，查看耗时
+   $ systemd-analyze critical-chain

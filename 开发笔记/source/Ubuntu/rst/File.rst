@@ -216,14 +216,14 @@ zip
 
 .. prompt:: bash $,# auto
 
-   Split  archives cannot be updated, but see the -O (--out) option for how a split archive can be updated as
-                 it is copied to a new archive.  A split archive can also be converted into a single-file archive  using  a
-                 split size of 0 or negating the -s option:
    # 将split archive合成为一个压缩包
    # e.g
    # data_object_image_2.zip data_object_image_2.z01 data_object_image_2.z02 -> single.zip
    $ zip -s 0 data_object_image_2.zip --out single.zip
    $ unzip single.zip
+
+   # 解决解压后中文文件名乱码问题
+   $ unzip -O CP936 <待解压文件>
 
 pv
 ^^
@@ -236,6 +236,15 @@ pv
    $ tar -cf - <待压缩文件或目录> | pv | gzip > <file.tar.gz>
    # 解压缩
    $ pv <file.tar.gz> | tar -xzf -
+
+rar
+^^^
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install unrar
+   # 解压缩
+   $ unrar x <file.rar>
 
 Link
 ----

@@ -40,9 +40,13 @@ $ sudo apt install lxqt
 $ sudo apt install startlxde
 ```
 
-
-
 ## KDE Apperance
+
+* 创建activity：
+
+<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7gVEkmaTCX6Z5exQ.png!thumbnail" alt="img" style="zoom:80%;" />
+
+- widget相关插件：`activity pager`，`activities`
 
 ### Cursor
 
@@ -81,6 +85,7 @@ Open in VSCode
 ### Login Screen
 
 * Ant-Dark
+* 显示自定义的[icon](https://wiki.archlinux.org/title/SDDM)（最简单的方法是，直接放一个图片在`~/.face.icon`）
 
 ### Konsole
 
@@ -106,10 +111,6 @@ Open in VSCode
 * 配置功能
 
 <img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220523010417070.png" alt="image-20220523010417070" style="zoom:50%;" />
-
-### Screen Login
-
-* 配置login界面
 
 ### Splash
 
@@ -169,10 +170,6 @@ Open in VSCode
 | 创建新的dophin                     | meta+e          |
 | 在文件夹图形化界面下，跳转到家目录 | alt+home        |
 
-* 创建activity：
-
-<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/7gVEkmaTCX6Z5exQ.png!thumbnail" alt="img" style="zoom:80%;" />
-
 ## Display Server Protobuf
 
 ### X11
@@ -193,7 +190,7 @@ X server启动时会自行检测系统的显卡，屏幕类型，然后 `自行�
 
 ![img](https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/IvdxWDjSRpRkJSE3.png!thumbnail)
 
-#### 配置文档
+#### Configuration
 
 * `BusID`需满足`"PCI:<BusID>:0:0"`的格式
 
@@ -251,6 +248,16 @@ Section "Screen"
         Depth       24
     EndSubSection
 EndSection
+```
+
+#### CLI
+
+```bash
+# 查看当前的Xserver（DISPLAY为Xserver的标识符）
+$ echo $DISPLAY
+
+# 允许所有user访问X
+$ xhost +
 ```
 
 ### Wayland
@@ -409,6 +416,21 @@ $ compton -b
 #### [切换windows manager](https://userbase.kde.org/Tutorials/Using_Other_Window_Managers_with_Plasma)
 
 配置文档一般在/usr/share/xsessions
+
+#### 查看活跃的窗口
+
+```bash
+# 鼠标选取窗口，查看该窗口的相关信息
+$ xwininfo
+
+# 显示列出所有被Window Manager管理的窗口
+$ wmctrl -l
+
+# option:
+# -G: 显示geometry
+# -p: 显示PID
+# -x: 显示WM_CLASS
+```
 
 ## [Create Link](https://wiki.archlinux.org/title/desktop_entries)
 

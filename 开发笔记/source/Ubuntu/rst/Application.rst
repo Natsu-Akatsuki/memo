@@ -190,6 +190,16 @@ Q&A
 Editor
 ------
 
+`WPS <https://www.wps.cn/product/wpslinux>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+启动速度较慢，CPU占用率高（不建议使用）
+
+`永中Office <http://www.yozosoft.com/product-officelinux.html>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+打开速度快，稳定，虽然较久没有更新
+
 Kate
 ^^^^
 
@@ -227,7 +237,7 @@ Google Chrome
      - 
    * - `Omni <https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon>`_
      - 网页版终端，可用于快速检索
-     - 
+     - 快捷键\ ``Ctrl+Shift+K``
    * - `Enhanced github <https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher>`_
      - github功能拓展
      - github看文件大小、复制源文件、下载链接
@@ -248,7 +258,7 @@ Google Chrome
      - 
    * - `Quick Find for Google Chrome <https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related>`_
      - 页面检索工具
-     - 默认快捷键为\ ``ctrl+shift+F``
+     - 默认快捷键为\ ``Ctrl+Shift+F``
    * - `DevDocs <https://chrome.google.com/webstore/detail/devdocs/kfollpcdnbaimpmjhkoghaegiendpidj?utm_source=chrome-ntp-icon>`_\ （deprecated）
      - API文档浏览
      - 实际应用较少；改用zeal本地软件
@@ -458,7 +468,11 @@ WeChat
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20220622195742651.png" alt="image-20220622195742651" style="zoom:50%;" />`
 
 
-* 其他字体异常问题（表情包没有字体提示）可参考 `here <http://linux-wiki.cn/wiki/Wine%E7%9A%84%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E4%B8%8E%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE>`_\ ，倾向于使用缺失的字体
+* 
+  其他字体异常问题（表情包没有字体提示）可参考 `here <http://linux-wiki.cn/wiki/Wine%E7%9A%84%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E4%B8%8E%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE>`_\ ，倾向于使用缺失的字体
+
+* 
+  `解决微信透明边框 <https://tieba.baidu.com/p/6048731524>`_\ ：暂时无解，只能放到另一个工作空间并且最大化
 
 其他
 ~~~~
