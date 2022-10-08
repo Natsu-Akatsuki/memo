@@ -337,7 +337,12 @@ Practice
    192.168.1.0/24     0.0.0.0         U       enp89s0    100
    192.168.43.0/24    0.0.0.0         U      wlp0s20f3   600
 
-- 另一种解决方案是为无线网卡设置一个metric比有线网卡更低的路由。实测无法通过netplan进行覆盖，其只是追加路由规则。
+- 另一种解决方案是为无线网卡设置一个metric比有线网卡更低的路由（通过GUI修改后，需要重新连接；通过GUI还可以删除默认路由）。实测无法通过netplan进行覆盖，其只是追加路由规则。
+
+.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20221008191503692.png
+   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20221008191503692.png
+   :alt: img
+
 
 解决子网重复
 ~~~~~~~~~~~~~~~~~~~~~~~~~
