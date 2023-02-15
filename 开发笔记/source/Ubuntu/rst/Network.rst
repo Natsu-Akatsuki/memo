@@ -49,6 +49,15 @@ Backend
          # >>> 图形化界面配置 >>>
          $ nm-connection-editor
 
+         # >>> 拨号上网 >>>
+         $ sudo apt install pppoeconf
+         # starts up, shuts down or lists the log of PPP connections
+         $ sudo pon dsl-provider
+         # 断线
+         $ sudo poff
+         # 查看当前状态
+         $ plog
+
    .. code-tab:: bash networkd (networkd)
 
       # 查看网卡状态
@@ -73,13 +82,26 @@ Backend
 DNS
 --------------
 
+- ``ppp`` 的 ``DNS`` 配置文档位于 ``/etc/ppp/resolv``
+
 .. prompt:: bash $,# auto
 
    # 查看当前的DNS
-   $ systemd-resolve --status
+   (ubuntu 22.04) $ resolvectl dns
+   (ubuntu 22.04) $ resolvectl status
+   (ubuntu 20.04) $ systemd-resolve --status
+
+   # 查看DNS缓存
+   (ubuntu 22.04) $ resolvectl statistics
+
+   # 清除DNS缓存
+   (ubuntu 22.04) $ resolvectl flush-caches
+
+
    # 查看域名是否正常解析
    # nslookup <domain_name>
    $ nslookup www.baidu.com
+   $ nslookup <域名> <域名服务器IP地址>
 
 .. list-table::
 
@@ -98,6 +120,7 @@ DNS
 
 .. prompt:: bash $,# auto
 
+   $ sudo apt install resolvconf
    $ sudo service resolvconf restart
 
 - 配置文档其余配置参数（e.g. ``domain`` 和 ``search`` ）可参考\ `link <https://blog.csdn.net/u010472499/article/details/95216015>`_
@@ -267,15 +290,20 @@ Route
 
    $ curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash
    $ sudo systemctl disable v2ray --now
-   $ wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo apt-key add -
+   $ wget -qO - https://apt.v2raya.org/key/public-key.asc | sudo tee /etc/apt/trusted.gpg.d/v2raya.asc
    # add V2RayA's repository
-   $ echo "deb https://apt.v2raya.mzz.pub/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
+   $ echo "deb https://apt.v2raya.org/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
+   $ sudo apt update
+
    $ sudo apt update
    # install V2RayA
    $ sudo apt install v2raya -y
    $ sudo systemctl start v2raya.service
    $ sudo systemctl enable v2raya.service
    # 打开http://127.0.0.1:2017/进行配置（默认网站）
+
+   # 重设密码
+   $ sudo v2raya --reset-password
 
 卸载v2ray和v2raya
 ~~~~~~~~~~~~~~~~~~~

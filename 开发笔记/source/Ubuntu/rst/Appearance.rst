@@ -66,9 +66,26 @@ KDE Apperance
 Cursor
 ^^^^^^
 
-固定光标大小，避免不同分辨率屏幕下有不同大小的光标
+
+* 固定光标大小，避免不同分辨率屏幕下有不同大小的光标
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/Rhe2shG5FWiLNVig.png!thumbnail" alt="img" style="zoom:50%;" />`
+
+
+* `光标追加动画 <https://unix.stackexchange.com/questions/554809/arch-linux-kde-how-do-i-get-the-mouse-pointer-cursor-to-highlight>`_\ ，方便演示
+
+.. list-table::
+   :header-rows: 1
+
+   * - 快捷键
+     - 作用
+   * - alt+!
+     - 光标附近包含光晕
+   * - ctrl+win
+     - 定位光标
+
+
+:raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/image-20230207135646508.png" alt="image-20230207135646508" style="zoom: 67%;" />`
 
 Dolphin
 ^^^^^^^
@@ -259,20 +276,45 @@ X11
 
 
 * X windows system是一个网络框架，包含客户端(X client)和服务端(X server)
-* 
-  X windows system是一个软件
+* X windows system是一个软件
+* X server用于管理硬件；X client用于管理应用程序
+* 配置文件默认放在 ``/etc/X11`` 目录下
+* 日志文件默认为\ ``/var/log/Xorg.0.log``
 
-* 
-  X server用于管理硬件；X client用于管理应用程序
+ID
+~~
 
-* 
-  配置文件默认放在 ``/etc/X11`` 目录下
 
-* 
-  日志文件默认为\ ``/var/log/Xorg.0.log``
+* 每一个Xserver都有自己的ID（@ref: `here <https://www.x.org/archive/X11R6.8.1/doc/X.7.html#sect4>`_\ ），全称为\ ``hostname:displaynumber.screennumber``
 
-* 
-  只有$DISPLAY变量有值，才能够使用Xserver服务，如tty1没有该变量， 所以无法顺利执行图形化应用程序，如执行xclock，会返回"can't open display"
+.. prompt:: bash $,# auto
+
+   # Xserver在本机时，通过unix domain socket进行通信
+   # local/unix domain socket
+   $ export DISPLAY=:0
+   $ export DISPLAY=:0.1
+
+   # Xserver跨主机时，通过TCP/IP进行通信
+   $ export DISPLAY=:0.1
+
+
+* 只有$DISPLAY变量有值，Xclient（图形应用程序）才能够使用Xserver服务，如tty1没有该变量， 所以无法顺利执行图形化应用程序，如执行xclock，会返回\ ``"can't open display"``
+
+Socket
+~~~~~~
+
+
+* Ubuntu下\ ``socket``\ 的位置为\ ``/tmp/.X11-unix``
+
+Remote GUI
+~~~~~~~~~~
+
+
+* X11 forwarding
+
+.. prompt:: bash $,# auto
+
+   $ ssh -X <user_name>@<ip>
 
 为什么默认情况下没有\ ``/etc/X11/xorg.conf``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -354,9 +396,12 @@ CLI
 
    # 查看当前的Xserver（DISPLAY为Xserver的标识符）
    $ echo $DISPLAY
+   # :0.0
 
    # 允许所有user访问X
    $ xhost +
+   # xhost +family:name
+   $ xhost +local:root
 
 Wayland
 ^^^^^^^
@@ -405,6 +450,12 @@ Ubuntu下运行安卓
 
 ----
 
+Reference
+^^^^^^^^^
+
+
+* `X11 term <https://en.wikipedia.org/wiki/X_Window_System#Key_terms>`_
+
 Display Manager
 ---------------
 
@@ -427,6 +478,42 @@ Display Manager
 XFCE为轻量级的display manager
 
 ----
+
+OpenGL
+------
+
+
+* Version
+
+.. prompt:: bash $,# auto
+
+   $ sudo apt install mesa-utils
+   $ glxinfo | grep "OpenGL version"
+
+
+* OpenGL render
+
+.. list-table::
+   :header-rows: 1
+
+   * - vendor
+     - render
+   * - Mesa/X.org
+     - llvmpipe
+   * - Intel
+     - Mesa Intel(R) Graphics (ADL GT2)
+   * - NVIDIA
+     - NVIDIA GeForce RTX 3060 Laptop GPU/PCIe/SSE2
+
+
+.. prompt:: bash $,# auto
+
+   # 使用llvmpipe进行渲染
+   $ __GLX_VENDOR_LIBRARY_NAME=llvmpipe glxgears
+   # 使用mesa进行渲染
+   $ __GLX_VENDOR_LIBRARY_NAME=mesa glxgears
+   # 使用nvidia进行渲染
+   $ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia glxgears
 
 Fonts
 -----
@@ -469,19 +556,21 @@ Install
 Stacking Window Managers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-`Metacity <https://en.wikipedia.org/wiki/Metacity>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. list-table::
+   :header-rows: 1
 
-.. prompt:: bash $,# auto
+   * - 
+     - APT
+     - 
+   * - `Metacity <https://en.wikipedia.org/wiki/Metacity>`_
+     - metacity
+     - KDE
+   * - Kwin
+     - kwin-x11
+     - 
+   * - 
+     - 
 
-   $ sudo apt install metacity
-
-Kwin
-~~~~
-
-.. prompt:: bash $,# auto
-
-   $ sudo apt install kwin-x11
 
 Tilting Window Managers
 ^^^^^^^^^^^^^^^^^^^^^^^

@@ -8,17 +8,30 @@ Package
 Apt
 ---
 
+
+* 从使用的角度来说，封装程度：aptitude > apt > apt-get
+
 常用命令行
 ^^^^^^^^^^
 
+
+* apt
+
 .. prompt:: bash $,# auto
 
-   $ apt clean                 # 清除安装包
+   $ apt clean              # 清除安装包
    $ apt remove <pkg_name>  # 卸载软件，保留配置文件
    $ apt purge <pkg_name>   # 卸载软件和相关的配置文件
    $ apt autoremove            # 卸载已无用和自动安装的软件
-   $ apt dist-upgrade     # 升级安装包（升级时会删除一些影响依赖的包）
    $ apt-mark hold <pkg_name> # 将某些包设置为手动更新
+
+   # 通过升级安装包和删除部分受影响的依赖解决：The following packages have been kept back
+   $ apt dist-upgrade
+
+
+* dpkg
+
+.. prompt:: bash $,# auto
 
    $ dpkg -i <deb_package>     # 安装包
    # -r: remove
@@ -26,17 +39,17 @@ Apt
    # 也可以使用gdebi（需安装），其能更好的解决依赖问题
    $ gdebi <deb_package>  # 安装
 
-.. note:: apt比apt-get具有更高层的封装
 
+* apt的加强版
 
+.. prompt:: bash $,# auto
 
-.. image:: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
-   :target: https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/R4zpxUhoGXPLpgN0.png!thumbnail
-   :alt: img
-
-
-.. hint::  dist-upgrade适用于"The following packages have been kept back"的情况
-
+   # 安装
+   $ sudo apt install aptitude
+   # 专门解决A依赖于B，但B已有其他版本的问题（会触发降级）
+   $ sudo aptitude install package-name
+   # 查看可用的安装包版本
+   $ aptitude versions <package>
 
 查看apt包的相关信息
 ^^^^^^^^^^^^^^^^^^^
@@ -115,6 +128,12 @@ PIP
 
 .. prompt:: bash $,# auto
 
+   # >>> 安装pip >>>
+   # 推荐将pip安装到用户目录
+   $ python3 -m pip install -U pip
+   # 以下为安装到系统目录
+   $ sudo apt install python3-pip
+
    # ---下载--- #
    $ pip install --upgrade / -U <pkg_name>  # 升级给定package
    $ pip install -r <requirements.txt>      # 下载文档中给定的依赖
@@ -151,25 +170,6 @@ Pkg-config
    $ pkg-config --modversion opencv4
    $ more /usr/lib/x86_64-linux-gnu/pkgconfig/opencv4.pc
 
-`Rosdep <https://docs.ros.org/en/foxy/Tutorials/Intermediate/Rosdep.html>`_
--------------------------------------------------------------------------------
-
-rosdep相关于ros的apt，用于下载依赖包
-
-.. prompt:: bash $,# auto
-
-   # 初始化安装源
-   $ sudo rosdep init
-
-   # 更新源
-   $ rosdep update
-
-   $ rosdep install --from-paths src --ignore-src -r -y
-   # -i, --ignore-packages-from-source, --ignore-src：若ROS_PACKAGE_PATH有这个包/当前工作空间有该依赖包 ，则不rosdep安装
-   # --from-paths：搜索路径
-   # -r：Continue installing despite errors.
-   # -y：Tell the package manager to default to y
-
 Wget
 ----
 
@@ -178,6 +178,7 @@ Wget
    $ wget -c <链接> -O <file_name>
    # -c: 断点下载
    # -O：重命名
+   # -P：下载对应的指定文件夹
 
 .. hint:: aria2据说为增强版wget
 
@@ -640,7 +641,7 @@ Q&A
 * `利用debuild整合版工具来构建deb包 <https://blog.packagecloud.io/buildling-debian-packages-with-debuild/>`_
 * `debian目录的相关描述 <https://packaging.ubuntu.com/html/debian-dir-overview.html>`_
 
-Auto Ungrade
+Auto Upgrade
 ------------
 
 关闭gnome的软件更新自启动

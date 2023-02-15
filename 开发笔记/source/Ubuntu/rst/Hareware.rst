@@ -204,13 +204,15 @@ CPU
 
 .. prompt:: bash $,# auto
 
-   $ cat /etc/udev/rules.d/com_port.rules
+   $ sudo touch /etc/udev/rules.d/com_port.rules
 
 步骤四：添加内容
 
 .. prompt:: bash $,# auto
 
    ACTION=="add",KERNELS=="{ID}",SUBSYSTEMS=="usb",MODE:="0777",SYMLINK+="{name}"
+   # e.g.
+   ACTION=="add",KERNELS=="3-3:1.0",SUBSYSTEMS=="usb",MODE:="0777",SYMLINK+="{name}"
 
 .. note:: 其中{ID}为红框处的USB口ID，{name}为该端口别名
 
@@ -802,20 +804,41 @@ Memory
    $ sync 
    $ sudo bash -c "echo 3 > /proc/sys/vm/drop_caches"
 
-清理swap
-~~~~~~~~
+Swap Space
+~~~~~~~~~~
+
+
+* `创建交换空间 <https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04>`_
+
+.. prompt:: bash $,# auto
+
+   # 查看当前交换空间
+   (option1) $ free -h
+   (option2) $ sudo swapon --show
+
+   # 分配空间和构建交换空间
+   $ sudo fallocate -l 32G /swapfile
+   $ sudo chmod 600 /swapfile
+   $ sudo mkswap /swapfile
+   $ sudo swapon /swapfile
+
+   # 触发永久生效
+   $ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+
+* `查看使用交换空间的进程 <https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/>`_
+
+.. prompt:: bash $,# auto
+
+   $ for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r
+
+
+* 回收交换空间的数据
 
 .. prompt:: bash $,# auto
 
    # 直接清除（需内存有足够的空间来处理swap的数据）
    $ sudo swapoff -a; sudo swapon -a
-
-`查看使用交换空间的进程 <https://www.cyberciti.biz/faq/linux-which-process-is-using-swap/>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. prompt:: bash $,# auto
-
-   $ for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r
 
 Temperature
 ^^^^^^^^^^^
@@ -830,8 +853,8 @@ Temperature
 
 :raw-html-m2r:`<img src="https://natsu-akatsuki.oss-cn-guangzhou.aliyuncs.com/img/IY7gtxIT4cnCmLb0.png!thumbnail" alt="img" style="zoom:67%; " />`
 
-压力测试
-^^^^^^^^
+Stress Test
+^^^^^^^^^^^
 
 
 * 测试CPU的相关工具为stress, s-tui
@@ -899,16 +922,16 @@ Kernel
 
 当无法使用无法识别wifi，声卡模块，或无法调节亮度时，可能是当前的硬件缺乏适配的驱动。可以通过升级内核来升级硬件驱动。
 
-安装
-^^^^
+Insatall
+^^^^^^^^
 
 .. prompt:: bash $,# auto
 
    $ version="5.8.0-63-generic" 
    $ sudo apt install linux-image-${version} linux-headers-${version} linux-modules-${version} linux-modules-extra-${version}
 
-查看已安装的内核版本
-^^^^^^^^^^^^^^^^^^^^
+Version
+^^^^^^^
 
 .. prompt:: bash $,# auto
 

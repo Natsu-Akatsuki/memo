@@ -116,6 +116,14 @@ TigerVNC
    $ TURBOVNC="/opt/TurboVNC/bin"
    $ export PATH="${TURBOVNC}:$PATH"
 
+x11VNC
+------
+
+.. prompt:: bash $,# auto
+
+   # 服务端安装
+   $ sudo apt install x11vnc
+
 Configure
 ^^^^^^^^^
 

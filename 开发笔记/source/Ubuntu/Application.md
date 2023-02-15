@@ -6,6 +6,8 @@
 
 2022.5.12 4.1.0测评：ubuntu下为不稳定版本/容易连接不上/没有windows下的文件拖拽和传输功能/提供的卸载方法卸载不干净
 
+### [腾讯QQ](https://im.qq.com/linuxqq/index.shtml)
+
 ## Cloud Disk
 
 ### [坚果云](https://www.jianguoyun.com/s/downloads/linux)
@@ -166,26 +168,26 @@ $ sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 ### [Plugin](https://chrome.google.com/webstore/category/extensions?hl=zh-CN&utm_source=chrome-ntp-launcher)
 
-| 插件名                                                       | 简述                               | 补充说明                                                     |
-| ------------------------------------------------------------ | :--------------------------------- | :----------------------------------------------------------- |
-| [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon) | 去广告                             |                                                              |
-| [Ar5iv](https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon) | 在arxiv上增设ar5iv接口             |                                                              |
-| [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon) | 下载管理器                         |                                                              |
-| [Omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon) | 网页版终端，可用于快速检索         | 快捷键`Ctrl+Shift+K`                                         |
-| [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher) | github功能拓展                     | github看文件大小、复制源文件、下载链接                       |
+|                            插件名                            |                简述                |                           补充说明                           |
+| :----------------------------------------------------------: | :--------------------------------: | :----------------------------------------------------------: |
+| [Adblock](https://chrome.google.com/webstore/detail/adblock-%E2%80%94-best-ad-blocker/gighmmpiobklfepjocnamgkkbiglidom) |               去广告               |                                                              |
+| [Ar5iv](https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon) |       在arxiv上增设ar5iv接口       |                                                              |
+| [Chrono Download Manager](https://chrome.google.com/webstore/detail/chrono-download-manager/mciiogijehkdemklbdcbfkefimifhecn?utm_source=chrome-ntp-icon) |             下载管理器             |                                                              |
+| [Omni](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi/related?utm_source=chrome-ntp-icon) |     网页版终端，可用于快速检索     |                     快捷键`Ctrl+Shift+K`                     |
+| [Enhanced github](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=zh-CN&utm_source=chrome-ntp-launcher) |           github功能拓展           |            github看文件大小、复制源文件、下载链接            |
 | [Simple allow copy](https://chrome.google.com/webstore/detail/simple-allow-copy/aefehdhdciieocakfobpaaolhipkcpgc/related?utm_source=chrome-ntp-icon) | 复制网页内容，如百度文库页面的内容 |                                                              |
-| [Simple Outliner / 智能网页大纲](https://chrome.google.com/webstore/detail/simple-outliner-%E6%99%BA%E8%83%BD%E7%BD%91%E9%A1%B5%E5%A4%A7%E7%BA%B2/ppdjhggfcaenclmimmdigbcglfoklgaf?utm_source=chrome-ntp-icon) | 生成网页TOC                        | 同类有[Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)，其违反Chrome相关规则 |
-| [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon) / [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon) | 网页端的代码查看                   | 内容检索，函数定义和声明的跳转                               |
-| [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon) | 标签分组                           | 使用说明，详看[detail](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html) |
-| [彩云小译（翻译软件）](https://drugx.cn/app/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91%E6%97%A0%E9%99%90%E5%88%B6.html) | 逐行翻译软件                       |                                                              |
-| [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related) | 页面检索工具                       | 默认快捷键为`Ctrl+Shift+F`                                   |
-| [DevDocs](https://chrome.google.com/webstore/detail/devdocs/kfollpcdnbaimpmjhkoghaegiendpidj?utm_source=chrome-ntp-icon)（deprecated） | API文档浏览                        | 实际应用较少；改用zeal本地软件                               |
+| [Simple Outliner / 智能网页大纲](https://chrome.google.com/webstore/detail/simple-outliner-%E6%99%BA%E8%83%BD%E7%BD%91%E9%A1%B5%E5%A4%A7%E7%BA%B2/ppdjhggfcaenclmimmdigbcglfoklgaf?utm_source=chrome-ntp-icon) |            生成网页TOC             | 同类有[Table of contents sidebar](https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej)，其违反Chrome相关规则 |
+| [Source graph](https://chrome.google.com/webstore/detail/sourcegraph/dgjhfomjieaadpoljlnidmbgkdffpack?utm_source=chrome-ntp-icon) / [Octotree](https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc?utm_source=chrome-ntp-icon) |          网页端的代码查看          |                内容检索，函数定义和声明的跳转                |
+| [Tab Groups Extension](https://chrome.google.com/webstore/detail/tab-groups-extension/nplimhmoanghlebhdiboeellhgmgommi?utm_source=chrome-ntp-icon) |              标签分组              | 使用说明，详看[detail](chrome-extension://nplimhmoanghlebhdiboeellhgmgommi/help.html) |
+| [彩云小译（翻译软件）](https://drugx.cn/app/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91%E6%97%A0%E9%99%90%E5%88%B6.html) |            逐行翻译软件            |                                                              |
+| [Quick Find for Google Chrome](https://chrome.google.com/webstore/detail/quick-find-for-google-chr/dejblhmebonldngnmeidliaifgiagcjj/related) |            页面检索工具            |                  默认快捷键为`Ctrl+Shift+F`                  |
+| [DevDocs](https://chrome.google.com/webstore/detail/devdocs/kfollpcdnbaimpmjhkoghaegiendpidj?utm_source=chrome-ntp-icon)（deprecated） |            API文档浏览             |                实际应用较少；改用zeal本地软件                |
 | [Awesome Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/awesome-screenshot-screen/nlipoenfbbikpbjkfpfillcgkoblgpmj/related) （deprecated） |                                    | 截图工具，只适用于浏览页截图，功能类似微信截图；实际应用较少 |
-| DeepL Inside（deprecated）                                   | 在线翻译软件                       | 后续需付费                                                   |
-| [Papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（deprecated） | 标签页分类管理                     | 详细使用可参考[detail](https://papaly.com/#speeddial)；界面打开较慢 |
-| [Picture in picture](https://chrome.google.com/webstore/detail/picture-in-picture-for-ch/ekoomohieogfomodjdjjfdammloodeih?utm_source=chrome-ntp-icon) | 视频画中画                         | 实际应用较少                                                 |
-| [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon) （deprecated） | 分屏工具                           | 实际应用较少                                                 |
-| [TabFloater](https://chrome.google.com/webstore/detail/tabfloater-picture-in-pic/iojgbjjdoanmhcmmihbapiejfbbadhjd/related)（deprecated） | 悬浮标签页，便于同步查看标签页     | 实际应用较少                                                 |
+|                  DeepL Inside（deprecated）                  |            在线翻译软件            |                          后续需付费                          |
+| [Papaly](https://chrome.google.com/webstore/detail/bookmark-manager-speed-di/pdcohkhhjbifkmpakaiopnllnddofbbn?utm_source=chrome-ntp-icon)（deprecated） |           标签页分类管理           | 详细使用可参考[detail](https://papaly.com/#speeddial)；界面打开较慢 |
+| [Picture in picture](https://chrome.google.com/webstore/detail/picture-in-picture-for-ch/ekoomohieogfomodjdjjfdammloodeih?utm_source=chrome-ntp-icon) |             视频画中画             |                         实际应用较少                         |
+| [Tab resize](https://chrome.google.com/webstore/detail/tab-resize-split-screen-l/bkpenclhmiealbebdopglffmfdiilejc?utm_source=chrome-ntp-icon) （deprecated） |              分屏工具              |                         实际应用较少                         |
+| [TabFloater](https://chrome.google.com/webstore/detail/tabfloater-picture-in-pic/iojgbjjdoanmhcmmihbapiejfbbadhjd/related)（deprecated） |   悬浮标签页，便于同步查看标签页   |                         实际应用较少                         |
 
 ### [Shortcut](https://support.google.com/chrome/answer/157179?hl=en#zippy=%2Ctab-and-window-shortcuts)
 

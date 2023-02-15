@@ -92,6 +92,13 @@ $ TURBOVNC="/opt/TurboVNC/bin"
 $ export PATH="${TURBOVNC}:$PATH"
 ```
 
+## x11VNC
+
+```bash
+# 服务端安装
+$ sudo apt install x11vnc
+```
+
 ### Configure
 
 在服务端修改配置文档，添加文件`~/.vnc/xstartup`，看不同的`Deskop Environment`进行配置

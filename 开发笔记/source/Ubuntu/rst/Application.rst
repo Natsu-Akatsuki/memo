@@ -13,6 +13,9 @@ Communicaton
 
 2022.5.12 4.1.0测评：ubuntu下为不稳定版本/容易连接不上/没有windows下的文件拖拽和传输功能/提供的卸载方法卸载不干净
 
+`腾讯QQ <https://im.qq.com/linuxqq/index.shtml>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Cloud Disk
 ----------
 
@@ -226,7 +229,7 @@ Google Chrome
    * - 插件名
      - 简述
      - 补充说明
-   * - `Adblock Plus <https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb/related?utm_source=chrome-ntp-icon>`_
+   * - `Adblock <https://chrome.google.com/webstore/detail/adblock-%E2%80%94-best-ad-blocker/gighmmpiobklfepjocnamgkkbiglidom>`_
      - 去广告
      - 
    * - `Ar5iv <https://chrome.google.com/webstore/detail/withar5iv/pcboocjafhilbgocjcnlcoilacnmncam?utm_source=chrome-ntp-icon>`_
