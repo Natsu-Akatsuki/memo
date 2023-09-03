@@ -4,7 +4,7 @@
 AmBook
 ==========
 
-仓库文档现已挪至 `Here <https://natsu-akatsuki.github.io/AMBook/#/>`_ ，用 ``docsify`` 来替换 ``sphinx`` 的部署
+仓库文档现已挪至 `Here <https://natsu-akatsuki.github.io/ambook/#/>`_ ，用 ``docsify`` 来替换 ``sphinx`` 的部署
 
 .. toctree::
    :maxdepth: 1
